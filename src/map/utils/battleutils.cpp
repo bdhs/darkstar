@@ -2084,8 +2084,12 @@ namespace battleutils
         else if (PDefender->objtype == TYPE_MOB)
             ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, 0);
 
+        /* This would make boost wear off after the first attack in an attack round
+         * instead of lasting for the whole attack round.
+         * The same status effects are deleted at the end of the attack round.
         if (PAttacker->objtype == TYPE_PC && !isRanged)
             PAttacker->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ATTACK);
+        */
 
         return damage;
     }
