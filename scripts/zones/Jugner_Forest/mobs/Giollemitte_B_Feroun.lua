@@ -28,7 +28,7 @@ function onMobDeath(mob, player, isKiller)
     local ATimelyVisit = player:getQuestStatus(SANDORIA,A_TIMELY_VISIT);
     local ATimelyVisitProgress = player:getVar("ATimelyVisitProgress");
 
-	if (ATimelyVisit == 1 and ATimelyVisitProgress == 9) then
-		player:setVar("ATimelyVisitProgress",10);
-	end;
+    if (ATimelyVisit == 1 and ATimelyVisitProgress == 9) then
+        player:setVar("ATimelyVisitProgress",10);
+    end;
 end;

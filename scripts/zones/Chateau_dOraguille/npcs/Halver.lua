@@ -41,6 +41,8 @@ function onTrigger(player,npc)
     
     -- printf("ATV %d, ATVP %d\n", player:getQuestStatus(SANDORIA, A_TIMELY_VISIT), player:getVar("ATimelyVisitProgress"));
 
+    -- printf("ATV %d, ATVP %d\n", player:getQuestStatus(SANDORIA, A_TIMELY_VISIT), player:getVar("ATimelyVisitProgress"));
+
     -- Lure of the Wildcat San d'Oria
     if (player:getQuestStatus(SANDORIA,LURE_OF_THE_WILDCAT_SAN_D_ORIA) == QUEST_ACCEPTED and player:getMaskBit(WildcatSandy,16) == false) then
         player:startEvent(558);
@@ -49,9 +51,9 @@ function onTrigger(player,npc)
         player:startEvent(549);
         player:setVar("BlackMailQuest",1);
         player:delKeyItem(SUSPICIOUS_ENVELOPE);
-	-- A Timely Visit quest
-	elseif (player:getQuestStatus(SANDORIA, A_TIMELY_VISIT) == 1 and player:getVar("ATimelyVisitProgress") == 4) then
-		player:startEvent(0x0070);
+    -- A Timely Visit quest
+    elseif (player:getQuestStatus(SANDORIA, A_TIMELY_VISIT) == 1 and player:getVar("ATimelyVisitProgress") == 4) then
+        player:startEvent(0x0070);
     -- San D'Oria Flag check
     elseif (player:getVar("Flagsando") == 1) then
         if (player:getFreeSlotsCount() == 0) then
@@ -172,7 +174,7 @@ function onEventFinish(player,csid,option)
     -- printf("RESULT: %u",option);
 
     if (csid == 0x0070) then
-		player:setVar("ATimelyVisitProgress",6);
+        player:setVar("ATimelyVisitProgress",6);
     elseif (csid == 501) then
         player:addMission(BASTOK,THE_EMISSARY_SANDORIA);
         player:setVar("MissionStatus",4);

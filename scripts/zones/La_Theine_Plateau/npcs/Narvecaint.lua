@@ -43,12 +43,12 @@ function onTrigger(player,npc)
         else
             player:showText(npc, RESCUE_DRILL);
         end
-        
+
     elseif ((ATimelyVisit == 1) and (ATimelyVisitProgress == 2)) then
-		player:startEvent(0x0000);
-	elseif ((ATimelyVisit == 1) and (ATimelyVisitProgress == 12)) then
-		player:startEvent(0x0001);
-    
+        player:startEvent(0x0000);
+    elseif ((ATimelyVisit == 1) and (ATimelyVisitProgress == 12)) then
+        player:startEvent(0x0001);
+
     else
         player:showText(npc, RESCUE_DRILL);
     end
@@ -74,10 +74,10 @@ function onEventFinish(player,csid,option)
 
     if (csid == 0x006b) then
         player:setVar("MissionStatus",7);
-	elseif (csid == 0x0000) then
-		player:setVar("ATimelyVisitProgress",3);
-	elseif (csid == 0x0001) then
-		player:setVar("ATimelyVisitProgress",13);
+    elseif (csid == 0x0000) then
+        player:setVar("ATimelyVisitProgress",3);
+    elseif (csid == 0x0001) then
+        player:setVar("ATimelyVisitProgress",13);
     end
 
 end;

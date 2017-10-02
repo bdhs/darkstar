@@ -29,22 +29,22 @@ function onTrigger(player,npc)
     local Time = VanadielHour();
 
 
-	if (Time >= 18 or Time < 6) then
-		if (ATimelyVisit == 1 and ATimelyVisitProgress == 9) then
-			SpawnMob(17203666,300):updateEnmity(player);
-			SpawnMob(17203667,300):updateEnmity(player);
-		elseif (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
-			player:startEvent(0x0012);
-		else
-			player:messageSpecial(NOTHING_HAPPENS);
-		end;
-	else
-		if (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
-			player:startEvent(0x0012);
-		else	
-			player:messageSpecial(NOTHING_HAPPENS);
-		end;	
-	end;
+    if (Time >= 18 or Time < 6) then
+        if (ATimelyVisit == 1 and ATimelyVisitProgress == 9) then
+            SpawnMob(17203666,300):updateEnmity(player);
+            SpawnMob(17203667,300):updateEnmity(player);
+        elseif (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
+            player:startEvent(0x0012);
+        else
+            player:messageSpecial(NOTHING_HAPPENS);
+        end;
+    else
+        if (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
+            player:startEvent(0x0012);
+        else    
+            player:messageSpecial(NOTHING_HAPPENS);
+        end;    
+    end;
 end;
 
 -----------------------------------
@@ -64,7 +64,7 @@ function onEventFinish(player,csid,option)
     --printf("CSID: %u",csid);
     --printf("RESULT: %u",option);
 
-	if (csid == 0x0012) then
-		player:setVar("ATimelyVisitProgress",11);
-	end;
+    if (csid == 0x0012) then
+        player:setVar("ATimelyVisitProgress",11);
+    end;
 end;
