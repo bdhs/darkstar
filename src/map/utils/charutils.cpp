@@ -3403,6 +3403,17 @@ namespace charutils
                             PMember->PTreasurePool->AddItem(4095 + PMob->m_Element, PMob);
                         }
                     }
+
+                    // level sync experience penalty
+                    if (exp > 0) {
+                        float UnsyncedLevel = PMember->jobs.job[PMember->GetMJob()];
+                        float SyncedLevel = PMember->GetMLevel();
+                        float syncMult = 1.0f - std::max((UnsyncedLevel - 20.0f - SyncedLevel) * 0.02f, 0.0f);
+                        // TODO: move magic numbers to configuration file
+                        // 20 is the level gap allowed with no penalty, .02 is the percentage lost per level
+                        exp = (uint32)std::max(exp * syncMult, 1.0f);
+                    }
+
                     charutils::AddExperiencePoints(false, PMember, PMob, exp, baseexp, chainactive);
                 }
             }
