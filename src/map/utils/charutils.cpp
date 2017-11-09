@@ -3412,6 +3412,12 @@ namespace charutils
                         // TODO: move magic numbers to configuration file
                         // 20 is the level gap allowed with no penalty, .02 is the percentage lost per level
                         exp = (uint32)std::max(exp * syncMult, 1.0f);
+
+                        /* special case to avoid overcrowding of level 50-54 camp in KRT
+                        if (UnsyncedLevel == 75 && (SyncedLevel > 49 && SyncedLevel < 55)) {
+                            exp = exp * 0.85;
+                        }
+                        */
                     }
 
                     charutils::AddExperiencePoints(false, PMember, PMob, exp, baseexp, chainactive);
