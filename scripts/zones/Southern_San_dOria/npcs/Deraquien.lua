@@ -79,12 +79,8 @@ function onEventFinish(player,csid,option)
     --printf("CSID: %u",csid);
     --printf("RESULT: %u",option);
 
-<<<<<<< HEAD
     -- Lure of the Wildcat
-    if (csid == 0x032b) then
-=======
     if (csid == 811) then
->>>>>>> upstream/master
         player:setMaskBit(player:getVar("WildcatSandy"),"WildcatSandy",4,true);
 
     -- A Timely Visit
