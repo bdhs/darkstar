@@ -3,58 +3,34 @@
 --  NPC: Orbital
 -- Zilart Mission 16 BCNM Fight
 -----------------------------------
-
 require("scripts/globals/titles");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-
------------------------------------
--- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
     mob:addMod(MOD_REGAIN, 50);
-end
-
------------------------------------
--- onMobSpawn Action
------------------------------------
+end;
 
 function onMobSpawn(mob)
 end;
 
------------------------------------
--- onMobFight Action
------------------------------------
-
 function onMobFight(mob, target)
 end;
 
------------------------------------
--- onMobDeath
------------------------------------
-
 function onMobDeath(mob, player, isKiller)
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("updateCSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option,target)
     -- printf("finishCSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x7d04) then
+    if (csid == 32004) then
         if (GetMobByID(target:getID()-1):getName() == "Orbital") then
             DespawnMob(target:getID());
             DespawnMob(target:getID()-1);

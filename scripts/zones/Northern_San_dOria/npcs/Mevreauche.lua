@@ -9,9 +9,6 @@ package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
 require("scripts/zones/Northern_San_dOria/TextIDs");
 require("scripts/globals/crafting");
 require("scripts/globals/status");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -19,13 +16,9 @@ function onTrade(player,npc,trade)
 
     if (newRank ~= 0) then
         player:setSkillRank(SKILL_SMITHING,newRank);
-        player:startEvent(0x0273,0,0,0,0,newRank);
+        player:startEvent(627,0,0,0,0,newRank);
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local getNewRank = 0;
@@ -35,28 +28,20 @@ function onTrigger(player,npc)
     if (guildMember == 1) then guildMember = 150995375; end
     if (canGetNewRank(player,craftSkill,SKILL_SMITHING) == 1) then getNewRank = 100; end
 
-    player:startEvent(0x0272,testItem,getNewRank,30,guildMember,44,0,0,0);
+    player:startEvent(626,testItem,getNewRank,30,guildMember,44,0,0,0);
 end;
 
--- 0x0272  0x0273  0x0010  0x0000  0x0049  0x004a
-
------------------------------------
--- onEventUpdate
------------------------------------
+-- 626  627  0x0010  0x0000  0x0049  0x004a
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x0272 and option == 1) then
+    if (csid == 626 and option == 1) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,4096);
         else

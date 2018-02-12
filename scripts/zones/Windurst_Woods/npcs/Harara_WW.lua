@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Windurst Woods
--- NPC:  Harara, W.W.
+--  NPC: Harara, W.W.
 
 -- X Grant Signet
 -- X Recharge Emperor Band, Empress Band, or Chariot Band
@@ -11,7 +11,6 @@
 -------------------------------------
 package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
 -------------------------------------
-
 require("scripts/globals/conquest");
 require("scripts/globals/common");
 require("scripts/zones/Windurst_Woods/TextIDs");
@@ -21,17 +20,9 @@ local guardtype   = 1;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local size      = #WindInv;
 local inventory = WindInv;
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
    tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
@@ -52,14 +43,10 @@ function onTrigger(player,npc)
         local Menu6 = getArg6(player);
         local Menu7 = player:getCP();
         local Menu8 = getRewardExForce(guardnation,player);
-        player:startEvent(0x7ff7,Menu1,Menu2,Menu3,Menu4,Menu5,Menu6,Menu7,Menu8);
+        player:startEvent(32759,Menu1,Menu2,Menu3,Menu4,Menu5,Menu6,Menu7,Menu8);
     end
 
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("onUpdateCSID: %u",csid);
@@ -67,10 +54,6 @@ function onEventUpdate(player,csid,option)
 
     updateConquestGuard(player,csid,option,size,inventory);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("onFinishCSID: %u",csid);

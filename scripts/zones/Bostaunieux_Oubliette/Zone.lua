@@ -5,29 +5,21 @@
 -----------------------------------
 package.loaded["scripts/zones/Bostaunieux_Oubliette/TextIDs"] = nil;
 -----------------------------------
-
-require("scripts/globals/settings");
 require("scripts/zones/Bostaunieux_Oubliette/TextIDs");
+require("scripts/zones/Bostaunieux_Oubliette/MobIDs");
 require("scripts/globals/zone");
-
------------------------------------
--- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
-    -- Drexerion the Condemned
-    SetRespawnTime(17461338, 900, 10800);
+    UpdateNMSpawnPoint(DREXERION_THE_CONDEMNED);
+    GetMobByID(DREXERION_THE_CONDEMNED):setRespawnTime(math.random(900, 10800));
 
-    -- Phanduron the Condemned
-    SetRespawnTime(17461343, 900, 10800);
+    UpdateNMSpawnPoint(PHANDURON_THE_CONDEMNED);
+    GetMobByID(PHANDURON_THE_CONDEMNED):setRespawnTime(math.random(900, 10800));
 
-    -- Bloodsucker
-    SetRespawnTime(17461478, 3600, 3600);
+    UpdateNMSpawnPoint(BLOODSUCKER);
+    GetMobByID(BLOODSUCKER):setRespawnTime(3600);
 end;
-
------------------------------------
--- onZoneIn
------------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -37,10 +29,6 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
------------------------------------
--- onConquestUpdate
------------------------------------
-
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -48,18 +36,10 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
-
------------------------------------
--- onRegionEnter
------------------------------------
 
 function onRegionEnter(player,region)
 end;
 
------------------------------------
--- onConquestUpdate
------------------------------------
-
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -67,19 +47,11 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

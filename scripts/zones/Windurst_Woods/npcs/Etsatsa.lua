@@ -1,37 +1,21 @@
 -----------------------------------
 -- Area: Windurst Woods
--- NPC:  Etsatsa
+--  NPC: Etsatsa
 -----------------------------------
-
 require("scripts/globals/settings");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end; 
-
------------------------------------
--- onTrigger Action
------------------------------------
-
-function onTrigger(player,npc)
-    player:startEvent(0xfc);
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
+function onTrigger(player,npc)
+    player:startEvent(252);
+end;
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

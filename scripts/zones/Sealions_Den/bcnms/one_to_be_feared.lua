@@ -5,10 +5,8 @@
 -----------------------------------
 package.loaded["scripts/zones/Sealions_Den/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/missions");
 require("scripts/zones/Sealions_Den/TextIDs");
-
 -----------------------------------
 --instance 1   !pos -780 -103 -90
           -- >     -231              = lieux de combat
@@ -46,26 +44,26 @@ function onBcnmLeave(player,instance,leavecode)
 
     if (leavecode == 2) then -- play end CS. Need time and battle id for record keeping + storage
         if (player:getCurrentMission(COP) == ONE_TO_BE_FEARED and player:getVar("PromathiaStatus")==2) then
-            player:startEvent(0x7d01,1,1,1,instance:getTimeInside(),1,0,0);
+            player:startEvent(32001,1,1,1,instance:getTimeInside(),1,0,0);
             player:setVar("PromathiaStatus",0);
             player:completeMission(COP,ONE_TO_BE_FEARED);
             player:addMission(COP,CHAINS_AND_BONDS);
         else
-            player:startEvent(0x7d01,1,1,1,instance:getTimeInside(),1,0,1);
+            player:startEvent(32001,1,1,1,instance:getTimeInside(),1,0,1);
         end
     elseif (leavecode == 4) then
-           player:startEvent(0x7d02);
-   end
+           player:startEvent(32002);
+    end
 
 end;
 
 function onEventUpdate(player,csid,option)
--- print("bc update csid "..csid.." and option "..option);
+    -- print("bc update csid "..csid.." and option "..option);
 end;
 
 function onEventFinish(player,csid,option)
--- print("bc finish csid "..csid.." and option "..option);
-    if (csid == 0x7d01) then
+    -- print("bc finish csid "..csid.." and option "..option);
+    if (csid == 32001) then
      player:addExp(1500);
      player:setPos(438 ,0 ,-18 ,11 ,24);-- tp lufease
     end

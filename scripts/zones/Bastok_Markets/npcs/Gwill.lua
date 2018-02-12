@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Bastok Markets
--- NPC:  Gwill
+--  NPC: Gwill
 -- Starts & Ends Quest: The Return of the Adventurer
 -- Involved in Quests: The Cold Light of Day, Riding on the Clouds
 -- !pos ? ? ? 235
@@ -12,15 +12,12 @@ require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
     local returnOfAdven = player:getQuestStatus(BASTOK,THE_RETURN_OF_THE_ADVENTURER);
     if (returnOfAdven == QUEST_ACCEPTED and trade:hasItemQty(628,1) and trade:getItemCount() == 1) then
-        player:startEvent(0x00f3);
+        player:startEvent(243);
     end
 
     if (player:getQuestStatus(JEUNO,RIDING_ON_THE_CLOUDS) == QUEST_ACCEPTED and player:getVar("ridingOnTheClouds_2") == 2) then
@@ -34,10 +31,6 @@ function onTrade(player,npc,trade)
 
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
 
     local pFame = player:getFameLevel(BASTOK);
@@ -45,35 +38,27 @@ function onTrigger(player,npc)
     local TheReturn = player:getQuestStatus(BASTOK,THE_RETURN_OF_THE_ADVENTURER);
 
     if (FatherFigure == QUEST_COMPLETED and TheReturn == QUEST_AVAILABLE and pFame >= 3) then
-        player:startEvent(0x00f2);
+        player:startEvent(242);
     elseif (player:getQuestStatus(BASTOK,THE_COLD_LIGHT_OF_DAY) == QUEST_ACCEPTED) then
-        player:startEvent(0x0067);
+        player:startEvent(103);
     else
-        player:startEvent(0x0071);
+        player:startEvent(113);
     end
 
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x00f2) then
+    if (csid == 242) then
         player:addQuest(BASTOK,THE_RETURN_OF_THE_ADVENTURER);
-    elseif (csid == 0x00f3) then
+    elseif (csid == 243) then
         if (player:getFreeSlotsCount() >= 1) then
             player:tradeComplete();
             player:addTitle(KULATZ_BRIDGE_COMPANION);

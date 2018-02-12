@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Northern San d'Oria
--- NPC: Hot Springs
+--  NPC: Hot Springs
 -- @zone 139
 -- !pos  444 -37 -18
 -----------------------------------
@@ -10,20 +10,13 @@ require("scripts/globals/titles");
 require("scripts/globals/keyitems");
 require("scripts/globals/settings");
 require("scripts/zones/Horlais_Peak/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
     if (player:getQuestStatus(OUTLANDS,SECRET_OF_THE_DAMP_SCROLL) == QUEST_ACCEPTED and trade:hasItemQty(1210,1) and trade:getItemCount() == 1) then
-        player:startEvent(0x0002,1210);
+        player:startEvent(2,1210);
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     if (player:getQuestStatus(SANDORIA,THE_GENERAL_S_SECRET) == 1) and (player:hasKeyItem(CURILLAS_BOTTLE_EMPTY) == true) then
@@ -35,23 +28,15 @@ function onTrigger(player,npc)
     end
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x0002) then
+    if (csid == 2) then
         player:tradeComplete();
         player:addItem(4949); -- Scroll of Jubaku: Ichi
         player:messageSpecial(ITEM_OBTAINED, 4949);

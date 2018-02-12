@@ -5,6 +5,7 @@
 -- !pos -214.355 -7.814 -63.809 235
 -----------------------------------
 package.loaded["scripts/zones/Bastok_Markets/TextIDs"] = nil;
+-----------------------------------
 require("scripts/globals/keyitems");
 require("scripts/globals/crafting");
 require("scripts/zones/Bastok_Markets/TextIDs");
@@ -85,44 +86,28 @@ local items = {
     }
 };
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
-    unionRepresentativeTrade(player, npc, trade, 0x155, 3);
+    unionRepresentativeTrade(player, npc, trade, 341, 3);
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
-    unionRepresentativeTrigger(player, 3, 0x154, "guild_goldsmithing", keyitems);
+    unionRepresentativeTrigger(player, 3, 340, "guild_goldsmithing", keyitems);
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option,target)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x154) then
+    if (csid == 340) then
         unionRepresentativeTriggerFinish(player, option, target, 3, "guild_goldsmithing", keyitems, items);
     end
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option,target)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x154) then
+    if (csid == 340) then
         unionRepresentativeTriggerFinish(player, option, target, 3, "guild_goldsmithing", keyitems, items);
-    elseif (csid == 0x155) then
+    elseif (csid == 341) then
         player:messageSpecial(GP_OBTAINED, option);
     end
 end;

@@ -1,58 +1,44 @@
 -----------------------------------
 -- Area: Metalworks
 --   NPC: High Bear
---  Type: Quest Giver
+-- Type: Quest Giver
 -- @zone 237
 -- !pos 25.231 -14.999 4.552
 -----------------------------------
-
 require("scripts/globals/quests");
 require("scripts/globals/keyitems");
 require("scripts/globals/titles");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
 function onTrigger(player,npc)
 
     local BeaSmog = player:getQuestStatus(BASTOK,BEADEAUX_SMOG);
     local keyitem = player:hasKeyItem(CORRUPTED_DIRT);
 
     if (BeaSmog == QUEST_AVAILABLE and player:getFameLevel(BASTOK) >= 4) then
-        player:startEvent(0x02DB);
+        player:startEvent(731);
     elseif (BeaSmog == QUEST_ACCEPTED and keyitem == false or BeaSmog == QUEST_COMPLETED) then
-        player:startEvent(0x02da);
+        player:startEvent(730);
     elseif (BeaSmog == QUEST_ACCEPTED and keyitem == true) then
-        player:startEvent(0x02dc);
+        player:startEvent(732);
     end
 end;
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x2DB) then
+    if (csid == 731) then
             player:addQuest(BASTOK,BEADEAUX_SMOG);
-    elseif (csid == 0x2dc) then
+    elseif (csid == 732) then
             player:addFame(BASTOK,30);
             player:delKeyItem(CORRUPTED_DIRT);
             player:addItem(17284,1);

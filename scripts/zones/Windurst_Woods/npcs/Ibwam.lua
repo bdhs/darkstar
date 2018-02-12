@@ -1,13 +1,12 @@
 -----------------------------------
---  Area: Windurst Woods
---  NPC:  Ibwam
---  Type: Warp NPC
+-- Area: Windurst Woods
+--  NPC: Ibwam
+-- Type: Warp NPC
 -- !pos -25.655 1.749 -60.651 241
 -----------------------------------
 package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
 package.loaded["scripts/globals/settings"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/globals/missions");
@@ -46,65 +45,49 @@ Port Windurst (West to East)
 80000    (M-6) Yujuju (outside the Air Travel Agency)
 ]]--
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
     if (trade:getGil() == 300 and trade:getItemCount() == 1 and player:getQuestStatus(WINDURST,LURE_OF_THE_WILDCAT_WINDURST) == QUEST_COMPLETED and player:getCurrentMission(TOAU) > IMMORTAL_SENTRIES) then
         -- Needs a check for at least traded an invitation card to Naja Salaheem
-        player:startEvent(0x031a);
+        player:startEvent(794);
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local LureWindurst = player:getQuestStatus(WINDURST,LURE_OF_THE_WILDCAT_WINDURST);
     local WildcatWindurst = player:getVar("WildcatWindurst");
     if (LureWindurst ~= QUEST_COMPLETED and ENABLE_TOAU == 1) then
         if (LureWindurst == QUEST_AVAILABLE) then
-            player:startEvent(0x02e0);
+            player:startEvent(736);
         else
             if (WildcatWindurst == 0) then
-                player:startEvent(0x02e1);
+                player:startEvent(737);
             elseif (player:isMaskFull(WildcatWindurst,20) == true) then
-                player:startEvent(0x02e3);
+                player:startEvent(739);
             else
-                player:startEvent(0x02e2);
+                player:startEvent(738);
             end
         end
     elseif (player:getCurrentMission(TOAU) >= 2) then
-        player:startEvent(0x0319);
+        player:startEvent(793);
     else
-        player:startEvent(0x02e4);
+        player:startEvent(740);
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x02e0) then
+    if (csid == 736) then
         player:addQuest(WINDURST,LURE_OF_THE_WILDCAT_WINDURST);
         player:setVar("WildcatWindurst",0);
         player:addKeyItem(GREEN_SENTINEL_BADGE);
         player:messageSpecial(KEYITEM_OBTAINED,GREEN_SENTINEL_BADGE);
-    elseif (csid == 0x02e3) then
+    elseif (csid == 739) then
         player:completeQuest(WINDURST,LURE_OF_THE_WILDCAT_WINDURST);
         player:addFame(WINDURST,150);
         player:setVar("WildcatWindurst",0);
@@ -112,7 +95,7 @@ function onEventFinish(player,csid,option)
         player:addKeyItem(GREEN_INVITATION_CARD);
         player:messageSpecial(KEYITEM_LOST,GREEN_SENTINEL_BADGE);
         player:messageSpecial(KEYITEM_OBTAINED,GREEN_INVITATION_CARD);
-    elseif (csid == 0x031a) then
+    elseif (csid == 794) then
         player:tradeComplete();
         toAhtUrhganWhitegate(player);
     end

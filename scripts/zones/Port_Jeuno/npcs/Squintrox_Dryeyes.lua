@@ -1,20 +1,16 @@
 -----------------------------------
---  Area: Port Jeuno
+-- Area: Port Jeuno
 --   NPC: Squintrox Dryeyes
---  Type: Addon Mission Merchant
+-- Type: Addon Mission Merchant
 -- !pos -100.071 -1 11.869 246
 -----------------------------------
 package.loaded["scripts/zones/Port_Jeuno/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/missions");
 require("scripts/zones/Port_Jeuno/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -56,34 +52,22 @@ function onTrade(player,npc,trade)
     end
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
     if (ENABLE_ACP == 0 and ENABLE_AMK == 0 and ENABLE_ASA ==0) then
         player:showText(npc,GET_LOST);
     else
-        player:startEvent(0x0143);
+        player:startEvent(323);
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
-    printf("CSID: %u",csid);
-    printf("RESULT: %u",option);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
     -- uncommented printf till we have all optionIDs mapped out.
     local now = tonumber(os.date("%j"));
     local ACPm = player:getCurrentMission(ACP);
@@ -95,7 +79,7 @@ function onEventFinish(player,csid,option)
     local ViridianKey = player:hasKeyItem(VIRIDIAN_KEY);
     local LastViridian = player:getVar("LastViridianKey"); -- When last Viridian key was obtained
 
-    if (csid == 0x0143) then
+    if (csid == 323) then
         if (option == 1) then
             player:showText(player,DRYEYES_1);
         elseif (option == 100) then

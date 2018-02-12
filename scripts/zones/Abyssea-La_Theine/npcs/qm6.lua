@@ -2,47 +2,21 @@
 -- Zone: Abyssea-LaTheine
 --  NPC: qm6 (???)
 -- Spawns Grandgousier
--- !pos ? ? ? 132
+-- !pos -398 .010 -322 132
 -----------------------------------
-require("scripts/globals/status");
-
------------------------------------
--- onTrade Action
+require("scripts/globals/abyssea");
 -----------------------------------
 
 function onTrade(player,npc,trade)
---[[
-    if (trade:hasItemQty(2896,1) and trade:getItemCount() == 1) then -- Player has all the required items.
-        if (GetMobAction(17318439) == ACTION_NONE) then -- mob not already spawned from this
-            SpawnMob(17318439):updateClaim(player); -- Spawn NM, Despawn after inactive for 5 minutes (pt has to reclaim within 5 of a wipe)
-            player:tradeComplete();
-        end
-    end
-]]
+    abysseaOnTrade(player,npc,trade);
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(1010, 2896); -- Inform payer what items they need.
+    abysseaOnTrigger(player,npc);
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

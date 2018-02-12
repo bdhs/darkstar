@@ -5,12 +5,8 @@
 -----------------------------------
 package.loaded["scripts/zones/Castle_Zvahl_Keep/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/zones/Castle_Zvahl_Keep/TextIDs");
-
------------------------------------
--- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
@@ -25,10 +21,6 @@ function onInitialize(zone)
     UpdateTreasureSpawnPoint(17441088);
 end;
 
------------------------------------
--- onConquestUpdate
------------------------------------
-
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -36,10 +28,6 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
-
------------------------------------
--- onZoneIn
------------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -49,10 +37,6 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
------------------------------------
--- onRegionEnter
------------------------------------
-
 function onRegionEnter(player,region)
 
     switch (region:GetRegionID()): caseof
@@ -60,43 +44,43 @@ function onRegionEnter(player,region)
         ---------------------------------
         [1] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0000); -- ports player to far NE corner
+            player:startEvent(0); -- ports player to far NE corner
         end,
 
         ---------------------------------
         [2] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0002); -- ports player to
+            player:startEvent(2); -- ports player to
         end,
 
         ---------------------------------
         [3] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0001); -- ports player to far SE corner
+            player:startEvent(1); -- ports player to far SE corner
         end,
 
         ---------------------------------
         [4] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0001); -- ports player to far SE corner
+            player:startEvent(1); -- ports player to far SE corner
         end,
 
         ---------------------------------
         [5] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0005); -- ports player to H-7 on map 4 (south or north part, randomly)
+            player:startEvent(5); -- ports player to H-7 on map 4 (south or north part, randomly)
         end,
 
         ---------------------------------
         [6] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0006); -- ports player to position "A" on map 2
+            player:startEvent(6); -- ports player to position "A" on map 2
         end,
 
         ---------------------------------
         [7] = function (x)  --
         ---------------------------------
-            player:startEvent(0x0007); -- ports player to position G-8 on map 2
+            player:startEvent(7); -- ports player to position G-8 on map 2
         end,
 
         default = function (x)
@@ -106,25 +90,13 @@ function onRegionEnter(player,region)
 
 end;
 
------------------------------------
--- onRegionLeave
------------------------------------
-
 function onRegionLeave(player,region)
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

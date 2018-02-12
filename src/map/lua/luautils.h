@@ -28,6 +28,7 @@
 #include "../../common/cbasetypes.h"
 #include "../../common/lua/lunar.h"
 #include "../../common/taskmgr.h"
+#include "../items/item_armor.h"
 #include "../spell.h"
 #include "lua_ability.h"
 #include "lua_baseentity.h"
@@ -180,7 +181,7 @@ namespace luautils
 
     int32 OnGameIn(CCharEntity* PChar, bool zoning);                            //
     int32 OnZoneIn(CCharEntity* PChar);                                         // triggers when a player zones into a zone
-    int32 AfterZoneIn(time_point tick, CTaskMgr::CTask *PTask);                     // triggers after a player has finished zoning in
+    void AfterZoneIn(CBaseEntity* PChar);                                      // triggers after a player has finished zoning in
     int32 OnZoneInitialise(uint16 ZoneID);                                      // triggers when zone is loaded
     int32 OnRegionEnter(CCharEntity* PChar, CRegion* PRegion);                  // when player enters a region of a zone
     int32 OnRegionLeave(CCharEntity* PChar, CRegion* Pregion);                  // when player leaves a region of a zone
@@ -205,7 +206,7 @@ namespace luautils
     int32 OnManeuverLose(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers);
 
     int32 OnItemUse(CBaseEntity* PTarget, CItem* PItem);                        // triggers when item is used
-    int32 OnItemCheck(CBaseEntity* PTarget, CItem* PItem, uint32 param = 0);    // check to see if item can be used
+    int32 OnItemCheck(CBaseEntity* PTarget, CItem* PItem, ITEMCHECK param = ITEMCHECK::NONE, CBaseEntity* PCaster = nullptr);    // check to see if item can be used
     int32 CheckForGearSet(CBaseEntity* PTarget);                                // check for gear sets
 
     int32 OnMagicCastingCheck(CBaseEntity* PChar, CBaseEntity* PTarget, CSpell* PSpell);    // triggers when a player attempts to cast a spell
@@ -246,7 +247,7 @@ namespace luautils
     int32 OnUseAbility(CBattleEntity* PUser, CBattleEntity* PTarget, CAbility* PAbility, action_t* action);         // triggers when job ability is used
 
     int32 OnInstanceZoneIn(CCharEntity* PChar, CInstance* PInstance);           // triggered on zone in to instance
-    int32 AfterInstanceRegister(time_point tick, CTaskMgr::CTask *PTask);           // triggers after a character is registered and zoned into an instance (the first time)
+    void AfterInstanceRegister(CBaseEntity* PChar);                             // triggers after a character is registered and zoned into an instance (the first time)
     int32 OnInstanceLoadFailed(CZone* PZone);                                   // triggers when an instance load is failed (ie. instance no longer exists)
     int32 OnInstanceTimeUpdate(CZone* PZone, CInstance* PInstance, uint32 time);// triggers every second for an instance
     int32 OnInstanceFailure(CInstance* PInstance);                              // triggers when an instance is failed

@@ -1,15 +1,13 @@
 -----------------------------------
 -- Area: Bibiki Bay
--- NPC:  Toh Zonikki
+--  NPC: Toh Zonikki
 -- Type: Clamming NPC
 -- !pos -371 -1 -421 4
 -----------------------------------
-
 package.loaded["scripts/zones/Bibiki_Bay/TextIDs"] = nil;
-
+-----------------------------------
 require("scripts/zones/Bibiki_Bay/TextIDs");
 require("scripts/globals/keyitems");
-
 -----------------------------------
 -- Local Variables
 -----------------------------------
@@ -79,74 +77,58 @@ local function owePlayerClammedItems(player)
     return false;
 end;
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
     if ( player:hasKeyItem(CLAMMING_KIT)) then -- Player has clamming kit
 
         if (player:getVar("ClammingKitBroken") == 1) then -- Broken bucket
-            player:startEvent(0x001E, 0, 0, 0, 0, 0, 0, 0, 0);
+            player:startEvent(30, 0, 0, 0, 0, 0, 0, 0, 0);
         else --Bucket not broken
-            player:startEvent(0x001D, 0, 0, 0, 0, 0, 0, 0, 0);
+            player:startEvent(29, 0, 0, 0, 0, 0, 0, 0, 0);
         end
     else -- Player does not have clamming kit
         if (owePlayerClammedItems(player)) then
             player:messageSpecial(YOU_GIT_YER_BAG_READY);
             giveClammedItems(player);
         else
-            player:startEvent(0x001C, 500, 0, 0, 0, 0, 0, 0, 0);
+            player:startEvent(28, 500, 0, 0, 0, 0, 0, 0, 0);
         end
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x001C) then
+    if (csid == 28) then
         local enoughMoney = 2; -- Not enough money
         if (player:getGil() >= 500) then
             enoughMoney = 1; --Player has enough Money
         end
 
         player:updateEvent(CLAMMING_KIT, enoughMoney, 0, 0, 0, 500, 0, 0);
-    elseif  (csid == 0x001D) then
+    elseif  (csid == 29) then
         local clammingKitSize = player:getVar("ClammingKitSize");
 
         player:updateEvent( player:getVar("ClammingKitWeight"), clammingKitSize, clammingKitSize, clammingKitSize + 50, 0, 0, 0, 0);
     end
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x001C) then
+    if (csid == 28) then
         if (option == 1) then -- Give 50pz clamming kit
             player:setVar("ClammingKitSize", 50);
             player:addKeyItem(CLAMMING_KIT);
             player:delGil(500);
             player:messageSpecial(KEYITEM_OBTAINED,CLAMMING_KIT);
         end
-    elseif (csid == 0x001D) then
+    elseif (csid == 29) then
         if (option == 2) then -- Give player clammed items
 
             player:setVar("ClammingKitSize", 0);
@@ -162,7 +144,7 @@ function onEventFinish(player,csid,option)
             player:setVar("ClammingKitSize", clammingKitSize);
             player:messageSpecial(YOUR_CLAMMING_CAPACITY, 0, 0, clammingKitSize);
         end
-    elseif ( csid == 0x001E) then -- Broken bucket
+    elseif ( csid == 30) then -- Broken bucket
         player:setVar("ClammingKitSize", 0);
         player:setVar("ClammingKitBroken", 0);
         player:setVar("ClammingKitWeight", 0);

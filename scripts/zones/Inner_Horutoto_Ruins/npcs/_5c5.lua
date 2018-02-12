@@ -1,30 +1,22 @@
 -----------------------------------
 -- Area: Inner Horutoto Ruins
--- NPC:  Gate: Magical Gizmo
+--  NPC: Gate: Magical Gizmo
 --  Involved In Mission: The Horutoto Ruins Experiment
 -- !pos 419 0 -27 192
 -----------------------------------
 package.loaded["scripts/zones/Inner_Horutoto_Ruins/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/missions");
 require("scripts/zones/Inner_Horutoto_Ruins/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
 
     if (player:getCurrentMission(WINDURST) == THE_HORUTOTO_RUINS_EXPERIMENT and player:getVar("MissionStatus") == 1) then
-        player:startEvent(0x002A);
+        player:startEvent(42);
     else
         player:showText(npc,DOOR_FIRMLY_CLOSED);
     end
@@ -33,24 +25,16 @@ function onTrigger(player,npc)
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x002A) then
+    if (csid == 42) then
         player:setVar("MissionStatus",2);
 
         -- Generate a random value to use for the next part of the mission

@@ -1,12 +1,12 @@
 -----------------------------------
---  Area: Port Windurst
+-- Area: Port Windurst
 --  NPC: Fennella
---  Type: Guildworker's Union Representative
+-- Type: Guildworker's Union Representative
 --  @zone 240
 -- !pos -177.811 -2.835 65.639
 -----------------------------------
-
 package.loaded["scripts/zones/Port_Windurst/TextIDs"] = nil;
+-----------------------------------
 require("scripts/globals/keyitems");
 require("scripts/globals/crafting");
 require("scripts/zones/Port_Windurst/TextIDs");
@@ -77,44 +77,28 @@ local items = {
     }
 };
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
-    unionRepresentativeTrade(player, npc, trade, 0x2725, 0);
+    unionRepresentativeTrade(player, npc, trade, 10021, 0);
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
-    unionRepresentativeTrigger(player, 0, 0x2724, "guild_fishing", keyitems);
+    unionRepresentativeTrigger(player, 0, 10020, "guild_fishing", keyitems);
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option,target)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x2724) then
+    if (csid == 10020) then
         unionRepresentativeTriggerFinish(player, option, target, 0, "guild_Fishing", keyitems, items);
     end
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option,target)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x2724) then
+    if (csid == 10020) then
         unionRepresentativeTriggerFinish(player, option, target, 0, "guild_Fishing", keyitems, items);
-    elseif (csid == 0x2725) then
+    elseif (csid == 10021) then
         player:messageSpecial(GP_OBTAINED, option);
     end
 end;

@@ -1,26 +1,18 @@
 -----------------------------------
 -- Area: Port Jeuno
--- NPC:  Illauvolahaut
+--  NPC: Illauvolahaut
 -- @zone 246
 -- !pos -12 8 54
 -----------------------------------
 package.loaded["scripts/zones/Port_Jeuno/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/zones/Port_Jeuno/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
@@ -28,35 +20,27 @@ function onTrigger(player,npc)
     Gil = player:getGil();
 
     if (KazhPass == false) then
-        player:startEvent(0x0023); -- without pass
+        player:startEvent(35); -- without pass
     elseif (KazhPass == true and Gil < 200) then
-        player:startEvent(0x002d); -- Pass without money
+        player:startEvent(45); -- Pass without money
     elseif (KazhPass == true) then
-        player:startEvent(0x0025); -- Pass with money
+        player:startEvent(37); -- Pass with money
     end
 
 end;
 
 -- 0x0029  without addons (ZM) ?
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x0025) then
+    if (csid == 37) then
         Z = player:getZPos();
 
         if (Z >= 58 and Z <= 61) then

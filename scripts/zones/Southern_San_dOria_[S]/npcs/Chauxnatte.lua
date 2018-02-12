@@ -7,17 +7,10 @@ require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/chocobo");
 require("scripts/globals/status");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local level = player:getMainLvl();
@@ -31,30 +24,23 @@ function onTrigger(player,npc)
             level = 0;
         end
 
-        player:startEvent(0x06A,price,gil,level);
+        player:startEvent(106,price,gil,level);
     else
-        player:startEvent(0x06B);
+        player:startEvent(107);
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish Action
------------------------------------
 function onEventFinish(player,csid,option)
     -- print("CSID:",csid);
     -- print("OPTION:",option);
     local price = player:getLocalVar("chocoboPriceOffer");
 
-    if (csid == 0x06A and option == 0) then
+    if (csid == 106 and option == 0) then
         if (player:delGil(price)) then
             updateChocoboPrice(player, price);
 

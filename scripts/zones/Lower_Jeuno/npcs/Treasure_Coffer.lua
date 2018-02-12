@@ -6,42 +6,26 @@
 -----------------------------------
 package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
 -----------------------------------
-
+require("scripts/zones/Lower_Jeuno/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
-require("scripts/zones/Lower_Jeuno/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
-    player:startEvent(0x2773,0,0,0,0,0,0,0,0);
+    player:startEvent(10099,0,0,0,0,0,0,0,0);
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
-    printf("CSID: %u",csid);
-    printf("RESULT: %u",option);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
-    printf("CSID: %u",csid);
-    printf("RESULT: %u",option);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 
     local random = 0;
     local prize = 0;
@@ -58,7 +42,7 @@ function onEventFinish(player,csid,option)
     local v3 = 0;
     local v4 = 0;
 
-    if (csid == 0x2773) then
+    if (csid == 10099) then
         if (option == 16777216) then
             if (player:getFreeSlotsCount() >= 1) then
                 player:addItem(11538);

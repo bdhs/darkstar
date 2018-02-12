@@ -1,13 +1,15 @@
 -----------------------------------
 -- Area: Kazham
--- NPC: Thali Mhobrum
+--  NPC: Thali Mhobrum
 -- Standard Info NPC
 -----------------------------------
-
 package.loaded["scripts/zones/Kazham/TextIDs"] = nil;
+-----------------------------------
 require("scripts/zones/Kazham/TextIDs");
+-----------------------------------
 
-local path = {
+local path =
+{
 55.816410, -11.000000, -43.992680,
 54.761787, -11.000000, -44.046181,
 51.805824, -11.000000, -44.200321,
@@ -30,38 +32,23 @@ function onPath(npc)
     pathfind.patrol(npc, path);
 end;
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
-end; 
-
------------------------------------
--- onTrigger Action
------------------------------------
+end;
 
 function onTrigger(player,npc)
     if (player:getVar("BathedInScent") == 1) then
-        player:startEvent(0x00A3); -- scent from Blue Rafflesias
-        npc:wait(-1);
+        player:startEvent(163); -- scent from Blue Rafflesias
+        npc:wait();
     else
-    player:startEvent(0x00BE);
-    npc:wait(-1);
+    player:startEvent(190);
+    npc:wait();
     end
 end;
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option,npc)
     -- printf("CSID: %u",csid);

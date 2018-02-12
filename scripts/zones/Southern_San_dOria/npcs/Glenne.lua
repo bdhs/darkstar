@@ -1,6 +1,6 @@
 -------------------------------------
 -- Area: Southern San d'Oria
--- NPC: Glenne
+--  NPC: Glenne
 -- Starts and Finishes Quest: A Sentry's Peril
 -- @zone 230
 -- !pos -122 -2 15
@@ -41,10 +41,6 @@ function onPath(npc)
     pathfind.patrol(npc, path);
 end;
 
------------------------------------
--- onTrade Action
------------------------------------
-
 function onTrade(player,npc,trade)
 
     local count = trade:getItemCount();
@@ -54,50 +50,38 @@ function onTrade(player,npc,trade)
 
     elseif (player:getQuestStatus(SANDORIA,A_SENTRY_S_PERIL) == QUEST_ACCEPTED and
         trade:hasItemQty(601,1) and count == 1) then
-            player:startEvent(0x0201);
-            npc:wait(-1);
+            player:startEvent(513);
+            npc:wait();
     end
 
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
     local aSentrysPeril = player:getQuestStatus(SANDORIA,A_SENTRY_S_PERIL);
 
-    npc:wait(-1);
+    npc:wait();
 
     if (aSentrysPeril == QUEST_AVAILABLE) then
-        player:startEvent(0x01fe);
+        player:startEvent(510);
     elseif (aSentrysPeril == QUEST_ACCEPTED) then
         if (player:hasItem(600) == true or player:hasItem(601) == true) then
-            player:startEvent(0x0208);
+            player:startEvent(520);
         else
-            player:startEvent(0x0284);
+            player:startEvent(644);
         end
     elseif (aSentrysPeril == QUEST_COMPLETED) then
-        player:startEvent(0x0209);
+        player:startEvent(521);
     else
         npc:wait(0);
     end
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option,npc)
     -- printf("CSID: %u",csid);
@@ -105,7 +89,7 @@ function onEventFinish(player,csid,option,npc)
 
     npc:wait(5000);
 
-    if (csid == 0x01fe and option == 0) then
+    if (csid == 510 and option == 0) then
         if (player:getFreeSlotsCount() > 0) then
             player:addQuest(SANDORIA,A_SENTRY_S_PERIL);
             player:addItem(600);
@@ -113,14 +97,14 @@ function onEventFinish(player,csid,option,npc)
         else
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,600); -- Dose of ointment
         end
-    elseif (csid == 0x0284) then
+    elseif (csid == 644) then
         if (player:getFreeSlotsCount() > 0) then
             player:addItem(600);
             player:messageSpecial(ITEM_OBTAINED,600);
         else
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,600); -- Dose of ointment
         end
-    elseif (csid == 0x0201) then
+    elseif (csid == 513) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12832); -- Bronze Subligar
         else

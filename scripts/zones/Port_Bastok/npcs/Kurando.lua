@@ -1,7 +1,7 @@
 -----------------------------------
 -- Area: Port Bastok
 --   NPC: Kurando
---  Type: Quest Giver
+-- Type: Quest Giver
 -- @zone 236
 -- !pos -23.887 3.898 0.870
 --
@@ -12,56 +12,42 @@ package.loaded["scripts/zones/Port_Bastok/TextIDs"] = nil;
 require("scripts/zones/Port_Bastok/TextIDs");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
     if (player:getQuestStatus(BASTOK,FEAR_OF_FLYING) == QUEST_ACCEPTED) then
         if (trade:hasItemQty(4526,1) and trade:getItemCount() == 1) then
-            player:startEvent(0x00AB); -- Quest Completion Dialogue
+            player:startEvent(171); -- Quest Completion Dialogue
         end
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local FearofFlying = player:getQuestStatus(BASTOK,FEAR_OF_FLYING);
     -- csid 0x00Ad ?
     if (FearofFlying == QUEST_AVAILABLE and    player:getFameLevel(BASTOK) >=3) then
-        player:startEvent(0x00AA); -- Quest Start Dialogue
+        player:startEvent(170); -- Quest Start Dialogue
     elseif (FearofFlying == QUEST_COMPLETED) then
-        player:startEvent(0x00AC); -- Dialogue after Completion
+        player:startEvent(172); -- Dialogue after Completion
     else
-        player:startEvent(0x001c); -- Default Dialogue
+        player:startEvent(28); -- Default Dialogue
 
     end
 end;
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x00AA) then
+    if (csid == 170) then
         player:addQuest(BASTOK,FEAR_OF_FLYING);
 
-    elseif (csid == 0x00AB) then
+    elseif (csid == 171) then
         if    (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,13113);
 

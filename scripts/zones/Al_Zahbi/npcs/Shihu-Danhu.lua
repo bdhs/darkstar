@@ -1,51 +1,35 @@
 -----------------------------------
 -- Area: Al Zahbi
--- NPC:  Shihu-Danhu
+--  NPC: Shihu-Danhu
 -- Warp NPC
 -- !pos 62.768 -1.98 -51.299 48
 -----------------------------------
-
 require("scripts/globals/besieged");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
 
     if (getAstralCandescence() == 1) then
-        player:startEvent(0x0067);
+        player:startEvent(103);
     else
         player:messageSpecial(0); -- Missing the denied due to lack of Astral Candescence message.
     end
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x0067 and option == 1) then
+    if (csid == 103 and option == 1) then
         -- If you use TP, you need to wait 1 real day for using Kaduru TP
         player:setVar("ShihuDanhu_TP_date",os.date("%j"));
 

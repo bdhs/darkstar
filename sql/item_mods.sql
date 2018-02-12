@@ -3512,8 +3512,9 @@ INSERT INTO `item_mods` VALUES (11125,25,10);
 INSERT INTO `item_mods` VALUES (11125,73,6);
 INSERT INTO `item_mods` VALUES (11125,292,7);
 INSERT INTO `item_mods` VALUES (11125,384,61);
-INSERT INTO `item_mods` VALUES (11126,1,41);
-INSERT INTO `item_mods` VALUES (11126,13,7);
+INSERT INTO `item_mods` VALUES (11126,1,41);      -- Orison Pantaloons +2
+INSERT INTO `item_mods` VALUES (11126,13,7);      -- comment me
+INSERT INTO `item_mods` VALUES (11126,860,5);     -- Converts 5% of "Cure" amount to MP
 INSERT INTO `item_mods` VALUES (11127,1,41);
 INSERT INTO `item_mods` VALUES (11127,5,55);
 INSERT INTO `item_mods` VALUES (11127,28,7);
@@ -3974,8 +3975,9 @@ INSERT INTO `item_mods` VALUES (11225,23,7);
 INSERT INTO `item_mods` VALUES (11225,25,7);
 INSERT INTO `item_mods` VALUES (11225,292,5);
 INSERT INTO `item_mods` VALUES (11225,384,51);
-INSERT INTO `item_mods` VALUES (11226,1,39);
-INSERT INTO `item_mods` VALUES (11226,13,5);
+INSERT INTO `item_mods` VALUES (11226,1,39);      -- Orison Pantaloons +1 
+INSERT INTO `item_mods` VALUES (11226,13,5);      -- comment me
+INSERT INTO `item_mods` VALUES (11226,860,2);     -- Converts 2% of "Cure" amount to MP
 INSERT INTO `item_mods` VALUES (11227,1,39);
 INSERT INTO `item_mods` VALUES (11227,5,40);
 INSERT INTO `item_mods` VALUES (11227,28,5);
@@ -23250,9 +23252,8 @@ INSERT INTO `item_mods` VALUES (19001,365,5);
 INSERT INTO `item_mods` VALUES (19001,420,10);
 INSERT INTO `item_mods` VALUES (19002,355,154);   -- Kogarasumaru (Level 75): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19002,839,15);    -- Third Eye anticipation rate +15%
-INSERT INTO `item_mods` VALUES (19003,27,10);
-INSERT INTO `item_mods` VALUES (19003,30,10);
-INSERT INTO `item_mods` VALUES (19003,288,15);
+INSERT INTO `item_mods` VALUES (19003,27,10); -- Emnity +10
+INSERT INTO `item_mods` VALUES (19003,30,10); -- Magic Accuracy +10
 INSERT INTO `item_mods` VALUES (19003,355,138); -- Nagi 75 - Blade: Kamu
 INSERT INTO `item_mods` VALUES (19004,288,15);
 INSERT INTO `item_mods` VALUES (19004,355,122); -- Ryunohige 75 - Drakesbane
@@ -23378,28 +23379,25 @@ INSERT INTO `item_mods` VALUES (19070,450,15);
 INSERT INTO `item_mods` VALUES (19071,355,154);   -- Kogarasumaru (Level 80): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19071,508,10);    -- Third Eye Counter rate +10%
 INSERT INTO `item_mods` VALUES (19071,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (19072,27,15); -- Emnity +15
+INSERT INTO `item_mods` VALUES (19072,30,15); -- Magic Accuracy +15
 INSERT INTO `item_mods` VALUES (19072,355,138); -- Nagi 80 - Blade: Kamu
 INSERT INTO `item_mods` VALUES (19073,355,122); -- Ryunohige 80 - Drakesbane
 INSERT INTO `item_mods` VALUES (19074,355,187); -- Nirvana 80 - Garland of Bliss
 INSERT INTO `item_mods` VALUES (19075,355,46); -- Tizona 80 - Expiacion
 INSERT INTO `item_mods` VALUES (19075,431,1); -- Tizona 80 - Additional Effect - scripts\globals\items\tizona.lua
 INSERT INTO `item_mods` VALUES (19076,355,218); -- Death Penalty 80 - Leaden Salute
-INSERT INTO `item_mods` VALUES (19076,580,30);
 INSERT INTO `item_mods` VALUES (19077,355,12); -- Kenkonken 80 - Stringing Pummel
 INSERT INTO `item_mods` VALUES (19078,355,29); -- Terpsichore 80 - Pyrrhic Kleos
 INSERT INTO `item_mods` VALUES (19079,355,188); -- Tupsimati 80 - Omniscience
-INSERT INTO `item_mods` VALUES (19080,288,20);
 INSERT INTO `item_mods` VALUES (19080,355,90); -- Conqueror 85 - King's Justice
-INSERT INTO `item_mods` VALUES (19081,288,20);
 INSERT INTO `item_mods` VALUES (19081,355,11); -- Glanzfaust 85 - Ascetic's Fury
-INSERT INTO `item_mods` VALUES (19082,30,15);
-INSERT INTO `item_mods` VALUES (19082,288,20);
+INSERT INTO `item_mods` VALUES (19082,30,15); -- Magic Accuracy +15
 INSERT INTO `item_mods` VALUES (19082,355,171); -- Yagrush 85 - Mystic Boon
-INSERT INTO `item_mods` VALUES (19082,524,1);
-INSERT INTO `item_mods` VALUES (19083,25,30);
-INSERT INTO `item_mods` VALUES (19083,28,40);
-INSERT INTO `item_mods` VALUES (19083,30,10);
-INSERT INTO `item_mods` VALUES (19083,288,20);
+INSERT INTO `item_mods` VALUES (19082,524,1); -- Divine Veil
+INSERT INTO `item_mods` VALUES (19083,25,30); -- Accuracy
+INSERT INTO `item_mods` VALUES (19083,28,40); -- Magic Attack Bonus +40
+INSERT INTO `item_mods` VALUES (19083,30,10); -- Magic Accuracy +10
 INSERT INTO `item_mods` VALUES (19083,355,186); -- Laevateinn 85 - Vidohunir
 INSERT INTO `item_mods` VALUES (19084,30,20);     -- Murgleis (Level 85): Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19084,355,44);    -- Death Blossom
@@ -23407,53 +23405,42 @@ INSERT INTO `item_mods` VALUES (19084,525,2);     -- Augments Convert 1:2
 INSERT INTO `item_mods` VALUES (19085,355,27);    -- Vajra (Level 85): Mandalic Stab
 INSERT INTO `item_mods` VALUES (19085,526,20);    -- Enhances Sneak Attack effect +20%
 INSERT INTO `item_mods` VALUES (19085,527,20);    -- Enhances Trick Attack effect +20%
-INSERT INTO `item_mods` VALUES (19086,27,14);
-INSERT INTO `item_mods` VALUES (19086,161,-14);
-INSERT INTO `item_mods` VALUES (19086,288,20);
+INSERT INTO `item_mods` VALUES (19086,27,14); -- Emnity +14
+-- INSERT INTO `item_mods` VALUES (19086,161,-14); -- TO DO Change to PDT II -14%
 INSERT INTO `item_mods` VALUES (19086,355,45); -- Burtgang 85 - Atonement
 INSERT INTO `item_mods` VALUES (19087,30,25);     -- Liberator (Level 85): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19087,355,106);   -- Insurgency
 INSERT INTO `item_mods` VALUES (19087,521,30);    -- Absorb spell potency +30%
-INSERT INTO `item_mods` VALUES (19088,288,20);
 INSERT INTO `item_mods` VALUES (19088,355,74); -- Aymur 85 - Primal Rend
 INSERT INTO `item_mods` VALUES (19089,30,15);     -- Carnwenhan (Level 85): Magic Accuracy +15
 INSERT INTO `item_mods` VALUES (19089,355,28);    -- Mordant Rime
 INSERT INTO `item_mods` VALUES (19089,454,30);    -- Increases song effect duration +30%
 INSERT INTO `item_mods` VALUES (19090,355,217); -- Gastraphetes 85 - Trueflight
-INSERT INTO `item_mods` VALUES (19090,365,5);
-INSERT INTO `item_mods` VALUES (19090,450,20);
+INSERT INTO `item_mods` VALUES (19090,365,5); -- Enhances "Snapshot" Effect 5
+INSERT INTO `item_mods` VALUES (19090,420,20); -- Increases Barrage Accuracy +20
 INSERT INTO `item_mods` VALUES (19091,355,154);   -- Kogarasumaru (Level 85): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19091,508,15);    -- Third Eye Counter rate +15%
 INSERT INTO `item_mods` VALUES (19091,839,15);    -- Third Eye Anticipate rate +15%
-INSERT INTO `item_mods` VALUES (19092,27,20);
-INSERT INTO `item_mods` VALUES (19092,30,20);
-INSERT INTO `item_mods` VALUES (19092,288,20);
+INSERT INTO `item_mods` VALUES (19092,27,20); -- Emnity +20
+INSERT INTO `item_mods` VALUES (19092,30,20); -- Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19092,355,138); -- Nagi 85 - Blade: Kamu
-INSERT INTO `item_mods` VALUES (19093,288,20);
 INSERT INTO `item_mods` VALUES (19093,355,122); -- Ryunohige 85 - Drakesbane
-INSERT INTO `item_mods` VALUES (19093,362,20);
-INSERT INTO `item_mods` VALUES (19094,25,30);
-INSERT INTO `item_mods` VALUES (19094,288,20);
-INSERT INTO `item_mods` VALUES (19094,312,30);
+INSERT INTO `item_mods` VALUES (19093,362,20); -- ATT bonus for jump + high jump +20
+INSERT INTO `item_mods` VALUES (19094,25,30); -- Accuracy +30
 INSERT INTO `item_mods` VALUES (19094,355,187); -- Nirvana 85 - Garland of Bliss
-INSERT INTO `item_mods` VALUES (19094,346,6);
-INSERT INTO `item_mods` VALUES (19095,30,15);
-INSERT INTO `item_mods` VALUES (19095,288,20);
+INSERT INTO `item_mods` VALUES (19094,346,6); -- Avatar perpetuation cost -6
+INSERT INTO `item_mods` VALUES (19095,30,15); -- Magic Accuracy +15
 INSERT INTO `item_mods` VALUES (19095,355,46); -- Tizona 85 - Expiacion
 INSERT INTO `item_mods` VALUES (19095,431,1); -- Tizona 85 - Additional Effect - scripts\globals\items\tizona.lua
 INSERT INTO `item_mods` VALUES (19096,355,218); -- Death Penalty 85 - Leaden Salute
-INSERT INTO `item_mods` VALUES (19096,580,40);
 INSERT INTO `item_mods` VALUES (19097,173,20);
-INSERT INTO `item_mods` VALUES (19097,288,20);
 INSERT INTO `item_mods` VALUES (19097,355,12); -- Kenkonken 85 - Stringing Pummel
-INSERT INTO `item_mods` VALUES (19098,288,20);
 INSERT INTO `item_mods` VALUES (19098,355,29); -- Terpsichore 85 - Pyrrhic Kleos
-INSERT INTO `item_mods` VALUES (19098,403,15);
-INSERT INTO `item_mods` VALUES (19098,494,1);
-INSERT INTO `item_mods` VALUES (19099,25,30);
-INSERT INTO `item_mods` VALUES (19099,28,30);
-INSERT INTO `item_mods` VALUES (19099,30,20);
-INSERT INTO `item_mods` VALUES (19099,288,20);
+INSERT INTO `item_mods` VALUES (19098,403,15); -- Bonus Accuracy For Steps +15
+INSERT INTO `item_mods` VALUES (19098,494,1); -- Bonus Finishing Moves From Steps +1
+INSERT INTO `item_mods` VALUES (19099,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19099,28,30); -- Magic Attack Bonus +30
+INSERT INTO `item_mods` VALUES (19099,30,20); -- Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19099,355,188); -- Tupsimati 85 - Omniscience
 INSERT INTO `item_mods` VALUES (19100,2,16);
 INSERT INTO `item_mods` VALUES (19100,5,16);
@@ -23768,68 +23755,104 @@ INSERT INTO `item_mods` VALUES (19478,13,2);
 INSERT INTO `item_mods` VALUES (19478,59,10);
 INSERT INTO `item_mods` VALUES (19478,461,3);
 INSERT INTO `item_mods` VALUES (19534,355,14); -- Verethragna 90 - Victory Smite
+INSERT INTO `item_mods` VALUES (19534,584,15); -- Victory Smite WS DMG +15%
 INSERT INTO `item_mods` VALUES (19535,355,31); -- Twashtar 90 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (19535,601,15); -- Rudra's Storm WS DMG +15%
+INSERT INTO `item_mods` VALUES (19535,9,10); -- DEX +10
 INSERT INTO `item_mods` VALUES (19536,355,225); -- Almace 90 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (19536,795,15); -- Chant du Cygne WS DMG +15%
+INSERT INTO `item_mods` VALUES (19536,9,15); -- DEX +15
 INSERT INTO `item_mods` VALUES (19537,355,59); -- Caladbolg 90 - Torcleaver
+INSERT INTO `item_mods` VALUES (19537,629,15); -- Torcleaver WS DMG +15%
 INSERT INTO `item_mods` VALUES (19538,355,76); -- Farsha 90 - Cloudsplitter
 INSERT INTO `item_mods` VALUES (19539,355,92); -- Ukonvasara 90 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (19539,662,15); -- Ukko's Fury WS DMG +15%
+INSERT INTO `item_mods` VALUES (19539,8,10); -- STR +10
 INSERT INTO `item_mods` VALUES (19540,355,108); -- Redemption 90 - Quietus
 INSERT INTO `item_mods` VALUES (19541,355,124); -- Rhongomiant 90 -- Camlann's Torment
+INSERT INTO `item_mods` VALUES (19542,11,15); -- AGI +15
 INSERT INTO `item_mods` VALUES (19542,355,140); -- Kannagi 90 - Blade Hi
+INSERT INTO `item_mods` VALUES (19542,710,15); -- Blade Hi WS DMG +15%
 INSERT INTO `item_mods` VALUES (19543,355,156); -- Masamune 90 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (19543,696,15); -- Tachi Fudo WS DMG +15%
 INSERT INTO `item_mods` VALUES (19544,2,70);      -- Gambanteinn (Level 90): HP +70
 INSERT INTO `item_mods` VALUES (19544,5,70);      -- MP +70
 INSERT INTO `item_mods` VALUES (19544,355,173);   -- Dagan
 INSERT INTO `item_mods` VALUES (19545,355,190); -- Hvergelmir 90 - Myrkr
 INSERT INTO `item_mods` VALUES (19546,355,202); -- Gandiva 90 - Jishnu's Raidance
+INSERT INTO `item_mods` VALUES (19546,772,15); -- Jishnu's Raidance WS DMG +15%
 INSERT INTO `item_mods` VALUES (19547,355,220); -- Armageddon 90 - Wildfire
 INSERT INTO `item_mods` VALUES (19612,355,90); -- Conqueror 90 - King's Justice
+INSERT INTO `item_mods` VALUES (19612,660,15); -- King's Justice WS DMG +15%
 INSERT INTO `item_mods` VALUES (19613,355,11); -- Glanzfaust 90 - Ascetic's Fury
+INSERT INTO `item_mods` VALUES (19613,581,15); -- Ascetic's Fury WS DMG +15%
 INSERT INTO `item_mods` VALUES (19614,355,171); -- Yagrush 90 - Mystic Boon
+INSERT INTO `item_mods` VALUES (19614,741,15); -- Mystic Boon WS DMG +15%
 INSERT INTO `item_mods` VALUES (19615,355,186); -- Laevateinn 90 - Vidohunir
 INSERT INTO `item_mods` VALUES (19616,30,25);     -- Murgleis (Level 90): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19616,355,44);    -- Death Blossom
+INSERT INTO `item_mods` VALUES (19616,614,15);    -- Death Blossom WS DMG +15%
 INSERT INTO `item_mods` VALUES (19616,525,2);     -- Augments Convert 1:2
 INSERT INTO `item_mods` VALUES (19617,355,27);    -- Vajra (Level 90): Mandalic Stab
+INSERT INTO `item_mods` VALUES (19617,597,15);    -- Mandalic Stab WS DMG +15%
 INSERT INTO `item_mods` VALUES (19617,526,25);    -- Enhances Sneak Attack effect +25%
 INSERT INTO `item_mods` VALUES (19617,527,25);    -- Enhances Trick Attack effect +25%
 INSERT INTO `item_mods` VALUES (19618,355,45); -- Burtgang 90 - Atonement
+INSERT INTO `item_mods` VALUES (19618,615,15); -- Atonement WS DMG+15%
 INSERT INTO `item_mods` VALUES (19619,30,30);     -- Liberator (Level 90): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19619,355,106);   -- Insurgency
+INSERT INTO `item_mods` VALUES (19619,676,15);   -- Insurgency WS DMG +15%
 INSERT INTO `item_mods` VALUES (19619,521,40);    -- Absorb spell potency +40%
 INSERT INTO `item_mods` VALUES (19620,355,74); -- Aymur 90 - Primal Rend
+INSERT INTO `item_mods` VALUES (19620,644,15); -- Primal Rend WS DMG +15%
 INSERT INTO `item_mods` VALUES (19621,30,20);     -- Carnwenhan (Level 90): Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19621,355,28);    -- Mordant Rime
+INSERT INTO `item_mods` VALUES (19621,598,15);    -- Mordant Rime WS DMG +15%
 INSERT INTO `item_mods` VALUES (19621,454,40);    -- Increases song effect duration +40%
 INSERT INTO `item_mods` VALUES (19622,355,217); -- Gastraphetes 90 - Trueflight
+INSERT INTO `item_mods` VALUES (19622,787,15); -- Trueflight WS DMG +15%
 INSERT INTO `item_mods` VALUES (19622,365,5);
 INSERT INTO `item_mods` VALUES (19622,420,25);
 INSERT INTO `item_mods` VALUES (19623,355,154);   -- Kogarasumaru (Level 90): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19623,508,20);    -- Third Eye Counter rate +20%
 INSERT INTO `item_mods` VALUES (19623,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (19623,724,15);    -- Tachi Rana WS DMG +15%
+INSERT INTO `item_mods` VALUES (19624,27,25); -- Emnity +25
+INSERT INTO `item_mods` VALUES (19624,30,25); -- Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19624,355,138); -- Nagi 90 - Blade: Kamu
+INSERT INTO `item_mods` VALUES (19624,708,15); -- Blade: Kamu WS DMG +15%
 INSERT INTO `item_mods` VALUES (19625,355,122); -- Ryunohige 90 - Drakesbane
+INSERT INTO `item_mods` VALUES (19625,692,15); -- Drakesbane WS DMG +15%
 INSERT INTO `item_mods` VALUES (19626,355,187); -- Nirvana 90 - Garland of Bliss
+INSERT INTO `item_mods` VALUES (19626,757,15); -- Garland of Bliss WS DMG +15%
 INSERT INTO `item_mods` VALUES (19627,355,46); -- Tizona 90 - Expiacion
 INSERT INTO `item_mods` VALUES (19627,431,1); -- Tizona 90 - Additional Effect - scripts\globals\items\tizona.lua
+INSERT INTO `item_mods` VALUES (19627,616,15); -- Expiacion WS DMG +15%
 INSERT INTO `item_mods` VALUES (19628,355,218); -- Death Penalty 90 - Leaden Salute
 INSERT INTO `item_mods` VALUES (19628,580,40);
 INSERT INTO `item_mods` VALUES (19629,355,12); -- Kenkonken 90 - Stringing Pummel
+INSERT INTO `item_mods` VALUES (19629,582,15); -- Stringing Pummel WS DMG +15%
 INSERT INTO `item_mods` VALUES (19630,355,29); -- Terpsichore 90 - Pyrrhic Kleos
+INSERT INTO `item_mods` VALUES (19630,599,15); -- Pyrrhic Kleos WS DMG +15%
 INSERT INTO `item_mods` VALUES (19631,355,188); -- Tupsimati 90 - Omniscience
 INSERT INTO `item_mods` VALUES (19632,8,17);
 INSERT INTO `item_mods` VALUES (19632,355,14); -- Verethragna 95 - Victory Smite
+INSERT INTO `item_mods` VALUES (19632,584,15); -- Victory Smite WS DMG +15%
 INSERT INTO `item_mods` VALUES (19633,9,17);
 INSERT INTO `item_mods` VALUES (19633,355,31); -- Twashtar 95 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (19633,601,15); -- Rudra's Storm WS DMG +15%
 INSERT INTO `item_mods` VALUES (19634,9,17);
 INSERT INTO `item_mods` VALUES (19634,355,225); -- Almace 95 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (19634,795,15); -- Chant du Cygne WS DMG +15%
 INSERT INTO `item_mods` VALUES (19635,10,17);
 INSERT INTO `item_mods` VALUES (19635,355,59); -- Caladbolg 95 - Torcleaver
+INSERT INTO `item_mods` VALUES (19635,629,15); -- Torcleaver WS DMG +15%
 INSERT INTO `item_mods` VALUES (19636,8,11);
 INSERT INTO `item_mods` VALUES (19636,13,11);
 INSERT INTO `item_mods` VALUES (19636,355,76); -- Farsha 95 - Cloudsplitter
 INSERT INTO `item_mods` VALUES (19637,8,17);
 INSERT INTO `item_mods` VALUES (19637,355,92); -- Ukonvasara 95 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (19637,662,15); -- Ukko's Fury WS DMG +15%
 INSERT INTO `item_mods` VALUES (19638,8,11);
 INSERT INTO `item_mods` VALUES (19638,13,11);
 INSERT INTO `item_mods` VALUES (19638,355,108); -- Redemption 95 - Quietus
@@ -23837,97 +23860,91 @@ INSERT INTO `item_mods` VALUES (19639,10,17);
 INSERT INTO `item_mods` VALUES (19639,355,124); -- Rhongomiant 95 -- Camlann's Torment
 INSERT INTO `item_mods` VALUES (19640,11,17);
 INSERT INTO `item_mods` VALUES (19640,355,140); -- Kannagi 95 - Blade Hi
+INSERT INTO `item_mods` VALUES (19640,710,15); -- Blade Hi WS DMG +15%
 INSERT INTO `item_mods` VALUES (19641,8,17);
 INSERT INTO `item_mods` VALUES (19641,355,156); -- Masamune 95 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (19641,696,15); -- Tachi Fudo WS DMG +15%
 INSERT INTO `item_mods` VALUES (19642,2,80);      -- Gambanteinn (Level 95): HP +80
 INSERT INTO `item_mods` VALUES (19642,5,80);      -- MP +80
 INSERT INTO `item_mods` VALUES (19642,355,173);   -- Dagan
-INSERT INTO `item_mods` VALUES (19643,5,140);
+INSERT INTO `item_mods` VALUES (19643,5,140); -- Mp +150
 INSERT INTO `item_mods` VALUES (19643,355,190); -- Hvergelmir 95 - Myrkr
 INSERT INTO `item_mods` VALUES (19644,9,17);
 INSERT INTO `item_mods` VALUES (19644,355,202); -- Gandiva 95 - Jishnu's Raidance
-INSERT INTO `item_mods` VALUES (19645,11,17);
+INSERT INTO `item_mods` VALUES (19644,772,15); -- Jishnu's Raidance WS DMG +15%
+INSERT INTO `item_mods` VALUES (19645,11,17); -- AGI +17
 INSERT INTO `item_mods` VALUES (19645,355,220); -- Armageddon 95 - Wildfire
-INSERT INTO `item_mods` VALUES (19710,288,25);
-INSERT INTO `item_mods` VALUES (19710,302,5);
 INSERT INTO `item_mods` VALUES (19710,355,90); -- Conqueror 95 - King's Justice
-INSERT INTO `item_mods` VALUES (19711,288,25);
-INSERT INTO `item_mods` VALUES (19711,302,5);
+INSERT INTO `item_mods` VALUES (19710,660,15); -- King's Justice WS DMG +15%
 INSERT INTO `item_mods` VALUES (19711,355,11); -- Glanzfaust 95 - Ascetic's Fury
-INSERT INTO `item_mods` VALUES (19712,30,20);
-INSERT INTO `item_mods` VALUES (19712,288,25);
-INSERT INTO `item_mods` VALUES (19712,302,5);
+INSERT INTO `item_mods` VALUES (19711,581,15); -- Ascetic's Fury WS DMG +15%
+INSERT INTO `item_mods` VALUES (19712,30,20); -- Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19712,355,171); -- Yagrush 95 - Mystic Boon
-INSERT INTO `item_mods` VALUES (19712,524,1);
-INSERT INTO `item_mods` VALUES (19713,25,30);
-INSERT INTO `item_mods` VALUES (19713,28,50);
-INSERT INTO `item_mods` VALUES (19713,30,10);
-INSERT INTO `item_mods` VALUES (19713,288,25);
-INSERT INTO `item_mods` VALUES (19713,302,5);
+INSERT INTO `item_mods` VALUES (19712,524,1); -- Divine Veil
+INSERT INTO `item_mods` VALUES (19712,741,15); -- Mystic Boon WS DMG +15%
+INSERT INTO `item_mods` VALUES (19713,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19713,28,50); -- Magic Attack Bonus +50
+INSERT INTO `item_mods` VALUES (19713,30,10); -- Magic Accuracy +10
 INSERT INTO `item_mods` VALUES (19713,355,186); -- Laevateinn 95 - Vidohunir
 INSERT INTO `item_mods` VALUES (19714,30,25);     -- Murgleis (Level 95): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19714,355,44);    -- Death Blossom
 INSERT INTO `item_mods` VALUES (19714,525,2);     -- Augments Convert 1:2
+INSERT INTO `item_mods` VALUES (19714,614,15);    -- Death Blossom WS DMG +15%
 INSERT INTO `item_mods` VALUES (19715,355,27);    -- Vajra (Level 95): Mandalic Stab
+INSERT INTO `item_mods` VALUES (19715,597,15);    -- Mandalic Stab WS DMG +15%
 INSERT INTO `item_mods` VALUES (19715,526,25);    -- Enhances Sneak Attack effect +25%
 INSERT INTO `item_mods` VALUES (19715,527,25);    -- Enhances Trick Attack effect +25%
-INSERT INTO `item_mods` VALUES (19716,27,16);
-INSERT INTO `item_mods` VALUES (19716,161,-16);
-INSERT INTO `item_mods` VALUES (19716,288,25);
-INSERT INTO `item_mods` VALUES (19716,302,5);
+INSERT INTO `item_mods` VALUES (19716,27,16); -- Emnity +16
+-- INSERT INTO `item_mods` VALUES (19716,161,-16); -- TO DO Change to PDT II -16%
 INSERT INTO `item_mods` VALUES (19716,355,45); -- Burtgang 95 - Atonement
+INSERT INTO `item_mods` VALUES (19716,615,15); -- Atonement WS DMG+15%
 INSERT INTO `item_mods` VALUES (19717,30,30);     -- Liberator (Level 95): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19717,355,106);   -- Insurgency
 INSERT INTO `item_mods` VALUES (19717,521,40);    -- Absorb spell potency +40%
-INSERT INTO `item_mods` VALUES (19718,288,25);
-INSERT INTO `item_mods` VALUES (19718,302,5);
+INSERT INTO `item_mods` VALUES (19717,676,15);   -- Insurgency WS DMG +15%
 INSERT INTO `item_mods` VALUES (19718,355,74); -- Aymur 95 - Primal Rend
+INSERT INTO `item_mods` VALUES (19718,644,15); -- Primal Rend WS DMG +15%
 INSERT INTO `item_mods` VALUES (19719,30,20);     -- Carnwenhan (Level 95): Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19719,355,28);    -- Mordant Rime
 INSERT INTO `item_mods` VALUES (19719,454,40);    -- Increases song effect duration +40%
+INSERT INTO `item_mods` VALUES (19719,598,15);    -- Mordant Rime WS DMG +15%
 INSERT INTO `item_mods` VALUES (19720,355,217); -- Gastraphetes 95 - Trueflight
-INSERT INTO `item_mods` VALUES (19720,365,5);
-INSERT INTO `item_mods` VALUES (19720,420,30);
+INSERT INTO `item_mods` VALUES (19720,365,5); -- Enhances "Snapshot" Effect 5
+INSERT INTO `item_mods` VALUES (19720,420,30); -- Increases Barrage Accuracy +30
+INSERT INTO `item_mods` VALUES (19720,787,15); -- Trueflight WS DMG +15%
 INSERT INTO `item_mods` VALUES (19721,355,154);   -- Kogarasumaru (Level 95): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19721,508,20);    -- Third Eye Counter rate +20%
 INSERT INTO `item_mods` VALUES (19721,839,15);    -- Third Eye Anticipate rate +15%
-INSERT INTO `item_mods` VALUES (19722,27,25);
-INSERT INTO `item_mods` VALUES (19722,30,25);
-INSERT INTO `item_mods` VALUES (19722,288,25);
-INSERT INTO `item_mods` VALUES (19722,302,5);
+INSERT INTO `item_mods` VALUES (19721,724,15);    -- Tachi Rana WS DMG +15%
+INSERT INTO `item_mods` VALUES (19722,27,25); -- Emnity +25
+INSERT INTO `item_mods` VALUES (19722,30,25); -- Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19722,355,138); -- Nagi 95 - Blade: Kamu
-INSERT INTO `item_mods` VALUES (19723,288,25);
-INSERT INTO `item_mods` VALUES (19723,302,5);
+INSERT INTO `item_mods` VALUES (19722,708,15); -- Blade: Kamu WS DMG +15%
 INSERT INTO `item_mods` VALUES (19723,355,122); -- Ryunohige 95 - Drakesbane
-INSERT INTO `item_mods` VALUES (19723,362,30);
-INSERT INTO `item_mods` VALUES (19724,25,30);
-INSERT INTO `item_mods` VALUES (19724,288,25);
-INSERT INTO `item_mods` VALUES (19724,302,5);
-INSERT INTO `item_mods` VALUES (19724,312,35);
-INSERT INTO `item_mods` VALUES (19724,346,7);
+INSERT INTO `item_mods` VALUES (19723,362,30); -- ATT bonus for jump + high jump +30
+INSERT INTO `item_mods` VALUES (19723,692,15); -- Drakesbane WS DMG +15%
+INSERT INTO `item_mods` VALUES (19724,25,30); -- Accuracy +25
+INSERT INTO `item_mods` VALUES (19724,346,7); -- -- Avatar perpetuation cost -7
 INSERT INTO `item_mods` VALUES (19724,355,187); -- Nirvana 95 - Garland of Bliss
-INSERT INTO `item_mods` VALUES (19725,30,20);
-INSERT INTO `item_mods` VALUES (19725,288,25);
-INSERT INTO `item_mods` VALUES (19725,302,5);
+INSERT INTO `item_mods` VALUES (19724,757,15); -- Garland of Bliss WS DMG +15%
+INSERT INTO `item_mods` VALUES (19725,30,20); -- Magic Accuracy +20
 INSERT INTO `item_mods` VALUES (19725,355,46); -- Tizona 95 - Expiacion
 INSERT INTO `item_mods` VALUES (19725,431,1); -- Tizona 95 - Additional Effect - scripts\globals\items\tizona.lua
+INSERT INTO `item_mods` VALUES (19725,616,15); -- Expiacion WS DMG +15%
 INSERT INTO `item_mods` VALUES (19726,355,218); -- Death Penalty 95 - Leaden Salute
-INSERT INTO `item_mods` VALUES (19726,580,40);
+INSERT INTO `item_mods` VALUES (19726,788,15); -- Leaden Salute WS damage +15%
 INSERT INTO `item_mods` VALUES (19727,173,20);
-INSERT INTO `item_mods` VALUES (19727,288,25);
-INSERT INTO `item_mods` VALUES (19727,302,5);
 INSERT INTO `item_mods` VALUES (19727,355,12); -- Kenkonken 95 - Stringing Pummel
-INSERT INTO `item_mods` VALUES (19728,288,25);
-INSERT INTO `item_mods` VALUES (19728,302,5);
+INSERT INTO `item_mods` VALUES (19727,582,15); -- Stringing Pummel WS DMG +15%
 INSERT INTO `item_mods` VALUES (19728,355,29); -- Terpsichore 95 - Pyrrhic Kleos
-INSERT INTO `item_mods` VALUES (19728,403,20);
-INSERT INTO `item_mods` VALUES (19728,494,1);
-INSERT INTO `item_mods` VALUES (19729,25,30);
-INSERT INTO `item_mods` VALUES (19729,28,35);
-INSERT INTO `item_mods` VALUES (19729,30,25);
-INSERT INTO `item_mods` VALUES (19729,288,25);
-INSERT INTO `item_mods` VALUES (19729,302,5);
+INSERT INTO `item_mods` VALUES (19728,403,20); -- Bonus Accuracy For Steps +20
+INSERT INTO `item_mods` VALUES (19728,494,1); -- Bonus Finishing Moves From Steps +1
+INSERT INTO `item_mods` VALUES (19728,599,15); -- Pyrrhic Kleos WS DMG +15%
+INSERT INTO `item_mods` VALUES (19729,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19729,28,35); -- Magic Attack Bonus +35
+INSERT INTO `item_mods` VALUES (19729,30,25); -- Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19729,355,188); -- Tupsimati 95 - Omniscience
+INSERT INTO `item_mods` VALUES (19729,758,15); -- Omniscience WS DMG +15%
 INSERT INTO `item_mods` VALUES (19730,8,5);
 INSERT INTO `item_mods` VALUES (19730,26,15);
 INSERT INTO `item_mods` VALUES (19731,11,3);
@@ -24090,17 +24107,22 @@ INSERT INTO `item_mods` VALUES (19800,26,5);
 INSERT INTO `item_mods` VALUES (19802,28,2);
 INSERT INTO `item_mods` VALUES (19805,8,20);
 INSERT INTO `item_mods` VALUES (19805,355,14); -- Verethragna 99 - Victory Smite
+INSERT INTO `item_mods` VALUES (19805,584,15); -- Victory Smite WS DMG +30%
 INSERT INTO `item_mods` VALUES (19806,9,20);
 INSERT INTO `item_mods` VALUES (19806,355,31); -- Twashtar 99 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (19806,601,15); -- Rudra's Storm WS DMG +30%
 INSERT INTO `item_mods` VALUES (19807,9,20);
 INSERT INTO `item_mods` VALUES (19807,355,225); -- Almace 99 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (19807,795,30); -- Chant du Cygne WS DMG +30%
 INSERT INTO `item_mods` VALUES (19808,10,20);
 INSERT INTO `item_mods` VALUES (19808,355,59); -- Caladbolg 99 - Torcleaver
+INSERT INTO `item_mods` VALUES (19808,629,30); -- Torcleaver WS DMG +30%
 INSERT INTO `item_mods` VALUES (19809,8,13);
 INSERT INTO `item_mods` VALUES (19809,13,13);
 INSERT INTO `item_mods` VALUES (19809,355,76); -- Farsha 99 - Cloudsplitter
 INSERT INTO `item_mods` VALUES (19810,8,20);
 INSERT INTO `item_mods` VALUES (19810,355,92); -- Ukonvasara 99 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (19810,662,30); -- Ukko's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (19811,8,13);
 INSERT INTO `item_mods` VALUES (19811,13,13);
 INSERT INTO `item_mods` VALUES (19811,355,108); -- Redemption 99 - Quietus
@@ -24108,95 +24130,92 @@ INSERT INTO `item_mods` VALUES (19812,10,20);
 INSERT INTO `item_mods` VALUES (19812,355,124); -- Rhongomiant 99 -- Camlann's Torment
 INSERT INTO `item_mods` VALUES (19813,11,20);
 INSERT INTO `item_mods` VALUES (19813,355,140); -- Kannagi 99 - Blade Hi
-INSERT INTO `item_mods` VALUES (19814,8,20);
+INSERT INTO `item_mods` VALUES (19813,710,30); -- Blade Hi WS DMG +30%
+INSERT INTO `item_mods` VALUES (19814,8,20); -- STR +20
 INSERT INTO `item_mods` VALUES (19814,355,156); -- Masamune 99 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (19814,696,30); -- Tachi Fudo WS DMG +30%
 INSERT INTO `item_mods` VALUES (19815,2,90);      -- Gambanteinn (Level 99): HP +90
 INSERT INTO `item_mods` VALUES (19815,5,90);      -- MP +90
 INSERT INTO `item_mods` VALUES (19815,355,173);   -- Dagan
-INSERT INTO `item_mods` VALUES (19816,5,150);
+INSERT INTO `item_mods` VALUES (19816,5,150); -- MP +150
 INSERT INTO `item_mods` VALUES (19816,355,190); -- Hvergelmir 99 - Myrkr
-INSERT INTO `item_mods` VALUES (19817,9,20);
+INSERT INTO `item_mods` VALUES (19817,9,20); -- Dex +20
 INSERT INTO `item_mods` VALUES (19817,355,202); -- Gandiva 99 - Jishnu's Raidance
-INSERT INTO `item_mods` VALUES (19818,11,20);
+INSERT INTO `item_mods` VALUES (19817,772,30); -- Jishnu's Raidance WS DMG +30%
+INSERT INTO `item_mods` VALUES (19818,11,20); -- AGI +20
 INSERT INTO `item_mods` VALUES (19818,355,220); -- Armageddon 99 - Wildfire
-INSERT INTO `item_mods` VALUES (19819,288,30);
-INSERT INTO `item_mods` VALUES (19819,302,10);
 INSERT INTO `item_mods` VALUES (19819,355,90); -- Conqueror 99 - King's Justice
-INSERT INTO `item_mods` VALUES (19820,288,25);
-INSERT INTO `item_mods` VALUES (19820,302,10);
+INSERT INTO `item_mods` VALUES (19819,660,30); -- King's Justice WS DMG +30%
 INSERT INTO `item_mods` VALUES (19820,355,11); -- Glanzfaust 99 - Ascetic's Fury
-INSERT INTO `item_mods` VALUES (19821,30,25);
-INSERT INTO `item_mods` VALUES (19821,288,30);
-INSERT INTO `item_mods` VALUES (19821,302,10);
+INSERT INTO `item_mods` VALUES (19820,581,30); -- Ascetic's Fury WS DMG +30%
+INSERT INTO `item_mods` VALUES (19821,30,25); -- Magic Accuracy
 INSERT INTO `item_mods` VALUES (19821,355,171); -- Yagrush 99 - Mystic Boon
-INSERT INTO `item_mods` VALUES (19821,524,1);
-INSERT INTO `item_mods` VALUES (19822,25,30);
-INSERT INTO `item_mods` VALUES (19822,28,60);
-INSERT INTO `item_mods` VALUES (19822,30,10);
-INSERT INTO `item_mods` VALUES (19822,288,30);
-INSERT INTO `item_mods` VALUES (19822,302,10);
+INSERT INTO `item_mods` VALUES (19821,741,30); -- Mystic Boon WS DMG +30%
+INSERT INTO `item_mods` VALUES (19821,524,1); -- Divine Veil
+INSERT INTO `item_mods` VALUES (19822,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19822,28,60); -- Magic Attack Bonus 60
+INSERT INTO `item_mods` VALUES (19822,30,10); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19822,355,186); -- Laevateinn 99 - Vidohunir
+INSERT INTO `item_mods` VALUES (19822,411,30); -- Vidohunir WS DMG +30%
 INSERT INTO `item_mods` VALUES (19823,30,30);     -- Murgleis (Level 99): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19823,355,44);    -- Death Blossom
 INSERT INTO `item_mods` VALUES (19823,525,3);     -- Augments Convert 1:3
+INSERT INTO `item_mods` VALUES (19823,614,30);    -- Death Blossom WS DMG +30%
 INSERT INTO `item_mods` VALUES (19824,355,27);    -- Vajra (Level 99): Mandalic Stab
+INSERT INTO `item_mods` VALUES (19824,597,30);    -- Mandalic Stab WS DMG +30%
 INSERT INTO `item_mods` VALUES (19824,526,30);    -- Enhances Sneak Attack effect +30%
 INSERT INTO `item_mods` VALUES (19824,527,30);    -- Enhances Trick Attack effect +30%
-INSERT INTO `item_mods` VALUES (19825,27,18);
-INSERT INTO `item_mods` VALUES (19825,161,-18);
-INSERT INTO `item_mods` VALUES (19825,288,30);
-INSERT INTO `item_mods` VALUES (19825,302,10);
+INSERT INTO `item_mods` VALUES (19825,27,18); -- Emnity +18
+-- INSERT INTO `item_mods` VALUES (19825,161,-18); -- TO DO Change to PDT II -18% 
 INSERT INTO `item_mods` VALUES (19825,355,45); -- Burtgang 99 - Atonement
+INSERT INTO `item_mods` VALUES (19825,615,30); -- Atonement WS DMG +30%
 INSERT INTO `item_mods` VALUES (19826,30,35);     -- Liberator (Level 99): Magic Accuracy+35
 INSERT INTO `item_mods` VALUES (19826,355,106);   -- Insurgency
 INSERT INTO `item_mods` VALUES (19826,521,50);    -- Absorb spell potency +50%
-INSERT INTO `item_mods` VALUES (19827,288,30);
-INSERT INTO `item_mods` VALUES (19827,302,10);
+INSERT INTO `item_mods` VALUES (19826,676,30);   -- Insurgency WS DMG +30%
 INSERT INTO `item_mods` VALUES (19827,355,74); -- Aymur 99 - Primal Rend
+INSERT INTO `item_mods` VALUES (19827,644,30); -- Primal Rend WS DMG +30%
 INSERT INTO `item_mods` VALUES (19828,30,25);     -- Carnwenhan (Level 99): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19828,355,28);    -- Mordant Rime
 INSERT INTO `item_mods` VALUES (19828,454,50);    -- Increases song effect duration +50%
+INSERT INTO `item_mods` VALUES (19828,598,30);    -- Mordant Rime WS DMG +30%
 INSERT INTO `item_mods` VALUES (19829,355,217); -- Gastraphetes 99 - Trueflight
-INSERT INTO `item_mods` VALUES (19829,365,5);
-INSERT INTO `item_mods` VALUES (19829,420,35);
+INSERT INTO `item_mods` VALUES (19829,365,5); -- Enhances "Snapshot" Effect +5
+INSERT INTO `item_mods` VALUES (19829,420,35); -- Increases Barrage Accuracy +35
+INSERT INTO `item_mods` VALUES (19829,787,30); -- Trueflight WS DMG +30%
 INSERT INTO `item_mods` VALUES (19830,355,154);   -- Kogarasumaru (Level 99): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19830,508,25);    -- Third Eye Counter rate +25%
 INSERT INTO `item_mods` VALUES (19830,839,15);    -- Third Eye Anticipate rate +15%
-INSERT INTO `item_mods` VALUES (19831,27,30);
-INSERT INTO `item_mods` VALUES (19831,30,30);
-INSERT INTO `item_mods` VALUES (19831,288,30);
-INSERT INTO `item_mods` VALUES (19831,301,10);
+INSERT INTO `item_mods` VALUES (19830,724,30);    -- Tachi Rana WS DMG +30%
+INSERT INTO `item_mods` VALUES (19831,27,30); -- Emnity +30
+INSERT INTO `item_mods` VALUES (19831,30,30); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19831,355,138); -- Nagi 99 - Blade: Kamu
-INSERT INTO `item_mods` VALUES (19832,288,30);
-INSERT INTO `item_mods` VALUES (19832,302,10);
+INSERT INTO `item_mods` VALUES (19831,708,30); -- Blade: Kamu WS DMG +30%
 INSERT INTO `item_mods` VALUES (19832,355,122); -- Ryunohige 99 - Drakesbane
-INSERT INTO `item_mods` VALUES (19832,362,35);
-INSERT INTO `item_mods` VALUES (19833,25,30);
-INSERT INTO `item_mods` VALUES (19833,288,30);
-INSERT INTO `item_mods` VALUES (19833,302,10);
-INSERT INTO `item_mods` VALUES (19833,312,40);
-INSERT INTO `item_mods` VALUES (19833,346,8);
+INSERT INTO `item_mods` VALUES (19832,692,30); -- Drakesbane WS DMG +30%
+INSERT INTO `item_mods` VALUES (19832,362,35); -- ATT bonus for jump + high jump +35
+INSERT INTO `item_mods` VALUES (19833,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19833,346,8); -- Avatar perpetuation
 INSERT INTO `item_mods` VALUES (19833,355,187); -- Nirvana 99 - Garland of Bliss
-INSERT INTO `item_mods` VALUES (19834,30,25);
-INSERT INTO `item_mods` VALUES (19834,288,30);
-INSERT INTO `item_mods` VALUES (19834,302,10);
+INSERT INTO `item_mods` VALUES (19833,757,30); -- Garland of Bliss WS DMG +30%
+INSERT INTO `item_mods` VALUES (19834,30,25); -- Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19834,355,46); -- Tizona 99 - Expiacion
 INSERT INTO `item_mods` VALUES (19834,431,1); -- Tizona 99 - Additional Effect - scripts\globals\items\tizona.lua
+INSERT INTO `item_mods` VALUES (19834,616,30); -- Expiacion WS DMG +30%
 INSERT INTO `item_mods` VALUES (19835,355,218); -- Death Penalty 99 - Leaden Salute
-INSERT INTO `item_mods` VALUES (19836,173,20);
-INSERT INTO `item_mods` VALUES (19836,302,10);
+INSERT INTO `item_mods` VALUES (19635,788,30); -- Leaden Salute WS damage +30%
+INSERT INTO `item_mods` VALUES (19836,173,20); -- Hand-to-Hand Delay +20
 INSERT INTO `item_mods` VALUES (19836,355,12); -- Kenkonken 99 - Stringing Pummel
-INSERT INTO `item_mods` VALUES (19837,288,30);
-INSERT INTO `item_mods` VALUES (19837,302,10);
+INSERT INTO `item_mods` VALUES (19836,582,30); -- Stringing Pummel WS DMG +30%
 INSERT INTO `item_mods` VALUES (19837,355,29); -- Terpsichore 99 - Pyrrhic Kleos
-INSERT INTO `item_mods` VALUES (19837,403,25);
-INSERT INTO `item_mods` VALUES (19837,494,1);
-INSERT INTO `item_mods` VALUES (19838,25,30);
-INSERT INTO `item_mods` VALUES (19838,28,40);
-INSERT INTO `item_mods` VALUES (19838,30,30);
-INSERT INTO `item_mods` VALUES (19838,288,25);
-INSERT INTO `item_mods` VALUES (19838,302,5);
+INSERT INTO `item_mods` VALUES (19837,403,25); -- Bonus Accuracy For Steps +25
+INSERT INTO `item_mods` VALUES (19837,494,1); -- Bonus Finishing Moves From Steps +1
+INSERT INTO `item_mods` VALUES (19837,599,30); -- Pyrrhic Kleos WS DMG +30%
+INSERT INTO `item_mods` VALUES (19838,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19838,28,40); -- Magic Attack Bonus +40
+INSERT INTO `item_mods` VALUES (19838,30,30); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19838,355,188); -- Tupsimati 99 - Omniscience
+INSERT INTO `item_mods` VALUES (19838,758,30); -- Omniscience WS DMG +30%
 INSERT INTO `item_mods` VALUES (19839,23,40); -- Spharai LV99 AG -- ATT +40
 INSERT INTO `item_mods` VALUES (19839,291,14); -- Counter +14
 INSERT INTO `item_mods` VALUES (19839,355,10); -- Final Heaven
@@ -24283,56 +24302,88 @@ INSERT INTO `item_mods` VALUES (19852,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (19852,770,40); -- Namas Arrow DMG +40%
 INSERT INTO `item_mods` VALUES (19853,8,20);
 INSERT INTO `item_mods` VALUES (19853,355,14); -- Verethragna 99 - Victory Smite
+INSERT INTO `item_mods` VALUES (19853,584,15); -- Victory Smite WS DMG +30%
 INSERT INTO `item_mods` VALUES (19854,355,31); -- Twashtar 99 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (19854,601,15); -- Rudra's Storm WS DMG +30%
+INSERT INTO `item_mods` VALUES (19854,9,20); -- DEX +20
 INSERT INTO `item_mods` VALUES (19855,355,225); -- Almace 99 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (19855,795,30); -- Chant du Cygne WS DMG +30%
 INSERT INTO `item_mods` VALUES (19856,355,59); -- Caladbolg 99 - Torcleaver
+INSERT INTO `item_mods` VALUES (19856,629,30); -- Torcleaver WS DMG +30%
 INSERT INTO `item_mods` VALUES (19857,355,76); -- Farsha 99 - Cloudsplitter
 INSERT INTO `item_mods` VALUES (19858,355,92); -- Ukonvasara 99 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (19858,662,30); -- Ukko's Fury WS DMG +30%
+INSERT INTO `item_mods` VALUES (19858,8,20); -- STR +20
 INSERT INTO `item_mods` VALUES (19859,8,13);
 INSERT INTO `item_mods` VALUES (19859,13,13);
 INSERT INTO `item_mods` VALUES (19859,355,108); -- Redemption 99 - Quietus
 INSERT INTO `item_mods` VALUES (19860,355,124); -- Rhongomiant 99 -- Camlann's Torment
 INSERT INTO `item_mods` VALUES (19861,355,140); -- Kannagi 99 - Blade Hi
+INSERT INTO `item_mods` VALUES (19861,710,30); -- Blade Hi WS DMG +30%
+INSERT INTO `item_mods` VALUES (19861,11,20); -- AGL +20
 INSERT INTO `item_mods` VALUES (19862,355,156); -- Masamune 99 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (19862,696,30); -- Tachi Fudo WS DMG +30%
 INSERT INTO `item_mods` VALUES (19863,2,90);      -- Gambanteinn (Level 99 II): HP +90
 INSERT INTO `item_mods` VALUES (19863,5,90);      -- MP +90
 INSERT INTO `item_mods` VALUES (19863,355,173);   -- Dagan
 INSERT INTO `item_mods` VALUES (19864,355,190); -- Hvergelmir 99 - Myrkr
 INSERT INTO `item_mods` VALUES (19865,355,202); -- Gandiva 99 - Jishnu's Raidance
+INSERT INTO `item_mods` VALUES (19865,772,30); -- Jishnu's Raidance WS DMG +30%
 INSERT INTO `item_mods` VALUES (19866,355,220); -- Armageddon 99 - Wildfire
 INSERT INTO `item_mods` VALUES (19936,288,30);
 INSERT INTO `item_mods` VALUES (19948,355,90); -- Conqueror 99 - King's Justice
+INSERT INTO `item_mods` VALUES (19948,660,30); -- King's Justice WS DMG +30%
 INSERT INTO `item_mods` VALUES (19949,355,11); -- Glanzfaust 99 - Ascetic's Fury
+INSERT INTO `item_mods` VALUES (19949,581,30); -- Ascetic's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (19950,355,171); -- Yagrush 99 - Mystic Boon
+INSERT INTO `item_mods` VALUES (19950,741,30); -- Mystic Boon WS DMG +30%
 INSERT INTO `item_mods` VALUES (19951,355,186); -- Laevateinn 99 - Vidohunir
 INSERT INTO `item_mods` VALUES (19952,30,30);     -- Murgleis (Level 99 II): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19952,355,44);    -- Death Blossom
+INSERT INTO `item_mods` VALUES (19952,614,30);    -- Death Blossom WS DMG +30%
 INSERT INTO `item_mods` VALUES (19952,525,3);     -- Augments Convert 1:3
 INSERT INTO `item_mods` VALUES (19953,355,27);    -- Vajra (Level 99 II): Mandalic Stab
+INSERT INTO `item_mods` VALUES (19953,597,30);    -- Mandalic Stab WS DMG +30%
 INSERT INTO `item_mods` VALUES (19953,526,30);    -- Enhances Sneak Attack effect +30%
 INSERT INTO `item_mods` VALUES (19953,527,30);    -- Enhances Trick Attack effect +30%
 INSERT INTO `item_mods` VALUES (19954,355,45); -- Burtgang 99 - Atonement
+INSERT INTO `item_mods` VALUES (19954,615,30); -- Atonement WS DMG +30%
 INSERT INTO `item_mods` VALUES (19955,30,35);     -- Liberator (Level 99 II): Magic Accuracy +35
 INSERT INTO `item_mods` VALUES (19955,355,106);   -- Insurgency
+INSERT INTO `item_mods` VALUES (19955,676,30);   -- Insurgency WS DMG +30%
 INSERT INTO `item_mods` VALUES (19955,521,50);    -- Absorb spell potency +50%
 INSERT INTO `item_mods` VALUES (19956,355,74); -- Aymur 99 - Primal Rend
+INSERT INTO `item_mods` VALUES (19956,644,30); -- Primal Rend WS DMG +30%
 INSERT INTO `item_mods` VALUES (19957,30,25);     -- Carnwenhan (Level 99 II): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (19957,355,28);    -- Mordant Rime
+INSERT INTO `item_mods` VALUES (19957,598,30);    -- Mordant Rime WS DMG +30%
 INSERT INTO `item_mods` VALUES (19957,454,50);    -- Increases song effect duration +50%
 INSERT INTO `item_mods` VALUES (19958,355,217); -- Gastraphetes 99 - Trueflight
+INSERT INTO `item_mods` VALUES (19958,787,30); -- Trueflight WS DMG +30%
 INSERT INTO `item_mods` VALUES (19958,365,5);
 INSERT INTO `item_mods` VALUES (19958,450,35);
 INSERT INTO `item_mods` VALUES (19959,355,154);   -- Kogarasumaru (Level 99 II): Tachi: Rana
 INSERT INTO `item_mods` VALUES (19959,508,25);    -- Third Eye Counter rate +25%
 INSERT INTO `item_mods` VALUES (19959,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (19959,724,30);    -- Tachi Rana WS DMG +30%
+INSERT INTO `item_mods` VALUES (19960,27,30); -- Emnity +30
+INSERT INTO `item_mods` VALUES (19960,30,30); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (19960,355,138); -- Nagi 99 - Blade: Kamu
+INSERT INTO `item_mods` VALUES (19960,708,30); -- Blade: Kamu WS DMG +30%
 INSERT INTO `item_mods` VALUES (19961,355,122); -- Ryunohige 99 - Drakesbane
+INSERT INTO `item_mods` VALUES (19961,692,30); -- Drakesbane WS DMG +30%
+INSERT INTO `item_mods` VALUES (19962,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (19962,346,8); -- -- Avatar perpetuation cost -8
 INSERT INTO `item_mods` VALUES (19962,355,187); -- Nirvana 99 - Garland of Bliss
+INSERT INTO `item_mods` VALUES (19962,757,30); -- Garland of Bliss WS DMG +30%
 INSERT INTO `item_mods` VALUES (19963,355,46); -- Tizona 99 - Expiacion
-INSERT INTO `item_mods` VALUES (19963,431,1); -- Tizona 99
+INSERT INTO `item_mods` VALUES (19963,431,1); -- Tizona 99 Absorb MP
+INSERT INTO `item_mods` VALUES (19963,616,30); -- Expiacion WS DMG +30%
 INSERT INTO `item_mods` VALUES (19964,355,218); -- Death Penalty 99 - Leaden Salute
 INSERT INTO `item_mods` VALUES (19965,355,12); -- Kenkonken 99 - Stringing Pummel
+INSERT INTO `item_mods` VALUES (19965,582,30); -- Stringing Pummel WS DMG +30%
 INSERT INTO `item_mods` VALUES (19966,355,29); -- Terpsichore 99 - Pyrrhic Kleos
+INSERT INTO `item_mods` VALUES (19966,599,30); -- Pyrrhic Kleos WS DMG +30%
 INSERT INTO `item_mods` VALUES (19967,355,188); -- Tupsimati 99 - Omniscience
 INSERT INTO `item_mods` VALUES (20480,23,40); -- Spharai iLvL 119 - ATT +40
 INSERT INTO `item_mods` VALUES (20480,291,14); -- Counter +14
@@ -24346,18 +24397,20 @@ INSERT INTO `item_mods` VALUES (20481,355,10); -- Final Heaven
 INSERT INTO `item_mods` VALUES (20481,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20481,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (20481,580,40);  -- Final Heaven DMG +40%
-INSERT INTO `item_mods` VALUES (20482,302,15);
 INSERT INTO `item_mods` VALUES (20482,355,11); -- Glanzfaust iLvL 119 - Ascetic's Fury
-INSERT INTO `item_mods` VALUES (20483,302,15);
+INSERT INTO `item_mods` VALUES (20482,581,30); -- Ascetic's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (20483,355,11); -- Glanzfaust iLvL 119 - Ascetic's Fury
+INSERT INTO `item_mods` VALUES (20483,581,30); -- Ascetic's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (20484,355,12); -- Kenkonken iLvL 119 - Stringing Pummel
-INSERT INTO `item_mods` VALUES (20485,173,20);
-INSERT INTO `item_mods` VALUES (20485,302,15);
+INSERT INTO `item_mods` VALUES (20484,582,30); -- Stringing Pummel WS DMG +30%
 INSERT INTO `item_mods` VALUES (20485,355,12); -- Kenkonken iLvL 119 - Stringing Pummel
+INSERT INTO `item_mods` VALUES (20485,582,30); -- Stringing Pummel WS DMG +30%
 INSERT INTO `item_mods` VALUES (20486,8,20);
 INSERT INTO `item_mods` VALUES (20486,355,14); -- Verethragna iLvL 119 - Victory Smite
+INSERT INTO `item_mods` VALUES (20486,584,30); -- Victory Smite WS DMG +30%
 INSERT INTO `item_mods` VALUES (20487,8,20);
 INSERT INTO `item_mods` VALUES (20487,355,14); -- Verethragna iLvL 119 - Victory Smite
+INSERT INTO `item_mods` VALUES (20487,584,30); -- Victory Smite WS DMG +30%
 INSERT INTO `item_mods` VALUES (20509,23,60);     -- Spharai (iLvl 119 III): Attack +60
 INSERT INTO `item_mods` VALUES (20509,291,14);    -- Counter +14
 INSERT INTO `item_mods` VALUES (20509,355,10);    -- Final Heaven
@@ -24365,8 +24418,12 @@ INSERT INTO `item_mods` VALUES (20509,506,130);   -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20509,507,300);   -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (20509,580,40);    -- Final Heaven DMG +40%
 INSERT INTO `item_mods` VALUES (20510,355,11); -- Glanzfaust iLvL 119 - Ascetic's Fury
+INSERT INTO `item_mods` VALUES (20510,581,30); -- Ascetic's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (20511,355,12); -- Kenkonken iLvL 119 - Stringing Pummel
+INSERT INTO `item_mods` VALUES (20511,582,30); -- Stringing Pummel WS DMG +30%
 INSERT INTO `item_mods` VALUES (20512,355,14); -- Verethragna iLvL 119 - Victory Smite
+INSERT INTO `item_mods` VALUES (20512,584,30); -- Victory Smite WS DMG +30%
+INSERT INTO `item_mods` VALUES (20512,8,50); -- STR +50
 INSERT INTO `item_mods` VALUES (20515,73,10); -- iLvl 119 Godhands - STP+10
 INSERT INTO `item_mods` VALUES (20515,345,500); -- TP Bonus +500
 INSERT INTO `item_mods` VALUES (20516,25,25); -- Denouements: Accuracy+25
@@ -24423,36 +24480,50 @@ INSERT INTO `item_mods` VALUES (20556,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20556,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (20556,596,40); -- Mercy Stroke DMG +40%
 INSERT INTO `item_mods` VALUES (20557,355,29); -- Terpsichore iLvL 119 - Pyrrhic Kleos
-INSERT INTO `item_mods` VALUES (20558,203,15);
+INSERT INTO `item_mods` VALUES (20557,403,30); -- Bonus Accuracy For Steps +30
+INSERT INTO `item_mods` VALUES (20557,494,2); -- Bonus Finishing Moves From Steps +2
+INSERT INTO `item_mods` VALUES (20557,599,30); -- Pyrrhic Kleos WS DMG +30%
 INSERT INTO `item_mods` VALUES (20558,355,29); -- Terpsichore iLvL 119 - Pyrrhic Kleos
-INSERT INTO `item_mods` VALUES (20558,403,30);
-INSERT INTO `item_mods` VALUES (20558,494,2);
+INSERT INTO `item_mods` VALUES (20558,403,30); -- Bonus Accuracy For Steps +30
+INSERT INTO `item_mods` VALUES (20558,494,2); -- Bonus Finishing Moves From Steps +2
+INSERT INTO `item_mods` VALUES (20558,599,30); -- Pyrrhic Kleos WS DMG +30%
 INSERT INTO `item_mods` VALUES (20559,355,27);    -- Vajra (iLvl 119): Mandalic Stab
 INSERT INTO `item_mods` VALUES (20559,526,30);    -- Enhances Sneak Attack effect +30%
 INSERT INTO `item_mods` VALUES (20559,527,30);    -- Enhances Trick Attack effect +30%
+INSERT INTO `item_mods` VALUES (20559,597,30);    -- Mandalic Stab WS DMG +30%
 INSERT INTO `item_mods` VALUES (20560,355,27);    -- Vajra (iLvl 119 II): Mandalic Stab
 INSERT INTO `item_mods` VALUES (20560,526,30);    -- Enhances Sneak Attack effect +30%
 INSERT INTO `item_mods` VALUES (20560,527,30);    -- Enhances Trick Attack effect +30%
+INSERT INTO `item_mods` VALUES (20560,597,30);    -- Mandalic Stab WS DMG +30%
 INSERT INTO `item_mods` VALUES (20561,30,25);     -- Carnwenhan (iLvl 119): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (20561,355,28);    -- Mordant Rime
+INSERT INTO `item_mods` VALUES (20561,598,30);    -- Mordant Rime WS DMG +30%
 INSERT INTO `item_mods` VALUES (20561,454,50);    -- Increases song effect duration +50%
 INSERT INTO `item_mods` VALUES (20562,30,25);     -- Carnwenhan (iLvl 119 II): Magic Accuracy +25
 INSERT INTO `item_mods` VALUES (20562,355,28);    -- Mordant Rime
 INSERT INTO `item_mods` VALUES (20562,454,50);    -- Increases song effect duration +50%
+INSERT INTO `item_mods` VALUES (20562,598,30);    -- Mordant Rime WS DMG +30%
 INSERT INTO `item_mods` VALUES (20563,9,20);
 INSERT INTO `item_mods` VALUES (20563,355,31); -- Twashtar iLvL 119 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (20563,601,30); -- Rudra's Storm WS DMG +30%
 INSERT INTO `item_mods` VALUES (20564,9,20);
 INSERT INTO `item_mods` VALUES (20564,355,31); -- Twashtar iLvL 119 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (20564,601,30); -- Rudra's Storm WS DMG +30%
 INSERT INTO `item_mods` VALUES (20583,355,26); -- Mandau iLvL 119 - Mercy Stroke
 INSERT INTO `item_mods` VALUES (20584,355,29); -- Terpsichore iLvL 119 - Pyrrhic Kleos
+INSERT INTO `item_mods` VALUES (20584,599,30); -- Pyrrhic Kleos WS DMG +30%
 INSERT INTO `item_mods` VALUES (20585,355,27);    -- Vajra (iLvL 119 III): Mandalic Stab
+INSERT INTO `item_mods` VALUES (20585,597,30);    -- Mandalic Stab WS DMG +30%
 INSERT INTO `item_mods` VALUES (20585,526,30);    -- Enhances Sneak Attack effect +30%
 INSERT INTO `item_mods` VALUES (20585,527,30);    -- Enhances Trick Attack effect +30%
 INSERT INTO `item_mods` VALUES (20586,30,40);     -- Carnwenhan (iLvl 119 III): Magic Accuracy +40
 INSERT INTO `item_mods` VALUES (20586,311,155);   -- Magic Damage +155
 INSERT INTO `item_mods` VALUES (20586,355,28);    -- Mordant Rime
+INSERT INTO `item_mods` VALUES (20586,598,30);    -- Mordant Rime WS DMG +30%
 INSERT INTO `item_mods` VALUES (20586,454,50);    -- Increases song effect duration +50%
 INSERT INTO `item_mods` VALUES (20587,355,31); -- Twashtar iLvL 119 - Rudra's Storm
+INSERT INTO `item_mods` VALUES (20587,601,30); -- Rudra's Storm WS DMG +30%
+INSERT INTO `item_mods` VALUES (20587,9,50); -- DEX +50
 INSERT INTO `item_mods` VALUES (20594,73,10);     -- Aeneas (iLvl 119): Store TP +10
 INSERT INTO `item_mods` VALUES (20594,311,155);   -- Magic Damage +155
 INSERT INTO `item_mods` VALUES (20594,345,500);   -- TP Bonus +500
@@ -24536,41 +24607,47 @@ INSERT INTO `item_mods` VALUES (20646,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (20646,613,40); -- Knights of the Round DMG +40%
 INSERT INTO `item_mods` VALUES (20647,30,30);     -- Murgleis (iLvl 119): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (20647,355,44);    -- Death Blossom
+INSERT INTO `item_mods` VALUES (20647,614,30);    -- Death Blossom WS DMG +30%
 INSERT INTO `item_mods` VALUES (20647,525,3);     -- Augments Convert 1:3
 INSERT INTO `item_mods` VALUES (20648,30,30);     -- Murgleis (iLvl 119 II): Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (20648,355,44);    -- Death Blossom
+INSERT INTO `item_mods` VALUES (20648,614,30);    -- Death Blossom WS DMG +30%
 INSERT INTO `item_mods` VALUES (20648,525,3);     -- Augments Convert 1:3
-INSERT INTO `item_mods` VALUES (20649,27,18);
-INSERT INTO `item_mods` VALUES (20649,161,-18);
-INSERT INTO `item_mods` VALUES (20649,302,15);
+INSERT INTO `item_mods` VALUES (20649,27,18); -- Emnity +18
+-- INSERT INTO `item_mods` VALUES (20649,161,-18);  -- TO DO Change to PDT II -18% 
 INSERT INTO `item_mods` VALUES (20649,355,45); -- Burtgang iLvL 119 - Atonement
-INSERT INTO `item_mods` VALUES (20650,27,18);
-INSERT INTO `item_mods` VALUES (20650,161,-18);
-INSERT INTO `item_mods` VALUES (20650,302,15);
-INSERT INTO `item_mods` VALUES (20650,355,45); -- Burtgang iLvL 119 - Atonement
-INSERT INTO `item_mods` VALUES (20651,302,15);
+INSERT INTO `item_mods` VALUES (20649,615,30); -- Atonement WS DMG +30%
+INSERT INTO `item_mods` VALUES (20650,27,18); -- Emnity +18
+-- INSERT INTO `item_mods` VALUES (20650,161,-18); -- TO DO Change to PDT II -18% 
+INSERT INTO `item_mods` VALUES (20650,355,45); -- Burtgang iLvL 119 - Atonement 
+INSERT INTO `item_mods` VALUES (20650,615,30); -- Atonement WS DMG +30%
 INSERT INTO `item_mods` VALUES (20651,355,46); -- Tizona iLvL 119 - Expiacion
 INSERT INTO `item_mods` VALUES (20651,431,1); -- Tizona iLvL 119 -
-INSERT INTO `item_mods` VALUES (20652,302,15);
+INSERT INTO `item_mods` VALUES (20651,616,30); -- Expiacion WS DMG +30%
 INSERT INTO `item_mods` VALUES (20652,355,46); -- Tizona iLvL 119 - Expiacion
 INSERT INTO `item_mods` VALUES (20652,431,1); -- Tizona iLvL 119 -
+INSERT INTO `item_mods` VALUES (20652,616,30); -- Expiacion WS DMG +30%
 INSERT INTO `item_mods` VALUES (20653,9,20);
 INSERT INTO `item_mods` VALUES (20653,355,225); -- Almace iLvL 119 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (20653,795,30); -- Chant du Cygne WS DMG +30%
 INSERT INTO `item_mods` VALUES (20654,9,20);
 INSERT INTO `item_mods` VALUES (20654,355,225); -- Almace iLvL 119 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (20654,795,30); -- Chant du Cygne WS DMG +30%
 INSERT INTO `item_mods` VALUES (20685,355,43); -- Excalibur iLvL 119 - Knights of the Round
 INSERT INTO `item_mods` VALUES (20686,30,40);     -- Murgleis (iLvl 119 III): Magic Accuracy +40
 INSERT INTO `item_mods` VALUES (20686,311,217);   -- Magic Damage +217
 INSERT INTO `item_mods` VALUES (20686,355,44);    -- Death Blossom
 INSERT INTO `item_mods` VALUES (20686,525,3);     -- Augments Convert 1:3
-INSERT INTO `item_mods` VALUES (20687,355,45); -- Burtgang iLvL 119 - Atonement
-INSERT INTO `item_mods` VALUES (20687,311,186); -- Magic Damage +186
-INSERT INTO `item_mods` VALUES (20687,30,255); -- Magic Accuracy +255
 INSERT INTO `item_mods` VALUES (20687,27,23); -- Enmity +23
-INSERT INTO `item_mods` VALUES (20687,831,-18); -- Physical Damage Taken II -18%
+-- INSERT INTO `item_mods` VALUES (20687,161,-18); -- TO DO Change to PDT II -18% 
+INSERT INTO `item_mods` VALUES (20687,311,186); -- Magic Damage +186
+INSERT INTO `item_mods` VALUES (20687,355,45); -- Burtgang iLvL 119 - Atonement
+INSERT INTO `item_mods` VALUES (20687,615,30); -- Atonement WS DMG +30%
 INSERT INTO `item_mods` VALUES (20688,355,46); -- Tizona iLvL 119 - Expiacion
 INSERT INTO `item_mods` VALUES (20688,431,1); -- Tizona iLvL 119 - Additional Effect
+INSERT INTO `item_mods` VALUES (20688,616,30); -- Expiacion WS DMG +30%
 INSERT INTO `item_mods` VALUES (20689,355,225);   -- Almace iLvL 119 - Chant du Cygne
+INSERT INTO `item_mods` VALUES (20689,795,30); -- Chant du Cygne WS DMG +30%
 INSERT INTO `item_mods` VALUES (20695,73,10); -- Sequence - STP +10
 INSERT INTO `item_mods` VALUES (20695,345,500); -- TP Bonus +500
 INSERT INTO `item_mods` VALUES (20698,8,12); -- Fettering blade: STR+12
@@ -24645,8 +24722,10 @@ INSERT INTO `item_mods` VALUES (20746,507,250); -- Extra DMG X2.5
 INSERT INTO `item_mods` VALUES (20746,627,40); -- Scourge DMG +40%
 INSERT INTO `item_mods` VALUES (20747,10,20);
 INSERT INTO `item_mods` VALUES (20747,355,59); -- Caladbolg iLvL 119 - Torcleaver
+INSERT INTO `item_mods` VALUES (20747,629,30); -- Torcleaver WS DMG +30%
 INSERT INTO `item_mods` VALUES (20748,10,20);
 INSERT INTO `item_mods` VALUES (20748,355,59); -- Caladbolg iLvL 119 - Torcleaver
+INSERT INTO `item_mods` VALUES (20748,629,30); -- Torcleaver WS DMG +30%
 INSERT INTO `item_mods` VALUES (20758,8,13);
 INSERT INTO `item_mods` VALUES (20758,23,35);
 INSERT INTO `item_mods` VALUES (20758,392,30);
@@ -24693,8 +24772,9 @@ INSERT INTO `item_mods` VALUES (20791,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20791,507,250); -- Extra DMG X2.5
 INSERT INTO `item_mods` VALUES (20791,643,40); -- Onslaught DMG +40%
 INSERT INTO `item_mods` VALUES (20792,355,74); -- Aymur iLvL 119 - Primal Rend
-INSERT INTO `item_mods` VALUES (20793,302,15);
+INSERT INTO `item_mods` VALUES (20792,644,30); -- Primal Rend WS DMG +30%
 INSERT INTO `item_mods` VALUES (20793,355,74); -- Aymur iLvL 119 - Primal Rend
+INSERT INTO `item_mods` VALUES (20793,644,30); -- Primal Rend WS DMG +30%
 INSERT INTO `item_mods` VALUES (20794,8,13);
 INSERT INTO `item_mods` VALUES (20794,13,13);
 INSERT INTO `item_mods` VALUES (20794,355,76); -- Farsha iLvL 119 - Cloudsplitter
@@ -24745,14 +24825,16 @@ INSERT INTO `item_mods` VALUES (20836,431,1); -- Additional Effect - scripts\glo
 INSERT INTO `item_mods` VALUES (20836,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20836,507,200); -- Extra DMG X2
 INSERT INTO `item_mods` VALUES (20836,659,40); -- Metatron Torment DMG +40%
-INSERT INTO `item_mods` VALUES (20837,302,15);
 INSERT INTO `item_mods` VALUES (20837,355,90); -- Conqueror iLvL 119 - King's Justice
-INSERT INTO `item_mods` VALUES (20838,302,15);
+INSERT INTO `item_mods` VALUES (20837,660,30); -- King's Justice WS DMG +30%
 INSERT INTO `item_mods` VALUES (20838,355,90); -- Conqueror iLvL 119 - King's Justice
+INSERT INTO `item_mods` VALUES (20838,660,30); -- King's Justice WS DMG +30%
 INSERT INTO `item_mods` VALUES (20839,8,20);
 INSERT INTO `item_mods` VALUES (20839,355,92); -- Ukonvasara iLvL 119 - Ukko's Fury
-INSERT INTO `item_mods` VALUES (20840,8,20);
+INSERT INTO `item_mods` VALUES (20839,662,30); -- Ukko's Fury WS DMG +30%
 INSERT INTO `item_mods` VALUES (20840,355,92); -- Ukonvasara iLvL 119 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (20840,662,30); -- Ukko's Fury WS DMG +30%
+INSERT INTO `item_mods` VALUES (20840,8,20); -- STR +20
 INSERT INTO `item_mods` VALUES (20843,73,10); -- Chango - STP +10
 INSERT INTO `item_mods` VALUES (20843,345,500); -- TP Bonus +500
 INSERT INTO `item_mods` VALUES (20849,25,20); -- Blurred Cleaver - 20 Acc
@@ -24810,9 +24892,11 @@ INSERT INTO `item_mods` VALUES (20881,507,200); -- Extra DMG X2
 INSERT INTO `item_mods` VALUES (20881,675,40); -- Catastrophe DMG +40%
 INSERT INTO `item_mods` VALUES (20882,30,35);     -- Liberator (iLvl 119): Magic Accuracy +35
 INSERT INTO `item_mods` VALUES (20882,355,106);   -- Insurgency
+INSERT INTO `item_mods` VALUES (20882,676,30);   -- Insurgency WS DMG +30%
 INSERT INTO `item_mods` VALUES (20882,521,50);    -- Absorb spell potency +50%
 INSERT INTO `item_mods` VALUES (20883,30,35);     -- Liberator (iLvl 119 II): Magic Accuracy +35
 INSERT INTO `item_mods` VALUES (20883,355,106);   -- Insurgency
+INSERT INTO `item_mods` VALUES (20883,676,30);   -- Insurgency WS DMG +30%
 INSERT INTO `item_mods` VALUES (20883,521,50);    -- Absorb spell potency +50%
 INSERT INTO `item_mods` VALUES (20884,8,13);
 INSERT INTO `item_mods` VALUES (20884,13,13);
@@ -24879,9 +24963,11 @@ INSERT INTO `item_mods` VALUES (20926,506,130); -- Extra DMG Chance %13
 INSERT INTO `item_mods` VALUES (20926,507,200); -- Extra DMG X2
 INSERT INTO `item_mods` VALUES (20926,691,40); -- Geirskogul DMG +40%
 INSERT INTO `item_mods` VALUES (20927,355,122); -- Ryunohige iLvL 119 - Drakesbane
-INSERT INTO `item_mods` VALUES (20928,302,15);
+INSERT INTO `item_mods` VALUES (20927,362,35); -- ATT bonus for jump + high jump
+INSERT INTO `item_mods` VALUES (20927,692,30); -- Drakesbane WS DMG +30%
 INSERT INTO `item_mods` VALUES (20928,355,122); -- Ryunohige iLvL 119 - Drakesbane
-INSERT INTO `item_mods` VALUES (20928,362,35);
+INSERT INTO `item_mods` VALUES (20928,362,35); -- ATT bonus for jump + high jump
+INSERT INTO `item_mods` VALUES (20928,692,30); -- Drakesbane WS DMG +30%
 INSERT INTO `item_mods` VALUES (20929,10,20);
 INSERT INTO `item_mods` VALUES (20929,355,124); -- Rhongomiant iLvL 119 -- Camlann's Torment
 INSERT INTO `item_mods` VALUES (20930,10,20);
@@ -24919,14 +25005,20 @@ INSERT INTO `item_mods` VALUES (20971,431,1); -- Additional Effect - scripts\glo
 INSERT INTO `item_mods` VALUES (20971,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (20971,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (20971,707,40); -- Blade: Metsu DMG +40%
+INSERT INTO `item_mods` VALUES (20972,27,30); -- Emnity +30
+INSERT INTO `item_mods` VALUES (20972,30,30); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (20972,355,138); -- Nagi iLvL 119 - Blade: Kamu
-INSERT INTO `item_mods` VALUES (20973,27,30);
-INSERT INTO `item_mods` VALUES (20973,302,15);
+INSERT INTO `item_mods` VALUES (20972,708,30); -- Blade: Kamu WS DMG +30%
+INSERT INTO `item_mods` VALUES (20973,27,30); -- Emnity +30
+INSERT INTO `item_mods` VALUES (20973,30,30); -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (20973,355,138); -- Nagi iLvL 119 - Blade: Kamu
+INSERT INTO `item_mods` VALUES (20973,708,30); -- Blade: Kamu WS DMG +30%
 INSERT INTO `item_mods` VALUES (20974,11,20);
 INSERT INTO `item_mods` VALUES (20974,355,140); -- Kannagi iLvL 119 - Blade Hi
+INSERT INTO `item_mods` VALUES (20974,710,30); -- Blade Hi WS DMG +30%
 INSERT INTO `item_mods` VALUES (20975,11,20);
 INSERT INTO `item_mods` VALUES (20975,355,140); -- Kannagi iLvL 119 - Blade Hi
+INSERT INTO `item_mods` VALUES (20975,710,30); -- Blade Hi WS DMG +30%
 INSERT INTO `item_mods` VALUES (20977,73,10);     -- Heishi Shorinken (iLvl 119): Store TP +10
 INSERT INTO `item_mods` VALUES (20977,311,186);   -- Magic Damage +186
 INSERT INTO `item_mods` VALUES (20977,345,500);   -- TP Bonus +500
@@ -24994,15 +25086,17 @@ INSERT INTO `item_mods` VALUES (21016,723,40); -- Tachi: Kaiten DMG +40%
 INSERT INTO `item_mods` VALUES (21017,355,154);   -- Kogarasumaru (iLvl 119): Tachi: Rana
 INSERT INTO `item_mods` VALUES (21017,508,25);    -- Third Eye Counter rate +25%
 INSERT INTO `item_mods` VALUES (21017,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (21017,724,30);    -- Tachi Rana WS DMG +30%
 INSERT INTO `item_mods` VALUES (21018,355,154);   -- Kogarasumaru (iLvl 119 II): Tachi: Rana
 INSERT INTO `item_mods` VALUES (21018,508,25);    -- Third Eye Counter rate +25%
 INSERT INTO `item_mods` VALUES (21018,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (21018,724,30);    -- Tachi Rana WS DMG +30%
 INSERT INTO `item_mods` VALUES (21019,8,20);
 INSERT INTO `item_mods` VALUES (21019,355,156); -- Masamune iLvL 119 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (21019,696,30); -- Tachi Fudo WS DMG +30%
 INSERT INTO `item_mods` VALUES (21020,8,20);
 INSERT INTO `item_mods` VALUES (21020,355,156); -- Masamune iLvL 119 - Tachi Fudo
-INSERT INTO `item_mods` VALUES (21020,165,25);
-INSERT INTO `item_mods` VALUES (21020,421,50);
+INSERT INTO `item_mods` VALUES (21020,696,30); -- Tachi Fudo WS DMG +30%
 INSERT INTO `item_mods` VALUES (21025,73,10); -- Dojikiri Yasutsuna - STP +10
 INSERT INTO `item_mods` VALUES (21025,345,500); -- TP Bonus +500
 INSERT INTO `item_mods` VALUES (21028,23,25);     -- Deacon Blade (iLvl 119): Attack +25
@@ -25047,14 +25141,14 @@ INSERT INTO `item_mods` VALUES (21061,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (21061,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (21061,740,40); -- Randgrith DMG +40%
 INSERT INTO `item_mods` VALUES (21061,311,155); -- Magic DMG +155
-INSERT INTO `item_mods` VALUES (21062,302,15);
-INSERT INTO `item_mods` VALUES (21062,311,155);
+INSERT INTO `item_mods` VALUES (21062,311,155); -- Magic Damage +155
 INSERT INTO `item_mods` VALUES (21062,355,171); -- Yagrush iLvL 119 - Mystic Boon
-INSERT INTO `item_mods` VALUES (21062,524,1);
-INSERT INTO `item_mods` VALUES (21063,302,15);
-INSERT INTO `item_mods` VALUES (21063,311,155);
+INSERT INTO `item_mods` VALUES (21062,741,30); -- Mystic Boon WS DMG +30%
+INSERT INTO `item_mods` VALUES (21062,524,1); -- Diving Veil
+INSERT INTO `item_mods` VALUES (21063,311,155); -- Magic Damage +155
 INSERT INTO `item_mods` VALUES (21063,355,171); -- Yagrush iLvL 119 - Mystic Boon
-INSERT INTO `item_mods` VALUES (21063,524,1);
+INSERT INTO `item_mods` VALUES (21063,741,30); -- Mystic Boon WS DMG +30%
+INSERT INTO `item_mods` VALUES (21063,524,1); -- Divine Veil
 INSERT INTO `item_mods` VALUES (21064,2,90);      -- Gambanteinn (iLvl 119): HP +90
 INSERT INTO `item_mods` VALUES (21064,5,90);      -- MP +90
 INSERT INTO `item_mods` VALUES (21064,311,155);   -- Magic Damage +155
@@ -25065,6 +25159,7 @@ INSERT INTO `item_mods` VALUES (21065,311,155);   -- Magic Damage +155
 INSERT INTO `item_mods` VALUES (21065,355,173);   -- Dagan
 INSERT INTO `item_mods` VALUES (21077,355,170); -- Mjollnir iLvL 119 - Randgrith
 INSERT INTO `item_mods` VALUES (21078,355,171); -- Yagrush iLvL 119 - Mystic Boon
+INSERT INTO `item_mods` VALUES (21078,741,30); -- Mystic Boon WS DMG +30%
 INSERT INTO `item_mods` VALUES (21079,2,135);     -- Gambanteinn (iLvl 119 III): HP +135
 INSERT INTO `item_mods` VALUES (21079,5,135);     -- MP +135
 INSERT INTO `item_mods` VALUES (21079,310,100);   -- Cursna +100%
@@ -25168,28 +25263,32 @@ INSERT INTO `item_mods` VALUES (21136,507,250); -- Extra DMG X2.5
 INSERT INTO `item_mods` VALUES (21136,755,40); -- Gate of Tartarus DMG +40%
 INSERT INTO `item_mods` VALUES (21136,311,248); -- Magic DMG +248
 INSERT INTO `item_mods` VALUES (21137,355,188); -- Tupsimati iLvL 119 - Omniscience
-INSERT INTO `item_mods` VALUES (21138,25,30);
-INSERT INTO `item_mods` VALUES (21138,28,40);
-INSERT INTO `item_mods` VALUES (21138,311,248);
+INSERT INTO `item_mods` VALUES (21138,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (21138,28,40); -- Magic Attack Bonus +40
+INSERT INTO `item_mods` VALUES (21138,30,30); -- Magic Accuracy +30
+INSERT INTO `item_mods` VALUES (21138,311,248); -- Magic Damage +248
 INSERT INTO `item_mods` VALUES (21138,355,188); -- Tupsimati iLvL 119 - Omniscience
+INSERT INTO `item_mods` VALUES (21138,758,30); -- Omniscience WS DMG +30%
 INSERT INTO `item_mods` VALUES (21139,25,30);     -- Laevateinn (iLvl 119): Accuracy +30
 INSERT INTO `item_mods` VALUES (21139,28,60);     -- Magic Atk. Bonus +60
 INSERT INTO `item_mods` VALUES (21139,30,10);     -- Magic Accuracy +10
 INSERT INTO `item_mods` VALUES (21139,311,248);   -- Magic Damage +248
 INSERT INTO `item_mods` VALUES (21139,355,186);   -- Vidohunir
+INSERT INTO `item_mods` VALUES (21139,756,30);   -- Vidohunir WS DMG +30%
 INSERT INTO `item_mods` VALUES (21140,25,30);     -- Laevateinn (iLvl 119 II): Accuracy +30
 INSERT INTO `item_mods` VALUES (21140,28,60);     -- Magic Atk. Bonus +60
 INSERT INTO `item_mods` VALUES (21140,30,10);     -- Magic Accuracy +10
 INSERT INTO `item_mods` VALUES (21140,311,248);   -- Magic Damage +248
 INSERT INTO `item_mods` VALUES (21140,355,186);   -- Vidohunir
+INSERT INTO `item_mods` VALUES (21140,756,30);   -- Vidohunir WS DMG +30%
 INSERT INTO `item_mods` VALUES (21141,355,187); -- Nirvana iLvL 119 - Garland of Bliss
-INSERT INTO `item_mods` VALUES (21142,25,30);
-INSERT INTO `item_mods` VALUES (21142,302,15);
-INSERT INTO `item_mods` VALUES (21142,314,100);
-INSERT INTO `item_mods` VALUES (21142,346,8);
+INSERT INTO `item_mods` VALUES (21142,25,30); -- Accuracy +30
+INSERT INTO `item_mods` VALUES (21142,346,8); -- Avatar Perpetuation -8
 INSERT INTO `item_mods` VALUES (21142,355,187); -- Nirvana iLvL 119 - Garland of Bliss
-INSERT INTO `item_mods` VALUES (21143,5,150);
-INSERT INTO `item_mods` VALUES (21143,38,100);
+INSERT INTO `item_mods` VALUES (21142,757,30); -- Garland of Bliss WS DMG +30%
+INSERT INTO `item_mods` VALUES (21143,5,150); -- MP +150
+INSERT INTO `item_mods` VALUES (21143,38,100); -- Light Attack +100
+INSERT INTO `item_mods` VALUES (21143,311,248); -- Magic Damage +248
 INSERT INTO `item_mods` VALUES (21143,355,190); -- Hvergelmir iLvL 119 - Myrkr
 INSERT INTO `item_mods` VALUES (21144,5,150); -- MP+150
 INSERT INTO `item_mods` VALUES (21144,311,248); -- Magic Damage +248
@@ -25338,8 +25437,10 @@ INSERT INTO `item_mods` VALUES (21211,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (21211,770,40); -- Namas Arrow DMG +40%
 INSERT INTO `item_mods` VALUES (21212,9,20);
 INSERT INTO `item_mods` VALUES (21212,355,202); -- Gandiva iLvL 119 - Jishnu's Raidance
+INSERT INTO `item_mods` VALUES (21212,772,30); -- Jishnu's Raidance WS DMG +30%
 INSERT INTO `item_mods` VALUES (21213,9,20);
 INSERT INTO `item_mods` VALUES (21213,355,202); -- Gandiva iLvL 119 - Jishnu's Raidance
+INSERT INTO `item_mods` VALUES (21213,772,30); -- Jishnu's Raidance WS DMG +30%
 INSERT INTO `item_mods` VALUES (21217,26,20); -- Blurred Bow - 20 Racc
 INSERT INTO `item_mods` VALUES (21218,26,25); -- Blurred Bow +1 - 25 Racc
 INSERT INTO `item_mods` VALUES (21220,8,15);
@@ -25384,9 +25485,11 @@ INSERT INTO `item_mods` VALUES (21245,30,7); -- Magic Accuracy+7
 INSERT INTO `item_mods` VALUES (21245,359,5); -- Rapid Shot+5
 INSERT INTO `item_mods` VALUES (21245,38,5); -- Increases light elemental magic damage dealt (UnverifiedBonus)
 INSERT INTO `item_mods` VALUES (21246,355,217); -- Gastraphetes iLvL 119 - Trueflight
+INSERT INTO `item_mods` VALUES (21246,787,30); -- Trueflight WS DMG +30%
 INSERT INTO `item_mods` VALUES (21247,355,217); -- Gastraphetes iLvL 119 - Trueflight
-INSERT INTO `item_mods` VALUES (21247,365,20);
-INSERT INTO `item_mods` VALUES (21247,420,40);
+INSERT INTO `item_mods` VALUES (21247,365,20); -- Enhances "Snapshot" Effect 20
+INSERT INTO `item_mods` VALUES (21247,420,40); -- Increases Barrage Accuracy +40
+INSERT INTO `item_mods` VALUES (21247,787,30); -- Trueflight WS DMG +30%
 INSERT INTO `item_mods` VALUES (21249,26,12); -- Iqonde Crossbow - Ranged Accuracy +12
 INSERT INTO `item_mods` VALUES (21250,26,13); -- Iqonde Crossbow - Ranged Accuracy +13
 INSERT INTO `item_mods` VALUES (21252,26,12);
@@ -25408,13 +25511,15 @@ INSERT INTO `item_mods` VALUES (21261,506,130); -- Extra DMG Chance 13%
 INSERT INTO `item_mods` VALUES (21261,507,300); -- Extra DMG X3
 INSERT INTO `item_mods` VALUES (21261,786,40); -- Coronach DMG +40%
 INSERT INTO `item_mods` VALUES (21262,355,218); -- Death Penalty iLvL 119 - Leaden Salute
+INSERT INTO `item_mods` VALUES (21262,788,30); -- Leaden Salute WS damage +30%
 INSERT INTO `item_mods` VALUES (21263,355,218); -- Death Penalty iLvL 119 - Leaden Salute
-INSERT INTO `item_mods` VALUES (21263,580,35);
+INSERT INTO `item_mods` VALUES (21263,788,30); -- Leaden Salute WS damage +30%
 INSERT INTO `item_mods` VALUES (21264,11,20);
 INSERT INTO `item_mods` VALUES (21264,355,220); -- Armageddon iLvL 119 - Wildfire
 INSERT INTO `item_mods` VALUES (21265,11,20);
 INSERT INTO `item_mods` VALUES (21265,355,220); -- Armageddon iLvL 119 - Wildfire
 INSERT INTO `item_mods` VALUES (21266,355,217); -- Gastraphetes iLvL 119 - Trueflight
+INSERT INTO `item_mods` VALUES (21266,787,30); -- Trueflight WS DMG +30%
 INSERT INTO `item_mods` VALUES (21267,355,216); -- Annihilator iLvL 119 - Coronach
 INSERT INTO `item_mods` VALUES (21268,355,218); -- Death Penalty iLvL 119 - Leaden Salute
 INSERT INTO `item_mods` VALUES (21269,355,220); -- Armageddon iLvL 119 - Wildfire
@@ -25598,6 +25703,7 @@ INSERT INTO `item_mods` VALUES (21657,25,30);     -- Accuracy+30
 INSERT INTO `item_mods` VALUES (21657,30,30);     -- Magic Accuracy+30
 INSERT INTO `item_mods` VALUES (21683,355,57); -- Ragnarok iLvL 119 - Scourge
 INSERT INTO `item_mods` VALUES (21684,355,59); -- Caladbolg iLvL 119 - Torcleaver
+INSERT INTO `item_mods` VALUES (21684,629,30); -- Torcleaver WS DMG +30%
 INSERT INTO `item_mods` VALUES (21700,25,20); -- Blurred Claymore - 20 Acc
 INSERT INTO `item_mods` VALUES (21701,25,25); -- Blurred Claymore +1 - 25 Acc
 INSERT INTO `item_mods` VALUES (21706,2,68);      -- barbarity HP+68
@@ -25610,16 +25716,21 @@ INSERT INTO `item_mods` VALUES (21707,23,50);     -- Attack+50
 INSERT INTO `item_mods` VALUES (21707,841,8);     -- Weapon Skill Damage+8%
 INSERT INTO `item_mods` VALUES (21750,355,73); -- Guttler iLvL 119 - Onslaught
 INSERT INTO `item_mods` VALUES (21751,355,74); -- Aymur iLvL 119 - Primal Rend
+INSERT INTO `item_mods` VALUES (21751,644,30); -- Primal Rend WS DMG +30%
 INSERT INTO `item_mods` VALUES (21752,355,76); -- Farsha iLvL 119 - Cloudsplitter
 INSERT INTO `item_mods` VALUES (21753,73,10); -- Tri-edge - STP +10
 INSERT INTO `item_mods` VALUES (21753,345,500); -- TP Bonus +500
 INSERT INTO `item_mods` VALUES (21756,355,89); -- Bravura iLvL 119 - Metatron Torment
 INSERT INTO `item_mods` VALUES (21757,355,90); -- Conqueror iLvL 119 - King's Justice
+INSERT INTO `item_mods` VALUES (21757,660,30); -- King's Justice WS DMG +30%
 INSERT INTO `item_mods` VALUES (21758,355,92); -- Ukonvasara iLvL 119 - Ukko's Fury
+INSERT INTO `item_mods` VALUES (21758,662,30); -- Ukko's Fury WS DMG +30%
+INSERT INTO `item_mods` VALUES (21758,8,50); -- STR +50
 INSERT INTO `item_mods` VALUES (21808,355,105); -- Apocalypse iLvL 119 - Catastrophe
 INSERT INTO `item_mods` VALUES (21809,30,50);     -- Liberator (iLvl 119 III): Magic Accuracy +50
 INSERT INTO `item_mods` VALUES (21809,311,217);   -- Magic Damage +217
 INSERT INTO `item_mods` VALUES (21809,355,106);   -- Insurgency
+INSERT INTO `item_mods` VALUES (21809,676,30);   -- Insurgency WS DMG +30%
 INSERT INTO `item_mods` VALUES (21809,521,50);    -- Absorb spell potency +50%
 INSERT INTO `item_mods` VALUES (21810,355,108); -- Redemption iLvL 119 - Quietus
 INSERT INTO `item_mods` VALUES (21812,8,12);      -- Arasy Scythe (iLvl 119): STR +12
@@ -25636,15 +25747,23 @@ INSERT INTO `item_mods` VALUES (21813,315,10);    -- Drain and Aspir potency +10
 INSERT INTO `item_mods` VALUES (21813,384,40);    -- Haste +4%
 INSERT INTO `item_mods` VALUES (21857,355,121); -- Gungnir iLvL 119 - Geirskogul
 INSERT INTO `item_mods` VALUES (21858,355,122); -- Ryunohige iLvL 119 - Drakesbane
+INSERT INTO `item_mods` VALUES (21858,692,30); -- Drakesbane WS DMG +30%
 INSERT INTO `item_mods` VALUES (21859,355,124); -- Rhongomiant iLvL 119 -- Camlann's Torment
 INSERT INTO `item_mods` VALUES (21906,355,137); -- Kikoku iLvL 119 - Blade: Metsu
+INSERT INTO `item_mods` VALUES (21907,27,40); -- Emnity +40
+INSERT INTO `item_mods` VALUES (21907,30,40); -- Magic Accuracy +40
 INSERT INTO `item_mods` VALUES (21907,355,138); -- Nagi iLvL 119 - Blade: Kamu
+INSERT INTO `item_mods` VALUES (21907,708,30); -- Blade: Kamu WS DMG +30%
 INSERT INTO `item_mods` VALUES (21908,355,140); -- Kannagi iLvL 119 - Blade Hi
+INSERT INTO `item_mods` VALUES (21908,710,30); -- Blade Hi WS DMG +30%
+INSERT INTO `item_mods` VALUES (21908,11,50); -- AGL +50
 INSERT INTO `item_mods` VALUES (21954,355,153); -- Amanomurakumo iLvL 119 - Tachi: Kaiten
 INSERT INTO `item_mods` VALUES (21955,355,154);   -- Kogarasumaru (iLvl 119 III): Tachi: Rana
 INSERT INTO `item_mods` VALUES (21955,508,25);    -- Third Eye Counter rate +25%
 INSERT INTO `item_mods` VALUES (21955,839,15);    -- Third Eye Anticipate rate +15%
+INSERT INTO `item_mods` VALUES (21955,724,30);    -- Tachi Rana WS DMG +30%
 INSERT INTO `item_mods` VALUES (21956,355,156); -- Masamune iLvL 119 - Tachi Fudo
+INSERT INTO `item_mods` VALUES (21956,696,30); -- Tachi Fudo WS DMG +30%
 INSERT INTO `item_mods` VALUES (22021,12,25);     -- ames INT+25
 INSERT INTO `item_mods` VALUES (22021,13,25);     -- MND+25
 INSERT INTO `item_mods` VALUES (22021,28,16);     -- Magic Attack+16
@@ -25665,6 +25784,7 @@ INSERT INTO `item_mods` VALUES (22062,30,30);     -- Magic Accuracy +30
 INSERT INTO `item_mods` VALUES (22062,311,279);   -- Magic Damage +279
 INSERT INTO `item_mods` VALUES (22062,355,186);   -- Vidohunir
 INSERT INTO `item_mods` VALUES (22063,355,187); -- Nirvana iLvL 119 - Garland of Bliss
+INSERT INTO `item_mods` VALUES (22063,757,30); -- Garland of Bliss WS DMG +30%
 INSERT INTO `item_mods` VALUES (22064,355,190); -- Hvergelmir iLvL 119 - Myrkr
 INSERT INTO `item_mods` VALUES (22076,23,20);     -- was Attack+20
 INSERT INTO `item_mods` VALUES (22076,25,20);     -- Accuracy+20
@@ -25739,6 +25859,7 @@ INSERT INTO `item_mods` VALUES (22281,23,23);     -- knobkierrie Attack+23
 INSERT INTO `item_mods` VALUES (22281,841,6);     -- Weapon Skill Damage+6%
 INSERT INTO `item_mods` VALUES (22115,355,200); -- Yoichinoyumi iLvL 119 - Namas Arrow
 INSERT INTO `item_mods` VALUES (22116,355,202); -- Gandiva iLvL 119 - Jishnu's Raidance
+INSERT INTO `item_mods` VALUES (22116,772,30); -- Jishnu's Raidance WS DMG +30%
 -- INSERT INTO `item_mods` VALUES (22118,Conserve TP,5); -- Venery bows "Conserve TP"+5
 INSERT INTO `item_mods` VALUES (22118,174,5); -- "Skillchain Bonus"+5
 INSERT INTO `item_mods` VALUES (23040,1,123);     -- pummelers_mask_+2 DEF:123
@@ -31515,6 +31636,15 @@ INSERT INTO `item_mods` VALUES (26400,28,20); -- Magic Atk. Bonus+20
 INSERT INTO `item_mods` VALUES (26400,311,75); -- Magic Damage+75
 INSERT INTO `item_mods` VALUES (26400,109,107); -- Shield Skill+107
 INSERT INTO `item_mods` VALUES (26400,168,10); -- Spell interruption rate down 10%
+INSERT INTO `item_mods` VALUES (26406,127,3); -- Kupo Shield - Synthesis Skills +3
+INSERT INTO `item_mods` VALUES (26406,128,3);
+INSERT INTO `item_mods` VALUES (26406,129,3);
+INSERT INTO `item_mods` VALUES (26406,130,3);
+INSERT INTO `item_mods` VALUES (26406,131,3);
+INSERT INTO `item_mods` VALUES (26406,132,3);
+INSERT INTO `item_mods` VALUES (26406,133,3);
+INSERT INTO `item_mods` VALUES (26406,134,3);
+INSERT INTO `item_mods` VALUES (26406,135,3);
 INSERT INTO `item_mods` VALUES (26419,1,47);      -- ammurapi_shield DEF:47
 INSERT INTO `item_mods` VALUES (26419,2,22);      -- HP+22
 INSERT INTO `item_mods` VALUES (26419,5,58);      -- MP+58
@@ -36955,6 +37085,7 @@ INSERT INTO `item_mods` VALUES (27241,29,3);      -- Magic Def. Bonus +3
 INSERT INTO `item_mods` VALUES (27241,31,73);     -- Magic Evasion +73
 INSERT INTO `item_mods` VALUES (27241,68,12);     -- Evasion +12
 INSERT INTO `item_mods` VALUES (27241,384,40);    -- Haste +4%
+INSERT INTO `item_mods` VALUES (27241,860,5);     -- Converts 5% of "Cure" amount to MP
 INSERT INTO `item_mods` VALUES (27242,1,106);     -- Ebers Pantaloons +1: DEF 106
 INSERT INTO `item_mods` VALUES (27242,2,41);      -- HP +41
 INSERT INTO `item_mods` VALUES (27242,5,35);      -- MP +35
@@ -36968,6 +37099,7 @@ INSERT INTO `item_mods` VALUES (27242,29,6);      -- Magic Def. Bonus +6
 INSERT INTO `item_mods` VALUES (27242,31,107);    -- Magic Evasion +107
 INSERT INTO `item_mods` VALUES (27242,68,27);     -- Evasion +27
 INSERT INTO `item_mods` VALUES (27242,384,51);    -- Haste +5%
+INSERT INTO `item_mods` VALUES (27242,860,6);     -- Converts 6% of "Cure" amount to MP
 INSERT INTO `item_mods` VALUES (27243,1,74);
 INSERT INTO `item_mods` VALUES (27243,2,18);
 INSERT INTO `item_mods` VALUES (27243,5,91);
@@ -37675,7 +37807,7 @@ INSERT INTO `item_mods` VALUES (27340,27,5);
 INSERT INTO `item_mods` VALUES (27340,29,1);
 INSERT INTO `item_mods` VALUES (27340,31,43);
 INSERT INTO `item_mods` VALUES (27340,68,23);
-INSERT INTO `item_mods` VALUES (27340,162,-4);
+INSERT INTO `item_mods` VALUES (27340,163,-4); -- Magic Damage Taken -4%
 INSERT INTO `item_mods` VALUES (27340,384,30);
 INSERT INTO `item_mods` VALUES (27340,837,10);
 INSERT INTO `item_mods` VALUES (27341,1,89);
@@ -37690,7 +37822,7 @@ INSERT INTO `item_mods` VALUES (27341,27,6);
 INSERT INTO `item_mods` VALUES (27341,29,2);
 INSERT INTO `item_mods` VALUES (27341,31,64);
 INSERT INTO `item_mods` VALUES (27341,68,49);
-INSERT INTO `item_mods` VALUES (27341,162,-5);
+INSERT INTO `item_mods` VALUES (27341,163,-5); -- Magic Damage Taken -5%
 INSERT INTO `item_mods` VALUES (27341,384,30);
 INSERT INTO `item_mods` VALUES (27341,837,15);
 INSERT INTO `item_mods` VALUES (27342,1,64);
@@ -38971,12 +39103,52 @@ INSERT INTO `item_mods` VALUES (27563,7,60);      -- Metamorph Ring +1: Converts
 INSERT INTO `item_mods` VALUES (27563,12,6);      -- INT +6
 INSERT INTO `item_mods` VALUES (27563,13,6);      -- MND +6
 INSERT INTO `item_mods` VALUES (27563,14,6);      -- CHR +6
+INSERT INTO `item_mods` VALUES (27564,15,15); -- Ifrit Ring - Fire Res +15
+INSERT INTO `item_mods` VALUES (27564,8,8); -- STR +8
 INSERT INTO `item_mods` VALUES (27565,8,9);
 INSERT INTO `item_mods` VALUES (27565,23,5);
 INSERT INTO `item_mods` VALUES (27565,54,16);
+INSERT INTO `item_mods` VALUES (27566,13,8); -- Leviathan Ring - MND +8
+INSERT INTO `item_mods` VALUES (27566,20,15); -- Water Res +15
+INSERT INTO `item_mods` VALUES (27567,13,9); -- Leviathan Ring  +1 - MND +9
+INSERT INTO `item_mods` VALUES (27567,20,16); -- Water Res +16
+INSERT INTO `item_mods` VALUES (27567,30,3); -- Magic Accuracy +3
+INSERT INTO `item_mods` VALUES (27568,19,15); -- Ramuh Ring - Lightning Res +15
+INSERT INTO `item_mods` VALUES (27568,9,8); -- Dex +8
+INSERT INTO `item_mods` VALUES (27569,19,16); -- Ramuh Ring +1 - Lightning Res +16
+INSERT INTO `item_mods` VALUES (27569,25,5); -- Accuracy +5
+INSERT INTO `item_mods` VALUES (27569,9,9); -- DEX +9
+INSERT INTO `item_mods` VALUES (27570,10,8); -- Titan Ring - VIT +8
+INSERT INTO `item_mods` VALUES (27570,18,15); -- Earth Res +15
+INSERT INTO `item_mods` VALUES (27571,1,8); -- Titan Ring - DEF +8
+INSERT INTO `item_mods` VALUES (27571,10,9); -- VIT +9
+INSERT INTO `item_mods` VALUES (27571,18,16); -- Earth Res +16
+INSERT INTO `item_mods` VALUES (27572,11,8); -- Garuda Ring - AGL +11
+INSERT INTO `item_mods` VALUES (27572,17,15); -- Wind Res +15
+INSERT INTO `item_mods` VALUES (27573,11,9); -- Garuda Ring - AGL +9
+INSERT INTO `item_mods` VALUES (27573,17,16); -- Wind Res +16
+INSERT INTO `item_mods` VALUES (27573,26,5); -- Ranged Accuracy +5
+INSERT INTO `item_mods` VALUES (27574,12,8); -- Shiva Ring - INT +8
+INSERT INTO `item_mods` VALUES (27574,16,15); -- Ice Res +15
 INSERT INTO `item_mods` VALUES (27575,12,9);
 INSERT INTO `item_mods` VALUES (27575,28,3);
 INSERT INTO `item_mods` VALUES (27575,55,16);
+INSERT INTO `item_mods` VALUES (27576,14,8); -- Carbuncle Ring - CHR +8
+INSERT INTO `item_mods` VALUES (27576,2,30); -- HP +30
+INSERT INTO `item_mods` VALUES (27576,21,15); -- Light Res +15
+INSERT INTO `item_mods` VALUES (27577,14,9); -- Carbuncle Ring +1 -- CHR +9
+INSERT INTO `item_mods` VALUES (27577,2,35); -- HP +35
+INSERT INTO `item_mods` VALUES (27577,21,16); -- Light Res +16
+INSERT INTO `item_mods` VALUES (27577,30,4); -- Magic Accuracy +4
+INSERT INTO `item_mods` VALUES (27578,22,15); -- Fenrir Ring - Dark Res +16
+INSERT INTO `item_mods` VALUES (27578,28,2); -- Magic Attack +2
+INSERT INTO `item_mods` VALUES (27578,30,2); -- Magic Accuracy +2
+INSERT INTO `item_mods` VALUES (27578,5,50); -- MP +50
+INSERT INTO `item_mods` VALUES (27579,22,16); -- Fenrir Ring +1 - Dark Res +16
+INSERT INTO `item_mods` VALUES (27579,28,3); -- Magic Attack +3
+INSERT INTO `item_mods` VALUES (27579,30,3); -- Magic Accuracy +3
+INSERT INTO `item_mods` VALUES (27579,311,5); -- Magic Damage +5
+INSERT INTO `item_mods` VALUES (27579,5,55); -- MP +50
 INSERT INTO `item_mods` VALUES (27580,2,50);
 INSERT INTO `item_mods` VALUES (27580,5,50);
 INSERT INTO `item_mods` VALUES (27580,23,15);
@@ -42398,7 +42570,7 @@ INSERT INTO `item_mods` VALUES (27949,14,12);
 INSERT INTO `item_mods` VALUES (27949,27,4);
 INSERT INTO `item_mods` VALUES (27949,31,18);
 INSERT INTO `item_mods` VALUES (27949,68,10);
-INSERT INTO `item_mods` VALUES (27949,162,-5);
+INSERT INTO `item_mods` VALUES (27949,163,-5); -- Magic Damage Taken -5%
 INSERT INTO `item_mods` VALUES (27949,384,30);
 INSERT INTO `item_mods` VALUES (27950,1,75);
 INSERT INTO `item_mods` VALUES (27950,2,29);
@@ -42722,7 +42894,7 @@ INSERT INTO `item_mods` VALUES (27970,14,19);
 INSERT INTO `item_mods` VALUES (27970,27,4);
 INSERT INTO `item_mods` VALUES (27970,31,26);
 INSERT INTO `item_mods` VALUES (27970,68,22);
-INSERT INTO `item_mods` VALUES (27970,162,-5);
+INSERT INTO `item_mods` VALUES (27970,163,-5);
 INSERT INTO `item_mods` VALUES (27970,384,40);
 INSERT INTO `item_mods` VALUES (27971,1,104);
 INSERT INTO `item_mods` VALUES (27971,2,44);
@@ -44489,6 +44661,35 @@ INSERT INTO `item_mods` VALUES (28137,31,80);
 INSERT INTO `item_mods` VALUES (28137,68,37);
 INSERT INTO `item_mods` VALUES (28137,296,7);
 INSERT INTO `item_mods` VALUES (28137,384,40);
+INSERT INTO `item_mods` VALUES (28138,1,55); -- Perle Brayettes +1 DEF+55
+INSERT INTO `item_mods` VALUES (28138,9,7); -- DEX+7
+INSERT INTO `item_mods` VALUES (28138,10,7); -- VIT+7
+INSERT INTO `item_mods` VALUES (28138,25,15); -- Accuracy+15
+INSERT INTO `item_mods` VALUES (28138,27,4); -- Enmity+4 
+INSERT INTO `item_mods` VALUES (28138,384,30); -- Haste+3%
+INSERT INTO `item_mods` VALUES (28139,1,48); -- Aurore Brais +1 DEF+48
+INSERT INTO `item_mods` VALUES (28139,25,15); -- Accuracy+15
+INSERT INTO `item_mods` VALUES (28139,26,15); -- Ranged Accuracy+15
+INSERT INTO `item_mods` VALUES (28139,384,41); -- Haste+4% 
+INSERT INTO `item_mods` VALUES (28139,289,7); -- "Subtle Blow"+7
+INSERT INTO `item_mods` VALUES (28140,1,43); -- Teal Slops +1 DEF+43
+INSERT INTO `item_mods` VALUES (28140,2,30); -- HP+30
+INSERT INTO `item_mods` VALUES (28140,12,12); -- INT+12
+INSERT INTO `item_mods` VALUES (28140,14,12); -- CHR+12
+INSERT INTO `item_mods` VALUES (28140,30,5); -- Magic Accuracy+5
+INSERT INTO `item_mods` VALUES (28140,28,5); -- "Magic Atk. Bonus"+5
+INSERT INTO `item_mods` VALUES (28141,1,114); -- Wisent Kecks DEF+114
+INSERT INTO `item_mods` VALUES (28141,2,47); -- HP+47
+INSERT INTO `item_mods` VALUES (28141,8,29); -- STR+29
+INSERT INTO `item_mods` VALUES (28141,10,16); -- VIT+16
+INSERT INTO `item_mods` VALUES (28141,11,20); -- AGI+20
+INSERT INTO `item_mods` VALUES (28141,12,30); -- INT+30 
+INSERT INTO `item_mods` VALUES (28141,13,17); -- MND+17
+INSERT INTO `item_mods` VALUES (28141,14,11); -- CHR+11
+INSERT INTO `item_mods` VALUES (28141,68,38); -- Evasion+38
+INSERT INTO `item_mods` VALUES (28141,31,69); -- Magic Evasion+69 
+INSERT INTO `item_mods` VALUES (28141,29,5); -- "Magic Def. Bonus"+5
+INSERT INTO `item_mods` VALUES (28141,384,61); -- Haste+6%
 INSERT INTO `item_mods` VALUES (28142,1,125); -- Brontes cuisses DEF:125
 INSERT INTO `item_mods` VALUES (28142,2,112); -- HP+112
 INSERT INTO `item_mods` VALUES (28142,8,35); -- STR+35
@@ -44535,22 +44736,23 @@ INSERT INTO `item_mods` VALUES (28148,31,107); -- 107 Meva
 INSERT INTO `item_mods` VALUES (28148,68,27); -- 27 Eva
 INSERT INTO `item_mods` VALUES (28148,384,51); -- 5% Gear Haste
 -- INSERT INTO `item_mods` VALUES (28148,Occult Acumen,30); -- "Occult Acumen"+30
-INSERT INTO `item_mods` VALUES (28151,1,106);
-INSERT INTO `item_mods` VALUES (28151,2,43);
-INSERT INTO `item_mods` VALUES (28151,5,69);
-INSERT INTO `item_mods` VALUES (28151,8,25);
-INSERT INTO `item_mods` VALUES (28151,10,12);
-INSERT INTO `item_mods` VALUES (28151,11,17);
-INSERT INTO `item_mods` VALUES (28151,12,34);
-INSERT INTO `item_mods` VALUES (28151,13,24);
-INSERT INTO `item_mods` VALUES (28151,14,19);
-INSERT INTO `item_mods` VALUES (28151,27,-8);     -- Sifahir Slacks: Enmity -8
-INSERT INTO `item_mods` VALUES (28151,29,6);
-INSERT INTO `item_mods` VALUES (28151,31,107);
-INSERT INTO `item_mods` VALUES (28151,68,27);
-INSERT INTO `item_mods` VALUES (28151,374,10);
-INSERT INTO `item_mods` VALUES (28151,384,51);
+INSERT INTO `item_mods` VALUES (28151,1,106);     -- Sifahir Slacks
+INSERT INTO `item_mods` VALUES (28151,2,43);      -- comment me
+INSERT INTO `item_mods` VALUES (28151,5,69);      -- comment me
+INSERT INTO `item_mods` VALUES (28151,8,25);      -- comment me
+INSERT INTO `item_mods` VALUES (28151,10,12);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,11,17);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,12,34);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,13,24);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,14,19);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,27,-8);     -- Enmity -8
+INSERT INTO `item_mods` VALUES (28151,29,6);      -- comment me
+INSERT INTO `item_mods` VALUES (28151,31,107);    -- comment me
+INSERT INTO `item_mods` VALUES (28151,68,27);     -- comment me
+INSERT INTO `item_mods` VALUES (28151,374,10);    -- comment me
+INSERT INTO `item_mods` VALUES (28151,384,51);    -- comment me you bums
 INSERT INTO `item_mods` VALUES (28151,519,10);    -- Cure spellcasting time reduction 10%
+INSERT INTO `item_mods` VALUES (28151,860,4);     -- Converts 4% of "Cure" amount to MP
 INSERT INTO `item_mods` VALUES (28152,1,118);
 INSERT INTO `item_mods` VALUES (28152,2,60);
 INSERT INTO `item_mods` VALUES (28152,8,33);

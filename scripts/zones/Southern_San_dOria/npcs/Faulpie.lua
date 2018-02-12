@@ -10,9 +10,6 @@ require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/crafting");
 require("scripts/globals/missions");
 require("scripts/globals/status");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -20,13 +17,9 @@ function onTrade(player,npc,trade)
 
     if (newRank ~= 0) then
         player:setSkillRank(SKILL_LEATHERCRAFT,newRank);
-        player:startEvent(0x0289,0,0,0,0,newRank);
+        player:startEvent(649,0,0,0,0,newRank);
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local getNewRank = 0;
@@ -38,42 +31,34 @@ function onTrigger(player,npc)
 
     if (player:getCurrentMission(ASA) == THAT_WHICH_CURDLES_BLOOD and guildMember == 150995375 and
         getNewRank ~= 100) then
-            local item = 0;
-            local asaStatus = player:getVar("ASA_Status");
+        local item = 0;
+        local asaStatus = player:getVar("ASA_Status");
 
-            -- TODO: Other Enfeebling Kits
-            if (asaStatus == 0) then
-                item = 2779;
-            else
-                printf("Error: Unknown ASA Status Encountered <%u>", asaStatus);
-            end
+        -- TODO: Other Enfeebling Kits
+        if (asaStatus == 0) then
+            item = 2779;
+        else
+            printf("Error: Unknown ASA Status Encountered <%u>", asaStatus);
+        end
 
-            -- The Parameters are Item IDs for the Recipe
-            player:startEvent(0x03b0, item, 2773, 917, 917, 2776, 4103);
+        -- The Parameters are Item IDs for the Recipe
+        player:startEvent(944, item, 2773, 917, 917, 2776, 4103);
     else
-        player:startEvent(0x0288,testItem,getNewRank,30,guildMember,44,0,0,0);
+        player:startEvent(648,testItem,getNewRank,30,guildMember,44,0,0,0);
     end
 end;
 
--- 0x0288  0x0289  0x02f8  0x02f9  0x02fa  0x02fb  0x02fc  0x02fd  0x0302  0x0303  0x0304  0x0305  0x0306  0x0307  0x03b0  0x0392
-
------------------------------------
--- onEventUpdate
------------------------------------
+-- 648  649  0x02f8  0x02f9  0x02fa  0x02fb  0x02fc  0x02fd  0x0302  0x0303  0x0304  0x0305  0x0306  0x0307  944  0x0392
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x0288 and option == 1) then
+    if (csid == 648 and option == 1) then
         local crystal = 4103; -- dark crystal
 
         if (player:getFreeSlotsCount() == 0) then

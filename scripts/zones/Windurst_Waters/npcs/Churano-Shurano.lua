@@ -1,22 +1,14 @@
 -----------------------------------
 -- Area: Windurst Waters
--- NPC:  Churano-Shurano
+--  NPC: Churano-Shurano
 -- Working 100%
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     if (player:hasKeyItem(MAGICKED_ASTROLABE) == false) then
@@ -27,22 +19,14 @@ function onTrigger(player,npc)
             player:startEvent(1081, cost);
         end
     else
-        player:startEvent(0x118);
+        player:startEvent(280);
     end
-end; 
-
------------------------------------
--- onEventUpdate
------------------------------------
+end;
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

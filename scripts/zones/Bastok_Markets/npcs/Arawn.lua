@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Bastok Markets
--- NPC:  Arawn
+--  NPC: Arawn
 -- Starts & Finishes Quest: Stamp Hunt
 -- !pos -121.492 -4.000 -123.923 235
 -----------------------------------
@@ -11,56 +11,41 @@ require("scripts/globals/keyitems");
 require("scripts/globals/titles");
 require("scripts/globals/quests");
 require("scripts/zones/Bastok_Markets/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local StampHunt = player:getQuestStatus(BASTOK,STAMP_HUNT);
     local WildcatBastok = player:getVar("WildcatBastok");
 
     if (player:getQuestStatus(BASTOK,LURE_OF_THE_WILDCAT_BASTOK) == QUEST_ACCEPTED and player:getMaskBit(WildcatBastok,11) == false) then
-        player:startEvent(0x01ad);
+        player:startEvent(429);
     elseif (StampHunt == QUEST_AVAILABLE) then
-        player:startEvent(0x00e1);
+        player:startEvent(225);
     elseif (StampHunt == QUEST_ACCEPTED and player:isMaskFull(player:getVar("StampHunt_Mask"),7) == true) then
-        player:startEvent(0x00e2);
+        player:startEvent(226);
     else
-        player:startEvent(0x0072);
+        player:startEvent(114);
     end
 
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x00e1 and option == 0) then
+    if (csid == 225 and option == 0) then
         player:addQuest(BASTOK,STAMP_HUNT);
         player:addKeyItem(STAMP_SHEET);
         player:messageSpecial(KEYITEM_OBTAINED,STAMP_SHEET);
-    elseif (csid == 0x00e2) then
+    elseif (csid == 226) then
         if (player:getFreeSlotsCount(0) >= 1) then
             player:addTitle(STAMPEDER);
             player:addItem(13081);
@@ -72,7 +57,7 @@ function onEventFinish(player,csid,option)
         else
            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 13081);
         end
-    elseif (csid == 0x01ad) then
+    elseif (csid == 429) then
         player:setMaskBit(player:getVar("WildcatBastok"),"WildcatBastok",11,true);
     end
 

@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Fei'Yin
--- NPC: Seed Afterglow
+--  NPC: Seed Afterglow
 -- !pos -94.342 -15.656 -85.889 204     Red
 -- !pos -52.019 -16.525 38.848 204      Orange
 -- !pos 36.000 -15.000 -35.000 204      Green
@@ -14,21 +14,13 @@
 -----------------------------------
 package.loaded["scripts/zones/FeiYin/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/zones/FeiYin/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local HasMark = player:hasKeyItem(MARK_OF_SEED);
@@ -55,7 +47,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",0,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -70,7 +62,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",1,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -85,7 +77,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",2,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -100,7 +92,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",3,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -115,7 +107,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",4,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -130,7 +122,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",5,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -145,7 +137,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",6,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -160,7 +152,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",7,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -175,7 +167,7 @@ function onTrigger(player,npc)
             player:setMaskBit(PROGRESS,"SEED_AFTERGLOW_MASK",8,true);
             INTENSITY = INTENSITY + 1;
             if (INTENSITY == 9) then
-                player:startEvent(0x01C);
+                player:startEvent(28);
             elseif (NeedToZone == false and MARK_EFFECT == false) then
                 player:setVar("SEED_AFTERGLOW_INTENSITY",INTENSITY);
                 player:messageSpecial(YOU_REACH_OUT_TO_THE_LIGHT,0);
@@ -192,23 +184,15 @@ function onTrigger(player,npc)
     end
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x01C) then
+    if (csid == 28) then
         if ( option == 100) then
             player:messageSpecial(SCINTILLATING_BURST_OF_LIGHT);
             player:addKeyItem(MARK_OF_SEED);

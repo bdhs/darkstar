@@ -6,16 +6,17 @@
 package.loaded["scripts/zones/Meriphataud_Mountains/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/Meriphataud_Mountains/TextIDs");
+require("scripts/zones/Meriphataud_Mountains/MobIDs");
 require("scripts/globals/icanheararainbow");
 require("scripts/globals/chocobo_digging");
 require("scripts/globals/conquest");
+require("scripts/globals/missions");
 require("scripts/globals/zone");
+-----------------------------------
 
------------------------------------
--- Chocobo Digging vars
------------------------------------
-local itemMap = {
-                    -- itemid, abundance, requirement
+local itemMap =
+{
+    -- itemid, abundance, requirement
                     { 646, 4, DIGREQ_NONE },
                     { 845, 12, DIGREQ_NONE },
                     { 640, 112, DIGREQ_NONE },
@@ -44,34 +45,23 @@ local itemMap = {
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-                };
+};
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
------------------------------------
--- onChocoboDig
------------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
------------------------------------
--- onInitialize
------------------------------------
-
 function onInitialize(zone)
-    -- Waraxe Beak
-    SetRespawnTime(17264828, 900, 10800);
+    UpdateNMSpawnPoint(WARAXE_BEAK);
+    GetMobByID(WARAXE_BEAK):setRespawnTime(math.random(900, 10800));
 
-    -- Coo Keja the Unseen
-    SetRespawnTime(17264946, 900, 10800);
+    UpdateNMSpawnPoint(COO_KEJA_THE_UNSEEN);
+    GetMobByID(COO_KEJA_THE_UNSEEN):setRespawnTime(math.random(900, 10800));
 
     SetRegionalConquestOverseers(zone:getRegionID())
 end;
-
------------------------------------
--- onZoneIn
------------------------------------
 
 function onZoneIn( player, prevZone)
     local cs = -1;
@@ -81,18 +71,13 @@ function onZoneIn( player, prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 0x001f;
+        cs = 31;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 0x0022; -- no update for castle oztroja (north)
+        cs = 34; -- no update for castle oztroja (north)
     end
 
     return cs;
 end;
-
-
------------------------------------
--- onConquestUpdate
------------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -101,23 +86,16 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
------------------------------------
--- onRegionEnter
------------------------------------
 
 function onRegionEnter( player, region)
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x001f) then
+    if (csid == 31) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 0x0022) then
+    elseif (csid == 34) then
         if (player:getPreviousZone() == 120) then
             player:updateEvent(0,0,0,0,0,2);
         elseif (player:getPreviousZone() == 117) then
@@ -126,14 +104,10 @@ function onEventUpdate( player, csid, option)
     end
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x001f) then
+    if (csid == 31) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
     end
 end;

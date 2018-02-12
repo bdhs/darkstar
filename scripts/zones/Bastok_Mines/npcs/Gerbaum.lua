@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Bastok Mines
--- NPC: Gerbaum
+--  NPC: Gerbaum
 -- Starts & Finishes Repeatable Quest: Minesweeper (100%)
 -----------------------------------
 package.loaded["scripts/zones/Bastok_Mines/TextIDs"] = nil;
@@ -9,9 +9,6 @@ require("scripts/globals/titles");
 require("scripts/globals/quests");
 require("scripts/globals/settings");
 require("scripts/zones/Bastok_Mines/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -23,45 +20,33 @@ ZeruhnSoot = trade:hasItemQty(560,3);
         MineSweep = player:getQuestStatus(BASTOK,MINESWEEPER);
         if (MineSweep >= 1) then
             player:tradeComplete();
-            player:startEvent(0x006d);
+            player:startEvent(109);
         end
     end
-    
-end; 
 
------------------------------------
--- onTrigger Action
------------------------------------
+end;
 
 function onTrigger(player,npc)
 
 MineSweep = player:getQuestStatus(BASTOK,MINESWEEPER);
 
     if (MineSweep == 0) then
-        player:startEvent(0x006c);
+        player:startEvent(108);
     else
         rand = math.random(1,2);
         if (rand == 1) then
-            player:startEvent(0x0016);
+            player:startEvent(22);
         else
-            player:startEvent(0x0017);
+            player:startEvent(23);
         end
     end
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -69,11 +54,11 @@ function onEventFinish(player,csid,option)
 
 MineSweep = player:getQuestStatus(BASTOK,MINESWEEPER);
 
-    if (csid == 0x006c) then
+    if (csid == 108) then
         if (MineSweep == 0) then
-            player:addQuest(BASTOK,MINESWEEPER);            
-        end            
-    elseif (csid == 0x006d) then
+            player:addQuest(BASTOK,MINESWEEPER);
+        end
+    elseif (csid == 109) then
         if (MineSweep == 1) then
             player:completeQuest(BASTOK,MINESWEEPER);
             player:addFame(BASTOK,75);

@@ -3,17 +3,13 @@
 -- Zone: Kazham (250)
 --
 -----------------------------------
-
+package.loaded["scripts/zones/Kazham/TextIDs"] = nil;
 -----------------------------------
--- onInitialize
+require("scripts/zones/Kazham/TextIDs");
 -----------------------------------
 
 function onInitialize(zone)
 end;
-
------------------------------------
--- onConquestUpdate
------------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -22,10 +18,6 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
-
------------------------------------
--- onZoneIn
------------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -38,31 +30,19 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
------------------------------------
--- onTransportEvent
------------------------------------
-
 function onTransportEvent(player,transport)
-    player:startEvent(0x2710);
+    player:startEvent(10000);
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x2710) then
+    if (csid == 10000) then
         player:setPos(0,0,0,0,226);
     end
 end;

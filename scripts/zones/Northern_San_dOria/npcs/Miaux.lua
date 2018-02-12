@@ -1,27 +1,20 @@
 -----------------------------------
 -- Area: Northern San d'Oria
 --   NPC: Miaux
---  Type: Quest Giver
+-- Type: Quest Giver
 -- !pos -169.127 2.999 158.677 231
 -----------------------------------
 package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
 -----------------------------------
-require("scripts/globals/status");
+require("scripts/zones/Northern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
-require("scripts/zones/Northern_San_dOria/TextIDs");
-
------------------------------------
--- onTrade Action
+require("scripts/globals/status");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
@@ -30,14 +23,14 @@ function onTrigger(player,npc)
 
     if (player:getMainJob() == JOBS.DRG and player:getMainLvl() >= AF1_QUEST_LEVEL and aCraftsmansWork == QUEST_AVAILABLE) then
         if (player:getVar("has_seen_drgaf1_quest_already") == 0) then
-            player:startEvent(0x0049);
+            player:startEvent(73);
         else -- If player has seen the big cut scene, give them a smaller one.
-            player:startEvent(0x0047);
+            player:startEvent(71);
         end
     elseif (aCraftsmansWork == QUEST_ACCEPTED and player:hasKeyItem(ALTEPA_POLISHING_STONE) == false) then
-        player:startEvent(0x0045);
+        player:startEvent(69);
     elseif (aCraftsmansWork == QUEST_ACCEPTED) then
-            player:startEvent(0x0046);
+            player:startEvent(70);
     elseif (Quotas_Status == 2) then
         player:startEvent(67); -- I found this earring.
     elseif (Quotas_Status == 3 or Quotas_Status == 4) then
@@ -45,35 +38,27 @@ function onTrigger(player,npc)
     elseif (Quotas_Status >= 5) then
         player:startEvent(66); -- The earring was helpful?
     else
-        player:startEvent(0x000b);
+        player:startEvent(11);
     end
 
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x0049 and option == 0) then -- first part of long CS -- declines questgiver
+    if (csid == 73 and option == 0) then -- first part of long CS -- declines questgiver
         player:setVar("has_seen_drgaf1_quest_already",1);
-    elseif ((csid == 0x0049 or csid == 0x0047) and option == 1) then
+    elseif ((csid == 73 or csid == 71) and option == 1) then
         player:addQuest(SANDORIA,A_CRAFTSMAN_S_WORK);
         player:setVar("has_seen_drgaf1_quest_already",0);
         player:setVar("aCraftsmanWork",1);
-    elseif (csid == 0x0046) then -- This is only if player has Altepa Polishing Stone
+    elseif (csid == 70) then -- This is only if player has Altepa Polishing Stone
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,16887);-- Peregrine (DRG AF1)
         else
@@ -91,14 +76,14 @@ function onEventFinish(player,csid,option)
     end
 
 end;
--- 0x000b Miaux : "<Sigh> Why must all craftsmen be so uptight?"
--- 0x0049 Miaux : "I wish to have a breastplate repaired... Y/N dialog
--- 0x0047 Miaux : "I...I hesitate to impose upon you again, but would it be possible for you to find
+-- 11 Miaux : "<Sigh> Why must all craftsmen be so uptight?"
+-- 73 Miaux : "I wish to have a breastplate repaired... Y/N dialog
+-- 71 Miaux : "I...I hesitate to impose upon you again, but would it be possible for you to find
 -- me an Altepa polishing stone? Naturplayer, I will pay you for your troubles...
 -- accept the task? Yes/No dialog Thank you.  It would mean so much to me."
--- 0x0045 Miaux : "The Altepa polishing stone can be found in the Eastern Altepa Desert.  Please take
+-- 69 Miaux : "The Altepa polishing stone can be found in the Eastern Altepa Desert.  Please take
 -- care on your travels!"
--- 0x0046 Miaux : "So this is the Altepa polishing stone that Ranchuriome was talking about.  I am
+-- 70 Miaux : "So this is the Altepa polishing stone that Ranchuriome was talking about.  I am
 -- most grateful for your help.  Please accept this as payment." ------------------------------------------Reward gil
 -- "Miaux : Here, Ranchuriome.  <Character> is the reason we have this!"
 -- Ranchuriome : "Excellent! You managed to find one.  Now I can start on those repairs.  I'll

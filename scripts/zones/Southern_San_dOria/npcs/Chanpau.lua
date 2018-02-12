@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Southern San d'Oria
--- NPC:  Chanpau
+--  NPC: Chanpau
 -- Optional Involvement in Quest: A Squire's Test II
 -- @zone 230
 -- !pos -152 -2 55
@@ -10,9 +10,6 @@ package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -29,48 +26,36 @@ function onTrade(player,npc,trade)
 
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
 
     if (player:getQuestStatus(SANDORIA,A_SQUIRE_S_TEST_II) == QUEST_ACCEPTED) then
-        player:startEvent(0x275);
+        player:startEvent(629);
     elseif (player:getQuestStatus(SANDORIA, THE_BRUGAIRE_CONSORTIUM) == QUEST_COMPLETED) then
         Fired = player:getVar("Fired")
         if Fired == 1 then
-            player:startEvent(0x0237) -- i got fired in a day
+            player:startEvent(567) -- i got fired in a day
             else
-            player:startEvent(0x01f9) -- theres work ill go check it out
+            player:startEvent(505) -- theres work ill go check it out
         end
     else
-        player:startEvent(0x0236);
+        player:startEvent(566);
     end
 
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 0x01f9) then
+    if (csid == 505) then
         player:setVar("Fired", 1)
     end
 end;
 
 -------for future use
---    player:startEvent(0x7fb3) -- starlight celebration
+--    player:startEvent(32691) -- starlight celebration
 

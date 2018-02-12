@@ -1,18 +1,14 @@
 -----------------------------------
 -- Area: Southern San d'Oria
--- NPC:  Deraquien
+--  NPC: Deraquien
 -- Involved in Quest: Lure of the Wildcat (San d'Oria)
 -- Involved in Quest #2: A Timely Visit
 -- !pos -98 -2 31 230
 -------------------------------------
 package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/quests");
 require("scripts/zones/Southern_San_dOria/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -24,10 +20,6 @@ function onTrade(player,npc,trade)
     end
 
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
 
@@ -43,7 +35,7 @@ function onTrigger(player,npc)
     local WildcatSandy = player:getVar("WildcatSandy");
 
     -- Lure of the Wildcat: San d'Oria
-    if (player:getQuestStatus(SANDORIA,LURE_OF_THE_WILDCAT_SAN_D_ORIA) == QUEST_ACCEPTED and player:getMaskBit(WildcatSandy,4) == false) then
+    if (player:getQuestStatus(SANDORIA,LURE_OF_THE_WILDCAT_SAN_D_ORIA) == QUEST_ACCEPTED and player:getMaskBit(WildcatSandy,4) == false)then
         player:startEvent(0x032b);
 
     -- A Timely Visit
@@ -78,25 +70,21 @@ function onTrigger(player,npc)
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     --printf("CSID: %u",csid);
     --printf("RESULT: %u",option);
 
+<<<<<<< HEAD
     -- Lure of the Wildcat
     if (csid == 0x032b) then
+=======
+    if (csid == 811) then
+>>>>>>> upstream/master
         player:setMaskBit(player:getVar("WildcatSandy"),"WildcatSandy",4,true);
 
     -- A Timely Visit

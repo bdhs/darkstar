@@ -1,11 +1,10 @@
 -----------------------------------
 -- Area: Port Jeuno
--- NPC: Sagheera
+--  NPC: Sagheera
 -- !pos -3 0.1 -9 246
 -----------------------------------
 package.loaded["scripts/zones/Port_Jeuno/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/zones/Port_Jeuno/TextIDs");
@@ -14,10 +13,6 @@ require("scripts/globals/armor_upgrade");
 
 local ABreward = {15244,14812,14813,15475,15476,15477,15488,14815,15961,2127};
 local ABremove = {150,75,75,75,150,75,75, 75, 75,75};
-
------------------------------------
--- onTrade Action
------------------------------------
 
 function onTrade(player,npc,trade)
     local count = trade:getItemCount();
@@ -50,7 +45,7 @@ function onTrade(player,npc,trade)
 
   if (trade:hasItemQty(1875, count) and AvailableCombinationDetected == 0) then  --- AB storage
         local total = player:getCurrency("ancient_beastcoin") + count;
-        player:startEvent(0x0137, count, 0, 0, 0, 0, 0, 0, total);
+        player:startEvent(311, count, 0, 0, 0, 0, 0, 0, total);
         if (total < 9999) then  -- store max 9999 Ancien beastcoin
             player:addCurrency("ancient_beastcoin", count);
             player:tradeComplete();
@@ -60,13 +55,9 @@ function onTrade(player,npc,trade)
         player:setVar("AFupgradeDay", os.time() + (3600 - time.min*60)); -- Current time + Remaining minutes in the hour in seconds (Day Change)
         player:delCurrency("ancient_beastcoin", cost); -- cost is defined if the relic/af was found above
         player:tradeComplete();
-        player:startEvent(0x0138);
+        player:startEvent(312);
     end
 end;
-
------------------------------------
--- onTrigger Action
------------------------------------
 
 function onTrigger(player,npc)
     local WildcatJeuno = player:getVar("WildcatJeuno");
@@ -97,13 +88,9 @@ function onTrigger(player,npc)
     if (player:getQuestStatus(JEUNO,LURE_OF_THE_WILDCAT_JEUNO) == QUEST_ACCEPTED and player:getMaskBit(WildcatJeuno, 19) == false) then
         player:startEvent(313);
     else
-        player:startEvent(0x0136, 3, CurrentAFupgrade, 0, playergils, CosmoTime, 1, hasCosmoCleanse, StoreAB); -- Standard dialog
+        player:startEvent(310, 3, CurrentAFupgrade, 0, playergils, CosmoTime, 1, hasCosmoCleanse, StoreAB); -- Standard dialog
     end
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     local option1 = 0;
@@ -115,7 +102,7 @@ function onEventUpdate(player,csid,option)
     local option7 = 0;
     local option8 = 0;
 
-    if (csid == 0x0136 and option > 0 and option <101) then
+    if (csid == 310 and option > 0 and option <101) then
         for nb = 1, #Relic_Armor_Plus_one, 2 do  --looking for the  relic armor
             if (Relic_Armor_Plus_one[nb] == option) then
                 option1  =Relic_Armor_Plus_one[nb+1][1];  --relic +1
@@ -128,7 +115,7 @@ function onEventUpdate(player,csid,option)
         end
         player:updateEvent(option1, option2, option3, option4, option5, option6, option7, option8);
         -- print("relic");
-    elseif (csid == 0x0136 and option > 200) then
+    elseif (csid == 310 and option > 200) then
         for nb = 1, #Relic_Armor_Plus_one, 2 do  --looking for the  relic armor
             if (Relic_Armor_Plus_one[nb] == option) then
                 option1  =Relic_Armor_Plus_one[nb+1][1];  --relic +1
@@ -141,7 +128,7 @@ function onEventUpdate(player,csid,option)
         end
         player:updateEvent(option1, option2, option3, option4, option5, option6, option7, option8);
         -- print("relic");
-    elseif (csid == 0x0136 and option > 100 and option <201) then
+    elseif (csid == 310 and option > 100 and option <201) then
         for nb = 1, #Artifact_Armor_Plus_one, 2 do  --looking for the  artifact armor
             if (Artifact_Armor_Plus_one[nb] == option) then
                 option1 = Artifact_Armor_Plus_one[nb+1][1];  --af +1
@@ -155,29 +142,25 @@ function onEventUpdate(player,csid,option)
         player:updateEvent(option1, option2, option3, option4, option5, option6, option7, option8);
         --   print("artifact");
     end
-    --printf("RESULT: %u",option);
+    -- printf("RESULT: %u",option);
 end;
-
------------------------------------
--- onEventFinish
------------------------------------
 
 function onEventFinish(player,csid,option)
     local remainingAB=player:getCurrency("ancient_beastcoin");
     local ugrade_armor_Type = 0 ;
     local ugrade_armor_ID = 0 ;
-    --printf("CSID: %u",csid);
+    -- printf("CSID: %u",csid);
     --print("event finish");
-    --printf("RESULT: %u",option);
+    -- printf("RESULT: %u",option);
 
     if (csid == 313) then
         player:setMaskBit(player:getVar("WildcatJeuno"), "WildcatJeuno", 19, true);
-    elseif (csid == 0x0136 and option == 3) then --add keyitem for limbus
+    elseif (csid == 310 and option == 3) then --add keyitem for limbus
         player:setVar("Cosmo_Cleanse_TIME", os.time());
         player:addKeyItem(COSMOCLEANSE);
         player:messageSpecial(KEYITEM_OBTAINED, COSMOCLEANSE);
         player:delGil(15000);
-    elseif (csid == 0x0136 and  option >10 and option < 21) then  -- ancient beastcoin reward
+    elseif (csid == 310 and  option >10 and option < 21) then  -- ancient beastcoin reward
         if (player:getFreeSlotsCount() == 0 or player:hasItem(ABreward[option-10])) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, ABreward[option-10]);
         else
@@ -185,9 +168,9 @@ function onEventFinish(player,csid,option)
             player:addItem(ABreward[option-10]);
             player:messageSpecial(ITEM_OBTAINED, ABreward[option-10]);
         end
-    elseif (csid == 0x0136 and  option == 100) then  -- upgrade armor reward
+    elseif (csid == 310 and  option == 100) then  -- upgrade armor reward
         ugrade_armor_Type = player:getVar("AFupgrade");
-        --printf("detect type: %u",ugrade_armor);
+        -- printf("detect type: %u",ugrade_armor);
         if (ugrade_armor_Type < 101 or ugrade_armor_Type >200) then
             for nb = 1, #Relic_Armor_Plus_one, 2 do  -- looking for the  relic armor
                 if (Relic_Armor_Plus_one[nb] == ugrade_armor_Type) then

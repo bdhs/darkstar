@@ -1,16 +1,12 @@
 -----------------------------------
 -- Area: Crawlers' Nest
--- NPC: Strange Apparatus
+--  NPC: Strange Apparatus
 -- !pos 214 0 -339 197
 -----------------------------------
-
 package.loaded["scripts/zones/Crawlers_Nest/TextIDs"] = nil;
-
+-----------------------------------
 require("scripts/zones/Crawlers_Nest/TextIDs");
 require("scripts/globals/strangeapparatus");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -28,7 +24,7 @@ function onTrade(player,npc,trade)
                 docStatus = 1; -- Doctor
             end
 
-            player:startEvent(0x0002, drop, dropQty, INFINITY_CORE, 0, 0, 0, docStatus, 0);
+            player:startEvent(2, drop, dropQty, INFINITY_CORE, 0, 0, 0, docStatus, 0);
         else -- wrong chip, spawn elemental nm
 
             spawnElementalNM(player);
@@ -42,10 +38,6 @@ function onTrade(player,npc,trade)
     end
 end;
 
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
 
     local docStatus = 0; -- Assistant
@@ -55,18 +47,14 @@ function onTrigger(player,npc)
         player:setLocalVar( "strAppPass", 1);
     end
 
-    player:startEvent(0x0000, docStatus, 0, INFINITY_CORE, 0, 0, 0, 0, player:getZoneID());
+    player:startEvent(0, docStatus, 0, INFINITY_CORE, 0, 0, 0, 0, player:getZoneID());
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u", option);
 
-    if (csid == 0x0000) then
+    if (csid == 0) then
 
         if (hasStrAppDocStatus(player) == false) then
 
@@ -81,15 +69,11 @@ function onEventUpdate(player,csid,option)
     end
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x0002) then
+    if (csid == 2) then
 
         local drop    = player:getLocalVar("strAppDrop");
         local dropQty = player:getLocalVar("strAppDropQty");
@@ -100,10 +84,14 @@ function onEventFinish(player,csid,option)
                 dropQty = 1;
             end
 
-            player:addItem(drop, dropQty);
-
-            player:setLocalVar("strAppDrop", 0);
-            player:setLocalVar("strAppDropQty", 0);
+            if (player:getFreeSlotsCount() == 0) then
+                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,drop);
+            else
+                player:addItem(drop, dropQty);
+                player:messageSpecial(ITEM_OBTAINED,drop);
+                player:setLocalVar("strAppDrop", 0);
+                player:setLocalVar("strAppDropQty", 0);
+            end
         end
     end
 end;

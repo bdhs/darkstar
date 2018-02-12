@@ -10,9 +10,6 @@ require("scripts/globals/zone");
 require("scripts/globals/titles");
 require("scripts/globals/quests");
 require("scripts/zones/Middle_Delkfutts_Tower/TextIDs");
-
------------------------------------
---  onInitialize
 -----------------------------------
 
 function onInitialize(zone)
@@ -31,10 +28,6 @@ function onInitialize(zone)
     UpdateTreasureSpawnPoint(17420676);
 end;
 
------------------------------------
--- onConquestUpdate
------------------------------------
-
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -43,19 +36,11 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
------------------------------------
--- onZoneIn
------------------------------------
-
 function onZoneIn(player,prevZone)
-local cs = -1;
+    local cs = -1;
 
 return cs;
 end;
-
------------------------------------
--- onRegionEnter
------------------------------------
 
 function onRegionEnter(player,region)
 
@@ -95,7 +80,7 @@ function onRegionEnter(player,region)
         [6] = function (x)
         ---------------------------------
         if (player:getQuestStatus(BASTOK,BLADE_OF_EVIL) == QUEST_ACCEPTED and player:getFreeSlotsCount() >= 1 and player:getVar("bladeOfEvilCS") == 1) then
-            player:startEvent(0x000e);
+            player:startEvent(14);
         else
             player:startEvent(7);
         end
@@ -129,34 +114,22 @@ function onRegionEnter(player,region)
         ---------------------------------
         [11] = function (x)
         ---------------------------------
-        player:startEvent(0xA);
+        player:startEvent(10);
         end,
     }
 
 end;
 
------------------------------------
--- onRegionLeave
------------------------------------
-
 function onRegionLeave(player,region)
 end;
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
 --print("onUpdateCSID: ",csid);
 --print("onUpdateRESULT: ",option);
 end;
 
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
---print("onFinishCSID: ",csid);
+    -- printf("onFinishCSID: ",csid);
 --print("onFinishRESULT: ",option);
 
     if (csid <= 11 and option == 1) then
@@ -166,16 +139,20 @@ function onEventFinish(player,csid,option)
             player:setPos(388, -32, -40, 231, 184);
         elseif (csid == 2) then
             player:setPos(540, -32, 20, 128, 184);
-        elseif (csid == 0xA) then
+        elseif (csid == 10) then
             player:setPos(-355, -144, 91, 64, 158);
         end
-    elseif (csid == 0x000e) then
-        player:addItem(12516);
-        player:messageSpecial(ITEM_OBTAINED,12516); -- Chaos Burgeonet
-        player:addTitle(PARAGON_OF_DARK_KNIGHT_EXCELLENCE);
-        player:setVar("bladeOfEvilCS",0);
-        player:addFame(BASTOK,AF3_FAME);
-        player:completeQuest(BASTOK,BLADE_OF_EVIL);
+    elseif (csid == 14) then
+        if (player:getFreeSlotsCount() == 0) then
+            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12516);
+        else
+            player:addItem(12516);
+            player:messageSpecial(ITEM_OBTAINED,12516); -- Chaos Burgeonet
+            player:addTitle(PARAGON_OF_DARK_KNIGHT_EXCELLENCE);
+            player:setVar("bladeOfEvilCS",0);
+            player:addFame(BASTOK,AF3_FAME);
+            player:completeQuest(BASTOK,BLADE_OF_EVIL);
+        end
     end
 
 end;

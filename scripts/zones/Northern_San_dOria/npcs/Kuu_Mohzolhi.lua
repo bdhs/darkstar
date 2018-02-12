@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Northern San d'Oria
--- NPC: Kuu Mohzolhi
+--  NPC: Kuu Mohzolhi
 -- Starts and Finishes Quest: Growing Flowers
 -- @zone 231
 -- !pos -123 0 80
@@ -10,9 +10,6 @@ package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/zones/Northern_San_dOria/TextIDs");
-
------------------------------------
--- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -52,57 +49,42 @@ itemQuality = 0;
 
     if (itemQuality == 2) then
         if (GrowingFlowers == QUEST_COMPLETED) then
-            player:startEvent(0x025d, 0, 231, 4);
+            player:startEvent(605, 0, 231, 4);
         else
-            player:startEvent(0x025d, 0, 231, 2);
+            player:startEvent(605, 0, 231, 2);
         end
     elseif (itemQuality == 1) then
         if (GrowingFlowers == QUEST_ACCEPTED) then
-            player:startEvent(0x025d, 0, 231, 3);
+            player:startEvent(605, 0, 231, 3);
         else
-            player:startEvent(0x025d, 0, 231, 1);
+            player:startEvent(605, 0, 231, 1);
         end
     else
-        player:startEvent(0x025d, 0, 231, 0);
+        player:startEvent(605, 0, 231, 0);
     end
 
 end;
 
-
------------------------------------
--- onTrigger Action
------------------------------------
-
 function onTrigger(player,npc)
-    player:startEvent(0x025d, 0, 231, 10);
+    player:startEvent(605, 0, 231, 10);
 end;
-
-
------------------------------------
--- onEventUpdate
------------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
-
------------------------------------
--- onEventFinish
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x025d and option == 1002) then
+    if (csid == 605 and option == 1002) then
         player:tradeComplete();
         player:completeQuest(SANDORIA,GROWING_FLOWERS);
         player:addFame(SANDORIA,120);
         player:moghouseFlag(1);
         player:messageSpecial(MOGHOUSE_EXIT);
-    elseif (csid == 0x025d and option == 1) then
+    elseif (csid == 605 and option == 1) then
         player:tradeComplete();
         player:addQuest(SANDORIA,GROWING_FLOWERS);
     end

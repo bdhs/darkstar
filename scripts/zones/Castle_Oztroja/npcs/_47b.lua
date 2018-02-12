@@ -1,17 +1,13 @@
 -----------------------------------
--- Area:  Castle Oztroja
--- NPC:   _47b (Handle)
+-- Area: Castle Oztroja
+--  NPC: _47b (Handle)
 -- Notes: Opens Trap Door (_47a) or Brass Door (_470)
 -- !pos 22.310 -1.087 -14.320 151
 -----------------------------------
 package.loaded["scripts/zones/Castle_Oztroja/TextIDs"] = nil;
 -----------------------------------
-
 require("scripts/zones/Castle_Oztroja/TextIDs");
 require("scripts/globals/missions");
-
------------------------------------
--- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -32,7 +28,7 @@ function onTrigger(player,npc)
                 GetNPCByID(TrapDoor):openDoor(6);
             end
             if (player:getCurrentMission(WINDURST) == TO_EACH_HIS_OWN_RIGHT and player:getVar("MissionStatus") == 3) then
-                player:startEvent(0x002B);
+                player:startEvent(43);
             end
         else
             if (BrassA == 9 and npc:getAnimation() == 9) then
@@ -47,24 +43,16 @@ function onTrigger(player,npc)
 
 end;
 
------------------------------------
--- onEventUpdate
------------------------------------
-
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
------------------------------------
--- onEventFinish Action
------------------------------------
-
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 0x002B) then
+    if (csid == 43) then
         player:setVar("MissionStatus",4);
     end
 

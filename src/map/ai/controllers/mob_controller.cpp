@@ -499,6 +499,7 @@ void CMobController::DoCombatTick(time_point tick)
 
     float currentDistance = distance(PMob->loc.p, PTarget->loc.p);
 
+    PMob->PAI->EventHandler.triggerListener("COMBAT_TICK", PMob);
     luautils::OnMobFight(PMob, PTarget);
 
     // Try to spellcast (this is done first so things like Chainspell spam is prioritised over TP moves etc.
@@ -678,7 +679,7 @@ void CMobController::DoRoamTick(time_point tick)
         // i'm claimed by someone and need hate towards this person
         PTarget = (CBattleEntity*)PMob->GetEntity(PMob->m_OwnerID.targid, TYPE_PC | TYPE_MOB | TYPE_PET);
 
-        battleutils::ClaimMob(PMob, PTarget);
+        PMob->PEnmityContainer->AddBaseEnmity(PTarget);
 
         Engage(PTarget->targid);
         return;
@@ -793,7 +794,7 @@ void CMobController::DoRoamTick(time_point tick)
                     luautils::OnMobRoamAction(PMob);
                     m_LastActionTime = m_Tick;
                 }
-                else if (PMob->CanRoam() && PMob->PAI->PathFind->RoamAround(PMob->m_SpawnPoint, PMob->GetRoamDistance(), PMob->getMobMod(MOBMOD_ROAM_TURNS), PMob->m_roamFlags))
+                else if (PMob->CanRoam() && PMob->PAI->PathFind->RoamAround(PMob->m_SpawnPoint, PMob->GetRoamDistance(), (uint8)PMob->getMobMod(MOBMOD_ROAM_TURNS), PMob->m_roamFlags))
                 {
                     //#TODO: #AIToScript (event probably)
                     if (PMob->m_roamFlags & ROAMFLAG_WORM)
@@ -801,6 +802,7 @@ void CMobController::DoRoamTick(time_point tick)
                         // move down
                         PMob->animationsub = 1;
                         PMob->HideName(true);
+                        PMob->Untargetable(true);
 
                         // don't move around until i'm fully in the ground
                         Wait(2s);
@@ -819,6 +821,7 @@ void CMobController::DoRoamTick(time_point tick)
     }
     if (m_Tick >= m_LastRoamScript + 3s)
     {
+        PMob->PAI->EventHandler.triggerListener("ROAM_TICK", PMob);
         luautils::OnMobRoam(PMob);
         m_LastRoamScript = m_Tick;
     }
@@ -846,7 +849,7 @@ void CMobController::FollowRoamPath()
         if (PPet != nullptr && !PPet->PAI->IsEngaged())
         {
             // pet should follow me if roaming
-            position_t targetPoint = nearPosition(PMob->loc.p, 2.1f, M_PI);
+            position_t targetPoint = nearPosition(PMob->loc.p, 2.1f, (float)M_PI);
 
             PPet->PAI->PathFind->PathTo(targetPoint);
         }
@@ -854,7 +857,7 @@ void CMobController::FollowRoamPath()
         // if I just finished reset my last action time
         if (!PMob->PAI->PathFind->IsFollowingPath())
         {
-            uint16 roamRandomness = (float)PMob->getBigMobMod(MOBMOD_ROAM_COOL) / PMob->GetRoamRate();
+            uint16 roamRandomness = (uint16)(PMob->getBigMobMod(MOBMOD_ROAM_COOL) / PMob->GetRoamRate());
             m_LastActionTime = m_Tick - std::chrono::milliseconds(dsprand::GetRandomNumber(roamRandomness));
 
             // i'm a worm pop back up
@@ -862,6 +865,7 @@ void CMobController::FollowRoamPath()
             {
                 PMob->animationsub = 0;
                 PMob->HideName(false);
+                PMob->Untargetable(false);
             }
 
             // face spawn rotation if I just moved back to spawn
@@ -894,6 +898,7 @@ void CMobController::Reset()
     m_LastActionTime = m_Tick - std::chrono::milliseconds(dsprand::GetRandomNumber(PMob->getBigMobMod(MOBMOD_ROAM_COOL)));
 
     // Don't attack player right off of spawn
+    PMob->m_neutral = true;
     m_NeutralTime = m_Tick;
 
     PTarget = nullptr;
@@ -913,11 +918,12 @@ bool CMobController::MobSkill(uint16 targid, uint16 wsid)
 bool CMobController::Disengage()
 {
     // this will let me decide to walk home or despawn
-    m_LastActionTime = m_Tick - (std::chrono::milliseconds(PMob->getBigMobMod(MOBMOD_ROAM_COOL)) + 10s);
+    m_LastActionTime = m_Tick - std::chrono::milliseconds(PMob->getBigMobMod(MOBMOD_ROAM_COOL)) + 10s;
     PMob->m_neutral = true;
     m_NeutralTime = m_Tick;
 
     PMob->PAI->PathFind->Clear();
+    PMob->PEnmityContainer->Clear();
 
     if (PMob->getMobMod(MOBMOD_IDLE_DESPAWN))
     {
@@ -1048,6 +1054,11 @@ bool CMobController::IsSpellReady(float currentDistance)
     {
         // Mobs use ranged attacks quicker when standing back
         bonusTime = PMob->getBigMobMod(MOBMOD_STANDBACK_COOL);
+    }
+
+    if (PMob->StatusEffectContainer->HasStatusEffect({EFFECT_CHAINSPELL,EFFECT_MANAFONT}))
+    {
+        return true;
     }
 
     return (m_Tick >= m_LastMagicTime + std::chrono::milliseconds(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) - bonusTime));

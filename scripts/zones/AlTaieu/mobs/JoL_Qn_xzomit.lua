@@ -3,28 +3,17 @@
 --  MOB: Qn'xzomit
 -- Jailor of Love Pet version
 -----------------------------------
-
-
------------------------------------
--- onMobSpawn Action
+require("scripts/zones/AlTaieu/MobIDs");
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
 
------------------------------------
--- onMobDeath
------------------------------------
-
 function onMobDeath(mob, player, isKiller)
 end;
 
------------------------------------
--- onMobDespawn
------------------------------------
-
 function onMobDespawn(mob)
-    local JoL = GetMobByID(16912848);
+    local JoL = GetMobByID(JAILER_OF_LOVE);
     local XZOMITS = JoL:getLocalVar("JoL_Qn_xzomit_Killed");
     JoL:setLocalVar("JoL_Qn_xzomit_Killed", XZOMITS+1);
 end;

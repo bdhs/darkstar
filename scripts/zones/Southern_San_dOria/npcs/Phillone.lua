@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Southern San d'Oria
--- NPC: Phillone
+--  NPC: Phillone
 -- Involved in Quest: A Timely Visit
 --  General Info NPC
 -------------------------------------
