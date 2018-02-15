@@ -97,6 +97,8 @@ private:
 
     TREASUREPOOLTYPE m_TreasurePoolType;
 
+    void RandomFall(uint8 SlotID);
+
     void CheckTreasureItem(time_point tick, uint8 SlotID);
 
     TreasurePoolItem m_PoolItems[TREASUREPOOL_SIZE];
