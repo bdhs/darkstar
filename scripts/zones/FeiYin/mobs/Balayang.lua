@@ -2,7 +2,11 @@
 -- Area: Fei'Yin
 --  MOB: Balayang
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

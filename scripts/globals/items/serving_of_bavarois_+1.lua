@@ -7,7 +7,11 @@
 -- Intelligence 4
 -- hHP +4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -17,6 +21,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,5730);
@@ -32,7 +40,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_HPHEAL, 4);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 25);
     target:delMod(MOD_INT, 4);
     target:delMod(MOD_HPHEAL, 4);

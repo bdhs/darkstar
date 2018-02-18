@@ -8,11 +8,21 @@ package.loaded["scripts/zones/RuLude_Gardens/TextIDs"] = nil;
 require("scripts/zones/RuLude_Gardens/TextIDs");
 require("scripts/globals/missions");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+    local vwnpc = {17772790};
+    SetVoidwatchNPC(vwnpc);
+
     zone:registerRegion(1,-4,-2,40,4,3,50);
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -33,6 +43,10 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
+
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -41,11 +55,15 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
-function onRegionEnter(player,region)
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
 
+function onRegionEnter(player,region)
+    
     local regionID = region:GetRegionID();
     -- printf("regionID: %u",regionID);
-
+    
     if (regionID == 1) then
         if (player:getCurrentMission(COP) == A_VESSEL_WITHOUT_A_CAPTAIN and player:getVar("PromathiaStatus") == 1) then
             player:startEvent(65,player:getNation());
@@ -53,10 +71,6 @@ function onRegionEnter(player,region)
             player:startEvent(10048);
         elseif (player:getCurrentMission(COP) == FLAMES_IN_THE_DARKNESS and player:getVar("PromathiaStatus") == 2) then
             player:startEvent(10051);
-        elseif (player:getCurrentMission(TOAU) == EASTERLY_WINDS and player:getVar("AhtUrganStatus") == 1) then
-            player:startEvent(10094);
-        elseif (player:getCurrentMission(TOAU) == ALLIED_RUMBLINGS) then
-            player:startEvent(10097);
         elseif (player:getCurrentMission(COP) == DAWN) then
             if (player:getVar("COP_3-taru_story") == 2 and player:getVar("COP_shikarees_story") == 1 and player:getVar("COP_louverance_story") == 3
             and player:getVar("COP_tenzen_story") == 1 and player:getVar("COP_jabbos_story") == 1) then
@@ -68,17 +82,31 @@ function onRegionEnter(player,region)
                     player:startEvent(143);
                 end
             end
+        elseif (player:getCurrentMission(TOAU) == EASTERLY_WINDS and player:getVar("AhtUrganStatus") == 1) then
+            player:startEvent(10094);
         end
     end
 end;
 
+-----------------------------------
+-- onRegionLeave
+-----------------------------------
+
 function onRegionLeave(player,region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -111,7 +139,7 @@ function onEventFinish(player,csid,option)
         player:setVar("COP_jabbos_story",0);
     elseif (csid == 10094) then
         if (option == 1) then
-            if (player:getFreeSlotsCount() == 0) then
+            if (player:getFreeSlotsCount() == 0) then 
                 player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2184);
             else
                 player:completeMission(TOAU,EASTERLY_WINDS);
@@ -125,11 +153,6 @@ function onEventFinish(player,csid,option)
             player:addMission(TOAU,WESTERLY_WINDS);
             player:setVar("AhtUrganStatus", 0);
         end
-    elseif (csid == 10097) then
-        player:completeMission(TOAU,ALLIED_RUMBLINGS);
-        player:needToZone(true);
-        player:setVar("TOAUM40_STARTDAY", VanadielDayOfTheYear());
-        player:addMission(TOAU,UNRAVELING_REASON);
     elseif (csid == 142) then
         player:addQuest(JEUNO,STORMS_OF_FATE);
     elseif (csid == 143) then

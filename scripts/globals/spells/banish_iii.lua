@@ -1,5 +1,5 @@
 -----------------------------------------
--- Spell: Banish III
+-- Spell: Banish
 -- Deals light damage to an enemy.
 -----------------------------------------
 
@@ -16,11 +16,6 @@ end;
 
 function onSpellCast(caster,target,spell)
     --doDivineBanishNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-    local params = {};
-    params.dmg = 198;
-    params.multiplier = 1.5;
-    params.hasMultipleTargetReduction = false;
-    params.resistBonus = 1.0;
-    dmg = doDivineBanishNuke(caster, target, spell, params);
+    local dmg = doDivineBanishNuke(198,1.5,caster,spell,target,false,1.0);
     return dmg;
 end;

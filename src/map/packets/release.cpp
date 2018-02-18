@@ -32,11 +32,11 @@ CReleasePacket::CReleasePacket(CCharEntity * PChar, RELEASE_TYPE releaseType)
 	this->type = 0x52;
 	this->size = 0x04;
 	
-	ref<uint8>(0x04) = releaseType;
+	WBUFB(data,(0x04)) = releaseType;
 
 	if (releaseType == RELEASE_SKIPPING) 
 	{
-		ref<uint16>(0x05) = PChar->m_event.EventID;
+		WBUFW(data,(0x05)) = PChar->m_event.EventID;
 	}
 }
 

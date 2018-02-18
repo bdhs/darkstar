@@ -2,10 +2,11 @@
 -- Area: North Gustaberg
 --  NPC: Kuuwari-Aori, W.W.
 -- Type: Outpost Conquest Guards
--- !pos -584.687 39.107 54.281 106
+-- @pos -584.687 39.107 54.281 106
 -----------------------------------
 package.loaded["scripts/zones/North_Gustaberg/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/North_Gustaberg/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = GUSTABERG;
 local csid        = 0x7ff7;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

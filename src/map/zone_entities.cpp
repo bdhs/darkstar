@@ -81,15 +81,6 @@ void CZoneEntities::InsertPC(CCharEntity* PChar)
     ShowDebug(CL_CYAN"CZone:: %s IncreaseZoneCounter <%u> %s \n" CL_RESET, m_zone->GetName(), m_charList.size(), PChar->GetName());
 }
 
-void CZoneEntities::InsertAlly(CBaseEntity* PMob)
-{
-    if ((PMob != nullptr) && (PMob->objtype == TYPE_MOB))
-    {
-        PMob->loc.zone = m_zone;
-        m_allyList[PMob->targid] = PMob;
-    }
-}
-
 void CZoneEntities::InsertMOB(CBaseEntity* PMob)
 {
     if ((PMob != nullptr) && (PMob->objtype == TYPE_MOB))
@@ -187,7 +178,7 @@ void CZoneEntities::FindPartyForMob(CBaseEntity* PEntity)
             if (PCurrentMob->allegiance == PMob->allegiance &&
                 (forceLink ||
                     PCurrentMob->m_Family == PMob->m_Family ||
-                    (sublink && sublink == PCurrentMob->getMobMod(MOBMOD_SUBLINK))))
+                    sublink && sublink == PCurrentMob->getMobMod(MOBMOD_SUBLINK)))
             {
 
                 if (PCurrentMob->PMaster == nullptr || PCurrentMob->PMaster->objtype == TYPE_MOB)
@@ -262,7 +253,7 @@ void CZoneEntities::WeatherChange(WEATHER weather)
     {
         CCharEntity* PChar = (CCharEntity*)it->second;
 
-        PChar->PLatentEffectContainer->CheckLatentsWeather(weather);
+        PChar->PLatentEffectContainer->CheckLatentsZone();
         PChar->PAI->EventHandler.triggerListener("WEATHER_CHANGE", PChar, static_cast<int>(weather), element);
     }
 }
@@ -282,7 +273,7 @@ void CZoneEntities::DecreaseZoneCounter(CCharEntity* PChar)
         else {
             PChar->PPet->status = STATUS_DISAPPEAR;
             if (((CPetEntity*)(PChar->PPet))->getPetType() == PETTYPE_AVATAR)
-                PChar->setModifier(Mod::AVATAR_PERPETUATION, 0);
+                PChar->setModifier(MOD_AVATAR_PERPETUATION, 0);
         }
         // It may have been nullptred by DespawnPet
         if (PChar->PPet != nullptr) {
@@ -313,13 +304,13 @@ void CZoneEntities::DecreaseZoneCounter(CCharEntity* PChar)
 
         if (PChar->loc.destination == 0) { //this player is disconnecting/logged out, so move them to the entrance
             //move depending on zone
-            float pos[4] = {0.f, 0.f, 0.f, 0.f};
+            int pos[4] = {0, 0, 0, 0};
             battlefieldutils::getStartPosition(m_zone->GetID(), pos);
-            if (!(pos[0] == 0.f && pos[1] == 0.f && pos[2] == 0.f && pos[3] == 0.f)) {
+            if (pos != nullptr) {
                 PChar->loc.p.x = pos[0];
                 PChar->loc.p.y = pos[1];
                 PChar->loc.p.z = pos[2];
-                PChar->loc.p.rotation = (uint8)pos[3];
+                PChar->loc.p.rotation = pos[3];
                 PChar->updatemask |= UPDATE_POS;
                 charutils::SaveCharPosition(PChar);
             }
@@ -336,13 +327,13 @@ void CZoneEntities::DecreaseZoneCounter(CCharEntity* PChar)
 
         if (PChar->loc.destination == 0) { //this player is disconnecting/logged out, so move them to the entrance
             //move depending on zone
-            float pos[4] = {0.f, 0.f, 0.f, 0.f};
+            int pos[4] = {0, 0, 0, 0};
             battlefieldutils::getStartPosition(m_zone->GetID(), pos);
-            if (!(pos[0] == 0.f && pos[1] == 0.f && pos[2] == 0.f && pos[3] == 0.f)) {
+            if (!(pos[0] == 0 && pos[1] == 0 && pos[2] == 0 && pos[3] == 0)) {
                 PChar->loc.p.x = pos[0];
                 PChar->loc.p.y = pos[1];
                 PChar->loc.p.z = pos[2];
-                PChar->loc.p.rotation = (uint8)pos[3];
+                PChar->loc.p.rotation = pos[3];
                 PChar->updatemask |= UPDATE_POS;
                 charutils::SaveCharPosition(PChar);
             }
@@ -423,7 +414,7 @@ void CZoneEntities::SpawnMOBs(CCharEntity* PChar)
 
         float CurrentDistance = distance(PChar->loc.p, PCurrentMob->loc.p);
 
-        if (PCurrentMob->status != STATUS_DISAPPEAR &&
+        if (PCurrentMob->status == STATUS_MOB &&
             CurrentDistance < 50)
         {
             if (MOB == PChar->SpawnMOBList.end() ||
@@ -740,8 +731,6 @@ void CZoneEntities::TOTDChange(TIMETYPE TOTD)
             }
         }
         break;
-        default:
-            break;
     }
     if (ScriptType != SCRIPT_NONE)
     {
@@ -771,7 +760,7 @@ CCharEntity* CZoneEntities::GetCharByName(int8* name)
         for (EntityList_t::const_iterator it = m_charList.begin(); it != m_charList.end(); ++it)
         {
             CCharEntity* PCurrentChar = (CCharEntity*)it->second;
-            if (stricmp((char*)PCurrentChar->GetName(), (const char*)name) == 0)
+            if (stricmp(PCurrentChar->GetName(), name) == 0)
             {
                 return PCurrentChar;
             }
@@ -819,16 +808,12 @@ void CZoneEntities::PushPacket(CBaseEntity* PEntity, GLOBAL_MESSAGE_TYPE message
             }
             case CHAR_INRANGE:
             {
-                // todo: rewrite packet handlers and use enums instead of rawdog packet ids
-                // 30 yalms if action packet, 50 otherwise
-                const int checkDistanceSq = packet->id() == 0x0028 ? 900 : 2500;
-
                 for (EntityList_t::const_iterator it = m_charList.begin(); it != m_charList.end(); ++it)
                 {
                     CCharEntity* PCurrentChar = (CCharEntity*)it->second;
                     if (PEntity != PCurrentChar)
                     {
-                        if (distanceSquared(PEntity->loc.p, PCurrentChar->loc.p) < checkDistanceSq &&
+                        if (distance(PEntity->loc.p, PCurrentChar->loc.p) < 50 &&
                             ((PEntity->objtype != TYPE_PC) || (((CCharEntity*)PEntity)->m_moghouseID == PCurrentChar->m_moghouseID)))
                         {
                             if (packet->id() == 0x00E &&
@@ -951,7 +936,7 @@ void CZoneEntities::WideScan(CCharEntity* PChar, uint16 radius)
     PChar->pushPacket(new CWideScanPacket(WIDESCAN_END));
 }
 
-void CZoneEntities::ZoneServer(time_point tick, bool check_regions)
+void CZoneEntities::ZoneServer(time_point tick)
 {
     for (EntityList_t::const_iterator it = m_mobList.begin(); it != m_mobList.end(); ++it)
     {
@@ -962,35 +947,25 @@ void CZoneEntities::ZoneServer(time_point tick, bool check_regions)
             continue;
         }
 
-        PMob->PRecastContainer->Check();
-        PMob->StatusEffectContainer->CheckEffectsExpiry(tick);
-        if(tick > m_EffectCheckTime)
-        {
-            PMob->StatusEffectContainer->TickRegen(tick);
-            PMob->StatusEffectContainer->TickEffects(tick);
-        }
+        PMob->StatusEffectContainer->CheckEffects(tick);
         PMob->PAI->Tick(tick);
+        PMob->StatusEffectContainer->CheckRegen(tick);
     }
 
     for (EntityList_t::const_iterator it = m_npcList.begin(); it != m_npcList.end(); ++it)
     {
         CNpcEntity* PNpc = (CNpcEntity*)it->second;
 
-        PNpc->PAI->Tick(tick);
+        PNpc->PAI->Tick(server_clock::now());
     }
 
     EntityList_t::const_iterator pit = m_petList.begin();
     while (pit != m_petList.end())
     {
         CPetEntity* PPet = (CPetEntity*)pit->second;
-        PPet->PRecastContainer->Check();
-        PPet->StatusEffectContainer->CheckEffectsExpiry(tick);
-        if(tick > m_EffectCheckTime)
-        {
-            PPet->StatusEffectContainer->TickRegen(tick);
-            PPet->StatusEffectContainer->TickEffects(tick);
-        }
+        PPet->StatusEffectContainer->CheckEffects(tick);
         PPet->PAI->Tick(tick);
+        PPet->StatusEffectContainer->CheckRegen(tick);
         if (PPet->status == STATUS_DISAPPEAR)
         {
             for (auto PMobIt : m_mobList)
@@ -998,7 +973,7 @@ void CZoneEntities::ZoneServer(time_point tick, bool check_regions)
                 CMobEntity* PCurrentMob = (CMobEntity*)PMobIt.second;
                 PCurrentMob->PEnmityContainer->Clear(PPet->id);
             }
-            if (PPet->getPetType() != PETTYPE_AUTOMATON || !PPet->PMaster)
+            if (PPet->getPetType() != PETTYPE_AUTOMATON)
             {
                 delete pit->second;
             }
@@ -1016,25 +991,48 @@ void CZoneEntities::ZoneServer(time_point tick, bool check_regions)
         if (PChar->status != STATUS_SHUTDOWN)
         {
             PChar->PRecastContainer->Check();
-            PChar->StatusEffectContainer->CheckEffectsExpiry(tick);
-            if (tick > m_EffectCheckTime)
-            {
-                PChar->StatusEffectContainer->TickRegen(tick);
-                PChar->StatusEffectContainer->TickEffects(tick);
-            }
+            PChar->StatusEffectContainer->CheckEffects(tick);
             PChar->PAI->Tick(tick);
             PChar->PTreasurePool->CheckItems(tick);
-            if (check_regions)
-            {
-                m_zone->CheckRegions(PChar);
-            }
+            PChar->StatusEffectContainer->CheckRegen(tick);
         }
     }
-    if (tick > m_EffectCheckTime)
+}
+
+void CZoneEntities::ZoneServerRegion(time_point tick)
+{
+    for (EntityList_t::const_iterator it = m_mobList.begin(); it != m_mobList.end(); ++it)
     {
-        m_EffectCheckTime = m_EffectCheckTime + 3s > tick ? m_EffectCheckTime + 3s : tick + 3s;
+        CMobEntity* PMob = (CMobEntity*)it->second;
+
+        PMob->StatusEffectContainer->CheckEffects(tick);
+        PMob->PAI->Tick(tick);
+    }
+
+    for (EntityList_t::const_iterator it = m_petList.begin(); it != m_petList.end(); ++it)
+    {
+        CPetEntity* PPet = (CPetEntity*)it->second;
+
+        PPet->StatusEffectContainer->CheckEffects(tick);
+        PPet->PAI->Tick(tick);
+    }
+
+    for (EntityList_t::const_iterator it = m_charList.begin(); it != m_charList.end(); ++it)
+    {
+        CCharEntity* PChar = (CCharEntity*)it->second;
+
+        if (PChar->status != STATUS_SHUTDOWN)
+        {
+            PChar->PRecastContainer->Check();
+            PChar->StatusEffectContainer->CheckEffects(tick);
+            PChar->PAI->Tick(tick);
+            PChar->PTreasurePool->CheckItems(tick);
+
+            m_zone->CheckRegions(PChar);
+        }
     }
 }
+
 
 CZone* CZoneEntities::GetZone()
 {

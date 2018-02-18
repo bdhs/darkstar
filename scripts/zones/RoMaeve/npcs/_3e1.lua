@@ -1,9 +1,13 @@
 -----------------------------------
 -- Area: Ro'Maeve
---  NPC: _3e1 (Moongate)
+-- NPC: _3e1 (Moongate)
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -12,11 +16,23 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onEventSelection
+-----------------------------------
+
 function onEventUpdate(player,csid,menuchoice)
 end;
+
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
 end;

@@ -8,7 +8,11 @@
 -- Magic % 10
 -- Magic Cap 30
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,6 +22,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,5233);
@@ -34,7 +42,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_FOOD_MP_CAP, 30);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 10);
     target:delMod(MOD_FOOD_HP_CAP, 30);
     target:delMod(MOD_FOOD_MPP, 10);

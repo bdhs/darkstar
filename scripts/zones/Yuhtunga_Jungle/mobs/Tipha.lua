@@ -2,14 +2,31 @@
 -- Area: Yuhtunga Jungle
 --  MOB: Tipha
 -----------------------------------
-require("scripts/zones/Yuhtunga_Jungle/MobIDs");
 
-function onMobDisengage(mob)
-    DespawnMob(mob:getID(), 120);
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
+function onMobSpawn(mob)
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
-    if (isKiller and GetMobByID(CARTHI):isDead()) then
-        GetNPCByID(YUHTUNGA_CERMET_HEADSTONE):setLocalVar("cooldown", os.time() + 900);
+    if (isKiller) then -- Causes this to only run once per Tipha kill
+        if (GetServerVariable("[ZM4]Fire_Headstone_Active") == 0) then
+            SetServerVariable("[ZM4]Fire_Headstone_Active",1);
+        elseif (GetServerVariable("[ZM4]Fire_Headstone_Active") == 1) then
+            SetServerVariable("[ZM4]Fire_Headstone_Active",os.time()+ 900);
+        end
     end
+end;
+
+-----------------------------------
+-- onMobDespawn Action
+-----------------------------------
+
+function onMobDespawn(mob)
 end;

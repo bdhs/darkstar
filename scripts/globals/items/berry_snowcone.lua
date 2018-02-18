@@ -6,7 +6,11 @@
 -- MP % 30 Cap 30
 -- Intelligence 1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -16,6 +20,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,5710);
@@ -31,7 +39,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_INT, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_MPP, 30);
     target:delMod(MOD_FOOD_MP_CAP, 30);
     target:delMod(MOD_INT, 1);

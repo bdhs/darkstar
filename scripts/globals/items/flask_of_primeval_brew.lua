@@ -24,6 +24,9 @@
 -- Ranged Attack +9000
 
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -33,6 +36,10 @@ function onItemCheck(target)
         return 0;
     end
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_TRANSCENDENCY,1,0,180);

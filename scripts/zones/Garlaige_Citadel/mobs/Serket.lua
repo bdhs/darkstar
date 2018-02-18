@@ -2,15 +2,27 @@
 -- Area: Garlaige Citadel (200)
 --  NM:  Serket
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
     player:addTitle(SERKET_BREAKER);
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 

@@ -2,7 +2,11 @@
 -- Area: Toraimorai Canal
 --  MOB: Blackwater Pugil
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

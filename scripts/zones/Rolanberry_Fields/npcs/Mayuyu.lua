@@ -2,19 +2,26 @@
 -- Area: Rolanberry Fields
 --  NPC: Mayuyu
 -- Legion NPC
--- !pos 240 24.399 468
+-- @pos 240 24.399 468
 -----------------------------------
 package.loaded["scripts/zones/Rolanberry_Fields/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/titles");
 require("scripts/zones/Rolanberry_Fields/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 function onTrigger(player,npc)
     local LEGENDARY = 0;
     local CAPACITY = 0;
@@ -33,10 +40,18 @@ function onTrigger(player,npc)
     player:startEvent(8008, 0, LEGENDARY, CAPACITY);
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- print("CSID:", csid);
     -- print("RESULT:", option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- print("CSID:", csid);

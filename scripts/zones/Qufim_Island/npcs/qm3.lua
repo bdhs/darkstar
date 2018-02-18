@@ -1,26 +1,34 @@
 -----------------------------------
 -- Area: Qufim Island
---  NPC: ??? (qm3)
+-- NPC: ??? (qm3)
 -- Mission: ACP - The Echo Awakens
 -- @zone 126
--- !pos -120.342 -19.471 306.661
+-- @pos -120.342 -19.471 306.661
 -----------------------------------
 package.loaded["scripts/zones/Qufim_Island/TextIDs"] = nil;
 -------------------------------------
+
 require("scripts/zones/Qufim_Island/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onTrade
 -----------------------------------
 
 function onTrade(player,npc,trade)
     -- Trade Seedspall's Lux, Luna, Astrum
-    if (player:getCurrentMission(ACP) == THE_ECHO_AWAKENS and trade:getItemCount() == 3
+    if (player:getCurrentMission(ACP) == THE_ECHO_AWAKENS and trade:getItemCount() == 3 
     and trade:hasItemQty(2740,1) and trade:hasItemQty(2741,1) and trade:hasItemQty(2742,1)) then
         player:tradeComplete();
-        player:startEvent(31);
+        player:startEvent(0x001F);
     end
 end;
+
+-----------------------------------
+-- onTrigger
+-----------------------------------
 
 function onTrigger(player,npc)
     local ACPm = player:getCurrentMission(ACP);
@@ -34,7 +42,7 @@ function onTrigger(player,npc)
 
     if (ENABLE_ACP == 1 and player:hasKeyItem(AMBER_KEY) == false) then
         if (ACPm == GATHERER_OF_LIGHT_I and SR and SC and SV and now ~= LastViridian) then
-            player:startEvent(32);
+            player:startEvent(0x0020);
         elseif (ACPm == GATHERER_OF_LIGHT_II and player:getVar("SEED_MANDY") == 0) then
             -- Spawn Seed mandragora's
             player:setVar("SEED_MANDY",1); -- This will need moved into Seed mandies onDeath script later.
@@ -42,7 +50,7 @@ function onTrigger(player,npc)
             -- EFFECT_CONFRONTATION for 30 min
         elseif (ACPm == GATHERER_OF_LIGHT_II and player:getVar("SEED_MANDY") == 1) then -- change SEED_MANDY var number later when battle actually works (intended purpose is to track number of slain mandies).
             player:setVar("SEED_MANDY",0);
-            player:startEvent(34);
+            player:startEvent(0x0022);
         -- elseif (ACPm >= THOSE_WHO_LURK_IN_SHADOWS_I and AmberKey == false and now ~= LastAmber and now ~= LastViridian and SR and SC and SV and player:getVar("SEED_MANDY") == 0) then
             -- This is for repeats to get amber keys.
             -- Spawn Seed mandragora's with EFFECT_CONFRONTATION for 30 min
@@ -62,24 +70,32 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 31) then
+    if (csid == 0x001F) then
         player:completeMission(ACP,THE_ECHO_AWAKENS);
         player:addMission(ACP,GATHERER_OF_LIGHT_I);
-    elseif (csid == 32) then
+    elseif (csid == 0x0020) then
         player:completeMission(ACP,GATHERER_OF_LIGHT_I);
         player:addMission(ACP,GATHERER_OF_LIGHT_II);
         player:delKeyItem(SEEDSPALL_ROSEUM)
         player:delKeyItem(SEEDSPALL_CAERULUM)
         player:delKeyItem(SEEDSPALL_VIRIDIS)
-    elseif (csid == 34) then
+    elseif (csid == 0x0022) then
         player:completeMission(ACP,GATHERER_OF_LIGHT_II);
         player:addMission(ACP,THOSE_WHO_LURK_IN_SHADOWS_I);
     end

@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5407
--- Water Card Case
--- When used, you will obtain one stack of Water Cards
+--    ID: 5407
+--    Water Card Case
+--    When used, you will obtain one stack of Water Cards
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(2181,99);

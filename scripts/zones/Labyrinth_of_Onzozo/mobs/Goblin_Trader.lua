@@ -2,7 +2,11 @@
 -- Area: The Labyrinth of Onzozo
 --  MOB: Goblin Trader
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

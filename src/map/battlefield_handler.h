@@ -72,9 +72,8 @@ public:
     void	insertMonsterInList(CMobEntity* PMob);
     bool	checkMonsterInList(CMobEntity* PMob);
 
-    uint16					m_ZoneId;
-
 private:
+    uint16					m_ZoneId;
     uint8					m_MaxBattlefields;							// usually 3 except dynamis, einherjar, besieged, ...
     CBattlefield*				m_Battlefields[8];
 };

@@ -2,8 +2,12 @@
 -- Area: Bhaflau Thickets
 --  MOB: Colibri
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onMobFight Action
 -----------------------------------
 
 function onMobFight(mob, target)
@@ -30,6 +34,10 @@ function onMobFight(mob, target)
     end
 end;
 
+-----------------------------------
+-- onMagicHit
+-----------------------------------
+
 function onMagicHit(caster, target, spell)
     if (spell:tookEffect() and (caster:isPC() or caster:isPet()) and spell:getSpellGroup() ~= SPELLGROUP_BLUE ) then
         target:setLocalVar("COPY_SPELL", spell:getID());
@@ -41,6 +49,10 @@ function onMagicHit(caster, target, spell)
 
     return 1;
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

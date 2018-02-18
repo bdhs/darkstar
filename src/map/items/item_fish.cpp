@@ -46,33 +46,33 @@ CItemFish::~CItemFish()
 
 uint16 CItemFish::GetLength()
 {
-    return ref<uint16>(m_extra, 0);
+    return RBUFW(m_extra, 0);
 }
 
 uint16 CItemFish::GetWeight()
 {
-    return ref<uint16>(m_extra, 2);
+    return RBUFW(m_extra, 2);
 }
 
 bool CItemFish::IsRanked()
 {
-    return (ref<uint8>(m_extra, 4) & 0x01) == 0x01;
+    return (RBUFB(m_extra, 4) & 0x01) == 0x01;
 }
 
 void CItemFish::SetLength(uint16 length)
 {
-    ref<uint16>(m_extra, 0) = length;
+    WBUFW(m_extra, 0) = length;
 }
 
 void CItemFish::SetWeight(uint16 weight)
 {
-    ref<uint16>(m_extra, 2) = weight;
+    WBUFW(m_extra, 2) = weight;
 }
 
 void CItemFish::SetRank(bool rank)
 {
     if (rank)
-        ref<uint8>(m_extra, 4) |= 0x01;
+        WBUFB(m_extra, 4) |= 0x01;
     else
-        ref<uint8>(m_extra, 4) &= ~0x01;
+        WBUFB(m_extra, 4) &= ~0x01;
 }

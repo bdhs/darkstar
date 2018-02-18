@@ -5,17 +5,25 @@
 -- Recast Time: 2:00
 -- Duration: Instant
 -----------------------------------
-require("scripts/globals/weaponskills");
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
+require("scripts/globals/weaponskills");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
     return 0,0;
 end;
 
+-----------------------------------
+-- onUseAbility
+-----------------------------------
+
 function onUseAbility(player,target,ability,action)
+
     local params = {};
     params.numHits = 1;
     local ftp = 1
@@ -29,16 +37,16 @@ function onUseAbility(player,target,ability,action)
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
     params.bonusTP = player:getMod(MOD_JUMP_TP_BONUS)
-    params.targetTPMult = 0;
+    params.targetTPMult = 0
 
     if (target:isMob()) then
         local enmityShed = 50;
-        if player:getMainJob() ~= JOBS.DRG then
+        if player:getMainJob() ~= JOBS.DRG then 
             enmityShed = 30;
         end
         target:lowerEnmity(player, enmityShed + player:getMod(MOD_HIGH_JUMP_ENMITY_REDUCTION)); -- reduce total accumulated enmity
     end
-
+    
     local taChar = player:getTrickAttackChar(target);
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, 0, 0, true, action, taChar, params);
@@ -51,10 +59,9 @@ function onUseAbility(player,target,ability,action)
         if (criticalHit) then
             action:speceffect(target:getID(), 38)
         end
-        action:messageID(target:getID(), msgBasic.USES_JA)
         action:speceffect(target:getID(), 32)
     else
-        action:messageID(target:getID(), msgBasic.JA_MISS_2)
+        ability:setMsg(MSGBASIC_USES_BUT_MISSES)
         action:speceffect(target:getID(), 0)
     end
 

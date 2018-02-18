@@ -1,9 +1,12 @@
 -----------------------------------------
 -- Spell: Curse
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -18,23 +21,16 @@ function onSpellCast(caster,target,spell)
     power = 50;
 
     -- Duration, including resistance.  Unconfirmed.
-    duration = 300;
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_INT;
-    params.skillType = 35;
-    params.bonus = 0;
-    params.effect = EFFECT_CURSE_I;
-    duration = duration * applyResistanceEffect(caster, target, spell, params);
+    duration = 300 * applyResistanceEffect(caster,spell,target,dINT,35,0,EFFECT_CURSE_I);
 
     if (duration >= 150) then --Do it!
         if (target:addStatusEffect(EFFECT_CURSE_I,power,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+            spell:setMsg(236);
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end
 
     return EFFECT_CURSE_I;

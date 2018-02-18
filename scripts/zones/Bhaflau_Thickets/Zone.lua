@@ -4,16 +4,19 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/Bhaflau_Thickets/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bhaflau_Thickets/TextIDs");
-require("scripts/zones/Bhaflau_Thickets/MobIDs");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/zone");
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+require("scripts/globals/settings");
+require("scripts/globals/zone");
+require("scripts/zones/Bhaflau_Thickets/TextIDs");
+require("scripts/globals/chocobo_digging");
+
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 770, 50, DIGREQ_NONE },
                     { 2150, 60, DIGREQ_NONE },
                     { 622, 197, DIGREQ_NONE },
@@ -44,18 +47,31 @@ local itemMap =
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
-    UpdateNMSpawnPoint(HARVESTMAN);
-    GetMobByID(HARVESTMAN):setRespawnTime(math.random(900, 10800));
+
+    -- Harvestman
+    SetRespawnTime(16990252, 900, 10800);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -65,23 +81,36 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- afterZoneIn
+-----------------------------------
+
 function afterZoneIn(player)
     player:entityVisualPacket("1pb1");
     player:entityVisualPacket("2pb1");
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 108) then
-        player:setPos(0,0,0,0,66);
-    end
 end;

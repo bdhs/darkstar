@@ -1,5 +1,7 @@
 -----------------------------------
 -- A collection of frequently needed teleport shortcuts.
+-- by ReaperX
+-- Coordinates marked {R} have been obtained by packet capture from retail. Don't change them.
 -----------------------------------
 
 -----------------------------------
@@ -37,16 +39,14 @@ TELEPORT_LUFAISE       = 29;
 -----------------------------------
 -- Teleports
 -----------------------------------
-function toLeader(player)
+function toLeader(player) -- No logical order in this file, so tossing my entry at top! SO THERE!
     local leader = player:getPartyLeader();
-    if not leader:isInMogHouse() then
-        local X = leader:getXPos();
-        local Y = leader:getYPos();
-        local Z = leader:getZPos();
-        local Rot = leader:getRotPos();
-        local Zone = leader:getZoneID();
-        player:setPos(X, Y, Z, Rot, Zone);
-    end
+    local X = leader:getXPos();
+    local Y = leader:getYPos();
+    local Z = leader:getZPos();
+    local Rot = leader:getRotPos();
+    local Zone = leader:getZoneID();
+    player:setPos(X, Y, Z, Rot, Zone);
 end;
 
 function toFeiYin(player)

@@ -1,7 +1,7 @@
 -----------------------------------------
 -- ID: 4235
 -- Item: Bowl of Cursed Soup
--- Food Effect: 240Min, All Races
+-- Food Effect: 180Min, All Races
 -----------------------------------------
 -- Strength -7
 -- Dexterity -7
@@ -11,7 +11,11 @@
 -- Mind -7
 -- Charisma -7
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -22,8 +26,12 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,14400,4235);
+    target:addStatusEffect(EFFECT_FOOD,0,0,10800,4235);
 end;
 
 -----------------------------------------
@@ -40,7 +48,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_CHR, -7);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, -7);
     target:delMod(MOD_DEX, -7);
     target:delMod(MOD_AGI, -7);

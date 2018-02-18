@@ -1,9 +1,12 @@
 -----------------------------------------
---   Spell: Poison
+--    Spell: Poison
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -14,7 +17,7 @@ function onSpellCast(caster,target,spell)
     local effect = EFFECT_POISON;
 
     local duration = 30;
-
+    
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         duration = duration * 2;
     end
@@ -27,36 +30,24 @@ function onSpellCast(caster,target,spell)
     if power > 4 then
         power = 4;
     end
-
+    
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         power = power * 2;
     end
     caster:delStatusEffect(EFFECT_SABOTEUR);
-
-    local params = {};
-
-    params.diff = nil;
-
-    params.attribute = MOD_INT;
-
-    params.skillType = ENFEEBLING_MAGIC_SKILL;
-
-    params.bonus = 0;
-
-    params.effect = effect;
-
-    local resist = applyResistanceEffect(caster, target, spell, params);
+    
+    local resist = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,0,effect);
     if (resist == 1 or resist == 0.5) then -- effect taken
         duration = duration * resist;
 
         if (target:addStatusEffect(effect,power,3,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+            spell:setMsg(236);
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end
 
     else -- resist entirely.
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end
 
     return effect;

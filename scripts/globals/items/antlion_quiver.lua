@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5819
--- Item: Antlion Quiver
--- When used, you will obtain one stack of Antlion Arrows
+--    ID: 5819
+--    Item: Antlion Quiver
+--    When used, you will obtain one stack of Antlion Arrows
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(19195,99);

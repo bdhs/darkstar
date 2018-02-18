@@ -2,11 +2,19 @@
 -- Area: Halvung
 --  MOB: Gurfurlur the Menacing
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobEngaged Action
+-----------------------------------
 
 function onMobEngaged(mob,target)
 
@@ -17,6 +25,10 @@ function onMobEngaged(mob,target)
     SpawnMob(gurfurlur+4):updateEnmity(target);
 
 end;
+
+-----------------------------------
+-- onMobFight
+-----------------------------------
 
 function onMobFight(mob,target)
 
@@ -40,6 +52,10 @@ function onMobFight(mob,target)
         end;
     end;
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(TROLL_SUBJUGATOR);

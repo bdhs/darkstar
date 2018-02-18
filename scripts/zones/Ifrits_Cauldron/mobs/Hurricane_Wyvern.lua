@@ -2,7 +2,11 @@
 -- Area: Ifrit's Cauldron
 --  MOB: Hurricane Wyvern
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

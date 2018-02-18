@@ -8,7 +8,11 @@
 -- Bird Killer 10
 -- Resist Paralyze 10
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,6 +22,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,180,5922);
@@ -34,7 +42,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_PARALYZERES, 10);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HPHEAL, 3);
     target:delMod(MOD_MPHEAL, 6);
     target:delMod(MOD_BIRD_KILLER, 10);

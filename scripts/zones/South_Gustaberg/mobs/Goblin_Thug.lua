@@ -2,7 +2,11 @@
 -- Area: South Gustaberg
 --  MOB: Goblin Thug
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

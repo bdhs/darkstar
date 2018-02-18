@@ -5,20 +5,28 @@
 -----------------------------------
 package.loaded["scripts/zones/Port_San_dOria/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/zone");
 require("scripts/globals/settings");
 require("scripts/zones/Port_San_dOria/TextIDs");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
     -- FIRST LOGIN (START CS)
     if (player:getPlaytime(false) == 0) then
         if (OPENING_CUTSCENE_ENABLE == 1) then
-            cs = 500;
+            cs = 0x01F4;
         end
         player:setPos(-104, -8, -128, 227);
         player:setHomePoint();
@@ -31,18 +39,22 @@ function onZoneIn(player,prevZone)
         else
             player:setPos(80,-16,-135,165);
             if (player:getMainJob() ~= player:getVar("PlayerMainJob")) then
-                cs = 30004;
+                cs = 0x7534;
             end
             player:setVar("PlayerMainJob",0);
         end
     end
 
     if (player:getCurrentMission(COP) == THREE_PATHS and player:getVar("COP_Ulmia_s_Path") == 1) then
-             cs =4;
+             cs =0x0004;
     end
 
     return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -52,26 +64,38 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onTransportEvent
+-----------------------------------
+
 function onTransportEvent(player,transport)
-    player:startEvent(700);
+    player:startEvent(0x02BC);
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 500) then
+    if (csid == 0x01F4) then
         player:messageSpecial(ITEM_OBTAINED,536);
-    elseif (csid == 700) then
+    elseif (csid == 0x02BC) then
         player:setPos(0,0,0,0,223);
-    elseif (csid == 30004 and option == 0) then
+    elseif (csid == 0x7534 and option == 0) then
         player:setHomePoint();
         player:messageSpecial(HOMEPOINT_SET);
-    elseif (csid == 4) then
+    elseif (csid == 0x0004) then
         player:setVar("COP_Ulmia_s_Path",2);
     end
 end;

@@ -2,7 +2,11 @@
 -- Area: Seas Serpent Grotto
 --  MOB: Bigclaw
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

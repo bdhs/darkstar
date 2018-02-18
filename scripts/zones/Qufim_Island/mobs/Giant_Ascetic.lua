@@ -2,7 +2,11 @@
 -- Area: Qufim Island
 --  MOB: Giant Ascetic
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

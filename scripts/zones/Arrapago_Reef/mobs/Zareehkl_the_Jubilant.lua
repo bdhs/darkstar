@@ -2,18 +2,30 @@
 -- Area: Arrapago Reef
 --  NPC: Zareehkl the Jubilant
 -----------------------------------
+
 require("scripts/globals/status");
+    
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
 end;
 
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
 
+-----------------------------------
+-- onMobFight
+-----------------------------------
+
 function onMobFight(mob, target)
     local swapTimer = mob:getLocalVar("swapTime");
-
+    
     if (os.time() > swapTimer) then
         if (mob:AnimationSub() == 1) then -- swap from fists to second weapon
             mob:AnimationSub(2);
@@ -25,8 +37,12 @@ function onMobFight(mob, target)
     end
 end;
 
-function onCriticalHit(mob)
+-----------------------------------
+-- onCriticalHit
+-----------------------------------
 
+function onCriticalHit(mob)   
+ 
     if (math.random(100) < 5) then  -- Wiki seems to imply that this thing's weapon is harder to break...
         if (mob:AnimationSub() == 0) then -- first weapon
             mob:AnimationSub(1);
@@ -36,6 +52,10 @@ function onCriticalHit(mob)
         end
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

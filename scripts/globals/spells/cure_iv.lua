@@ -2,10 +2,13 @@
 -- Spell: Cure IV
 -- Restores target's HP.
 -----------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -89,21 +92,9 @@ function onSpellCast(caster,target,spell)
         caster:updateEnmityFromCure(target,final);
     else
         if (target:isUndead()) then
-            spell:setMsg(msgBasic.MAGIC_DMG);
-            local params = {};
-            params.dmg = minCure;
-            params.multiplier = 1;
-            params.skillType = HEALING_MAGIC_SKILL;
-            params.attribute = MOD_MND;
-            params.hasMultipleTargetReduction = false;
-
-            local dmg = calculateMagicDamage(caster, target, spell, params)*0.5;
-            local params = {};
-            params.diff = caster:getStat(MOD_MND)-target:getStat(MOD_MND);
-            params.attribute = MOD_MND;
-            params.skillType = HEALING_MAGIC_SKILL;
-            params.bonus = 1.0;
-            local resist = applyResistance(caster, target, spell, params);
+            spell:setMsg(2);
+            local dmg = calculateMagicDamage(minCure,1,caster,spell,target,HEALING_MAGIC_SKILL,MOD_MND,false)*0.5;
+            local resist = applyResistance(caster,spell,target,caster:getStat(MOD_MND)-target:getStat(MOD_MND),HEALING_MAGIC_SKILL,1.0);
             dmg = dmg*resist;
             dmg = addBonuses(caster,spell,target,dmg);
             dmg = adjustForTarget(target,dmg,spell:getElement());
@@ -112,7 +103,7 @@ function onSpellCast(caster,target,spell)
             target:delHP(final);
             target:updateEnmityFromDamage(caster,final);
         elseif (caster:getObjType() == TYPE_PC) then
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         else
             -- e.g. monsters healing themselves.
             if (USE_OLD_CURE_FORMULA == true) then
@@ -128,11 +119,5 @@ function onSpellCast(caster,target,spell)
             target:addHP(final);
         end
     end
-
-    local mpBonusPercent = (final*caster:getMod(MOD_CURE2MP_PERCENT))/100;
-    if (mpBonusPercent > 0) then
-        caster:addMP(mpBonusPercent);
-    end
-
     return final;
 end;

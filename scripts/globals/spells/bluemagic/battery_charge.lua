@@ -10,20 +10,28 @@
 -- Casting Time: 5 seconds
 -- Recast Time: 75 seconds
 -- Spell Duration: 100 ticks, 300 Seconds (5 Minutes)
---
+-- 
 -- Combos: None
 -----------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnMagicCastingCheck
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0;
 end;
 
+-----------------------------------------
+-- OnSpellCast
+-----------------------------------------
+
 function onSpellCast(caster,target,spell)
+
     local typeEffect = EFFECT_REFRESH;
     local power = 3;
     local duration = 300;
@@ -43,7 +51,7 @@ function onSpellCast(caster,target,spell)
     end
 
     if (target:addStatusEffect(typeEffect,power,3,duration) == false) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end;
 
     return typeEffect;

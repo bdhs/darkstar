@@ -13,7 +13,11 @@
 -- Store TP +6
 -- Magic Regen While Healing 1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,6 +27,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,5192);
@@ -44,7 +52,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_MPHEAL, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 18);
     target:delMod(MOD_FOOD_HP_CAP, 120);
     target:delMod(MOD_MP, 35);

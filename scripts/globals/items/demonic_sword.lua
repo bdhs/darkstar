@@ -3,9 +3,12 @@
 -- Item: Demonic Sword
 -- Additional Effect: Darkness Damage
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onAdditionalEffect Action
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
@@ -23,9 +26,9 @@ function onAdditionalEffect(player,target,damage)
         dmg = adjustForTarget(target,dmg,ELE_DARK);
         dmg = finalMagicNonSpellAdjustments(player,target,ELE_DARK,dmg);
 
-        local message = msgBasic.ADD_EFFECT_DMG;
+        local message = MSGBASIC_ADD_EFFECT_DMG;
         if (dmg < 0) then
-            message = msgBasic.ADD_EFFECT_HEAL;
+            message = MSGBASIC_ADD_EFFECT_HEAL;
         end
 
         return SUBEFFECT_DARKNESS_DAMAGE,message,dmg;

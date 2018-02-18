@@ -2,7 +2,7 @@
 -- Area: Bastok Mines
 --  NPC: Abd-al-Raziq
 -- Type: Alchemy Guild Master
--- !pos 126.768 1.017 -0.234 234
+-- @pos 126.768 1.017 -0.234 234
 -----------------------------------
 package.loaded["scripts/zones/Bastok_Mines/TextIDs"] = nil;
 -----------------------------------
@@ -10,6 +10,9 @@ require("scripts/zones/Bastok_Mines/TextIDs");
 require("scripts/globals/crafting");
 require("scripts/globals/missions");
 require("scripts/globals/status");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -17,9 +20,13 @@ function onTrade(player,npc,trade)
 
     if (newRank ~= 0) then
         player:setSkillRank(SKILL_ALCHEMY,newRank);
-        player:startEvent(121,0,0,0,0,newRank);
+        player:startEvent(0x0079,0,0,0,0,newRank);
     end
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     local getNewRank = 0;
@@ -43,21 +50,29 @@ function onTrigger(player,npc)
         end
 
         -- The Parameters are Item IDs for the Recipe
-        player:startEvent(590, item, 2774, 929, 4103, 2777, 4103);
+        player:startEvent(0x024e, item, 2774, 929, 4103, 2777, 4103);
     else
-        player:startEvent(120,testItem,getNewRank,30,guildMember,44,0,0,0);
+        player:startEvent(0x0078,testItem,getNewRank,30,guildMember,44,0,0,0);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 120 and option == 1) then
+    if (csid == 0x0078 and option == 1) then
         local crystal = 4101; -- water crystal
 
         if (player:getFreeSlotsCount() == 0) then

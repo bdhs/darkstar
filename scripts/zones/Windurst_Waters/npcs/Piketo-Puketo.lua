@@ -2,13 +2,16 @@
 -- Area: Windurst Waters
 --  NPC: Piketo-Puketo
 -- Type: Cooking Guild Master
--- !pos -124.012 -2.999 59.998 238
+-- @pos -124.012 -2.999 59.998 238
 -----------------------------------
 package.loaded["scripts/zones/Windurst_Waters/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/Windurst_Waters/TextIDs");
 require("scripts/globals/crafting");
 require("scripts/globals/status");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -16,9 +19,13 @@ function onTrade(player,npc,trade)
 
     if (newRank ~= 0) then
         player:setSkillRank(SKILL_COOKING,newRank);
-        player:startEvent(10014,0,0,0,0,newRank);
+        player:startEvent(0x271e,0,0,0,0,newRank);
     end
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     local getNewRank = 0;
@@ -28,20 +35,28 @@ function onTrigger(player,npc)
     if (guildMember == 1) then guildMember = 150995375; end
     if (canGetNewRank(player,craftSkill,SKILL_COOKING) == 1) then getNewRank = 100; end
 
-    player:startEvent(10013,testItem,getNewRank,30,guildMember,44,0,0,0);
+    player:startEvent(0x271d,testItem,getNewRank,30,guildMember,44,0,0,0);
 end;
 
--- 0x03d2  0x03d7  0x03d4  0x03d5  10013  10014
+-- 0x03d2  0x03d7  0x03d4  0x03d5  0x271d  0x271e
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 10013 and option == 1) then
+    if (csid == 0x271d and option == 1) then
         local crystal = 4096; -- fire crystal
 
         if (player:getFreeSlotsCount() == 0) then

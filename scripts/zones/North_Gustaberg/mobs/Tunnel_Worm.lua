@@ -2,7 +2,11 @@
 -- Area: North Gustaberg
 --  MOB: Tunnel Worm
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

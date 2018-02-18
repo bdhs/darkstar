@@ -11,7 +11,11 @@
 -- Sleep Resist 1
 -- Enmity 4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -21,6 +25,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,5178);
@@ -40,7 +48,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SLEEPRES, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_ENMITY, 4);
     target:delMod(MOD_DEX, 5);
     target:delMod(MOD_FOOD_ACCP, 15);

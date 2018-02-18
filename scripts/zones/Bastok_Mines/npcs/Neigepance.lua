@@ -1,16 +1,23 @@
 -----------------------------------
 -- Area: Bastok Mines
---  NPC: Neigepance
+-- NPC: Neigepance
 -- Standard Merchant NPC
 -----------------------------------
+
 require("scripts/globals/shop");
 package.loaded["scripts/zones/Bastok_Mines/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Bastok_Mines/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     player:showText(npc,NEIGEPANCE_SHOP_DIALOG);
@@ -27,15 +34,23 @@ function onTrigger(player,npc)
         0x45C8,   126,3,     --Herbal Broth
         0x45CA,   695,3,     --Carrion Broth
         0x13D1, 50784,3      --Scroll of Chocobo Mazurka
-    }
+    } 
     showNationShop(player, NATION_BASTOK, stock);
 
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

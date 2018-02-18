@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5820
--- Darkling Bolt Quiver
--- When used, you will obtain one stack of Darkling Bolts
+--    ID: 5820
+--    Darkling Bolt Quiver
+--    When used, you will obtain one stack of Darkling Bolts
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(19196,99);

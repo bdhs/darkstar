@@ -2,7 +2,11 @@
 -- Area: Gustav Tunnel
 --  MOB: Doom Soldier
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

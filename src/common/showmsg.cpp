@@ -7,6 +7,7 @@ This file is part of DarkStar-server source code.
 */
 
 #include "../common/cbasetypes.h"
+#include "../common/strlib.h" // StringBuf
 
 #include "showmsg.h"
 
@@ -36,6 +37,43 @@ std::string log_file;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// static/dynamic buffer for the messages
+
+#define SBUF_SIZE 2048 // never put less that what's required for the debug message
+
+#define NEWBUF(buf)				\
+	struct {					\
+		char s_[SBUF_SIZE];		\
+		StringBuf*  d_;			\
+		char *v_;				\
+		int l_;					\
+	} buf ={"",NULL,NULL,0};	\
+//define NEWBUF
+
+#define BUFVPRINTF(buf,fmt,args)						\
+	buf.l_ = vsnprintf(buf.s_, SBUF_SIZE, fmt, args);	\
+	if( buf.l_ >= 0 && buf.l_ < SBUF_SIZE )				\
+	{/* static buffer */								\
+		buf.v_ = buf.s_;								\
+	}													\
+	else												\
+	{/* dynamic buffer */								\
+        buf.d_ = StringBuf_Malloc();					\
+		buf.l_ = StringBuf_Vprintf(buf.d_, fmt, args);	\
+		buf.v_ = StringBuf_Value(buf.d_);				\
+		ShowDebug("showmsg: dynamic buffer used, increase the static buffer size to %d or more.\n", buf.l_+1);\
+	}													\
+//define BUFVPRINTF
+
+#define BUFVAL(buf) buf.v_
+#define BUFLEN(buf) buf.l_
+
+#define FREEBUF(buf)				\
+	if( buf.d_ )					\
+	{								\
+	   StringBuf_Free(buf.d_);		\
+ 	   buf.d_ = NULL;				\
+	}								\
+        buf.v_    = NULL;			\
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef _WIN32
@@ -134,7 +172,7 @@ Escape sequences for Select Character Set
 
 #define is_console(handle) (FILE_TYPE_CHAR==GetFileType(handle))
 
-int VFPRINTF(HANDLE handle, const std::string& fmt)
+int VFPRINTF(HANDLE handle,const char *fmt,va_list argptr)
 {
 	/////////////////////////////////////////////////////////////////
 	/* XXX Two streams are being used. Disabled to avoid inconsistency [flaviojs]
@@ -144,17 +182,21 @@ int VFPRINTF(HANDLE handle, const std::string& fmt)
 	/////////////////////////////////////////////////////////////////
 
 	DWORD written;
-	const char *p = NULL, *q = NULL;
-	if( fmt.empty() )
+	char *p = NULL, *q = NULL;
+	if( !fmt || !*fmt )
 		return 0;
+
+	NEWBUF(tempbuf);
+
+	BUFVPRINTF(tempbuf,fmt,argptr);
 
 	if( !is_console(handle) && stdout_with_ansisequence )
 	{
-		WriteFile(handle,fmt.c_str(),(DWORD)fmt.length(),&written,0);
+		WriteFile(handle,BUFVAL(tempbuf),BUFLEN(tempbuf),&written,0);
 		return 0;
 	}
 	// start with processing
-	p = &fmt[0];
+	p = BUFVAL(tempbuf);
 	while ((q = strchr(p, 0x1b)) != NULL)
 	{	// find the escape character
 		if( WriteFile(handle,p,(DWORD)(q-p),&written,0) == 0 )
@@ -180,7 +222,7 @@ int VFPRINTF(HANDLE handle, const std::string& fmt)
 			q=q+2;
 			for(;;)
 			{
-				if( std::isdigit(*q) )
+				if( ISDIGIT(*q) )
 				{	// add number to number array, only accept 2digits, shift out the rest
 					// so // \033[123456789m will become \033[89m
 					numbers[numpoint] = (numbers[numpoint]<<4) | (*q-'0');
@@ -440,11 +482,17 @@ int VFPRINTF(HANDLE handle, const std::string& fmt)
 	if (*p)	// write the rest of the buffer
 		if( 0==WriteConsole(handle, p, (DWORD)strlen(p), &written, 0) )
 			WriteFile(handle, p, (DWORD)strlen(p), &written, 0);
+    FREEBUF(tempbuf);
 	return 0;
 }
-int FPRINTF(HANDLE handle, const std::string fmt)
+int FPRINTF(HANDLE handle, const char *fmt ...)
 {
-	return VFPRINTF(handle,fmt);
+	int ret;
+	va_list argptr;
+	va_start(argptr,fmt);
+	ret = VFPRINTF(handle,fmt,argptr);
+	va_end(argptr);
+	return ret;
 }
 
 #define FFLUSH(handle)
@@ -458,21 +506,25 @@ int FPRINTF(HANDLE handle, const std::string fmt)
 #define is_console(file) (0!=isatty(fileno(file)))
 
 //vprintf_without_ansiformats
-int	VFPRINTF(FILE *file, const std::string& fmt)
+int	VFPRINTF(FILE *file, const char *fmt, va_list argptr)
 {
-	const char *p, *q;
+	char *p, *q;
+	NEWBUF(tempbuf); // temporary buffer
 
-	if(fmt.empty())
+	if(!fmt || !*fmt)
 		return 0;
 
 	if( is_console(file) || stdout_with_ansisequence )
 	{
-		fputs(fmt.c_str(), file);
+		vfprintf(file, fmt, argptr);
 		return 0;
 	}
 
+	// Print everything to the buffer
+	BUFVPRINTF(tempbuf,fmt,argptr);
+
 	// start with processing
-    p = &fmt[0];
+	p = BUFVAL(tempbuf);
 	while ((q = strchr(p, 0x1b)) != NULL)
 	{	// find the escape character
 		fprintf(file, "%.*s", (int)(q-p), p); // write up to the escape
@@ -490,7 +542,7 @@ int	VFPRINTF(FILE *file, const std::string& fmt)
 			q=q+2;
 			while(1)
 			{
-				if( std::isdigit(*q) )
+				if( ISDIGIT(*q) )
 				{
 					++q;
 					// and next character
@@ -566,11 +618,17 @@ int	VFPRINTF(FILE *file, const std::string& fmt)
 	}
 	if (*p)	// write the rest of the buffer
 		fprintf(file, "%s", p);
+	FREEBUF(tempbuf);
 	return 0;
 }
-int	FPRINTF(FILE *file, std::string fmt)
+int	FPRINTF(FILE *file, const char *fmt, ...)
 {
-	return VFPRINTF(file,fmt);
+	int ret;
+	va_list argptr;
+	va_start(argptr, fmt);
+	ret = VFPRINTF(file,fmt,argptr);
+	va_end(argptr);
+	return ret;
 }
 
 #define FFLUSH fflush
@@ -582,11 +640,12 @@ int	FPRINTF(FILE *file, std::string fmt)
 
 char timestamp_format[20] = ""; //For displaying Timestamps
 
-int _vShowMessage(MSGTYPE flag, const std::string& string)
+int _vShowMessage(MSGTYPE flag,const char *string,va_list ap)
 {
 	char prefix[100];
+	va_list apcopy;
     FILE *fp;
-	if( string.empty() )
+	if( !string || !*string )
     {
 		ShowError("Empty string passed to _vShowMessage().\n");
 		return 1;
@@ -642,29 +701,30 @@ int _vShowMessage(MSGTYPE flag, const std::string& string)
 	}
 	if (flag == MSG_ERROR || flag == MSG_FATALERROR || flag == MSG_SQL)
 	{	//Send Errors to StdErr [Skotlex]
-        std::string prefix_v = fmt::sprintf("%s ", prefix);
-        FPRINTF(STDERR, prefix_v);
-		VFPRINTF(STDERR, string);
+		FPRINTF(STDERR, "%s ", prefix);
+		va_copy(apcopy, ap);
+		VFPRINTF(STDERR, string, apcopy);
+		va_end(apcopy);
 		FFLUSH(STDERR);
 	} else {
-        if(flag != MSG_NONE)
-        {
-            std::string prefix_v = fmt::sprintf("%s ", prefix);
-            FPRINTF(STDOUT, prefix_v);
-        }
-		VFPRINTF(STDOUT, string);
+		if (flag != MSG_NONE)
+			FPRINTF(STDOUT, "%s ", prefix);
+		va_copy(apcopy, ap);
+		VFPRINTF(STDOUT, string, apcopy);
+		va_end(apcopy);
 		FFLUSH(STDOUT);
 	}
 
 	if(log_file.size() > 0) {
 		fp=fopen(log_file.c_str(),"a");
 		if (fp == NULL)	{
-            std::string str_v = fmt::sprintf(CL_RED"[ERROR]" CL_RESET": Could not open '" CL_WHITE"%s" CL_RESET"', access denied.\n", log_file.c_str());
-            FPRINTF(STDERR, str_v);
+			FPRINTF(STDERR, CL_RED"[ERROR]" CL_RESET": Could not open '" CL_WHITE"%s" CL_RESET"', access denied.\n", log_file.c_str());
 			FFLUSH(STDERR);
 		} else {
 			fprintf(fp,"%s ", prefix);
-            fputs(string.c_str(), fp);
+			va_copy(apcopy, ap);
+			vfprintf(fp,string,apcopy);
+			va_end(apcopy);
 			fclose(fp);
 		}
 	}
@@ -681,4 +741,120 @@ void ClearScreen(void)
 void InitializeLog(std::string logFile)
 {
     log_file = logFile;
+}
+
+int _ShowMessage(MSGTYPE flag, const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(flag, string, ap);
+	va_end(ap);
+	return ret;
+}
+
+/************************************************************************
+*																		*
+*  direct printf replacement											*
+*																		*
+************************************************************************/
+
+int ShowMessage(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_NONE, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowStatus(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_STATUS, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowSQL(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_SQL, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowInfo(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_INFORMATION, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowNotice(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_NOTICE, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowWarning(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_WARNING, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowDebug(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_DEBUG, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowError(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_ERROR, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowFatalError(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_FATALERROR, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowScript(const char *string, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, string);
+	ret = _vShowMessage(MSG_LUASCRIPT, string, ap);
+	va_end(ap);
+	return ret;
+}
+int ShowNavError(const char *string, ...)
+{
+    int ret;
+    va_list ap;
+    va_start(ap, string);
+    ret = _vShowMessage(MSG_NAVMESH, string, ap);
+    va_end(ap);
+    return ret;
 }

@@ -3,20 +3,35 @@
 -- Item: Pro-Ether +1
 -- Item Effect: Restores 280 MP
 -----------------------------------------
-require("scripts/globals/settings");
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:getMP() == target:getMaxMP()) then
-        return msgBasic.ITEM_UNABLE_TO_USE;
+    local result = 0;
+    local mMP = target:getMaxMP();
+    local cMP = target:getMP();
+
+    if (mMP == cMP) then
+        result = 56; -- Does not let player use item if their hp is full
+
     elseif (target:hasStatusEffect(EFFECT_MEDICINE)) then
-        return msgBasic.ITEM_NO_USE_MEDICATED;
+        result = 111;
     end
-    return 0;
+
+    return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:messageBasic(msgBasic.RECOVERS_MP,0,target:addMP(280*ITEM_POWER));
+    target:messageBasic(25,0,target:addMP(280*ITEM_POWER));
     target:addStatusEffect(EFFECT_MEDICINE,0,0,900);
+    
 end;

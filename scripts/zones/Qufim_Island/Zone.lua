@@ -11,11 +11,24 @@ require("scripts/globals/quests");
 require("scripts/globals/zone");
 require("scripts/globals/conquest");
 require("scripts/zones/Qufim_Island/TextIDs");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+    local manuals = {17293781,17293782};
+    SetFieldManual(manuals);
+
+    local vwnpc = {17293802,17293803,17293804};
+    SetVoidwatchNPC(vwnpc);
+
     SetRegionalConquestOverseers(zone:getRegionID())
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -25,29 +38,45 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onZoneIn
+-----------------------------------
+
 function onZoneIn(player,prevZone)
     local cs = -1;
-    if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
+    if ((player:getXPos() == 0) and (player:getYPos() == 0) and (player:getZPos() == 0)) then
         player:setPos(-286.271,-21.619,320.084,255);
     end
     if (prevZone == 127 and player:getVar("theTalekeepersGiftKilledNM") >= 3) then
-        cs = 100;
+        cs = 0x0064;
     end
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 100) then
+    if (csid == 0x0064) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12638); -- Fighter's Lorica
         else

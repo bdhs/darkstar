@@ -1,21 +1,17 @@
 ---------------------------------------------
--- Prishe Item 1
+--  Prishe Item 1
 ---------------------------------------------
-package.loaded["scripts/zones/Empyreal_Paradox/TextIDs"] = nil;
----------------------------------------------
-require("scripts/zones/Empyreal_Paradox/TextIDs");
-require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
+require("scripts/globals/monstertpmoves");
+require("scripts/zones/Empyreal_Paradox/TextIDs");
 ---------------------------------------------
-
 function onMobSkillCheck(target,mob,skill)
     return 1;
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    skill:setMsg(msgBasic.NONE);
+    skill:setMsg(0);
     if (mob:getTarget() and mob:getTarget():getFamily() == 478) then
         -- using Ambrosia!
         target:addStatusEffect(EFFECT_FOOD,0,0,14400,4511);

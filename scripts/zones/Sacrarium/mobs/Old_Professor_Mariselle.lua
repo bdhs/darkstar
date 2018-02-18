@@ -2,12 +2,20 @@
 -- Area: Sacrarium
 --  MOB: Old Professor Mariselle
 -----------------------------------
+
 require("scripts/globals/keyitems");
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onMobSpawn
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobFight
+-----------------------------------
 
 function onMobFight(mob,target)
 
@@ -29,6 +37,10 @@ function onMobFight(mob,target)
 
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 
     local OP_Mariselle = mob:getID();
@@ -49,6 +61,9 @@ function onMobDeath(mob, player, isKiller)
 
 end;
 
+-----------------------------------
+-- OnMobDespawn
+-----------------------------------
 function onMobDespawn( mob )
 
     local OP_Mariselle = mob:getID();

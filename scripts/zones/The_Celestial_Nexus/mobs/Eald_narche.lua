@@ -3,16 +3,24 @@
 --  MOB: Eald'Narche - Phase 1
 -- Zilart Mission 16 BCNM Fight
 -----------------------------------
+
 require("scripts/globals/titles");
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
     --50% fast cast, no standback
     mob:addMod(MOD_UFASTCAST, 50);
     mob:setMobMod(MOBMOD_HP_STANDBACK,-1);
-end;
+end
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
     mob:SetAutoAttackEnabled(false);
@@ -22,10 +30,18 @@ function onMobSpawn(mob)
     mob:addStatusEffectEx(EFFECT_MAGIC_SHIELD, 0, 1, 0, 0);
 end;
 
+-----------------------------------
+-- onMobEngaged Action
+-----------------------------------
+
 function onMobEngaged(mob, target)
     mob:addStatusEffectEx(EFFECT_SILENCE, 0, 1, 0, 5);
     GetMobByID(mob:getID() + 1):updateEnmity(target);
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob, target)
     if (mob:getBattleTime() % 9 <= 2) then
@@ -42,23 +58,35 @@ function onMobFight(mob, target)
     end
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
     DespawnMob(mob:getID()+1);
     DespawnMob(mob:getID()+3);
     DespawnMob(mob:getID()+4);
     local battlefield = player:getBattlefield();
-    player:startEvent(32004, battlefield:getBattlefieldNumber());
+    player:startEvent(0x7d04, battlefield:getBattlefieldNumber());
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("updateCSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option,target)
     -- printf("finishCSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 32004) then
+    if (csid == 0x7d04) then
         DespawnMob(target:getID());
         mob = SpawnMob(target:getID()+2);
         mob:updateEnmity(player);

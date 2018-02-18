@@ -5,9 +5,12 @@
 -- Enchantment: "Enfire"
 -- Charges: 30 Reuse: 300 Secs
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onAdditionalEffect Action
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
@@ -25,18 +28,26 @@ function onAdditionalEffect(player,target,damage)
         dmg = adjustForTarget(target,dmg,ELE_FIRE);
         dmg = finalMagicNonSpellAdjustments(player,target,ELE_FIRE,dmg);
 
-        local message = msgBasic.ADD_EFFECT_DMG;
+        local message = MSGBASIC_ADD_EFFECT_DMG;
         if (dmg < 0) then
-            message = msgBasic.ADD_EFFECT_HEAL;
+            message = MSGBASIC_ADD_EFFECT_HEAL;
         end
 
         return SUBEFFECT_FIRE_DAMAGE,message,dmg;
     end
 end;
 
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
+
 function onItemCheck(target)
     return 0;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     local effect = EFFECT_ENFIRE;

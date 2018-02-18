@@ -2,7 +2,11 @@
 -- Area: Qufim Island
 --  MOB: Seeker Bats
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -8,7 +8,11 @@
 -- Poison Resist 4
 -- Blind Resist 4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,6 +22,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,4543);
@@ -34,7 +42,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_BLINDRES, 4);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_MND, 10);
     target:delMod(MOD_CHR, -5);
     target:delMod(MOD_POISONRES, 4);

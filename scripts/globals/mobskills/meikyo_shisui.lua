@@ -1,11 +1,12 @@
----------------------------------------------
+---------------------------------------------------
 -- Meikyo Shisui
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (mob:getMobMod(MOBMOD_SCRIPTED_2HOUR) == 1) then
@@ -24,7 +25,7 @@ function onMobWeaponSkill(target, mob, skill)
     end
     MobBuffMove(mob, typeEffect, 1, 0, duration);
 
-    skill:setMsg(msgBasic.USES);
+    skill:setMsg(MSG_USES);
     mob:addTP(3000);
     return typeEffect;
 end;

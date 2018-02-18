@@ -3,10 +3,19 @@
 --  MOB: Colorful Leshy
 -----------------------------------
 
+
+-----------------------------------
+-- onMobSpawn
+-----------------------------------
+
 function onMobSpawn(mob)
     local Defoliate_Leshy = 16875763;
     GetMobByID(Defoliate_Leshy):setLocalVar("1", os.time() + math.random((43200), (86400)));
 end;
+
+-----------------------------------
+-- onMobRoam
+-----------------------------------
 
 function onMobRoam(mob)
     local Defoliate_Leshy = 16875763;
@@ -22,8 +31,8 @@ function onMobRoam(mob)
         if (Defoliate_Leshy_PH_Table[Defoliate_Leshy_PH] ~= nil) then
             if (GetMobAction(Defoliate_Leshy) == 0) then
                 SetServerVariable("Defoliate_Leshy_PH", Defoliate_Leshy_PH_Table[Defoliate_Leshy_PH]);
-                DisallowRespawn(Defoliate_Leshy_PH_Table[Defoliate_Leshy_PH], true);
-                DisallowRespawn(Defoliate_Leshy, false);
+                DeterMob(Defoliate_Leshy_PH_Table[Defoliate_Leshy_PH], true);
+                DeterMob(Defoliate_Leshy, false);
                 DespawnMob(Defoliate_Leshy_PH_Table[Defoliate_Leshy_PH]);
                 SpawnMob(Defoliate_Leshy, "", 0);
             end
@@ -31,8 +40,16 @@ function onMobRoam(mob)
     end
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     local Colorful_Leshy = 16875762;
@@ -40,7 +57,7 @@ function onMobDespawn(mob)
 
     GetMobByID(Colorful_Leshy):setLocalVar("1", os.time() + math.random((43200), (86400)));
     SetServerVariable("Colorful_Leshy_PH", 0);
-    DisallowRespawn(Colorful_Leshy, true);
-    DisallowRespawn(Colorful_Leshy_PH, false);
+    DeterMob(Colorful_Leshy, true);
+    DeterMob(Colorful_Leshy_PH, false);
     SpawnMob(Colorful_Leshy_PH, "", GetMobRespawnTime(Colorful_Leshy_PH));
 end;

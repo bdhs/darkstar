@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4105
--- Ice Cluster
--- Turn into a stack of ice crystals
+--    ID: 4105
+--    Ice Cluster
+--    Turn into a stack of ice crystals
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4097,12);

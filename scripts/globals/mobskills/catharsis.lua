@@ -1,13 +1,12 @@
----------------------------------------------
+---------------------------------------------------
 -- Catharsis
 -- Description: Restores HP.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+require("scripts/globals/zone");
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/zone");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (target:getCurrentRegion() == REGION_TAVNAZIA) then
@@ -25,7 +24,7 @@ function onMobWeaponSkill(target, mob, skill)
     end
 
     potency = potency - math.random(0, potency/4);
-    skill:setMsg(msgBasic.SELF_HEAL);
+    skill:setMsg(MSG_SELF_HEAL);
 
     return MobHealMove(mob, mob:getMaxHP() * potency / 100);
 end;

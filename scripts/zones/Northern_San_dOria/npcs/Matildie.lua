@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Northern San d'Oria
---  NPC: Matildie
+-- NPC:  Matildie
 -- Adventurer's Assistant
 -------------------------------------
 package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
@@ -9,9 +9,13 @@ require("scripts/zones/Northern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 
-function onTrade(player,npc,trade)
+----------------------------------- 
+-- onTrade Action 
+----------------------------------- 
+
+function onTrade(player,npc,trade) 
     if (trade:getItemCount() == 1 and trade:hasItemQty(0x218,1) == true) then
-        player:startEvent(631);
+        player:startEvent(0x277);
         player:addGil(GIL_RATE*50);
         player:tradeComplete();
     end
@@ -28,19 +32,31 @@ function onTrade(player,npc,trade)
     end
 end;
 
-function onTrigger(player,npc)
-    player:startEvent(587);
-end;
+----------------------------------- 
+-- onTrigger Action 
+-----------------------------------
+ 
+function onTrigger(player,npc) 
+    player:startEvent(0x24B);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 631) then
+    if (csid == 0x277) then
         player:messageSpecial(GIL_OBTAINED,GIL_RATE*50);
     end
 end;

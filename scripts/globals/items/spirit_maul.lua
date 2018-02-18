@@ -4,9 +4,12 @@
 -- Additional effect: Light damage
 -- Enchantment: TP+100
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onAdditionalEffect Action
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
@@ -24,14 +27,18 @@ function onAdditionalEffect(player,target,damage)
         dmg = adjustForTarget(target,dmg,ELE_LIGHT);
         dmg = finalMagicNonSpellAdjustments(player,target,ELE_LIGHT,dmg);
 
-        local message = msgBasic.ADD_EFFECT_DMG;
+        local message = MSGBASIC_ADD_EFFECT_DMG;
         if (dmg < 0) then
-            message = msgBasic.ADD_EFFECT_HEAL;
+            message = MSGBASIC_ADD_EFFECT_HEAL;
         end
 
         return SUBEFFECT_LIGHT_DAMAGE,message,dmg;
     end
 end;
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
     local result = 0;
@@ -40,6 +47,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addTP(100);

@@ -24,7 +24,11 @@
 -- Attack % 20 (cap 80)
 -- Ranged ATT % 20 (cap 80)
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -35,11 +39,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,4331);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     if (target:getRace() ~= 4) then
         target:addMod(MOD_STR, 5);
         target:addMod(MOD_DEX, 2);
@@ -64,7 +76,11 @@ function onEffectGain(target, effect)
     end
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     if (target:getRace() ~= 4) then
         target:delMod(MOD_STR, 5);
         target:delMod(MOD_DEX, 2);

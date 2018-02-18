@@ -3,8 +3,16 @@
 --   NM: Grand_Duke_Batym
 -----------------------------------
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 

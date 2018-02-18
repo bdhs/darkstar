@@ -15,8 +15,7 @@ require("scripts/globals/magic");
 
 function onAbilityCheck(player,target,ability)
     if (player:getWeaponSubSkillType(SLOT_RANGED) == 10 and
-        not player:hasStatusEffect(EFFECT_OVERLOAD) and
-        player:getPet()) then
+        not player:hasStatusEffect(EFFECT_OVERLOAD)) then
         return 0,0;
     else
         return 71,0;

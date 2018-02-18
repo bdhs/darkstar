@@ -2,17 +2,25 @@
 -- Area: Southern SandOria [S]
 --  NPC: Miliart T.K
 -- Type: Sigil NPC
--- !pos 107 1 -31 80
+-- @pos 107 1 -31 80
 -----------------------------------
 package.loaded["scripts/zones/Southern_San_dOria_[S]/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/campaign");
 require("scripts/zones/Southern_San_dOria_[S]/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     local notes = player:getCurrency("allied_notes");
@@ -28,12 +36,16 @@ function onTrigger(player,npc)
     -- end
 
     if (medal_rank == 0) then
-        player:startEvent(111);
+        player:startEvent(0x06F);
     else
-        player:startEvent(110, 0, notes, freelances, unknown, medalRank, bonusEffects, timeStamp, 0);
+        player:startEvent(0x06E, 0, notes, freelances, unknown, medalRank, bonusEffects, timeStamp, 0);
     end
 
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -41,17 +53,21 @@ function onEventUpdate(player,csid,option)
     local itemid = 0;
     local canEquip = 2; -- Faking it for now.
     -- 0 = Wrong job, 1 = wrong level, 2 = Everything is in order, 3 or greater = menu exits...
-    if (csid == 110 and option >= 2 and option <= 2050) then
+    if (csid == 0x06E and option >= 2 and option <= 2050) then
         itemid = getSandOriaNotesItem(option);
         player:updateEvent(0, 0, 0, 0, 0, 0, 0, canEquip); -- canEquip(player,itemid));  <- works for sanction NPC, wtf?
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
     local medalRank = getMedalRank(player);
-    if (csid == 110) then
+    if (csid == 0x06E) then
         -- Note: the event itself already verifies the player has enough AN, so no check needed here.
         if (option >= 2 and option <= 2050) then -- player bought item
         -- currently only "ribbons" rank coded.

@@ -12,37 +12,41 @@
 -- Magic Bursts on: Transfixion, Fusion, Light
 -- Combos: None
 -----------------------------------------
-require("scripts/globals/bluemagic");
-require("scripts/globals/status");
+
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+require("scripts/globals/status");
+require("scripts/globals/bluemagic");
+
+-----------------------------------------
+-- OnMagicCastingCheck
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0;
 end;
 
-function onSpellCast(caster,target,spell)
-    local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
-    local params = {};
-    params.attribute = MOD_INT;
-    params.skillType = BLUE_SKILL;
+-----------------------------------------
+-- OnSpellCast
+-----------------------------------------
 
-    local resist = applyResistance(caster, target, spell, params);
+function onSpellCast(caster,target,spell)
+    
+    local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
+    local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL);
     local effect = EFFECT_NONE;
 
     if (resist > 0.0625) then
         if (target:isFacing(caster)) then
-            spell:setMsg(msgBasic.MAGIC_ERASE);
+            spell:setMsg(341);
             effect = target:dispelStatusEffect();
             if (effect == EFFECT_NONE) then
-                spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+                spell:setMsg(75);
             end;
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end;
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end
 
     return effect;

@@ -4,12 +4,20 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+-----------------------------------
+
+
+-----------------------------------
+-- onMobInitialize
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(MOBMOD_ADD_EFFECT, 1);
+    mob:setMobMod(MOBMOD_ADD_EFFECT,mob:getShortID());
 end;
+
+-----------------------------------
+-- onAdditionalEffect Action
+-----------------------------------
 
 function onAdditionalEffect(mob,target,damage)
     -- Wiki says nothing about proc rate, going with 80% for now.
@@ -41,13 +49,21 @@ function onAdditionalEffect(mob,target,damage)
 
         dmg = finalMagicNonSpellAdjustments(mob,target,ELE_WATER,dmg);
 
-        return SUBEFFECT_WATER_DAMAGE, msgBasic.ADD_EFFECT_DMG, dmg;
+        return SUBEFFECT_WATER_DAMAGE, MSGBASIC_ADD_EFFECT_DMG, dmg;
     end
 
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     -- UpdateNMSpawnPoint(mob:getID());

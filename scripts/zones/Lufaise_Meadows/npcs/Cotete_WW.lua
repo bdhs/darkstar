@@ -2,10 +2,11 @@
 -- Area: Lufaise Meadows
 --  NPC: Cotete, W.W.
 -- Border Conquest Guards
--- !pos 414.659 0.905 -52.417 24
+-- @pos 414.659 0.905 -52.417 24
 -----------------------------------
 package.loaded["scripts/zones/Lufaise_Meadows/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Lufaise_Meadows/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 4;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = TAVNAZIANARCH;
 local csid        = 0x7ff6;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

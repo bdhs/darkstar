@@ -5,14 +5,25 @@
 -----------------------------------
 package.loaded["scripts/zones/The_Shrine_of_RuAvitau/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/missions");
 require("scripts/globals/keyitems");
 require("scripts/globals/zone");
 require("scripts/zones/The_Shrine_of_RuAvitau/TextIDs");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+
+    local tomes = {17506826,17506827,17506828,17506829,17506830,17506831,17506832};
+    SetGroundsTome(tomes);
+
+    local vwnpc = {17506820,17506821,17506822};
+    SetVoidwatchNPC(vwnpc);
+
     -- MAP 1 ------------------------
     zone:registerRegion(1, -21, 29, -61, -16, 31, -57);     --> F (H-10)
     zone:registerRegion(2, 16, 29, 57, 21, 31, 61);         --> E (H-7)
@@ -41,6 +52,10 @@ function onInitialize(zone)
 
 end;
 
+-----------------------------------
+-- onZoneIn
+-----------------------------------
+
 function onZoneIn(player,prevZone)
    local cs = -1;
    local xPos = player:getXPos();
@@ -54,21 +69,25 @@ function onZoneIn(player,prevZone)
       if (player:hasItem(i)) then
          DMEarrings = DMEarrings + 1;
       end
-    end
+   end
 
    -- ZM 15 -> ZM 16
-    if (ZilartMission == THE_SEALED_SHRINE and player:getVar("ZilartStatus") == 1 and
+   if (ZilartMission == THE_SEALED_SHRINE and player:getVar("ZilartStatus") == 1 and
       xPos >= -45 and yPos >= -4 and zPos >= -240 and
       xPos <= -33 and yPos <= 0 and zPos <= -226 and DMEarrings <= NUMBER_OF_DM_EARRINGS) then -- Entered through main gate
          cs = 51;
-    end
+   end
 
-    if ((xPos == 0) and (yPos == 0) and (zPos == 0)) then
+   if ((xPos == 0) and (yPos == 0) and (zPos == 0)) then
       player:setPos(-3.38,46.326,60,122);
-    end
+   end
 
    return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -77,6 +96,10 @@ function onConquestUpdate(zone, updatetype)
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
+
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
 
 function onRegionEnter(player,region)
 
@@ -134,21 +157,33 @@ function onRegionEnter(player,region)
 
 end;
 
+-----------------------------------
+-- onRegionLeave
+-----------------------------------
+
 function onRegionLeave(player,region)
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
 end;
 
-function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
-    if (csid == 51) then
+function onEventFinish(player,csid,option)
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
+
+   if (csid == 51) then
       player:completeMission(ZILART,THE_SEALED_SHRINE);
       player:addMission(ZILART,THE_CELESTIAL_NEXUS);
       player:setVar("ZilartStatus",0);
-    end
+   end
 end;

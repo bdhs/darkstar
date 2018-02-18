@@ -9,10 +9,17 @@ require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
 require("scripts/globals/teleports");
 require("scripts/globals/besieged");
 require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -32,10 +39,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

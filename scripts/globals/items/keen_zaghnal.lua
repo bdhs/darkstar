@@ -1,11 +1,15 @@
 -----------------------------------------
--- ID: 18067
--- Equip: Keen Zaghnal
+--    ID: 18067
+--    Equip: Keen Zaghnal
 --  Enchantment: Accuracy +3
--- Enchantment will wear off if weapon is unequipped.
+--    Enchantment will wear off if weapon is unequipped.
 --  Effect lasts for 30 minutes
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -14,6 +18,10 @@ function onItemCheck(target)
     end
     return 0;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_ACCURACY_BOOST,0,0,1800,18067);
@@ -27,6 +35,10 @@ function onEffectGain(target,effect)
     target:addMod(MOD_ACC, 3);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_ACC, 3);
 end;

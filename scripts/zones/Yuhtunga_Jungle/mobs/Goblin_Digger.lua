@@ -2,7 +2,11 @@
 -- Area: Yuhtunga Jungle
 --  MOB: Goblin Digger
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

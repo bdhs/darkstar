@@ -2,7 +2,11 @@
 -- Area: East Sarutabaruta
 --  MOB: Bumblebee
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -35,14 +35,12 @@
 ************************************************************************/
 
 class CCharEntity;
-class CItem;
 
 class CBazaarConfirmationPacket: public CBasicPacket
 {
 public:
 
 	CBazaarConfirmationPacket(CCharEntity* PChar, uint8 SlotID, uint8 Quantity);
-    CBazaarConfirmationPacket(CCharEntity* PChar, CItem* PItem);
 };
 
 #endif

@@ -2,7 +2,11 @@
 -- Area: Upper Delkfutt's Tower
 --  MOB: Jotunn Wildkeeper
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

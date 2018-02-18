@@ -6,7 +6,11 @@
 -- Charisma +4
 -- Vitality -1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -16,6 +20,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,180,5977);
@@ -30,7 +38,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_VIT, -1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_CHR, 4);
     target:delMod(MOD_VIT, -1);
 end;

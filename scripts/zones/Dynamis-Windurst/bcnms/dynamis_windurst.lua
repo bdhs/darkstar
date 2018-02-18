@@ -6,7 +6,7 @@
 -- After registering the BCNM via bcnmRegister(bcnmid)
 function onBcnmRegister(player,instance)
     
-    SetServerVariable("[DynaWindurst]UniqueID",os.time());
+    SetServerVariable("[DynaWindurst]UniqueID",player:getDynamisUniqueID(1282));
     SetServerVariable("[DynaWindurst]Boss_Trigger",0);
     SetServerVariable("[DynaWindurst]Already_Received",0);
     

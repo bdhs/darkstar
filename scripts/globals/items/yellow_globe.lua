@@ -6,7 +6,11 @@
 -- Dexterity 2
 -- Mind -4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,16 +27,28 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,4403);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_DEX, 2);
     target:addMod(MOD_MND, -4);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_DEX, 2);
     target:delMod(MOD_MND, -4);
 end;

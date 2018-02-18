@@ -7,7 +7,11 @@
 -- Vitality 3
 -- Health Regen While Healing 5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -17,6 +21,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,4533);
@@ -32,7 +40,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_HPHEAL, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_DEX, -1);
     target:delMod(MOD_VIT, 3);
     target:delMod(MOD_HPHEAL, 5);

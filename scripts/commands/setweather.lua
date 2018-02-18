@@ -3,21 +3,13 @@
 -- desc: Sets the current weather for the current zone.
 ---------------------------------------------------------------------------------------------------
 
-require("scripts/globals/weather");
-
 cmdprops =
 {
     permission = 1,
     parameters = "s"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!setweather <weather ID>");
-end;
-
 function onTrigger(player, weather)
-
     local weatherList =
     {
         ["none"]            = 0,
@@ -42,24 +34,21 @@ function onTrigger(player, weather)
         ["darkness"]        = 19
     };
 
-    -- validate weather
     if (weather == nil) then
-        error(player, "You must supply a weather ID.");
-        return;
-    end
-    weather = tonumber(weather) or _G[string.upper(weather)] or weatherList[string.lower(weather)];
-    if (weather == nil or weather < 0 or weather > 19) then
-        error(player, "Invalid weather ID.");
+        player:PrintToPlayer("You must enter a valid weather name or id.");
         return;
     end
 
-    -- invert weather table
-    local weatherByNum={};
-    for k,v in pairs(weatherList) do
-        weatherByNum[v]=k;
+    local weatherId = 0;
+    if (tonumber(weather) ~= nil) then
+        weatherId = weather;
+    else
+        weatherId = weatherList[ string.lower( weather ) ];
+        if (weatherId == nil) then
+            player:PrintToPlayer( string.format( "Invalid weather '%s' given.", weather ) );
+            return;
+        end
     end
 
-    -- set weather
-    player:setWeather( weather );
-    player:PrintToPlayer( string.format("Set weather to %s.", weatherByNum[weather]) );
+    player:setWeather( weatherId );
 end

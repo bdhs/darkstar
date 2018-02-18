@@ -3,11 +3,24 @@
 --  MOB: Cryptonberry_Assassin
 -----------------------------------
 
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob,target)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

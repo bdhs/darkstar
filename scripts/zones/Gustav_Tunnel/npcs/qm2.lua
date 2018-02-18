@@ -2,18 +2,25 @@
 -- Area: Gustav tunnel
 --  NPC: qm2 (???)
 -- Missions: Bastok 9-1
--- !pos -130 1.256 252.696 212
+-- @pos -130 1.256 252.696 212
 -----------------------------------
 package.loaded["scripts/zones/Gustav_Tunnel/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/Gustav_Tunnel/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
+
 -----------------------------------
+-- onTrade Action
+----------------------------------
 
 function onTrade(player,npc,trade)
-
+    
 end;
+
+----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (player:getCurrentMission(BASTOK) == THE_SALT_OF_THE_EARTH) then
@@ -33,17 +40,25 @@ function onTrigger(player,npc)
                 SpawnMob(17645794):updateClaim(player);
             else
                 player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
-            end
+            end    
         end
     else
         player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

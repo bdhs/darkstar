@@ -3,8 +3,11 @@
 -- Gradually restores target party member's MP
 -- Composure increases duration 3x
 -----------------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -26,7 +29,7 @@ function onSpellCast(caster,target,spell)
     end
 
     if (target:hasStatusEffect(EFFECT_SUBLIMATION_ACTIVATED) or target:hasStatusEffect(EFFECT_SUBLIMATION_COMPLETE)) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
         return 0;
     end
 

@@ -7,7 +7,11 @@
 -- Plantoid Killer 12
 -- Slow Resist 12
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -17,6 +21,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,4576);
@@ -32,7 +40,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SLOWRES, 12);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_MPHEAL, 7);
     target:delMod(MOD_PLANTOID_KILLER, 12);
     target:delMod(MOD_SLOWRES, 12);

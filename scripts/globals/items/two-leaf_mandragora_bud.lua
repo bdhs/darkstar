@@ -1,12 +1,16 @@
 -----------------------------------------
--- ID: 4368
--- Two-Leaf Mandragora Bud
+--    ID: 4368
+--    Two-Leaf Mandragora Bud
 --  5 Minutes, food effect, All Races
 -----------------------------------------
--- Agility  +2
--- Vitality -4
+--    Agility  +2
+--    Vitality -4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -17,11 +21,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,4368);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_AGI, 2);
     target:addMod(MOD_VIT,-4);
 end;

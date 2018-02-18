@@ -1,17 +1,20 @@
 ---------------------------------------------------
 -- Cross Attack
--- Hits a single target twice in a cross motion.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+-- Single target attack, 2-hits.
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    -- Needs Knockback added
     local numhits = 2;
     local accmod = 1;
     local dmgmod = 1.5;

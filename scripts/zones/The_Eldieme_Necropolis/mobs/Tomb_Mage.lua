@@ -2,7 +2,11 @@
 -- Area: The Eldieme Necropolis
 --  MOB: Tomb Mage
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -5,7 +5,11 @@
 -- Does not grant Limit Points. 
 --
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -15,6 +19,10 @@ function onItemCheck(target)
     end
     return check;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addExp(EXP_RATE * math.random(200,500));

@@ -1,9 +1,12 @@
 -----------------------------------------
 -- Spell: Shellra II
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -18,9 +21,9 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_SHELL;
     if (target:addStatusEffect(typeEffect, power, 0, duration)) then
-        spell:setMsg(msgBasic.MAGIC_GAIN_EFFECT);
+        spell:setMsg(230);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
+        spell:setMsg(75); -- no effect
     end
     return typeEffect;
 end;

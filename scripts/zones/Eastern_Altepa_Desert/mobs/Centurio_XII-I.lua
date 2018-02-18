@@ -3,14 +3,22 @@
 --   NM: Centurio_XII-I
 -----------------------------------
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
 
-function onMobDespawn(mob)
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
+function onMobDespawn(mob)    
 
     -- Set Centurio XII-I's spawnpoint and respawn time (21-24 hours)
     UpdateNMSpawnPoint(mob:getID());
     mob:setRespawnTime(math.random((75600),(86400)));
-
+    
 end;
 

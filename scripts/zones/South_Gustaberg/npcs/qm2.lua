@@ -2,12 +2,16 @@
 -- Area: South Gustaberg
 --  NPC: ???
 -- Involved in Quest: Smoke on the Mountain
--- !pos 461 -21 -580 107
+-- @pos 461 -21 -580 107
 -----------------------------------
 package.loaded["scripts/zones/South_Gustaberg/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/South_Gustaberg/TextIDs");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -32,6 +36,10 @@ function onTrade(player,npc,trade)
         end
     end
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (player:needToZone() == false) then
@@ -58,10 +66,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

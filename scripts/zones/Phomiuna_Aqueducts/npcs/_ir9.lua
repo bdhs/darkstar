@@ -1,13 +1,17 @@
 -----------------------------------
 -- Area: Phomiuna_Aqueducts
---  NPC: _ir9 (Iron Gate)
--- !pos 70 -1.5 140 27
+-- NPC:  _ir9 (Iron Gate)
+-- @pos 70 -1.5 140 27
 -----------------------------------
 package.loaded["scripts/zones/Phomiuna_Aqueducts/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/missions");
 require("scripts/zones/Phomiuna_Aqueducts/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -23,22 +27,34 @@ function onTrade(player,npc,trade)
         end
     end
 
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-
+   
     if (player:getXPos() >= 70) then
         npc:openDoor(15); -- Retail timed
     elseif (npc:getAnimation() == 9) then
         player:messageSpecial(DOOR_LOCKED,1660);
     end
     return 1;
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

@@ -9,7 +9,11 @@
 -- MP Recovered While Healing 1
 -- Enmity -2
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,6 +23,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,4333);
@@ -36,7 +44,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_ENMITY, -2);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_MP, 25);
     target:delMod(MOD_STR, -1);
     target:delMod(MOD_MND, 2);

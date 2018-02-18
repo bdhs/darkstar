@@ -2,7 +2,11 @@
 -- Area: Qufim Island
 --  MOB: Greater Pugil
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

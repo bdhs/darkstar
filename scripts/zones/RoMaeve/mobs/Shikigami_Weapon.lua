@@ -2,11 +2,10 @@
 -- Area: RoMaeve
 --  MOB: Shikigami Weapon
 -----------------------------------
-require("scripts/globals/pathfind");
------------------------------------
 
-local path =
-{
+require("scripts/globals/pathfind");
+
+local path = {
 -47, -4, -37,
 -49, -4, -37,
 -54, -4, -37,
@@ -39,6 +38,9 @@ local path =
 -23, -4, -36,
 -35, -4, -36,
 };
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -55,6 +57,10 @@ function onMobRoam(mob)
         mob:pathThrough(pathfind.first(path), PATHFLAG_RUN);
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     checkRegime(player,mob,119,2);

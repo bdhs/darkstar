@@ -1,31 +1,39 @@
 -----------------------------------
--- Area: Aht Urhgan Whitegate
---  NPC: Sorrowful Sage
--- Type: Assault Mission Giver
--- !pos 134.096 0.161 -30.401 50
+--  Area: Aht Urhgan Whitegate
+--  NPC:  Sorrowful Sage
+--  Type: Assault Mission Giver
+-- @pos 134.096 0.161 -30.401 50
 -----------------------------------
 package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/keyitems");
 require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
 require("scripts/globals/besieged");
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
     local rank = getMercenaryRank(player);
     local haveimperialIDtag;
     local tokens = 3;--player:getAssaultPoint(ILRUSI_ASSAULT_POINT);
-
+    
     if (player:hasKeyItem(IMPERIAL_ARMY_ID_TAG)) then
         haveimperialIDtag = 1;
     else
         haveimperialIDtag = 0;
     end
-
+    
 --[[    if (rank > 0) then
         player:startEvent(278,rank,haveimperialIDtag,tokens,player:getCurrentAssault());
     else]]
@@ -33,10 +41,14 @@ function onTrigger(player,npc)
     --end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-
+    
     if (csid == 278) then
         local categorytype = bit.band(option, 0x0F);
         if (categorytype == 3) then
@@ -51,6 +63,10 @@ function onEventUpdate(player,csid,option)
         end
     end
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

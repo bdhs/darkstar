@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 15958
--- Combat Caster's Quiver
--- When used, you will obtain one Combat Caster's Arrow
+--    ID: 15958
+--    Combat Caster's Quiver
+--    When used, you will obtain one Combat Caster's Arrow
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(18740);

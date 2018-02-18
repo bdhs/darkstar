@@ -4,6 +4,9 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -13,9 +16,16 @@ function onMobSpawn(mob)
     if (mob:getMod(0x34)) then mob:setMod(0x34,1000); end
 end;
 
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
 function onMobEngaged(mob,target)
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 function onMobFight(mob,target)
     local changeTime = mob:getLocalVar("changeTime");
 
@@ -24,6 +34,10 @@ function onMobFight(mob,target)
         mob:setLocalVar("changeTime", mob:getBattleTime());
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     if (player:getCurrentMission(COP) == A_FATE_DECIDED  and player:getVar("PromathiaStatus")==1) then

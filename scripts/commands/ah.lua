@@ -9,6 +9,6 @@ cmdprops =
     parameters = ""
 };
 
-function onTrigger(player)
+function onTrigger(player,npc)
     player:sendMenu(3);
 end;

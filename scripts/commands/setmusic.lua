@@ -9,27 +9,15 @@ cmdprops =
     parameters = "ii"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!setmusic <type ID> <song ID>");
-    player:PrintToPlayer("type IDs: 0 = BGM (Day), 1 = BGM (Night), 2 = Solo-Battle, 3 = Party-Battle, 4 = Chocobo");
-end;
+function onTrigger(player,typeID,songID)
 
-function onTrigger(player, typeId, songId)
-
-    -- validate typeId
-    if (typeId == nil or typeId < 0 or typeId > 4) then
-        error(player, "Invalid type ID.");
-        return;
-    end
-    
-    -- validate songId
-    if (songId == nil or songId < 0) then
-        error(player, "Invalid song ID.");
-        return;
+    if (typeID == nil or songID == nil) then
+        player:PrintToPlayer("Both a music type and a music track must be specified.");
+        player:PrintToPlayer("@setmusic <typeID> <songID>");
+        player:PrintToPlayer("Types: 0 = BGM (Day), 1 = BGM (Night), 2 = Solo-Battle, 3 = Party-Battle, 4 = Chocobo");
+        return
     end
 
-    -- change music
-    player:ChangeMusic(typeId, songId);
+    player:ChangeMusic(typeID,songID);
 
 end;

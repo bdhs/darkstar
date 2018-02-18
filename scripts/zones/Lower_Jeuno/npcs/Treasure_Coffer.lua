@@ -2,30 +2,46 @@
 -- Area: Lower Jeuno
 --  NPC: Treasure Coffer
 -- Type: Add-on NPC
--- !pos 41.169 3.899 -51.005 245
+-- @pos 41.169 3.899 -51.005 245
 -----------------------------------
 package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Lower_Jeuno/TextIDs");
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
+require("scripts/zones/Lower_Jeuno/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(10099,0,0,0,0,0,0,0,0);
-end;
+    player:startEvent(0x2773,0,0,0,0,0,0,0,0);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    printf("CSID: %u",csid);
+    printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    printf("CSID: %u",csid);
+    printf("RESULT: %u",option);
 
     local random = 0;
     local prize = 0;
@@ -42,7 +58,7 @@ function onEventFinish(player,csid,option)
     local v3 = 0;
     local v4 = 0;
 
-    if (csid == 10099) then
+    if (csid == 0x2773) then
         if (option == 16777216) then
             if (player:getFreeSlotsCount() >= 1) then
                 player:addItem(11538);
@@ -529,7 +545,7 @@ function onEventFinish(player,csid,option)
 
                 elseif (random >= 352 and random <= 460) then -- Wolf Mantle
                     prize = 13571;
-
+                    
                     aug1 = math.random(0,5);
                     if (aug1 == 1) then
                         a1 = 1;

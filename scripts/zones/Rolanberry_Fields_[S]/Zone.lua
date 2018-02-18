@@ -5,12 +5,24 @@
 -----------------------------------
 package.loaded["scripts/zones/Rolanberry_Fields_[S]/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/zones/Rolanberry_Fields_[S]/TextIDs");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+
+    local vwnpc = {17150836,17150837,17150838,17150842,17150843};
+    SetVoidwatchNPC(vwnpc);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -20,13 +32,25 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

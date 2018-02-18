@@ -77,7 +77,7 @@ bool CState::HasErrorMsg() const
     return m_errorMsg != nullptr;
 }
 
-CBasicPacket* CState::GetErrorMsg()
+CMessageBasicPacket* CState::GetErrorMsg()
 {
     return m_errorMsg.release();
 }

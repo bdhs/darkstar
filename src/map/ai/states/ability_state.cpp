@@ -32,7 +32,6 @@ This file is part of DarkStar-server source code.
 #include "../../packets/action.h"
 #include "../../utils/battleutils.h"
 #include "../../../common/utils.h"
-#include "../../utils/charutils.h"
 
 CAbilityState::CAbilityState(CBattleEntity* PEntity, uint16 targid, uint16 abilityid) :
     CState(PEntity, targid),
@@ -88,7 +87,7 @@ void CAbilityState::ApplyEnmity()
             mob->m_OwnerID.id = m_PEntity->id;
             mob->m_OwnerID.targid = m_PEntity->targid;
             mob->updatemask |= UPDATE_STATUS;
-            mob->PEnmityContainer->UpdateEnmity(m_PEntity, m_PAbility->getCE(), m_PAbility->getVE(), false, m_PAbility->getID() == ABILITY_CHARM);
+            mob->PEnmityContainer->UpdateEnmity(m_PEntity, m_PAbility->getCE(), m_PAbility->getVE());
             if (mob->m_HiPCLvl < m_PEntity->GetMLevel())
                 mob->m_HiPCLvl = m_PEntity->GetMLevel();
         }
@@ -138,14 +137,12 @@ bool CAbilityState::CanUseAbility()
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_WAIT_LONGER));
             return false;
         }
-        if (PChar->StatusEffectContainer->HasStatusEffect({EFFECT_AMNESIA, EFFECT_IMPAIRMENT}) ||
-            (!PAbility->isPetAbility() && !charutils::hasAbility(PChar, PAbility->getID())) ||
-            (PAbility->isPetAbility() && !charutils::hasPetAbility(PChar, PAbility->getID() - 496)))
+        if (PChar->StatusEffectContainer->HasStatusEffect({EFFECT_AMNESIA, EFFECT_IMPAIRMENT}))
         {
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_UNABLE_TO_USE_JA2));
             return false;
         }
-        std::unique_ptr<CBasicPacket> errMsg;
+        std::unique_ptr<CMessageBasicPacket> errMsg;
         auto PTarget = GetTarget();
         if (PChar->IsValidTarget(PTarget->targid, PAbility->getValidTarget(), errMsg))
         {

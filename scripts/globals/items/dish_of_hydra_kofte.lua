@@ -13,7 +13,11 @@
 -- Ranged ATT Cap 150
 -- Poison Resist 5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -24,11 +28,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5602);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_STR, 7);
     target:addMod(MOD_INT, -3);
     target:addMod(MOD_FOOD_ATTP, 20);
@@ -40,7 +52,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_POISONRES, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 7);
     target:delMod(MOD_INT, -3);
     target:delMod(MOD_FOOD_ATTP, 20);

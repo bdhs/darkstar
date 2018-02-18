@@ -2,9 +2,12 @@
 -- Spell: Aspir
 -- Drain functions only on skill level!!
 -----------------------------------------
+
 require("scripts/globals/magic");
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -14,14 +17,9 @@ end;
 function onSpellCast(caster,target,spell)
     --calculate raw damage (unknown function  -> only dark skill though) - using http://www.bluegartr.com/threads/44518-Drain-Calculations
     -- also have small constant to account for 0 dark skill
-    local dmg = 5 + 0.375 * caster:getSkillLevel(DARK_MAGIC_SKILL);
+    local dmg = 5 + 0.375 * (caster:getSkillLevel(DARK_MAGIC_SKILL) + caster:getMod(79 + DARK_MAGIC_SKILL));
     --get resist multiplier (1x if no resist)
-    local params = {};
-    params.diff = caster:getStat(MOD_INT)-target:getStat(MOD_INT);
-    params.attribute = MOD_INT;
-    params.skillType = DARK_MAGIC_SKILL;
-    params.bonus = 1.0;
-    local resist = applyResistance(caster, target, spell, params);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),DARK_MAGIC_SKILL,1.0);
     --get the resisted damage
     dmg = dmg*resist;
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
@@ -35,9 +33,9 @@ function onSpellCast(caster,target,spell)
     end
 
     dmg = dmg * DARK_POWER;
-
+    
     if (target:isUndead()) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- No effect
+        spell:setMsg(75); -- No effect
         return dmg;
     end
 

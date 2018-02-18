@@ -1,11 +1,14 @@
 --------------------------------------
--- Spell: Absorb-TP
--- Steals an enemy's TP.
+--  Spell: Absorb-TP
+--  Steals an enemy's TP.
 --------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -13,14 +16,13 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
+
     local cap = 1200
     local dmg = math.random(100, 1200);
-
+    
     --get resist multiplier (1x if no resist)
-    local params = {};
-    params.attribute = MOD_INT;
-    params.skillType = DARK_MAGIC_SKILL;
-    local resist = applyResistance(caster, target, spell, params);
+    local resist = applyResistance(caster, spell, target, 
+      caster:getStat(MOD_INT)-target:getStat(MOD_INT), DARK_MAGIC_SKILL, 1.0);
 
     --get the resisted damage
     dmg = dmg * resist;
@@ -33,10 +35,10 @@ function onSpellCast(caster,target,spell)
 
     --add in final adjustments
     if (resist <= 0.125) then
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
         dmg = 0
     else
-        spell:setMsg(msgBasic.MSGIC_ABSORB_TP);
+        spell:setMsg(454);
 
         dmg = dmg * ((100 + caster:getMod(MOD_AUGMENTS_ABSORB)) / 100)
 
@@ -47,11 +49,11 @@ function onSpellCast(caster,target,spell)
         if (dmg > cap) then
             dmg = cap;
         end
-
+      
         -- drain
         caster:addTP(dmg);
         target:addTP(-dmg);
     end
-
+  
     return dmg;
 end;

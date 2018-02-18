@@ -2,7 +2,11 @@
 -- Area:
 --  MOB: Ouryu
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -10,9 +14,14 @@ function onMobSpawn(mob)
     mob:AnimationSub(0); -- subanim 0 is only used when it spawns until first flight.
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob,target)
 
     local bf = mob:getBattlefield()
+    print(bf:getBcnmID())
     if bf:getBcnmID() == 961 and mob:getHPP() < 30 then
         bf:win()
         return
@@ -51,6 +60,10 @@ function onMobFight(mob,target)
         end
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

@@ -1,16 +1,20 @@
 -----------------------------------
 -- Area: Aht Urhgan Whitegate
---  NPC: Ghatsad
+-- NPC: Ghatsad
 -- Standard Info NPC
 -- Involved in quest: No String Attached
 -----------------------------------
 package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/common");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/globals/status");
 require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -87,7 +91,7 @@ function onTrade(player,npc,trade)
                         player:tradeComplete();
                         player:startEvent(625);
                         player:setVar("PUP_AttachmentStatus", 9)
-                        player:setVar("PUP_AttachmentReady",getMidnight());
+                        player:setVar("PUP_AttachmentReady",getMidnight());    
                     end
                 elseif (attachments == 2) then
                     if (trade:getItemQty(2187) == 1) then
@@ -135,7 +139,7 @@ function onTrade(player,npc,trade)
                         player:setVar("PUP_AttachmentStatus", 10)
                         player:setVar("PUP_AttachmentReady",getMidnight());
                     end
-                end
+                end        
             end
         end
     elseif (attachmentStatus == 5) then
@@ -209,7 +213,7 @@ function onTrade(player,npc,trade)
         end
     elseif (attachments == 3 and attachmentStatus == 11) then
         if (trade:getSlotCount() == 3) then
-            if (trade:getItemQty(2186) == 7) then
+            if (trade:getItemQty(2186) == 2) then
                 if (trade:getItemQty(2502) == 1) then
                     if (trade:getItemQty(4613) == 1) then
                         player:tradeComplete();
@@ -255,7 +259,7 @@ function onTrade(player,npc,trade)
         end
     elseif (attachments == 4 and attachmentStatus == 14) then
         if (trade:getSlotCount() == 3) then
-            if (trade:getItemQty(2186) == 7) then
+            if (trade:getItemQty(2186) == 4) then
                 if (trade:getItemQty(2502) == 1 and unlockedAttachments == 46) then
                     if (trade:getItemQty(4613) == 1) then
                         player:tradeComplete();
@@ -307,7 +311,11 @@ function onTrade(player,npc,trade)
             player:startEvent(904);
         end
     end
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -318,7 +326,7 @@ function onTrigger(player,npc)
     --cs 625 - thanks, have everything, come back later
     --cs 626 - come back later
     --cs 627 - automaton frame done (param 2: frame)
-    --cs 628 - you can customise automaton by changing frame
+    --cs 628 - you can customise automaton by changing frame 
     --cs 629 - you can alter automatons abilities and character by equipping attachments (what are these last 2 for?)
     --cs 900 - start soulsoother/spiritreaver
     --cs 901 - start second head
@@ -326,7 +334,7 @@ function onTrigger(player,npc)
     --cs 903 - head almost done
     --cs 904 - give coffee
     --cs 905 - head complete
-
+    
     local NoStringsAttached = player:getQuestStatus(AHT_URHGAN,NO_STRINGS_ATTACHED);
     local NoStringsAttachedProgress = player:getVar("NoStringsAttachedProgress");
     local Automaton = player:hasKeyItem(798);
@@ -340,7 +348,7 @@ function onTrigger(player,npc)
     local attachmentTime = player:getVar("PUP_AttachmentReady");
     local attachmentReady = (attachmentTime ~= 0 and attachmentTime < os.time());
     local attachmentWait = player:getVar("PUP_AttachmentWait");
-
+    
     --[[
         attachment status:
         0 - none
@@ -361,13 +369,13 @@ function onTrigger(player,npc)
     ]]
 
     if (NoStringsAttached == QUEST_ACCEPTED and NoStringsAttachedProgress == 2) then
-        player:startEvent(262); -- he want you to go to Arrapago
+        player:startEvent(0x0106); -- he want you to go to Arrapago
     elseif (NoStringsAttached == QUEST_ACCEPTED and NoStringsAttachedProgress == 3) then
-        player:startEvent(263); -- reminder to go to Arrapago
+        player:startEvent(0x0107); -- reminder to go to Arrapago
     elseif (NoStringsAttached == QUEST_ACCEPTED and NoStringsAttachedProgress == 4 and Automaton == true) then
-        player:startEvent(264); -- you give the antique automaton to him and need to wait a gameday
+        player:startEvent(0x0108); -- you give the antique automaton to him and need to wait a gameday
     elseif (NoStringsAttached == QUEST_ACCEPTED and NoStringsAttachedProgress == 5 and CreationReady == true) then
-        player:startEvent(265); -- you go back for your automaton
+        player:startEvent(0x0109); -- you go back for your automaton
     elseif (NoStringsAttached == QUEST_COMPLETED and attachments == 0 and attachmentStatus == 0 and player:getMainJob() == JOBS.PUP and player:getMainLvl() >= 10) then
         player:startEventString(620, automatonName, automatonName, automatonName, automatonName, attachments, 0, 0, 0, 0, 2185, 3, unlockedAttachments);
     elseif (NoStringsAttached == QUEST_COMPLETED and attachments == 0 and attachmentStatus == 1) then
@@ -441,7 +449,7 @@ function onTrigger(player,npc)
             player:startEventString(901, automatonName, automatonName, automatonName, automatonName, 1, 0, 1, 0, 0, 2186, 4);
         elseif (unlockedAttachments == 46) then
             player:startEventString(901, automatonName, automatonName, automatonName, automatonName, 0, 0, 1, 0, 0, 2186, 4);
-        end
+        end    
     elseif (attachments > 0) then
         local rand = math.random(1,2);
         if (rand == 1) then
@@ -450,27 +458,35 @@ function onTrigger(player,npc)
             player:startEventString(629, automatonName, automatonName, automatonName, automatonName);
         end
     else
-        player:startEvent(256);
+        player:startEvent(0x0100);
     end;
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 262) then
+    if (csid == 0x0106) then
         player:setVar("NoStringsAttachedProgress",3);
-    elseif (csid == 264) then
+    elseif (csid == 0x0108) then
         player:setVar("CreationStarted_Day",VanadielDayOfTheYear());
         player:setVar("CreationStarted_Year",VanadielYear());
         player:setVar("NoStringsAttachedProgress",5);
         player:delKeyItem(798);
-    elseif (csid == 265) then
+    elseif (csid == 0x0109) then
         player:setVar("NoStringsAttachedProgress",6);
         player:setVar("CreationStarted_Day",0);
         player:setVar("CreationStarted_Year",0);

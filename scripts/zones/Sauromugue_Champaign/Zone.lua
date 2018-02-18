@@ -4,19 +4,19 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/Sauromugue_Champaign/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Sauromugue_Champaign/TextIDs");
-require("scripts/zones/Sauromugue_Champaign/MobIDs");
-require( "scripts/globals/icanheararainbow");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/conquest");
-require("scripts/globals/missions");
-require("scripts/globals/zone");
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+require("scripts/zones/Sauromugue_Champaign/TextIDs");
+require( "scripts/globals/icanheararainbow");
+require("scripts/globals/zone");
+require("scripts/globals/chocobo_digging");
+
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 880, 224, DIGREQ_NONE },
                     { 887, 39, DIGREQ_NONE },
                     { 645, 14, DIGREQ_NONE },
@@ -46,18 +46,36 @@ local itemMap =
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
-    UpdateNMSpawnPoint(ROC);
-    GetMobByID(ROC):setRespawnTime(math.random(900, 10800));
+    local manuals = {17269261,17269262};
+
+    SetFieldManual(manuals);
+
+    local vwnpc = {17269272,17269273,17269274,17269278,17269279};
+    SetVoidwatchNPC(vwnpc);
+
+    -- Roc
+    SetRespawnTime(17269106, 900, 10800);
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn( player, prevZone)
     local cs = -1;
@@ -67,13 +85,17 @@ function onZoneIn( player, prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 3;
+        cs = 0x0003;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 5;
+        cs = 0x0005;
     end
 
     return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -83,15 +105,23 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter( player, region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 3) then
+    if (csid == 0x0003) then
         lightCutsceneUpdate(player);  -- Quest: I Can Hear A Rainbow
-    elseif (csid == 5) then
+    elseif (csid == 0x0005) then
         if (player:getPreviousZone() == 200) then
             player:updateEvent(0,0,0,0,0,2);
         elseif (player:getPreviousZone() == 119) then
@@ -102,10 +132,14 @@ function onEventUpdate( player, csid, option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 3) then
+    if (csid == 0x0003) then
         lightCutsceneFinish(player);  -- Quest: I Can Hear A Rainbow
     end
 end;

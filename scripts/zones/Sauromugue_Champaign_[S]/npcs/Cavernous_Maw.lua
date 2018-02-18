@@ -1,19 +1,27 @@
 -----------------------------------
 -- Area: Sauromugue Champaign [S]
 --  NPC: Cavernous Maw
--- !pos 369 8 -227 98
+-- @pos 369 8 -227 98
 -- Teleports Players to Sauromugue_Champaign
 -----------------------------------
 package.loaded["scripts/zones/Sauromugue_Champaign_[S]/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/teleports");
 require("scripts/globals/campaign");
 require("scripts/zones/Sauromugue_Champaign_[S]/TextIDs");
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (player:getCurrentMission(WOTG) == BACK_TO_THE_BEGINNING and
@@ -28,10 +36,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID:",csid);
@@ -48,6 +64,6 @@ function onEventFinish(player,csid,option)
         if (hasMawActivated(player,0) == false) then
             player:addNationTeleport(MAW,4);
         end
-        toMaw(player,6);
+        toMaw(player,6);        
     end
 end;

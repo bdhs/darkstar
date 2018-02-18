@@ -2,10 +2,11 @@
 -- Area: West Ronfaure
 --  NPC: Doladepaiton, R.K.
 -- Type: Outpost Conquest Guards
--- !pos -448 -19 -214 100
+-- @pos -448 -19 -214 100
 -------------------------------------
 package.loaded["scripts/zones/West_Ronfaure/TextIDs"] = nil;
 --------------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/West_Ronfaure/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = RONFAURE;
 local csid        = 0x7ffb;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

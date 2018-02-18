@@ -1,28 +1,31 @@
 -----------------------------------
 -- Area: Chateau d'Oraguille
---  NPC: Faurie
--- Chat Text and Zone Exit Menu
+--     Faurie
+--     Chat Text and Zone Exit Menu
 -----------------------------------
 package.loaded["scripts/zones/Chateau_dOraguille/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Chateau_dOraguille/TextIDs");
-require("scripts/globals/settings");
------------------------------------
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+require("scripts/globals/settings");
 function onTrigger(player,npc)
-    player:startEvent(506);
+    player:startEvent(0x01FA);
 end;
-
-function onEventUpdate(player,csid,option)
-end
-
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 function onEventFinish(player,csid,option)
-    -- printf("CSID:",csid);
-    -- printf("RESULT:",option);
+--print("CSID:",csid);
+--print("RESULT:",option);
     if (option == 0) then
-        player:setPos(0, 0, 100, 64, 231);
+      player:setPos(0, 0, 100, 64, 0xe7);
     end;
 end;

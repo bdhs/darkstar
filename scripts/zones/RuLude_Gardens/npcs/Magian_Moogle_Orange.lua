@@ -1,15 +1,19 @@
 -----------------------------------
--- Area: Ru'Lude Gardens
---  NPC: Magian Moogle (Orange Bobble)
--- Type: Magian Trials NPC (Weapon/Empyrean Armor)
--- !pos -11 2.453 118 64
+--  Area: Ru'Lude Gardens
+--  NPC:  Magian Moogle (Orange Bobble)
+--  Type: Magian Trials NPC (Weapon/Empyrean Armor)
+-- @pos -11 2.453 118 64
 -----------------------------------
 package.loaded["scripts/zones/RuLude_Gardens/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/zones/RuLude_Gardens/TextIDs");
 require("scripts/globals/magiantrials");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -26,6 +30,10 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
     if (player:getMainLvl() < 75) then
         player:startEvent(10121);
@@ -36,9 +44,13 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    printf("CSID: %u",csid);
+    printf("RESULT: %u",option);
     if (csid == 10124) then
         local ItemID =0 ;
         if (option == 4456449) then
@@ -50,9 +62,13 @@ function onEventUpdate(player,csid,option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    printf("CSID: %u",csid);
+    printf("RESULT: %u",option);
     if (csid == 10122 and option == 1) then
         player:messageSpecial(KEYITEM_OBTAINED,MAGIAN_TRIAL_LOG);
         player:addKeyItem(MAGIAN_TRIAL_LOG);

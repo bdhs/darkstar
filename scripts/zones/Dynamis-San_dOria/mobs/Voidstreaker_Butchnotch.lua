@@ -2,14 +2,26 @@
 -- Area: Dynamis San d'Oria
 --  MOB: Voidstreaker Butchnotch
 -----------------------------------
+
 require("scripts/globals/dynamis");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
 
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
 function onMobEngaged(mob,target)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     if (alreadyReceived(player,7) == false) then

@@ -4,7 +4,6 @@
 --(Taken from 'mob_spawn_points' table)
 -----------------------------------
 
-RAMPONNEAU_PH =
-{
-    [17166701] = 17166705, -- 78.836 -0.109 -199.204
-};
+-- Ramponneau
+Ramponneau=17166705;
+Ramponneau_PH=17166701; -- 78.836, -0.109, -199.204

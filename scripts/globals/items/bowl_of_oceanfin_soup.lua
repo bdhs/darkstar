@@ -9,7 +9,11 @@
 -- Ranged Attack % 19 Cap 85
 -- Amorph Killer 6
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,6 +23,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,6070);
@@ -40,7 +48,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_AMORPH_KILLER, 6);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_ACCP, 15);
     target:delMod(MOD_FOOD_ACC_CAP, 95);
     target:delMod(MOD_FOOD_RACCP, 15);

@@ -2,11 +2,19 @@
 -- Area: Ru'Aun Gardens
 --  MOB: Seiryu (Pet version)
 -----------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMonsterMagicPrepare
+-----------------------------------
 
 function onMonsterMagicPrepare(mob,target)
     if (mob:hasStatusEffect(EFFECT_HUNDRED_FISTS,0) == false) then
@@ -23,6 +31,10 @@ function onMonsterMagicPrepare(mob,target)
     end
     return 0; -- Still need a return, so use 0 when not casting
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

@@ -4,9 +4,11 @@
 --  Description: Creates shadow images that each absorb a single attack directed at you.
 --  Type: Magical (Wind)
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/monstertpmoves");
+
 ---------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)

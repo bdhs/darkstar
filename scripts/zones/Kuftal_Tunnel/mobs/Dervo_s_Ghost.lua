@@ -2,7 +2,11 @@
 -- Area: Kuftal Tunnel
 --  MOB: Dervo's Ghost
 -----------------------------------
+
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

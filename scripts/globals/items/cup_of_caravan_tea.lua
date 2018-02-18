@@ -8,7 +8,11 @@
 -- Charisma 6
 -- Intelligence 4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,18 +23,30 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,5927);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 22);
     target:addMod(MOD_MP, 32);
     target:addMod(MOD_CHR, 6);
     target:addMod(MOD_INT, 4);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 22);
     target:delMod(MOD_MP, 32);
     target:delMod(MOD_CHR, 6);

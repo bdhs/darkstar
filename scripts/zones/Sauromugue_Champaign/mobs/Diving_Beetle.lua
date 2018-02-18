@@ -2,7 +2,11 @@
 -- Area: Sauromugue Champaign
 --  MOB: Diving Beetle
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

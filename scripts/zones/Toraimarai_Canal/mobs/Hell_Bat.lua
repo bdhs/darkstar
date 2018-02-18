@@ -2,7 +2,11 @@
 -- Area: Toraimorai Canal
 --  MOB: Hell Bat
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4227
--- Item: Bronze Bolt Quiver
--- When used, you will obtain one stack of Bronze Bolts
+--    ID: 4227
+--    Item: Bronze Bolt Quiver
+--    When used, you will obtain one stack of Bronze Bolts
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17339,99);

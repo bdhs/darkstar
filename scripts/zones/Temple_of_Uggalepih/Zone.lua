@@ -5,20 +5,41 @@
 -----------------------------------
 package.loaded["scripts/zones/Temple_of_Uggalepih/TextIDs"] = nil;
 -----------------------------------
+
+require("scripts/globals/settings");
+require("scripts/globals/zone");
 require("scripts/zones/Temple_of_Uggalepih/TextIDs");
-require("scripts/zones/Temple_of_Uggalepih/MobIDs");
-require("scripts/globals/conquest");
+
+-----------------------------------
+-- onInitialize
+-----------------------------------
 
 function onInitialize(zone)
-    UpdateTreasureSpawnPoint(UGGALEPIH_TREASURE_COFFER);
+    local tomes = {17429028,17429029,17429030,17429031,17429032};
+    SetGroundsTome(tomes);
+
+    local vwnpc = {17429022,17429023,17429024};
+    SetVoidwatchNPC(vwnpc);
+
+
+    UpdateTreasureSpawnPoint(17429007);
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
+
     for name, player in pairs(players) do
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -28,11 +49,27 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;

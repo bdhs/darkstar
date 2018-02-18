@@ -3,17 +3,26 @@
 -- Item: Haste Belt
 -- Item Effect: 10% haste
 -----------------------------------------
-require("scripts/globals/status");
-require("scripts/globals/msg");
+
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
     return 0;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    if (not target:hasStatusEffect(EFFECT_HASTE)) then
+    if (target:hasStatusEffect(EFFECT_HASTE) == false) then
         target:addStatusEffect(EFFECT_HASTE,102,0,180);
     else
-        target:messageBasic(msgBasic.NO_EFFECT);
+        target:messageBasic(423);
     end
+
 end;

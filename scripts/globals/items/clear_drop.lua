@@ -1,17 +1,27 @@
 -----------------------------------------
 --  ID: 4259
 --  Item: Clear Drop
+-----------------------------------------
 --  Intelligence 5
 -----------------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
+    local result = 0;
     if (target:hasStatusEffect(EFFECT_MEDICINE)) then
-        return msgBasic.ITEM_NO_USE_MEDICATED;
+        result = 111;
     end
-    return 0;
+    return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_INT_BOOST,5,0,600);

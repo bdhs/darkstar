@@ -3,11 +3,11 @@
 --  NPC: ??? (qm5)
 -- Involved in Quest: The Missing Piece
 -- positions:
--- 1: !pos 770 0 -419
--- 2: !pos 657 0 -537
--- 3: !pos 749 0 -573
--- 4: !pos 451 -16 -739
--- 5: !pos 787 -16 -819
+-- 1: @pos 770 0 -419
+-- 2: @pos 657 0 -537
+-- 3: @pos 749 0 -573
+-- 4: @pos 451 -16 -739
+-- 5: @pos 787 -16 -819
 -- spawn in npc_list is 770 0 -419
 -----------------------------------
 package.loaded["scripts/zones/Quicksand_Caves/TextIDs"] = nil;
@@ -15,6 +15,9 @@ package.loaded["scripts/zones/Quicksand_Caves/TextIDs"] = nil;
 require("scripts/zones/Quicksand_Caves/TextIDs");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -48,11 +51,25 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
+function onTrade(player,npc,trade)
+end;
+
+-----------------------------------
+-- onEventUpdate Action
+-----------------------------------
 function onEventUpdate(player,csid,option)
     -- print("CSID:",csid);
     -- print("RESULT:",option);
 end;
 
+
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 function onEventFinish(player,csid,option)
     -- print("CSID:",csid);
     -- print("RESULT:",option);

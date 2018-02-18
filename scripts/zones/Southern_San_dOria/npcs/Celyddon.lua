@@ -1,16 +1,19 @@
 -----------------------------------
 -- Area: Southern San d'Oria
---  NPC: Celyddon
+-- NPC: Celyddon
 --  General Info NPC
--- @zone 230
--- !pos -129 -6 90
+-- @zone 230 
+-- @pos -129 -6 90 
 -------------------------------------
 package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
------------------------------------
+
+----------------------------------- 
+-- onTrade Action 
+----------------------------------- 
 
 function onTrade(player,npc,trade)
     -- "Flyers for Regine" conditional script
@@ -25,23 +28,35 @@ function onTrade(player,npc,trade)
     end
 end;
 
+----------------------------------- 
+-- onTrigger Action 
+-----------------------------------
+ 
 function onTrigger(player,npc)
-
+ 
     ASquiresTest = player:getQuestStatus(SANDORIA,A_SQUIRE_S_TEST)
-
+    
     if ASquiresTest == (QUEST_AVAILABLE) then
-        player:startEvent(618); -- im looking for the examiner
+        player:startEvent(0x26A); -- im looking for the examiner
     elseif ASquiresTest == (QUEST_ACCEPTED) then
-        player:startEvent(619) -- i found the examiner but said i had to use sword
+        player:startEvent(0x026b) -- i found the examiner but said i had to use sword
     else
-        player:startEvent(620) -- says i needs a revival tree root
+        player:startEvent(0x026c) -- says i needs a revival tree root
     end
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

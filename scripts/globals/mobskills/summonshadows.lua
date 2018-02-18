@@ -1,11 +1,11 @@
----------------------------------------------
+---------------------------------------------------
 -- Summonshadows
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 1;
@@ -25,7 +25,7 @@ function onMobWeaponSkill(target, mob, skill)
         GetMobByID(shadow2):updateEnmity(target);
     end
 
-    skill:setMsg(msgBasic.NONE);
+    skill:setMsg(0);
 
     return 0;
 end;

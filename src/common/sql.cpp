@@ -21,16 +21,32 @@
 ===========================================================================
 */
 
+#include "../common/malloc.h"
 #include "../common/showmsg.h"
 #include "../common/timer.h"
+#include "../common/strlib.h"
 #include "../common/taskmgr.h"
 
 #include "sql.h"
 
-#include <string.h>
+#include <cstring>
 #include <stdlib.h>
-#include <cstdio>
-#include <any>
+
+/************************************************************************
+*																		*
+*  Sql handle	  														*
+*																		*
+************************************************************************/
+
+struct Sql_t
+{
+	StringBuf buf;
+	MYSQL handle;
+	MYSQL_RES* result;
+	MYSQL_ROW row;
+	unsigned long* lengths;
+	int keepalive;
+};
 
 /************************************************************************
 *																		*
@@ -56,8 +72,9 @@ Sql_t* Sql_Malloc(void)
 {
 	Sql_t* self;
 
-    self = new Sql_t{};
+	CREATE(self, Sql_t, 1);
 	mysql_init(&self->handle);
+	StringBuf_Init(&self->buf);
 	self->lengths = NULL;
 	self->result  = NULL;
 	self->keepalive = CTaskMgr::TASK_INVALID;
@@ -75,7 +92,7 @@ int32 Sql_Connect(Sql_t* self, const char* user, const char* passwd, const char*
 	if( self == NULL )
 		return SQL_ERROR;
 
-    self->buf.clear();
+	StringBuf_Clear(&self->buf);
 	if( !mysql_real_connect(&self->handle, host, user, passwd, db, (uint32)port, NULL/*unix_socket*/, 0/*clientflag*/) )
 	{
 		ShowSQL("%s\n", mysql_error(&self->handle));
@@ -184,7 +201,7 @@ int32 Sql_Ping(Sql_t* self)
 
 static int32 Sql_P_KeepaliveTimer(time_point tick,CTaskMgr::CTask* PTask)
 {
-	Sql_t* self = std::any_cast<Sql_t*>(PTask->m_data);
+	Sql_t* self = (Sql_t*)PTask->m_data;
 	ShowInfo("Pinging SQL server to keep connection alive...\n");
 	Sql_Ping(self);
 	return 0;
@@ -249,23 +266,71 @@ size_t Sql_EscapeString(Sql_t* self, char *out_to, const char *from)
 *																		*
 ************************************************************************/
 
+int32 Sql_Query(Sql_t* self, const char* query, ...)
+{
+	int32 res;
+	va_list args;
+
+	va_start(args, query);
+	res = Sql_QueryV(self, query, args);
+	va_end(args);
+
+	return res;
+}
+
+/************************************************************************
+*																		*
+*  Executes a query.													*
+*																		*
+************************************************************************/
+
+int32 Sql_QueryV(Sql_t* self, const char* query, va_list args)
+{
+	if( self == NULL )
+		return SQL_ERROR;
+
+	Sql_FreeResult(self);
+	StringBuf_Clear(&self->buf);
+	StringBuf_Vprintf(&self->buf, query, args);
+	if( mysql_real_query(&self->handle, StringBuf_Value(&self->buf), (uint32)StringBuf_Length(&self->buf)) )
+	{
+		ShowSQL("DB error - %s\n", mysql_error(&self->handle));
+        ShowSQL("Query: %s\n", StringBuf_Value(&self->buf));
+		return SQL_ERROR;
+	}
+	self->result = mysql_store_result(&self->handle);
+	if( mysql_errno(&self->handle) != 0 )
+	{
+		ShowSQL("DB error - %s\n", mysql_error(&self->handle));
+        ShowSQL("Query: %s\n", StringBuf_Value(&self->buf));
+		return SQL_ERROR;
+	}
+	return SQL_SUCCESS;
+}
+
+/************************************************************************
+*																		*
+*  Executes a query.													*
+*																		*
+************************************************************************/
+
 int32 Sql_QueryStr(Sql_t* self, const char* query)
 {
 	if( self == NULL )
 		return SQL_ERROR;
 
 	Sql_FreeResult(self);
-    self->buf.clear();
-	self->buf += query;
-	if( mysql_real_query(&self->handle, self->buf.c_str(), (unsigned int)self->buf.length()) )
+	StringBuf_Clear(&self->buf);
+	StringBuf_AppendStr(&self->buf, query);
+	if( mysql_real_query(&self->handle, StringBuf_Value(&self->buf), (uint32)StringBuf_Length(&self->buf)) )
 	{
-        ShowSQL("DB error - %s\nSQL: %s\n", mysql_error(&self->handle), query);
+		ShowSQL("DB error - %s\n", mysql_error(&self->handle));
 		return SQL_ERROR;
 	}
 	self->result = mysql_store_result(&self->handle);
 	if( mysql_errno(&self->handle) != 0 )
 	{
-        ShowSQL("DB error - %s\nSQL: %s\n", mysql_error(&self->handle), query);
+		ShowSQL("DB error - %s\n", mysql_error(&self->handle));
 		return SQL_ERROR;
 	}
 	return SQL_SUCCESS;
@@ -396,7 +461,7 @@ int8* Sql_GetData(Sql_t* self, size_t col)
 	{
 		if( col < Sql_NumColumns(self) )
 		{
-			return (int8*)self->row[col];
+			return self->row[col];
 		}
 	}
 	ShowFatalError("Sql_GetData: SQL_ERROR\n");
@@ -485,9 +550,9 @@ void Sql_FreeResult(Sql_t* self)
 
 void Sql_ShowDebug_(Sql_t* self, const char* debug_file, const unsigned long debug_line)
 {
-	if( self->buf.length() > 0 )
+	if( StringBuf_Length(&self->buf) > 0 )
 	{
-		ShowDebug("at %s:%lu - %s\n", debug_file, debug_line, self->buf.c_str());
+		ShowDebug("at %s:%lu - %s\n", debug_file, debug_line, StringBuf_Value(&self->buf));
 	}
 	else
 	{
@@ -507,8 +572,9 @@ void Sql_Free(Sql_t* self)
 	{
         mysql_close(&self->handle);
 		Sql_FreeResult(self);
+		StringBuf_Destroy(&self->buf);
 		if( self->keepalive != CTaskMgr::TASK_INVALID ) CTaskMgr::getInstance()->RemoveTask("Sql_P_KeepAliveTimer");
-		delete self;
+		aFree(self);
 	}
 }
 

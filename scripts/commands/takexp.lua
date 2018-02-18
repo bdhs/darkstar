@@ -9,33 +9,25 @@ cmdprops =
     parameters = "is"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!takexp <amount> {player}");
-end;
-
 function onTrigger(player, amount, target)
-
-    -- validate amount
-    if (amount == nil or amount < 1) then
-        error(player, "Invalid amount.");
+    -- print( 'Exp amount: ' .. tostring( amount ) );
+    if (amount == nil) then
+        player:PrintToPlayer( "You must enter a valid point amount." );
+        player:PrintToPlayer( "@takexp <amount> <player>" );
         return;
     end
 
-    -- validate target
-    local targ;
     if (target == nil) then
-        targ = player;
+        player:delExp(amount);
+        player:PrintToPlayer( string.format( "Removed %i exp from self. ", amount ) );
     else
-        targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format("Player named '%s' not found!", target));
-            return;
+        local targ = GetPlayerByName(target);
+        if (targ ~= nil) then
+            targ:delExp(amount);
+            player:PrintToPlayer( string.format( "Removed %i exp from player '%s' ", amount, target ) )
+        else
+            player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+            player:PrintToPlayer( "@takexp <amount> <player>" );
         end
     end
-
-    -- take xp
-    targ:delExp(amount);
-    player:PrintToPlayer( string.format( "Removed %i exp from %s. They are now level %i.", amount, targ:getName(), targ:getMainLvl() ));
-
 end;

@@ -1,9 +1,12 @@
 -----------------------------------------
 -- Spell: Enlight
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -24,9 +27,9 @@ function onSpellCast(caster,target,spell)
     local potency = (magicskill / 8) + 12.5;
 
     if (target:addStatusEffect(effect,potency,0,duration)) then
-        spell:setMsg(msgBasic.MAGIC_GAIN_EFFECT);
+        spell:setMsg(230);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end
     return effect;
 end;

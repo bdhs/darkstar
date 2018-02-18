@@ -21,8 +21,6 @@ end;
 -- onUseAbility
 -----------------------------------
 
-function onUseAbility(pet,target,ability)
-    pet:queue(0, function(pet)
-        pet:stun(5000)
-    end)
+function onUseAbility(player,target,ability)
+
 end;

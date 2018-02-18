@@ -89,7 +89,7 @@ std::string CPetEntity::GetScriptName()
             return "chocobo";
             break;
         case PETTYPE_TRUST:
-            return (const char*)GetName();
+            return GetName();
             break;
         default:
             return "";
@@ -185,7 +185,7 @@ void CPetEntity::OnAbility(CAbilityState& state, action_t& action)
     auto PAbility = state.GetAbility();
     auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
 
-    std::unique_ptr<CBasicPacket> errMsg;
+    std::unique_ptr<CMessageBasicPacket> errMsg;
     if (IsValidTarget(PTarget->targid, PAbility->getValidTarget(), errMsg))
     {
         if (this != PTarget && distance(this->loc.p, PTarget->loc.p) > PAbility->getRange())

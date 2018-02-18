@@ -1,15 +1,17 @@
----------------------------------------------
--- Ion_Efflux
+---------------------------------------------------
+--  Ion_Efflux
 --
--- Description: 10'(?) cone  Paralysis, ignores Utsusemi
--- Type: Magical
---
--- Range: 10 yalms
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+--  Description: 10'(?) cone  Paralysis, ignores Utsusemi
+--  Type: Magical
+--  
+--  Range: 10 yalms
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (mob:AnimationSub() <= 1) then

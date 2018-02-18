@@ -2,21 +2,29 @@
 -- Area: Maze of Shakhrami
 --  MOB: Argus (NM)
 -----------------------------------
+
 require("scripts/zones/Maze_of_Shakhrami/MobIDs");
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;
 
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
 function onMobDespawn(mob)
-    if (math.random(2)==1) then
-        DisallowRespawn(LEECH_KING, true);
-        DisallowRespawn(ARGUS, false);
-        UpdateNMSpawnPoint(ARGUS);
-        GetMobByID(ARGUS):setRespawnTime(math.random(64800, 108000)); -- 18-30 hours
+    local whichNM = math.random(0,19);
+
+    if (whichNM < 10) then
+        SetRespawnTime(Argus, 64800, 108000); -- 18-30 hours
+        DeterMob(Leech_King, true);
     else
-        DisallowRespawn(ARGUS, true);
-        DisallowRespawn(LEECH_KING, false);
-        UpdateNMSpawnPoint(LEECH_KING);
-        GetMobByID(LEECH_KING):setRespawnTime(math.random(64800, 108000)); -- 18-30 hours
+        SetRespawnTime(Leech_King, 64800, 108000); -- 18-30 hours
+        DeterMob(Argus, true);
     end
+
 end;

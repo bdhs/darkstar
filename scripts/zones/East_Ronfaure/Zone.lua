@@ -4,18 +4,21 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/East_Ronfaure/TextIDs"] = nil;
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
+
+require("scripts/globals/zone");
+require("scripts/globals/quests");
+require("scripts/globals/settings");
 require( "scripts/globals/icanheararainbow");
 require("scripts/zones/East_Ronfaure/TextIDs");
 require("scripts/globals/chocobo_digging");
-require("scripts/globals/settings");
-require("scripts/globals/quests");
-require("scripts/globals/zone");
------------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 4504, 224, DIGREQ_NONE },
                     { 688, 184, DIGREQ_NONE },
                     { 17396, 276, DIGREQ_NONE },
@@ -36,16 +39,33 @@ local itemMap =
                     { 1188, 12, DIGREQ_MODIFIER },
                     { 4532, 11, DIGREQ_MODIFIER },
                     { 574, 37, DIGREQ_NIGHT },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
+    local manuals = {17191539,17191540};
+    SetFieldManual(manuals);
+
+    local vwnpc = {17191575,17191576,17191577};
+    SetVoidwatchNPC(vwnpc);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -54,13 +74,17 @@ function onZoneIn(player,prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 21;
+        cs = 0x0015;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 23;
+        cs = 0x0017;
     end
 
     return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -70,15 +94,23 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 21) then
+    if (csid == 0x0015) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 23) then
+    elseif (csid == 0x0017) then
         if (player:getYPos() >= -22) then
             player:updateEvent(0,0,0,0,0,7);
         else
@@ -87,10 +119,14 @@ function onEventUpdate(player,csid,option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 21) then
+    if (csid == 0x0015) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
     end
 end;

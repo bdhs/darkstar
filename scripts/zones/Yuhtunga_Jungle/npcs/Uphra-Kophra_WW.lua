@@ -2,10 +2,11 @@
 -- Area: Yuhtunga Jungle
 --  NPC: Uphra-Kophra, W.W.
 -- Outpost Conquest Guards
--- !pos -242.487 -1 -402.772 123
+-- @pos -242.487 -1 -402.772 123
 -----------------------------------
 package.loaded["scripts/zones/Yuhtunga_Jungle/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Yuhtunga_Jungle/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = ELSHIMOLOWLANDS;
 local csid        = 0x7ff7;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

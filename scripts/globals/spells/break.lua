@@ -2,9 +2,12 @@
 -- Spell: Breakga
 -- Temporarily blinds an enemy, greatly lowering its accuracy.
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -14,13 +17,7 @@ end;
 function onSpellCast(caster,target,spell)
     -- Pull base stats.
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_INT;
-    params.skillType = 35;
-    params.bonus = 0;
-    params.effect = EFFECT_PETRIFICATION;
-    local resist = applyResistanceEffect(caster, target, spell, params);
+    local resist = applyResistanceEffect(caster,spell,target,dINT,35,0,EFFECT_PETRIFICATION);
     -- Duration, including resistance.  Unconfirmed.
     local duration = 30 * resist;
 
@@ -31,12 +28,12 @@ function onSpellCast(caster,target,spell)
         end
 
         if (target:addStatusEffect(EFFECT_PETRIFICATION,1,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+            spell:setMsg(236);
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end
 
     return EFFECT_PETRIFICATION;

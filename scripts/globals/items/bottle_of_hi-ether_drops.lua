@@ -3,16 +3,25 @@
 -- Item: Hi-Ether Drop
 -- Item Effect: Restores 45 MP
 -----------------------------------------
-require("scripts/globals/settings");
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
+    local result = 0;
     if (target:hasStatusEffect(EFFECT_MEDICINE)) then
-        return msgBasic.ITEM_NO_USE_MEDICATED;
+        result = 111;
     end
-    return 0;
+    return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addMP(45*ITEM_POWER);

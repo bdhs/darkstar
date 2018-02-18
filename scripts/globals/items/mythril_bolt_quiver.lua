@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4228
--- Mythril Bolt Quiver
--- When used, you will obtain one stack of Mythril Bolts
+--    ID: 4228
+--    Mythril Bolt Quiver
+--    When used, you will obtain one stack of Mythril Bolts
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17337,99);

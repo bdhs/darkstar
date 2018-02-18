@@ -2,15 +2,27 @@
 -- Area: Dynamis Xarcabard
 --  MOB: Marquis Decarabia
 -----------------------------------
+
 require("scripts/globals/dynamis");
 require("scripts/zones/Dynamis-Xarcabard/TextIDs");
+
+-----------------------------------
+-- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob,target)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

@@ -1,42 +1,56 @@
 -----------------------------------
 -- Area: Port Bastok
---  NPC: Bagnobrok
+-- NPC:  Bagnobrok
 -- Only sells when Bastok controls Movalpolos
 -- Confirmed shop stock, August 2013
 -----------------------------------
-package.loaded["scripts/zones/Port_Bastok/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Port_Bastok/TextIDs");
-require("scripts/globals/conquest");
+
 require("scripts/globals/shop");
+require("scripts/globals/conquest");
+package.loaded["scripts/zones/Port_Bastok/TextIDs"] = nil;
+require("scripts/zones/Port_Bastok/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
-function onTrigger(player,npc)
-    local RegionOwner = GetRegionOwner(MOVALPOLOS);
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
-    if (RegionOwner ~= NATION_BASTOK) then
+function onTrigger(player,npc)
+    RegionOwner = GetRegionOwner(MOVALPOLOS);
+
+    if (RegionOwner ~= NATION_BASTOK) then 
         player:showText(npc,BAGNOBROK_CLOSED_DIALOG);
     else
         player:showText(npc,BAGNOBROK_OPEN_DIALOG);
-        local stock =
-        {
-            640,     11,  -- Copper Ore
-            4450,   694,  -- Coral Fungus
-            4375,  4032,  -- Danceshroom
-            1650,  6500,  -- Kopparnickel Ore
-            5165,   736   -- Movalpolos Water
+        stock = {
+            0x0280,    11,   --Copper Ore
+            0x1162,   694,   --Coral Fungus
+            0x1117,  4032,   --Danceshroom
+            0x0672,  6500,   --Kopparnickel Ore
+            0x142D,   736    --Movalpolos Water
         }
         showShop(player,BASTOK,stock);
     end
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

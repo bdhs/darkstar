@@ -2,7 +2,11 @@
 -- Area: Outer Horutoto
 --  MOB: Four of Batons
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

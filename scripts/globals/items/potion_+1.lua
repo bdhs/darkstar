@@ -3,16 +3,28 @@
 -- Item: Potion +1
 -- Item Effect: Restores 60 HP
 -----------------------------------------
+
 require("scripts/globals/settings");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:getHP() == target:getMaxHP()) then
-        return msgBasic.ITEM_UNABLE_TO_USE;
+    local value = 0;
+    local mHP = target:getMaxHP();
+    local cHP = target:getHP();
+
+    if (mHP == cHP) then
+        value = 56; -- Does not let player use item if their hp is full
     end
-    return 0;
+
+    return value;
 end;
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
-    target:messageBasic(msgBasic.RECOVERS_HP,0,target:addHP(60*ITEM_POWER));
+    target:messageBasic(24,0,target:addHP(60*ITEM_POWER));
 end;

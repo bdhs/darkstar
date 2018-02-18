@@ -1,31 +1,39 @@
 -----------------------------------
--- Area: Aht Urhgan Whitegate
---  NPC: Famad
--- Type: Assault Mission Giver
--- !pos 134.098 0.161 -43.759 50
+--  Area: Aht Urhgan Whitegate
+--  NPC:  Famad
+--  Type: Assault Mission Giver
+-- @pos 134.098 0.161 -43.759 50
 -----------------------------------
 package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/keyitems");
 require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
 require("scripts/globals/besieged");
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
     local rank = getMercenaryRank(player);
     local haveimperialIDtag;
     local assaultPoints = player:getAssaultPoint(LEBROS_ASSAULT_POINT);
-
+    
     if (player:hasKeyItem(IMPERIAL_ARMY_ID_TAG)) then
         haveimperialIDtag = 1;
     else
         haveimperialIDtag = 0;
     end
-
+    
 --[[    if (rank > 0) then
         player:startEvent(275,rank,haveimperialIDtag,assaultPoints,player:getCurrentAssault());
     else]]
@@ -33,10 +41,18 @@ function onTrigger(player,npc)
     --end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -54,7 +70,7 @@ function onEventFinish(player,csid,option)
             local item = bit.rshift(option,14);
             local itemID = 0;
             local price = 0;
-
+            
             if (item == 1) then
                 itemID = 15972;
                 price = 3000;
@@ -91,7 +107,7 @@ function onEventFinish(player,csid,option)
             else
                 return;
             end
-
+            
             player:addItem(itemID);
             player:messageSpecial(ITEM_OBTAINED,itemID);
             player:delAssaultPoint(LEBROS_ASSAULT_POINT,price);

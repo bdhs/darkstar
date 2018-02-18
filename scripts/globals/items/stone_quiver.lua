@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4219
--- Stone Quiver
--- When used, you will obtain one stack of Stone Arrows
+--    ID: 4219
+--    Stone Quiver
+--    When used, you will obtain one stack of Stone Arrows
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17330,99);

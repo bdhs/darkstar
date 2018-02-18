@@ -4,9 +4,16 @@
 --  This earring functions in the same way as the spell Reraise.
 -----------------------------------------
 
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
+
 function onItemCheck(target)
     return 0;
 end;
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     local duration = 2100;

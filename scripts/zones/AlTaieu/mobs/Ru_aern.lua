@@ -2,37 +2,67 @@
 -- Area: Al'Taieu
 --  MOB: Ru_aern
 -----------------------------------
-require("scripts/zones/AlTaieu/MobIDs");
+
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
 end;
 
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 
     if (player:getCurrentMission(COP) == GARDEN_OF_ANTIQUITY and player:getVar("PromathiaStatus") == 2) then
-        local aernKills =
+        switch (mob:getID()) : caseof
         {
-            [AERNS_TOWER_SOUTH + 0] = "Ru_aern_1-1KILL",
-            [AERNS_TOWER_SOUTH + 1] = "Ru_aern_1-2KILL",
-            [AERNS_TOWER_SOUTH + 2] = "Ru_aern_1-3KILL",
-            [AERNS_TOWER_WEST  + 0] = "Ru_aern_2-1KILL",
-            [AERNS_TOWER_WEST  + 1] = "Ru_aern_2-2KILL",
-            [AERNS_TOWER_WEST  + 2] = "Ru_aern_2-3KILL",
-            [AERNS_TOWER_EAST  + 0] = "Ru_aern_3-1KILL",
-            [AERNS_TOWER_EAST  + 1] = "Ru_aern_3-2KILL",
-            [AERNS_TOWER_EAST  + 2] = "Ru_aern_3-3KILL",
+            -- South Tower
+            [16912829] = function (x)
+            player:setVar("Ru_aern_1-1KILL",1);
+            end,
+            [16912830] = function (x)
+            player:setVar("Ru_aern_1-2KILL",1);
+
+            end,
+            [16912831] = function (x)
+            player:setVar("Ru_aern_1-3KILL",1);
+            end,
+
+            -- West Tower
+            [16912832] = function (x)
+            player:setVar("Ru_aern_2-1KILL",1);
+            end,
+            [16912833] = function (x)
+            player:setVar("Ru_aern_2-2KILL",1);
+            end,
+            [16912834] = function (x)
+            player:setVar("Ru_aern_2-3KILL",1);
+            end,
+
+            -- East Tower
+            [16912835] = function (x)
+             player:setVar("Ru_aern_3-1KILL",1);
+            end,
+            [16912836] = function (x)
+             player:setVar("Ru_aern_3-2KILL",1);
+            end,
+            [16912837] = function (x)
+            player:setVar("Ru_aern_3-3KILL",1);
+            end,
         }
 
-        local varToSet = aernKills[mob:getID()];
-
-        if (varToSet ~= nil) then
-            player:setVar(varToSet, 1);
-        end
 
         if (player:getVar("Ru_aern_1-1KILL") == 1 and player:getVar("Ru_aern_1-2KILL") == 1 and player:getVar("Ru_aern_1-3KILL") == 1) then
             player:setVar("[SEA][AlTieu]SouthTower",1);

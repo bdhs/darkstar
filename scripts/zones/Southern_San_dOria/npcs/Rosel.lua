@@ -1,9 +1,9 @@
 -----------------------------------
 -- Area: Southern San d'Oria
---  NPC: Rosel
+-- NPC:  Rosel
 -- Starts and Finishes Quest: Rosel the Armorer
 -- @zone 230
--- !pos
+-- @pos
 -------------------------------------
 package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 -----------------------------------
@@ -13,6 +13,9 @@ require("scripts/globals/keyitems");
 require("scripts/globals/titles");
 require("scripts/globals/quests");
 require("scripts/globals/shop");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -29,41 +32,53 @@ function onTrade(player,npc,trade)
         end
     end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
 
     local RoselTheArmorer = player:getQuestStatus(SANDORIA,ROSEL_THE_ARMORER);
     local receiprForThePrince = player:hasKeyItem(RECEIPT_FOR_THE_PRINCE);
 
     if (player:getVar("RefuseRoselTheArmorerQuest") == 1 and RoselTheArmorer == QUEST_AVAILABLE) then
-        player:startEvent(524);
+        player:startEvent(0x020c);
     elseif (RoselTheArmorer == QUEST_AVAILABLE) then
-        player:startEvent(523);
+        player:startEvent(0x020b);
         player:setVar("RefuseRoselTheArmorerQuest",1);
     elseif (RoselTheArmorer == QUEST_ACCEPTED and receiprForThePrince) then
-        player:startEvent(524);
+        player:startEvent(0x020c);
     elseif (RoselTheArmorer == QUEST_ACCEPTED and receiprForThePrince == false) then
-        player:startEvent(527);
+        player:startEvent(0x020f);
     end
 
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
     -- Rosel the Armorer, get quest and receipt for prince
-    if ((csid == 523 or csid == 524) and option == 0) then
+    if ((csid == 0x020b or csid == 0x020c) and option == 0) then
         player:addQuest(SANDORIA, ROSEL_THE_ARMORER);
         player:setVar("RefuseRoselTheArmorerQuest",0);
         player:addKeyItem(RECEIPT_FOR_THE_PRINCE);
         player:messageSpecial(KEYITEM_OBTAINED,RECEIPT_FOR_THE_PRINCE);
     -- Rosel the Armorer, finished quest, recieve 200gil
-    elseif (csid == 527) then
+    elseif (csid == 0x020f) then
         npcUtil.completeQuest(player, SANDORIA, ROSEL_THE_ARMORER, {
             title= ENTRANCE_DENIED,
             gil= 200

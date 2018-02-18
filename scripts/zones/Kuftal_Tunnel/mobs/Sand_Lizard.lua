@@ -3,14 +3,36 @@
 --  MOB: Sand Lizard
 -- Note: Place Holder for Amemet
 -----------------------------------
-require("scripts/zones/Kuftal_Tunnel/MobIDs");
+
 require("scripts/globals/groundsofvalor");
-require("scripts/globals/mobs");
+require("scripts/zones/Kuftal_Tunnel/MobIDs");
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
+
     checkGoVregime(player,mob,735,2);
+
 end;
 
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
 function onMobDespawn(mob)
-    phOnDespawn(mob,AMEMET_PH,5,math.random(7200,43200)); -- 2 to 12 hours
+    local mobID = mob:getID();
+
+    if (Amemet_PH[mobID] ~= nil) then
+        local ToD = GetServerVariable("[POP]Amemet");
+        if (ToD <= os.time(t) and GetMobAction(Amemet) == 0) then
+            if (math.random(1,20) == 5) then
+                UpdateNMSpawnPoint(Amemet);
+                GetMobByID(Amemet):setRespawnTime(GetMobRespawnTime(mobID));
+                SetServerVariable("[PH]Amemet", mobID);
+                DeterMob(mobID, true);
+            end
+        end
+    end
 end;

@@ -4,19 +4,38 @@
 -----------------------------------
 
 -- require("scripts/zones/The_Eldieme_Necropolis_[S]/MobIDs");
+
+-----------------------------------
+-- onMobInitialize
 -----------------------------------
 
-function onMobInitialize(mob)
+function onMobInitialize(mob)    
 end;
 
-function onMobSpawn(mob)
+-----------------------------------
+-- onMobSpawn
+-----------------------------------
+
+function onMobSpawn(mob)    
 end;
 
-function onMobEngaged(mob,target)
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
+function onMobEngaged(mob,target)    
 end;
 
-function onMobFight(mob,target)
+-----------------------------------
+-- onMobFight
+-----------------------------------
+
+function onMobFight(mob,target)    
 end;
 
-function onMobDeath(mob, player, isKiller)
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob, player, isKiller)    
 end;

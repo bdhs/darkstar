@@ -2,7 +2,11 @@
 -- Area: Lower Delkfutt's Tower
 --  MOB: Giant Lobber
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

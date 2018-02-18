@@ -50,12 +50,7 @@ function onSpellCast(caster,target,spell)
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
     --TODO: Knockback? Where does that get handled? How much knockback does it have?
-    local params = {};
-    params.diff = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
-    params.attribute = MOD_INT;
-    params.skillType = BLUE_SKILL;
-    params.bonus = 1.0;
-    local resist = applyResistance(caster, target, spell, params);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
 
     if (damage > 0 and resist > 0.125) then
         local typeEffect = EFFECT_BIND;

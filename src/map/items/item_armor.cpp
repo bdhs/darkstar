@@ -61,7 +61,7 @@ uint16 CItemArmor::getEquipSlotId()
 	return m_equipSlotID;
 }
 
-uint16 CItemArmor::getRemoveSlotId()
+uint8 CItemArmor::getRemoveSlotId()
 {
 	return m_removeSlotID;
 }
@@ -111,7 +111,7 @@ void CItemArmor::setEquipSlotId(uint16 equipSlot)
 	m_equipSlotID = equipSlot;
 }
 
-void CItemArmor::setRemoveSlotId(uint16 removSlot)
+void CItemArmor::setRemoveSlotId(uint8 removSlot)
 {
 	m_removeSlotID = removSlot;
 }
@@ -171,13 +171,14 @@ void CItemArmor::setScriptType(uint16 ScriptType)
 *                                                                       *
 ************************************************************************/
 
-void CItemArmor::addModifier(CModifier modifier)
+void CItemArmor::addModifier(CModifier* modifier)
 {
-    if (IsShield() && modifier.getModID() == Mod::DEF)
+    if (IsShield() && modifier->getModID() == MOD_DEF)
     {
         // reduction calc source: www.bluegartr.com/threads/84830-Shield-Asstery
         // http://www.ffxiah.com/forum/topic/21671/paladin-faq-info-and-trade-studies/33/ <~Aegis and Ochain
-		auto pdt = (uint8)(modifier.getModAmount() / 2);
+
+		int16 pdt = modifier->getModAmount() / 2;
 
         switch(m_shieldSize)
         {
@@ -196,32 +197,31 @@ void CItemArmor::addModifier(CModifier modifier)
                 pdt += 55;
                 break;
         }
-        m_absorption = std::min<uint8>(pdt, 100);
+        m_absorption = dsp_min(pdt,100);
     }
     modList.push_back(modifier);
 }
 
-int16 CItemArmor::getModifier(Mod mod)
+int16 CItemArmor::getModifier(uint16 mod)
 {
 	for (uint16 i = 0; i < modList.size(); ++i)
 	{
-		if (modList.at(i).getModID() == mod)
+		if (modList.at(i)->getModID() == mod)
 		{
-			return modList.at(i).getModAmount();
+			return modList.at(i)->getModAmount();
 		}
 	}
 	return 0;
 }
 
-void CItemArmor::addPetModifier(CPetModifier modifier)
+void CItemArmor::addPetModifier(CModifier* modifier)
 {
     petModList.push_back(modifier);
 }
 
-void CItemArmor::addLatent(LATENT ConditionsID, uint16 ConditionsValue, Mod ModValue, int16 ModPower)
+void CItemArmor::addLatent(CLatentEffect* latent)
 {
-    itemLatent latent{ ConditionsID, ConditionsValue, ModValue, ModPower };
-    latentList.push_back(latent);
+	latentList.push_back(latent);
 }
 
 /************************************************************************
@@ -233,16 +233,16 @@ void CItemArmor::addLatent(LATENT ConditionsID, uint16 ConditionsValue, Mod ModV
 void CItemArmor::setTrialNumber(uint16 trial)
 {
     if (trial)
-        ref<uint8>(m_extra, 0x01) |= 0x40;
+        WBUFB(m_extra, 0x01) |= 0x40;
     else
-        ref<uint8>(m_extra, 0x01) &= ~0x40;
+        WBUFB(m_extra, 0x01) &= ~0x40;
 
-    ref<uint8>(m_extra, 0x0A) = (uint8)trial;
+    WBUFB(m_extra, 0x0A) = trial;
 }
 
 uint16 CItemArmor::getTrialNumber()
 {
-    return ref<uint8>(m_extra, 0x0A);
+    return RBUFB(m_extra, 0x0A);
 }
 
 /************************************************************************
@@ -252,14 +252,14 @@ uint16 CItemArmor::getTrialNumber()
 ************************************************************************/
 void CItemArmor::LoadAugment(uint8 slot, uint16 augment)
 {
-    ref<uint16>(m_extra, 2 + (slot * 2)) = augment;
+    WBUFW(m_extra, 2 + (slot * 2)) = augment;
 }
 
 void CItemArmor::ApplyAugment(uint8 slot)
 {
     SetAugmentMod(
-        (uint16)unpackBitsBE(m_extra, 2 + (slot * 2), 0, 11),
-        (uint8)unpackBitsBE(m_extra, 2 + (slot * 2), 11, 5)
+        unpackBitsBE(m_extra, 2 + (slot * 2), 0, 11),
+        unpackBitsBE(m_extra, 2 + (slot * 2), 11, 5)
         );
 }
 
@@ -276,13 +276,13 @@ void CItemArmor::SetAugmentMod(uint16 type, uint8 value)
     if (type != 0)
     {
         setSubType(ITEM_AUGMENTED);
-        ref<uint8>(m_extra, 0x00) |= 0x02;
-        ref<uint8>(m_extra, 0x01) |= 0x03;
+        WBUFB(m_extra, 0x00) |= 0x02;
+        WBUFB(m_extra, 0x01) |= 0x03;
     }
 
 
     // obtain augment info by querying the db
-    const char* fmtQuery = "SELECT augmentId, multiplier, modId, `value`, `isPet`, `petType` FROM augments WHERE augmentId = %u";
+    const int8* fmtQuery = "SELECT augmentId, multiplier, modId, `value`, `type` FROM augments WHERE augmentId = %u";
 
     int32 ret = Sql_Query(SqlHandle, fmtQuery, type);
 
@@ -291,26 +291,25 @@ void CItemArmor::SetAugmentMod(uint16 type, uint8 value)
         Sql_NextRow(SqlHandle) == SQL_SUCCESS)
     {
         uint8 multiplier = (uint8)Sql_GetUIntData(SqlHandle, 1);
-        Mod modId = static_cast<Mod>(Sql_GetUIntData(SqlHandle, 2));
+        uint32 modId = (uint32)Sql_GetUIntData(SqlHandle, 2);
         int16 modValue = (int16)Sql_GetIntData(SqlHandle, 3);
-
+        
         // type is 0 unless mod is for pets
-        uint8 isPet = (uint8)Sql_GetUIntData(SqlHandle, 4);
-        PetModType petType = static_cast<PetModType>(Sql_GetIntData(SqlHandle, 5));
+        uint8 type = (uint8)Sql_GetUIntData(SqlHandle, 4);
 
         // apply modifier to item. increase modifier power by 'value' (default magnitude 1 for most augments) if multiplier isn't specified
         // otherwise increase modifier power using the multiplier
         // check if we should be adding to or taking away from the mod power (handle scripted augments properly)
         modValue = (modValue > 0 ? modValue + value : modValue - value) * (multiplier > 1 ? multiplier : 1);
 
-        if (!isPet)
-            addModifier(CModifier(modId, modValue));
+        if (!type)
+            addModifier(new CModifier(modId, modValue));
         else
-            addPetModifier(CPetModifier(modId, petType, modValue));
+            addPetModifier(new CModifier(modId, modValue));
     }
 }
 
 uint16 CItemArmor::getAugment(uint8 slot)
 {
-    return ref<uint16>(m_extra, 2 + (slot * 2));
+    return RBUFW(m_extra, 2 + (slot * 2));
 }

@@ -33,7 +33,7 @@ class CLuaSpell
     CSpell *m_PLuaSpell;
 public:
 
-    static const char className[];
+    static const int8 className[];
     static Lunar<CLuaSpell>::Register_t methods[];
 
     CLuaSpell(lua_State*);

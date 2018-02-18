@@ -118,11 +118,10 @@ bool CPetController::TryDeaggro()
     return false;
 }
 
-bool CPetController::Ability(uint16 targid, uint16 abilityid)
+void CPetController::Ability(uint16 targid, uint16 abilityid)
 {
     if (PPet->PAI->CanChangeState())
     {
-        return PPet->PAI->Internal_Ability(targid, abilityid);
+        PPet->PAI->Internal_Ability(targid, abilityid);
     }
-    return false;
 }

@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 13682
--- Ether Tank
--- When used, you will obtain one Ether
+--    ID: 13682
+--    Ether Tank
+--    When used, you will obtain one Ether
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4128,1);

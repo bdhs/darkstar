@@ -1,8 +1,8 @@
 -----------------------------------
 -- Area: Heaven's Tower
---  NPC: Chumimi
+-- NPC:  Chumimi
 -- Starts and Finishes Quest: The Three Magi, Recollections
--- !pos 0.1 30 21 242
+-- @pos 0.1 30 21 242
 -----------------------------------
 package.loaded["scripts/zones/Heavens_Tower/TextIDs"] = nil;
 -----------------------------------
@@ -11,25 +11,32 @@ require("scripts/globals/titles");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/zones/Heavens_Tower/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
     if (player:getQuestStatus(WINDURST,THE_THREE_MAGI) == QUEST_ACCEPTED) then
         if (trade:hasItemQty(1104,1) and trade:getItemCount() == 1) then -- Trade Glowstone
-            player:startEvent(269); -- Finish Quest "The Three Magi"
+            player:startEvent(0x010d); -- Finish Quest "The Three Magi"
         end
     elseif (player:getQuestStatus(WINDURST,RECOLLECTIONS) == QUEST_ACCEPTED and player:getVar("recollectionsQuest") < 2) then
         if (trade:hasItemQty(1105,1) and trade:getItemCount() == 1) then
-            player:startEvent(271);
+            player:startEvent(0x010F);
         end
     elseif (player:getQuestStatus(WINDURST,THE_ROOT_OF_THE_PROBLEM) == QUEST_ACCEPTED and player:getVar("rootProblem") == 1) then
         if (trade:hasItemQty(829,1) and trade:getItemCount() == 1) then
-            player:startEvent(278);
+            player:startEvent(0x0116);
         end
     end
 
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -41,45 +48,53 @@ function onTrigger(player,npc)
     local mJob = player:getMainJob();
 
     if (theThreeMagi == QUEST_AVAILABLE and mJob == 4 and mLvl >= AF1_QUEST_LEVEL) then
-        player:startEvent(260,0,613,0,0,0,1104); -- Start Quest "The Three Magi" --- NOTE: 5th parameter is "Meteorites" but he doesn't exist ---
+        player:startEvent(0x0104,0,613,0,0,0,1104); -- Start Quest "The Three Magi" --- NOTE: 5th parameter is "Meteorites" but he doesn't exist ---
     elseif (theThreeMagi == QUEST_ACCEPTED) then
-        player:startEvent(261,0,0,0,0,0,1104); -- During Quest "The Three Magi"
+        player:startEvent(0x0105,0,0,0,0,0,1104); -- During Quest "The Three Magi"
     elseif (theThreeMagi == QUEST_COMPLETED and recollections == QUEST_AVAILABLE and (mJob == 4 and mLvl < AF2_QUEST_LEVEL or mJob ~= 4)) then
-        player:startEvent(268); -- New standard dialog after "The Three Magi"
+        player:startEvent(0x010c); -- New standard dialog after "The Three Magi"
     elseif (theThreeMagi == QUEST_COMPLETED and mJob == 4 and mLvl >= AF2_QUEST_LEVEL and player:needToZone() == false and recollections == QUEST_AVAILABLE) then
-        player:startEvent(270,0,1105); -- Start Quest "Recollections"
+        player:startEvent(0x010E,0,1105); -- Start Quest "Recollections"
     elseif (recollections == QUEST_ACCEPTED and player:hasKeyItem(FOE_FINDER_MK_I)) then
-        player:startEvent(275); -- Finish Quest "Recollections"
+        player:startEvent(0x0113); -- Finish Quest "Recollections"
     elseif (recollections == QUEST_COMPLETED and rootProblem == QUEST_AVAILABLE and mJob == 4 and mLvl >= 50 and player:needToZone() == false) then
-            player:startEvent(276,0,829); -- Start Quest "The Root of The problem"
+            player:startEvent(0x114,0,829); -- Start Quest "The Root of The problem"
     elseif (rootProblem == QUEST_ACCEPTED) then
         if (player:getVar("rootProblem") == 1) then
-            player:startEvent(277,0,829);
+            player:startEvent(0x115,0,829);
         elseif (player:getVar("rootProblem") == 2) then
-            player:startEvent(279);
+            player:startEvent(0x117);
         elseif ( player:getVar("rootProblem") == 3) then
-            player:startEvent(281);
+            player:startEvent(0x119);
         end
     else
-        player:startEvent(259); -- Standard dialog
+        player:startEvent(0x0103); -- Standard dialog
     end
 
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 260) then
+    if (csid == 0x0104) then
         -- option 3: Koru-Moru -- option 2: Shantotto -- option 1: Yoran-Oran
         player:addQuest(WINDURST,THE_THREE_MAGI);
         player:setVar("theThreeMagiSupport",option);
-    elseif (csid == 269) then
+    elseif (csid == 0x010d) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17423); -- Casting Wand
         else
@@ -101,12 +116,12 @@ function onEventFinish(player,csid,option)
             player:addFame(WINDURST,AF1_FAME);
             player:completeQuest(WINDURST,THE_THREE_MAGI);
         end
-    elseif (csid == 270) then
+    elseif (csid == 0x010E) then
         player:addQuest(WINDURST,RECOLLECTIONS);
-    elseif (csid == 271) then
+    elseif (csid == 0x010F) then
         player:tradeComplete();
         player:setVar("recollectionsQuest",2);
-    elseif (csid == 275) then
+    elseif (csid == 0x0113) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,14092); -- wizards sabots
         else
@@ -117,13 +132,13 @@ function onEventFinish(player,csid,option)
             player:addFame(WINDURST,AF2_FAME);
             player:completeQuest(WINDURST,RECOLLECTIONS);
         end
-    elseif (csid == 276) then
+    elseif (csid == 0x0114) then
         player:addQuest(WINDURST,THE_ROOT_OF_THE_PROBLEM);
         player:setVar("rootProblem",1);
-    elseif (csid == 279) then
+    elseif (csid == 0x117) then
         player:addKeyItem(SLUICE_SURVEYOR_MK_I);
         player:messageSpecial(KEYITEM_OBTAINED,SLUICE_SURVEYOR_MK_I);
-    elseif (csid == 281) then
+    elseif (csid == 0x119) then
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED);
         else

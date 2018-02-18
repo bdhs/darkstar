@@ -1,8 +1,11 @@
 -----------------------------------------
 -- Spell: Dread Spikes
 -----------------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -20,9 +23,9 @@ function onSpellCast(caster,target,spell)
     end
 
     if (target:addStatusEffect(typeEffect, power, 0, duration, 0, drainAmount, 1)) then
-        spell:setMsg(msgBasic.MAGIC_GAIN_EFFECT);
+        spell:setMsg(230);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end
 
     return typeEffect;

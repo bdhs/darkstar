@@ -1,13 +1,17 @@
 -----------------------------------------
 -- ID: 5767
 -- Item: Crepe Delice
--- Food Effect: 30 Min, All Races
+-- Food Effect: 60 Min, All Races
 -----------------------------------------
--- HP +10% (cap 15)
--- Magic Accuracy +21% (cap 30)
+-- HP +15
+-- Magic Accuracy +3
 -- Magic Defense +2
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,8 +22,12 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,1800,5767);
+    target:addStatusEffect(EFFECT_FOOD,0,0,3600,5767);
 end;
 
 -----------------------------------------
@@ -27,17 +35,17 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_FOOD_HPP, 10);
-    target:addMod(MOD_FOOD_HP_CAP, 15);
+    target:addMod(MOD_HP, 15);
+    target:addMod(MOD_MACC, 3);
     target:addMod(MOD_MDEF, 2);
-    target:addMod(MOD_FOOD_MACCP, 21);
-    target:addMod(MOD_FOOD_MACC_CAP, 30);
 end;
 
-function onEffectLose(target, effect)
-    target:delMod(MOD_FOOD_HPP, 10);
-    target:delMod(MOD_FOOD_HP_CAP, 15);
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
+    target:delMod(MOD_HP, 15);
+    target:delMod(MOD_MACC, 3);
     target:delMod(MOD_MDEF, 2);
-    target:delMod(MOD_FOOD_MACCP, 21);
-    target:delMod(MOD_FOOD_MACC_CAP, 30);
 end;

@@ -9,38 +9,22 @@ cmdprops =
     parameters = "ssi"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!setplayervar <player> <variable> <value>");
-end;
-
 function onTrigger(player, target, variable, value)
+    if (target == nil or variable == nil) then
+        player:PrintToPlayer("You must enter a valid target name and variable name.");
+        return;
+    end
 
-    -- validate target
-    local targ;
-    if (target == nil) then
-        error(player, "You must provide a player name.");
-        return;
-    else
-        targ = GetPlayerByName( target );
-        if (targ == nil) then
-            error(player, string.format( "Player named '%s' not found!", target ) );
-            return;
-        end
-    end
-    
-    -- validate var
-    if (variable == nil) then
-        error(player, "You must provide a variable name.");
-        return;
-    end
-    
-    -- validate value
     if (value == nil) then
-        error(player, "You must provide a value.");
+        player:PrintToPlayer("You must enter a number to set the variable's value to.");
         return;
     end
 
-    targ:setVar(variable, value);
-    player:PrintToPlayer( string.format( "Set %s's variable '%s' to %i.", targ:getName(), variable, value ) );
+    local targ = GetPlayerByName( target );
+    if (targ ~= nil) then
+        targ:setVar(variable, value);
+        player:PrintToPlayer( string.format( "Set %s to %u for %s", variable, value, target ) );
+    else
+        player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+    end
 end

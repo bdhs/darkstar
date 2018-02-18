@@ -53,7 +53,7 @@ struct Recast_t
 *                                                                       *
 ************************************************************************/
 
-class CBattleEntity;
+class CCharEntity;
 
 typedef std::vector<Recast_t> RecastList_t;
 
@@ -61,32 +61,32 @@ class CRecastContainer
 {
     public:
 
-    virtual void Check();
+    void Check();
 
-    virtual void Del(RECASTTYPE type);
-    virtual void Del(RECASTTYPE type, uint16 id);
-	virtual void DeleteByIndex(RECASTTYPE type, uint8 index);
+    void Del(RECASTTYPE type);
+    void Del(RECASTTYPE type, uint16 id);
+	void DeleteByIndex(RECASTTYPE type, uint8 index);
     bool Has(RECASTTYPE type, uint16 id);
     bool HasRecast(RECASTTYPE type, uint16 id, uint32 recast);
-    virtual void Add(RECASTTYPE type, uint16 id, uint32 duration, uint32 chargeTime = 0, uint8 maxCharges = 0);
+    void Add(RECASTTYPE type, uint16 id, uint32 duration, uint32 chargeTime = 0, uint8 maxCharges = 0);
     Recast_t* Load(RECASTTYPE type, uint16 id, uint32 duration, uint32 chargeTime = 0, uint8 maxCharges = 0);
-    virtual void ResetAbilities();
-    virtual void ChangeJob() {}
+    void ResetAbilities();
+    void ChangeJob();
 
-    virtual RecastList_t* GetRecastList(RECASTTYPE type);
+    RecastList_t* GetRecastList(RECASTTYPE type);
     Recast_t*     GetRecast(RECASTTYPE type, uint16 id);
 
-	CRecastContainer(CBattleEntity* PChar);
-    virtual ~CRecastContainer(){}
-
-    protected:
-
-    RecastList_t RecastMagicList;
-    RecastList_t RecastAbilityList;
+	CRecastContainer(CCharEntity* PChar);
+   ~CRecastContainer();
 
     private:
 
-	CBattleEntity* m_PEntity;
+	CCharEntity* m_PChar;
+
+    RecastList_t RecastItemList;
+    RecastList_t RecastMagicList;
+    RecastList_t RecastAbilityList;
+	RecastList_t RecastLootList;
 };
 
 #endif

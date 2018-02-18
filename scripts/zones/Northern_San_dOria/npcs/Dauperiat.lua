@@ -1,9 +1,9 @@
 -----------------------------------
 -- Area: Northern San d'Oria
---  NPC: Dauperiat
+-- NPC:  Dauperiat
 -- Starts and Finishes Quest: Blackmail (R)
 -- @zone 231
--- !pos
+-- @pos 
 -----------------------------------
 package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
 -----------------------------------
@@ -13,6 +13,9 @@ require("scripts/globals/keyitems");
 require("scripts/globals/shop");
 require("scripts/globals/quests");
 require("scripts/zones/Northern_San_dOria/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -23,12 +26,16 @@ function onTrade(player,npc,trade)
     if (Black == QUEST_ACCEPTED and questState == 2 or Black == QUEST_COMPLETED) then
         count = trade:getItemCount();
         carta = trade:hasItemQty(530, 1);
-
+        
         if (carta == true and count == 1) then
-            player:startEvent(648,0,530); --648
+            player:startEvent(0x0288,0,530); --648
         end
        end
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -38,30 +45,33 @@ function onTrigger(player,npc)
     sanFame = player:getFameLevel(SANDORIA);
     homeRank = player:getRank(player:getNation());
     questState = player:getVar("BlackMailQuest");
-
+    
 
     if (blackMail == QUEST_AVAILABLE and sanFame >= 3 and homeRank >= 3) then
-        player:startEvent(643); -- 643 gives me letter
-    elseif (blackMail == QUEST_ACCEPTED and envelope == true) then
-        player:startEvent(645);  -- 645 recap, take envelope!
-
+        player:startEvent(0x0283); -- 643 gives me letter
+    elseif (blackMail == QUEST_ACCEPTED and envelope == true) then  
+        player:startEvent(0x0285);  -- 645 recap, take envelope!
+        
     elseif (blackMail == QUEST_ACCEPTED and questState == 1) then
-        player:startEvent(646,0,530); --646  after giving letter to H, needs param
-
-
+        player:startEvent(0x0286,0,530); --646  after giving letter to H, needs param
+        
+        
     elseif (blackMail == QUEST_ACCEPTED and questState == 2) then
-        player:startEvent(647,0,530); --647 recap of 646
-
+        player:startEvent(0x0287,0,530); --647 recap of 646
+        
     else
         if (player:needToZone() ==true) then
-            player:startEvent(642); --642 Quiet!
+            player:startEvent(0x0282); --642 Quiet!
         else
-            player:startEvent(641); --641 -- Quiet! leave me alone
+            player:startEvent(0x0281); --641 -- Quiet! leave me alone
             player:needToZone(true);
         end
-    end
-
-end;
+    end    
+    
+end; 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -69,17 +79,21 @@ function onEventUpdate(player,csid,option)
 
 end;
 
-function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
-    if (csid == 643) then
+function onEventFinish(player,csid,option)
+--print("CSID: %u",csid);
+--print("RESULT: %u",option);
+
+    if (csid == 0x0283) then
         player:addQuest(SANDORIA,BLACKMAIL);
         player:addKeyItem(SUSPICIOUS_ENVELOPE);
         player:messageSpecial(KEYITEM_OBTAINED,SUSPICIOUS_ENVELOPE);
-    elseif (csid == 646 and option == 1) then
+    elseif (csid == 0x0286 and option == 1) then
         player:setVar("BlackMailQuest",2);
-    elseif (csid == 648) then
+    elseif (csid == 0x0288) then
         player:tradeComplete();
         player:addGil(GIL_RATE*900);
         player:messageSpecial(GIL_OBTAINED,GIL_RATE*900)
@@ -89,7 +103,7 @@ function onEventFinish(player,csid,option)
         else
             player:addFame(SANDORIA,5);
         end
-    elseif (csid == 40 and option == 1) then
+    elseif (csid == 0x028 and option == 1) then
         player:addQuest(SANDORIA,BLACKMAIL);
     end
 

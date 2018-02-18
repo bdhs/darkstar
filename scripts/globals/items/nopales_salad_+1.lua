@@ -8,7 +8,11 @@
 -- Ranged Accuracy +25
 -- Ranged Attack +15
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,18 +23,30 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5702);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_STR, 2);
     target:addMod(MOD_AGI, 7);
     target:addMod(MOD_RACC, 25);
     target:addMod(MOD_RATT, 15);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 2);
     target:delMod(MOD_AGI, 7);
     target:delMod(MOD_RACC, 25);

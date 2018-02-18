@@ -1,19 +1,27 @@
 -----------------------------------
 -- Area: Batallia Downs [S]
 --  NPC: Cavernous Maw
--- !pos -48 0 435 84
+-- @pos -48 0 435 84
 -- Teleports Players to Batallia Downs
 -----------------------------------
 package.loaded["scripts/zones/Batallia_Downs_[S]/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/teleports");
 require("scripts/globals/campaign");
 require("scripts/zones/Batallia_Downs_[S]/TextIDs");
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (player:getCurrentMission(WOTG) == BACK_TO_THE_BEGINNING and
@@ -28,10 +36,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -50,5 +66,5 @@ function onEventFinish(player,csid,option)
         end
         toMaw(player,2);
     end
-
+    
 end;

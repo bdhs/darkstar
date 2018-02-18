@@ -1,14 +1,22 @@
 -----------------------------------
 -- Area: Outer Horutoto Ruins (194)
---  MOB: Balloon
+-- MOB:  Balloon
 -- Note: Place holder Bomb King, Doppelganger Dio, Doppelganger Gog
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
 require("scripts/zones/Outer_Horutoto_Ruins/MobIDs");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     local mobid = mob:getID();
@@ -18,7 +26,7 @@ function onMobDespawn(mob)
         local PH = GetServerVariable("[PH]MultiNM_Zone_194");
 
         -- default case: window open, no other NM up and not decided which NM should be spawned
-        if (ToD <= os.time() and SpawnNM == 0 and GetMobAction(Bomb_King) == 0 and GetMobAction(Doppelganger_Gog) == 0 and GetMobAction(Doppelganger_Dio) == 0) then
+        if (ToD <= os.time(t) and SpawnNM == 0 and GetMobAction(Bomb_King) == 0 and GetMobAction(Doppelganger_Gog) == 0 and GetMobAction(Doppelganger_Dio) == 0) then
             if (math.random(1,20) > 16) then  -- set higher pop chance because of testimonials
                 local whichNM = math.random(0,98);
                 if (whichNM <= 32) then
@@ -26,28 +34,28 @@ function onMobDespawn(mob)
                     GetMobByID(Bomb_King):setRespawnTime(GetMobRespawnTime(mobid));
                     SetServerVariable("[PH]MultiNM_Zone_194", mobid);
                     SetServerVariable("[NM]MultiNM_Zone_194", Bomb_King);
-                    DisallowRespawn(mobid, true);
+                    DeterMob(mobid, true);
                 elseif (whichNM >= 33 and whichNM <= 65) then
                     UpdateNMSpawnPoint(Doppelganger_Gog);
                     GetMobByID(Doppelganger_Gog):setRespawnTime(GetMobRespawnTime(mobid));
                     SetServerVariable("[PH]MultiNM_Zone_194", mobid);
                     SetServerVariable("[NM]MultiNM_Zone_194", Doppelganger_Gog);
-                    DisallowRespawn(mobid, true);
-                else
+                    DeterMob(mobid, true);
+                else 
                     UpdateNMSpawnPoint(Doppelganger_Dio);
                     GetMobByID(Doppelganger_Dio):setRespawnTime(GetMobRespawnTime(mobid));
                     SetServerVariable("[PH]MultiNM_Zone_194", mobid);
                     SetServerVariable("[NM]MultiNM_Zone_194", Doppelganger_Dio);
-                    DisallowRespawn(mobid, true);
+                    DeterMob(mobid, true);
                 end
             end
 
         -- special case: window open, NM and PH decided but NM not yet spawned (eg. on server restart before spawn)
-        elseif (ToD <= os.time() and SpawnNM > 0 and PH > 0 and GetMobAction(Bomb_King) == 0 and GetMobAction(Doppelganger_Gog) == 0 and GetMobAction(Doppelganger_Dio) == 0) then
+        elseif (ToD <= os.time(t) and SpawnNM > 0 and PH > 0 and GetMobAction(Bomb_King) == 0 and GetMobAction(Doppelganger_Gog) == 0 and GetMobAction(Doppelganger_Dio) == 0) then
             if (math.random(1,20) > 16) then  -- set higher pop chance because of testimonials
                 UpdateNMSpawnPoint(SpawnNM);
                 GetMobByID(SpawnNM):setRespawnTime(GetMobRespawnTime(mobid));
-                DisallowRespawn(mobid, true);
+                DeterMob(mobid, true);
             end
         end
     end

@@ -3,12 +3,20 @@
 -- Item: Tincture
 -- Item Effect: This potion remedies disease and plague
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
     return 0;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
 

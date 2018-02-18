@@ -6,15 +6,23 @@
 -- Animation Sub 2 Bar Form
 -- Animation Sub 3 Ring Form
 -----------------------------------
+
 require("scripts/zones/Grand_Palace_of_HuXzoi/MobIDs");
 require("scripts/globals/status");
+
+-----------------------------------
+-- OnMobSpawn Action
+-- Set AnimationSub to 0, put it in pot form
 -----------------------------------
 
 function onMobSpawn(mob)
-    -- Set AnimationSub to 0, put it in pot form
     mob:AnimationSub(0);
     onPath(mob);
 end;
+
+-----------------------------------
+-- onPath Action
+-----------------------------------
 
 function onPath(mob)
     local spawnPos = mob:getSpawnPos();
@@ -24,6 +32,11 @@ function onPath(mob)
         mob:setPos(spawnPos.x, spawnPos.y, spawnPos.z, mob:getRotPos() + 16);
     end
 end;
+
+-----------------------------------
+-- onMobFight Action
+-- Randomly change forms
+-----------------------------------
 
 function onMobFight(mob)
 
@@ -52,19 +65,25 @@ function onMobFight(mob)
 
 end;
 
+
+-----------------------------------
+-- onMobDeath Action
+-- Jailer of Temperance pop
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
     local mobID = mob:getID();
     local PH = GetServerVariable("[SEA]Jailer_of_Temperance_PH");
 
     if (PH == mobID and isKiller == true) then
-        -- printf("%u is a PH",mobID);
-        -- printf("JoT will pop");
+    -- printf("%u is a PH",mobID);
+    -- printf("JoT will pop");
         -- We need to set Jailer of Temperance spawn point to where the PH spawns (The platform in the room).
         local mobSpawnPoint = GetMobByID(mobID):getSpawnPos();
         GetMobByID(Jailer_of_Temperance):setSpawn(mobSpawnPoint.x, mobSpawnPoint.y, mobSpawnPoint.z);
 
         -- The jailer spawns instantly, so don't need to set respawn time
         SpawnMob(Jailer_of_Temperance):updateClaim(player);
-        DisallowRespawn(mobID, true);
+        DeterMob(mobID, true);
     end
 end;

@@ -26,7 +26,6 @@
 
 #include "../../../common/cbasetypes.h"
 #include "../../../common/mmo.h"
-#include "../../spell.h"
 
 class CBattleEntity;
 
@@ -38,12 +37,12 @@ public:
     virtual void Tick(time_point tick) = 0;
     virtual void Despawn();
     virtual void Reset();
-    virtual bool Cast(uint16 targid, SpellID spellid);
+    virtual void Cast(uint16 targid, uint16 spellid);
     virtual bool Engage(uint16 targid);
-    virtual bool ChangeTarget(uint16 targid);
-    virtual bool Disengage();
-    virtual bool WeaponSkill(uint16 targid, uint16 wsid);
-    virtual bool Ability(uint16 targid, uint16 abilityid) { return false; }
+    virtual void ChangeTarget(uint16 targid);
+    virtual void Disengage();
+    virtual void WeaponSkill(uint16 targid, uint16 wsid);
+    virtual void Ability(uint16 targid, uint16 abilityid) {}
 
     bool IsAutoAttackEnabled();
     void SetAutoAttackEnabled(bool);

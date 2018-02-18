@@ -5,9 +5,9 @@
 -- Recast Time: 1:00
 -- Duration: 5:00
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
 
 -----------------------------------
 -- onAbilityCheck
@@ -15,7 +15,7 @@ require("scripts/globals/msg");
 
 function onAbilityCheck(player,target,ability)
     if (not target:isWeaponTwoHanded()) then
-        return msgBasic.NEEDS_2H_WEAPON,0;
+        return MSGBASIC_NEEDS_2H_WEAPON,0;
     else
         return 0,0;
     end

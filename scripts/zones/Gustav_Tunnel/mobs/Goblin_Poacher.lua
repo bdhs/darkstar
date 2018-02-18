@@ -2,7 +2,11 @@
 -- Area: Gustav Tunnel
 --  MOB: Goblin Poacher
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -1,12 +1,13 @@
----------------------------------------------
+---------------------------------------------------
 -- Call Wyvern
 -- Call my pet.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (mob:hasPet() or mob:getPet() == nil) then
@@ -19,7 +20,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     mob:spawnPet();
 
-    skill:setMsg(msgBasic.NONE);
+    skill:setMsg(MSG_NONE);
 
     return 0;
 end;

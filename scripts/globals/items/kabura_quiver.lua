@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5332
--- Kabura Quiver
--- When used, you will obtain one stack of Kabura Arrows
+--    ID: 5332
+--    Kabura Quiver
+--    When used, you will obtain one stack of Kabura Arrows
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17325,99);

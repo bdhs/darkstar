@@ -2,7 +2,11 @@
 -- Area: Meriphataud Mountains
 --  MOB: Boggart
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

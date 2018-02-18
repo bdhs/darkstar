@@ -1,20 +1,36 @@
 -----------------------------------
 -- Area: Tavnazian Safehold
---  NPC: Havillione
+-- NPC: Havillione
 -- Standard Info NPC
 -----------------------------------
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(320);
-end;
+player:startEvent(0x0140);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

@@ -4,18 +4,19 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/Tahrongi_Canyon/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Tahrongi_Canyon/TextIDs");
-require("scripts/zones/Tahrongi_Canyon/MobIDs");
-require("scripts/globals/icanheararainbow");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/weather");
-require("scripts/globals/zone");
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+require("scripts/zones/Tahrongi_Canyon/TextIDs");
+require("scripts/globals/icanheararainbow");
+require("scripts/globals/zone");
+require("scripts/globals/chocobo_digging");
+
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 880, 224, DIGREQ_NONE },
                     { 887, 39, DIGREQ_NONE },
                     { 645, 14, DIGREQ_NONE },
@@ -45,16 +46,33 @@ local itemMap =
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
+    local manuals = {17257079,17257080,17257081};
+    SetFieldManual(manuals);
+
+    local vwnpc = {17257088,17257089,17257090};
+    SetVoidwatchNPC(vwnpc);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn( player, prevZone)
     local cs = -1;
@@ -64,13 +82,18 @@ function onZoneIn( player, prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 35;
+        cs = 0x0023;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 37;
+        cs = 0x0025;
     end
 
     return cs;
 end;
+
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -80,15 +103,23 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter( player, region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 35) then
+    if (csid == 0x0023) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 37) then
+    elseif (csid == 0x0025) then
         if (player:getPreviousZone() == 116 or player:getPreviousZone() == 118) then
             player:updateEvent(0,0,0,0,0,7);
         elseif (player:getPreviousZone() == 198) then
@@ -97,23 +128,14 @@ function onEventUpdate( player, csid, option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 35) then
+    if (csid == 0x0023) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
-    end
-end;
-
-function isHabrokWeather(weather)
-    return (weather == WEATHER_DUST_STORM or weather == WEATHER_SAND_STORM or weather == WEATHER_WIND or weather == WEATHER_GALES);
-end
-
-function onZoneWeatherChange(weather)
-    local habrok = GetMobByID(HABROK);
-    if (habrok:isSpawned() and not isHabrokWeather(weather)) then
-        DespawnMob(HABROK);
-    elseif (not habrok:isSpawned() and isHabrokWeather(weather) and os.time() > habrok:getLocalVar("pop")) then
-        SpawnMob(HABROK);
     end
 end;

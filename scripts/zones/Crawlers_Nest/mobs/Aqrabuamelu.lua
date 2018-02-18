@@ -4,6 +4,9 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
@@ -11,6 +14,10 @@ function onMobInitialize(mob)
     mob:addStatusEffect(EFFECT_ICE_SPIKES,45,0,0);
     mob:getStatusEffect(EFFECT_ICE_SPIKES):setFlag(32);
 end;
+
+-----------------------------------
+-- onSpikesDamage
+-----------------------------------
 
 function onSpikesDamage(mob,target,damage)
     local INT_diff = mob:getStat(MOD_INT) - target:getStat(MOD_INT);
@@ -36,8 +43,16 @@ function onSpikesDamage(mob,target,damage)
 
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     UpdateNMSpawnPoint(mob:getID());

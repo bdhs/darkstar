@@ -3,8 +3,17 @@
 --  MOB: Fomor Monk
 -----------------------------------
 
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     local ills = player:getVar("FOMOR_HATE");

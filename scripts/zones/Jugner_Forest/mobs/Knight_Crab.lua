@@ -2,32 +2,33 @@
 -- Area: Jugner Forest
 --  MOB: Knight Crab
 -----------------------------------
-require("scripts/zones/Jugner_Forest/MobIDs");
-require("scripts/globals/status");
+
+require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
-    -- If respawn and variable is not 0, then it respawned before someone killed all 10 crabs
-    local KingArthro = GetMobByID(KING_ARTHRO);
-
-    if (KingArthro:getLocalVar("[POP]King_Arthro") > 0) then
-        KingArthro:setLocalVar("[POP]King_Arthro", KingArthro:getLocalVar("[POP]King_Arthro")  - 1);
-    end
-
-    -- 5 minute rage timer (ffxiah says 5, ffxiclopedia says 5-10, bg doesn't say at all)
-    mob:setMobMod(MOBMOD_RAGE, 300);
+    SetServerVariable("[POP]King_Arthro",0);
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;
 
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
 function onMobDespawn(mob)
-    local KingArthro = GetMobByID(KING_ARTHRO);
+    SetServerVariable("[POP]King_Arthro",GetServerVariable("[POP]King_Arthro") + 1);
 
-    KingArthro:setLocalVar("[POP]King_Arthro", KingArthro:getLocalVar("[POP]King_Arthro") + 1);
-
-    if (KingArthro:getLocalVar("[POP]King_Arthro") == 10) then
-        KingArthro:setLocalVar("[POP]King_Arthro", 0);
-        SpawnMob(KING_ARTHRO); -- Pop King Arthro !
+    if (GetServerVariable("[POP]King_Arthro") == 10) then
+        SetServerVariable("[POP]King_Arthro",0);
+        SpawnMob(17203216); -- Pop King Arthro !
     end
 end;

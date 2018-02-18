@@ -2,10 +2,11 @@
 -- Area: Buburimu Peninsula
 --  NPC: Ganemu-Punnemu, W.W.
 -- Outpost Conquest Guards
--- !pos -481.164 -32.858 49.188 118
+-- @pos -481.164 -32.858 49.188 118
 -----------------------------------
 package.loaded["scripts/zones/Buburimu_Peninsula/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Buburimu_Peninsula/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = KOLSHUSHU;
 local csid        = 0x7ff7;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

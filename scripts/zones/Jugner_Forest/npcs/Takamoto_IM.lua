@@ -2,10 +2,11 @@
 -- Area: Jugner Forest
 --  NPC: Takamoto, I.M.
 -- Outpost Conquest Guards
--- !pos 60.087 -0.602 -11.847 104
+-- @pos 60.087 -0.602 -11.847 104
 -----------------------------------
 package.loaded["scripts/zones/Jugner_Forest/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Jugner_Forest/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = NORVALLEN;
 local csid        = 0x7ff9;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

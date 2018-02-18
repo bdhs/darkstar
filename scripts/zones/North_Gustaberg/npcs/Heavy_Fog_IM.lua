@@ -2,10 +2,11 @@
 -- Area: North Gustaberg
 --  NPC: Heavy Fog, I.M.
 -- Type: Border Conquest Guards
--- !pos -520.704 38.75 560.258 106
+-- @pos -520.704 38.75 560.258 106
 -----------------------------------
 package.loaded["scripts/zones/North_Gustaberg/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/North_Gustaberg/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 4;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = GUSTABERG;
 local csid        = 0x7ff8;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

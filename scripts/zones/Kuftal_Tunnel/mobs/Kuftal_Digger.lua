@@ -2,7 +2,11 @@
 -- Area: Kuftal Tunnel
 --  MOB: Kuftal Digger
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -3,8 +3,16 @@
 --  MOB: Weeping Willow
 -----------------------------------
 
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob,target)
     if (mob:getHPP() <= 50 and mob:getLocalVar("Saplings") < 1) then
@@ -16,6 +24,10 @@ function onMobFight(mob,target)
         mob:setLocalVar("Saplings", 1);
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     local JACK = mob:getID()+6;

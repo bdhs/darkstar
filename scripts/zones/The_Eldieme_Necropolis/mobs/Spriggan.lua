@@ -2,7 +2,11 @@
 -- Area: The Eldieme Necropolis
 --  MOB: Spriggan
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -8,7 +8,11 @@
 -- Magic Accuracy +10
 -- Magic Def. Bonus +5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,6 +22,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,5773);
@@ -35,7 +43,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_MDEF, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_MND, 2);
     target:delMod(MOD_FOOD_MPP, 10);
     target:delMod(MOD_FOOD_MP_CAP, 30);

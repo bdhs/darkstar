@@ -2,7 +2,11 @@
 -- Area: RoMaeve
 --  MOB: Magic Flagon
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

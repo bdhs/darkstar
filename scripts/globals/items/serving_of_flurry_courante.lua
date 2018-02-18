@@ -9,7 +9,11 @@
 -- Magic Regen While Healing 1
 -- Wind Resist 5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,6 +23,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,5555);
@@ -36,7 +44,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_WINDRES, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_MPP, 19);
     target:delMod(MOD_FOOD_MP_CAP, 65);
     target:delMod(MOD_INT, 2);

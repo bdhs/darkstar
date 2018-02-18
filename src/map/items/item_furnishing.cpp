@@ -41,19 +41,19 @@ CItemFurnishing::~CItemFurnishing()
 void CItemFurnishing::setInstalled(bool installed)
 {
     if (installed)
-        ref<uint8>(m_extra, 0x01) |= 0x40;
+        WBUFB(m_extra, 0x01) |= 0x40;
     else
-        ref<uint8>(m_extra, 0x01) &= ~0x40;
+        WBUFB(m_extra, 0x01) &= ~0x40;
 }
 
 bool CItemFurnishing::isInstalled()
 {
-    return ref<uint8>(m_extra, 0x01) & 0x40;
+    return WBUFB(m_extra, 0x01) & 0x40;
 }
 
 void CItemFurnishing::setStorage(uint8 storage)
 {
-	m_storage = std::min<uint8>(storage, 80);
+	m_storage = dsp_min(storage,80);
 }
 
 uint8 CItemFurnishing::getStorage()
@@ -93,40 +93,40 @@ uint8 CItemFurnishing::getAura()
 
 void CItemFurnishing::setCol(uint8 col)
 {
-	ref<uint8>(m_extra, 0x06) = col;
+	WBUFB(m_extra, 0x06) = col;
 }
 	
 uint8 CItemFurnishing::getCol()
 {
-    return ref<uint8>(m_extra, 0x06);
+    return RBUFB(m_extra, 0x06);
 }
 
 void CItemFurnishing::setRow(uint8 row)
 {
-    ref<uint8>(m_extra, 0x08) = row;
+    WBUFB(m_extra, 0x08) = row;
 }
 
 uint8 CItemFurnishing::getRow()
 {
-    return ref<uint8>(m_extra, 0x08);
+    return RBUFB(m_extra, 0x08);
 }
 
 void CItemFurnishing::setLevel(uint8 level)
 {
-    ref<uint8>(m_extra, 0x07) = level;
+    WBUFB(m_extra, 0x07) = level;
 }
 
 uint8 CItemFurnishing::getLevel()
 {
-    return ref<uint8>(m_extra, 0x07);
+    return RBUFB(m_extra, 0x07);
 }
 
 void CItemFurnishing::setRotation(uint8 rotation)
 {
-    ref<uint8>(m_extra, 0x09) = rotation;
+    WBUFB(m_extra, 0x09) = rotation;
 }
 
 uint8 CItemFurnishing::getRotation()
 {
-    return ref<uint8>(m_extra, 0x09);
+    return RBUFB(m_extra, 0x09);
 }

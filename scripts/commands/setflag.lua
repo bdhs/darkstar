@@ -9,32 +9,22 @@ cmdprops =
     parameters = "ss"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!setflag <flags> {player}");
-end;
-
 function onTrigger(player, flags, target)
-
-    -- validate flags
     if (flags == nil) then
-        error(player, "You must enter a number for the flags (hex values work).");
+        player:PrintToPlayer("You must enter a number for the flags (hex values work)");
+        player:PrintToPlayer( "@setflag <flags> <target>" );
         return;
     end
 
-    -- validate target
-    local targ;
     if (target == nil) then
-        targ = player;
+        player:setFlag( flags );
     else
-        targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format( "Player named '%s' not found!", target ) );
-            return;
+        local targ = GetPlayerByName(target);
+        if (targ ~= nil) then
+            targ:setFlag( flags );
+        else
+            player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+            player:PrintToPlayer( "@setflag <flags> <target>" );
         end
     end
-
-    -- set flags
-    targ:setFlag( flags );
-
 end;

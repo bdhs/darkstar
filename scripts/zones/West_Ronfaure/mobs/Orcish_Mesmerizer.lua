@@ -2,7 +2,11 @@
 -- Area: West Ronfaure
 --  MOB: Orcish Mesmerizer
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

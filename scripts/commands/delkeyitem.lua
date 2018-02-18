@@ -11,45 +11,34 @@ cmdprops =
     parameters = "ss"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!delkeyitem <key item ID> {player}");
-end;
-
 function onTrigger(player, keyId, target)
 
-    -- validate key item id
-    if (keyId == nil) then
-        error(player, "You must supply a key item ID.");
-        return;
-    end
-    keyId = tonumber(keyId) or _G[string.upper(keyId)];
-    if (keyId == nil or keyId < 1) then
-        error(player, "Invalid Key Item ID.");
+    keyId = tonumber(keyId) or _G[keyId];
+
+    if (keyId == nil or keyId == 0) then
+        player:PrintToPlayer("You must enter a valid keyitem ID.");
+        player:PrintToPlayer( "@delkeyitem <ID> <player>" );
         return;
     end
 
-    -- validate target
     local targ;
     if (target == nil) then
         targ = player;
     else
         targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format("Player named '%s' not found!", target));
-            return;
-        end
     end
 
-    -- delete key item from target
-    if (targ:hasKeyItem(keyId)) then
+    if (targ ~= nil) then
+        -- Load needed text ids for players current zone..
         local TextIDs = "scripts/zones/" .. targ:getZoneName() .. "/TextIDs";
         package.loaded[TextIDs] = nil;
         require(TextIDs);
+
         targ:delKeyItem( keyId );
         targ:messageSpecial(KEYITEM_OBTAINED + 1, keyId);
-        player:PrintToPlayer(string.format("Key item %i deleted from %s.", keyId, targ:getName()));
+        player:PrintToPlayer( string.format( "Keyitem ID '%s' deleted from player '%s'.", keyId, target));
     else
-        player:PrintToPlayer(string.format("%s does not have key item %i.", targ:getName(), keyId));
+        player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+        player:PrintToPlayer( "@delkeyitem <ID> <player>" );
     end
 end;

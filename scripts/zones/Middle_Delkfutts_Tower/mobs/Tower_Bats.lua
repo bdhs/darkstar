@@ -2,7 +2,11 @@
 -- Area: Middle Delkfutt's Tower
 --  MOB: Tower Bats
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

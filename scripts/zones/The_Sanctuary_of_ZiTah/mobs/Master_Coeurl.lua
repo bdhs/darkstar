@@ -2,7 +2,11 @@
 -- Area: The Sanctuary of ZiTah
 --  MOB: Master Coeurl
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -2,14 +2,18 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Nomad Moogle
 -- Type: Adventurer's Assistant
--- !pos 10.012 1.453 121.883 243
+-- @pos 10.012 1.453 121.883 243
 -----------------------------------
 package.loaded["scripts/zones/RuLude_Gardens/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/zones/RuLude_Gardens/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -33,6 +37,10 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
     if (player:hasKeyItem(LIMIT_BREAKER) == false and player:getMainLvl() >= 75) then
         player:startEvent(10045,75,2,10,7,30,302895,4095);
@@ -55,7 +63,7 @@ function onTrigger(player,npc)
     elseif (player:getQuestStatus(JEUNO,DORMANT_POWERS_DISLODGED) == QUEST_ACCEPTED) then
         player:startEvent(10045,0,1,4,1);
     elseif (player:getQuestStatus(JEUNO,BEYOND_INFINITY) == QUEST_ACCEPTED) then
-        player:startEvent(10045,0,1,5,1); -- player:startEvent(10045,0,1,6,1);
+        player:startEvent(10045,0,1,5,1); -- player:startEvent(0x273d,0,1,6,1);
     elseif (player:hasKeyItem(LIMIT_BREAKER) == true and player:getMainLvl() >= 75) then
         player:startEvent(10045,0,1,0,0);
     else
@@ -63,10 +71,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -103,7 +119,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 10137) then
         player:tradeComplete();
         player:setMerits(meritCount - 5);
-        player:startEvent(10161); -- this is the scene that is suppose to play and you are suppose to have to do correctly inorder to level cap increase to 90
+        player:startEvent(0x27B1); -- this is the scene that is suppose to play and you are suppose to have to do correctly inorder to level cap increase to 90
         player:addFame(JEUNO,50);
         player:levelCap(90);
         player:completeQuest(JEUNO,BEYOND_THE_STARS);

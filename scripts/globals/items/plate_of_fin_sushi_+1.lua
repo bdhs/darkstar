@@ -8,7 +8,11 @@
 -- Ranged Accuracy % 17 (cap 80)
 -- Resist Sleep +2
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,11 +23,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,3600,5666);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_INT, 6);
     target:addMod(MOD_FOOD_ACCP, 17);
     target:addMod(MOD_FOOD_ACC_CAP, 80);
@@ -32,7 +44,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_SLEEPRES, 2);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_INT, 6);
     target:delMod(MOD_FOOD_ACCP, 17);
     target:delMod(MOD_FOOD_ACC_CAP, 80);

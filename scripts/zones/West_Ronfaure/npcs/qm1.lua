@@ -1,20 +1,28 @@
 -----------------------------------
--- Area: West Ronfaure
---  NPC: qm1 (???)
+--  Area: West Ronfaure
+--  NPC:  qm1 (???)
 --  Involved in Quest: The Dismayed Customer
--- !pos -453 -20 -230 100
+-- @pos -453 -20 -230 100
 -----------------------------------
 package.loaded["scripts/zones/West_Ronfaure/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/globals/keyitems");
 require("scripts/zones/West_Ronfaure/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -25,13 +33,21 @@ function onTrigger(player,npc)
     else
         player:messageSpecial(DISMAYED_CUSTOMER);
     end;
-
+    
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

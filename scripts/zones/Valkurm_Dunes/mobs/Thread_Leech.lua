@@ -2,7 +2,11 @@
 -- Area: Valkurm Dunes
 --  MOB: Thread Leech
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

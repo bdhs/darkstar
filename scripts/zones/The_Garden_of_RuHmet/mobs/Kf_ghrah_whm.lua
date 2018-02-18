@@ -4,14 +4,22 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic"); -- no spells are currently set due to lack of info
+
+-----------------------------------
+-- onMobSpawn
+-- Set core Skin and mob elemental bonus
 -----------------------------------
 
 function onMobSpawn(mob)
-    -- Set core Skin and mob elemental bonus
     mob:AnimationSub(0);
     mob:setLocalVar("roamTime", os.time());
     mob:setModelId(1167); -- light
 end;
+
+-----------------------------------
+-- onMobRoam
+-- AutochangeForm
+-----------------------------------
 
 function onMobRoam(mob)
     local roamTime = mob:getLocalVar("roamTime");
@@ -26,8 +34,17 @@ function onMobRoam(mob)
     end;
 end;
 
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
 function onMobEngaged(mob,target)
 end;
+
+-----------------------------------
+-- onMobFight
+-- Free form change between ball, spider, and bird.
+-----------------------------------
 
 function onMobFight(mob,target)
     local changeTime = mob:getLocalVar("changeTime");
@@ -42,6 +59,10 @@ function onMobFight(mob,target)
         mob:setLocalVar("changeTime", mob:getBattleTime());
     end;
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

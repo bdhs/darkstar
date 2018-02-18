@@ -2,7 +2,11 @@
 -- Area: North Gustaberg
 --  MOB: Amber Quadav
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

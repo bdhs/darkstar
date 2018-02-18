@@ -1,16 +1,24 @@
 -----------------------------------
 -- Area: Rabao
---  NPC: Guinavie
+-- NPC: Guinavie
 -- Chocobo Vendor
 -----------------------------------
-require("scripts/globals/settings");
-require("scripts/globals/keyitems");
+
 require("scripts/globals/chocobo");
+require("scripts/globals/keyitems");
+require("scripts/globals/settings");
 require("scripts/globals/status");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     local level = player:getMainLvl();
@@ -20,16 +28,24 @@ function onTrigger(player,npc)
         local price = getChocoboPrice(player);
         player:setLocalVar("chocoboPriceOffer",price);
 
-        player:startEvent(79,price,gil);
+        player:startEvent(0x004F,price,gil);
     else
-        player:startEvent(80);
+        player:startEvent(0x0050);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+  
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -37,13 +53,13 @@ function onEventFinish(player,csid,option)
 
     local price = player:getLocalVar("chocoboPriceOffer");
 
-    if (csid == 79 and option == 0) then
+    if (csid == 0x004F and option == 0) then
         if (player:delGil(price)) then
             updateChocoboPrice(player, price);
 
             local duration = 1800 + (player:getMod(MOD_CHOCOBO_RIDING_TIME) * 60)
 
-            player:addStatusEffectEx(EFFECT_MOUNTED,EFFECT_MOUNTED,0,0,duration,true);
+            player:addStatusEffectEx(EFFECT_CHOCOBO,EFFECT_CHOCOBO,1,0,duration,true);
 
             player:setPos(420,8,360,0x40,0x7D);
         end

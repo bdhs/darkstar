@@ -3,7 +3,8 @@
 -----------------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -16,15 +17,9 @@ function onSpellCast(caster,target,spell)
     local pINT = caster:getStat(MOD_INT);
     local mINT = target:getStat(MOD_INT);
     local dINT = (pINT - mINT);
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_INT;
-    params.skillType = ENFEEBLING_MAGIC_SKILL;
-    params.bonus = 0;
-    params.effect = typeEffect;
-    resm = applyResistanceEffect(caster, target, spell, params);
+    local resm = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,0,typeEffect);
     if (resm < 0.5) then
-        spell:setMsg(msgBasic.MAGIC_RESIST); -- resist message
+        spell:setMsg(85);--resist message
         return typeEffect;
     end
 
@@ -32,9 +27,9 @@ function onSpellCast(caster,target,spell)
 
 
     if (target:addStatusEffect(typeEffect,2,0,duration)) then
-        spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+        spell:setMsg(236);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end
 
     return typeEffect;

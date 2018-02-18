@@ -9,7 +9,11 @@
 -- hHP +2
 -- hMP +1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -20,11 +24,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5616);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 8);
     target:addMod(MOD_FOOD_MPP, 10);
     target:addMod(MOD_FOOD_MP_CAP, 45);
@@ -33,7 +45,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_MPHEAL, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 8);
     target:delMod(MOD_FOOD_MPP, 10);
     target:delMod(MOD_FOOD_MP_CAP, 45);

@@ -1,24 +1,29 @@
 -----------------------------------
 -- Area: Kazham
---  NPC: Khifo Ryuhkowa
+-- NPC: Khifo Ryuhkowa
 -- Standard Merchant NPC
 -----------------------------------
+
 require("scripts/globals/shop");
 package.loaded["scripts/zones/Kazham/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Kazham/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
-    player:showText(npc,KHIFORYUHKOWA_SHOP_DIALOG);
+player:showText(npc,KHIFORYUHKOWA_SHOP_DIALOG);
 
-    local stock =
-    {
-        0x4059,5713,        -- Kukri
+stock = {0x4059,5713,        -- Kukri
      0x40D3,153014,        -- Ram-Dao
      0x41C1,809,        -- Bronze Spear
      0x41C3,16228,        -- Spear
@@ -32,14 +37,22 @@ function onTrigger(player,npc)
      0x439C,55,        -- Hawkeye
      0x4380,1610,        -- Boomerang
      0x43A6,3}        -- Woden Arrow
+ 
+showShop(player, STATIC, stock);
+end; 
 
-    showShop(player, STATIC, stock);
-end;
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

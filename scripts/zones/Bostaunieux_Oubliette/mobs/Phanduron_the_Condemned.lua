@@ -3,8 +3,16 @@
 --  MOB: Phanduron_the_Condemned
 -----------------------------------
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 

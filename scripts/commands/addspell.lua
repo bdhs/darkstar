@@ -9,31 +9,22 @@ cmdprops =
     parameters = "is"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!addspell <spellID> {player}");
-end;
-
 function onTrigger(player, spellId, target)
-    -- validate spellId
     if (spellId == nil) then
-        error(player, "Invalid spellID.");
+        player:PrintToPlayer( "You must enter a valid spell ID." );
+        player:PrintToPlayer( "@addSpell <spellID> <player>" );
         return;
     end
 
-    -- validate target
-    local targ;
     if (target == nil) then
-        targ = player;
+        player:addSpell(spellId);
     else
-        targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format("Player named '%s' not found!", target));
-            return;
+        local targ = GetPlayerByName(target);
+        if (targ ~= nil) then
+            targ:addSpell(spellId);
+        else
+            player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+            player:PrintToPlayer( "@addSpell <spellID> <player>" );
         end
     end
-
-    -- add spell
-    targ:addSpell(spellId);
-    player:PrintToPlayer(string.format("Added spell %i to %s.",spellId,targ:getName()));
 end;

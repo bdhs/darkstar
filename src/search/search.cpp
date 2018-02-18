@@ -25,6 +25,7 @@ This file is part of DarkStar-server source code.
 
 #include "../common/cbasetypes.h"
 #include "../common/blowfish.h"
+#include "../common/malloc.h"
 #include "../common/md52.h"
 #include "../common/mmo.h"
 #include "../common/showmsg.h"
@@ -82,8 +83,8 @@ void TaskManagerThread();
 int32 ah_cleanup(time_point tick, CTaskMgr::CTask* PTask);
 
 
-const char* SEARCH_CONF_FILENAME = "./conf/search_server.conf";
-const char* LOGIN_CONF_FILENAME = "./conf/login_darkstar.conf";
+const int8* SEARCH_CONF_FILENAME = "./conf/search_server.conf";
+const int8* LOGIN_CONF_FILENAME = "./conf/login_darkstar.conf";
 
 void TCPComm(SOCKET socket);
 
@@ -112,28 +113,28 @@ void login_config_read(const int8* file);		// We only need the search server por
 
 void PrintPacket(char* data, int size)
 {
-    char message[50];
+    int8 message[50];
     memset(&message, 0, 50);
 
     printf("\n");
 
     for (int32 y = 0; y < size; y++)
     {
-        char msgtmp[50];
+        int8 msgtmp[50];
         memset(&msgtmp, 0, 50);
         sprintf(msgtmp, "%s %02hx", message, (uint8)data[y]);
         strncpy(message, msgtmp, 50);
         if (((y + 1) % 16) == 0)
         {
             message[48] = '\n';
-            fputs(message, stdout);
+            printf(message);
             memset(&message, 0, 50);
         }
     }
     if (strlen(message) > 0)
     {
         message[strlen(message)] = '\n';
-        fputs(message, stdout);
+        printf(message);
     }
     printf("\n");
 }
@@ -144,7 +145,7 @@ void PrintPacket(char* data, int size)
 *																		*
 ************************************************************************/
 
-int32 main(int32 argc, char **argv)
+int32 main(int32 argc, int8 **argv)
 {
 #ifdef WIN32
     WSADATA wsaData;
@@ -176,8 +177,8 @@ int32 main(int32 argc, char **argv)
     struct addrinfo  hints;
 
     search_config_default();
-    search_config_read((const int8*)SEARCH_CONF_FILENAME);
-    login_config_read((const int8*)LOGIN_CONF_FILENAME);
+    search_config_read(SEARCH_CONF_FILENAME);
+    login_config_read(LOGIN_CONF_FILENAME);
 
 #ifdef WIN32
     // Initialize Winsock
@@ -199,7 +200,7 @@ int32 main(int32 argc, char **argv)
     hints.ai_flags = AI_PASSIVE;
 
     // Resolve the server address and port
-    iResult = getaddrinfo(nullptr, login_config.search_server_port.c_str(), &hints, &result);
+    iResult = getaddrinfo(nullptr, login_config.search_server_port, &hints, &result);
     if (iResult != 0)
     {
         ShowError("getaddrinfo failed with error: %d\n", iResult);
@@ -341,10 +342,10 @@ void search_config_default()
 
 void search_config_read(const int8* file)
 {
-    char line[1024], w1[1024], w2[1024];
+    int8 line[1024], w1[1024], w2[1024];
     FILE* fp;
 
-    fp = fopen((const char*)file, "r");
+    fp = fopen(file, "r");
     if (fp == nullptr)
     {
         ShowError("configuration file not found at: %s\n", file);
@@ -353,7 +354,7 @@ void search_config_read(const int8* file)
 
     while (fgets(line, sizeof(line), fp))
     {
-        char* ptr;
+        int8* ptr;
 
         if (line[0] == '#')
             continue;
@@ -368,15 +369,15 @@ void search_config_read(const int8* file)
 
         if (strcmp(w1, "mysql_host") == 0)
         {
-            search_config.mysql_host = std::string(w2);
+            search_config.mysql_host = aStrdup(w2);
         }
         else if (strcmp(w1, "mysql_login") == 0)
         {
-            search_config.mysql_login = std::string(w2);
+            search_config.mysql_login = aStrdup(w2);
         }
         else if (strcmp(w1, "mysql_password") == 0)
         {
-            search_config.mysql_password = std::string(w2);
+            search_config.mysql_password = aStrdup(w2);
         }
         else if (strcmp(w1, "mysql_port") == 0)
         {
@@ -384,7 +385,7 @@ void search_config_read(const int8* file)
         }
         else if (strcmp(w1, "mysql_database") == 0)
         {
-            search_config.mysql_database = std::string(w2);
+            search_config.mysql_database = aStrdup(w2);
         }
         else if (strcmp(w1, "expire_auctions") == 0)
         {
@@ -426,10 +427,10 @@ void login_config_default()
 
 void login_config_read(const int8* file)
 {
-    char line[1024], w1[1024], w2[1024];
+    int8 line[1024], w1[1024], w2[1024];
     FILE* fp;
 
-    fp = fopen((const char*)file, "r");
+    fp = fopen(file, "r");
     if (fp == nullptr)
     {
         ShowError("configuration file not found at: %s\n", file);
@@ -438,7 +439,7 @@ void login_config_read(const int8* file)
 
     while (fgets(line, sizeof(line), fp))
     {
-        char* ptr;
+        int8* ptr;
 
         if (line[0] == '#')
             continue;
@@ -453,7 +454,7 @@ void login_config_read(const int8* file)
 
         if (strcmp(w1, "search_server_port") == 0)
         {
-            login_config.search_server_port = std::string(w2);
+            login_config.search_server_port = aStrdup(w2);
         }
     }
     fclose(fp);
@@ -524,10 +525,10 @@ void HandleGroupListRequest(CTCPRequestPacket& PTCPRequest)
 {
     uint8* data = (uint8*)PTCPRequest.GetData();
 
-    uint16 partyid = ref<uint16>(data, 0x10);
-    uint16 allianceid = ref<uint16>(data, 0x14);
-    uint32 linkshellid1 = ref<uint32>(data, 0x18);
-    uint32 linkshellid2 = ref<uint32>(data, 0x1C);
+    uint16 partyid = RBUFW(data, (0x10));
+    uint16 allianceid = RBUFW(data, (0x14));
+    uint32 linkshellid1 = RBUFL(data, (0x18));
+    uint32 linkshellid2 = RBUFL(data, (0x1C));
 
     ShowMessage("SEARCH::PartyID = %u\n", partyid);
     ShowMessage("SEARCH::LinkshellIDs = %u, %u\n", linkshellid1, linkshellid2);
@@ -538,14 +539,14 @@ void HandleGroupListRequest(CTCPRequestPacket& PTCPRequest)
     {
         std::list<SearchEntity*> PartyList = PDataLoader.GetPartyList(partyid, allianceid);
 
-        CPartyListPacket PPartyPacket(partyid, (uint32)PartyList.size());
+        CPartyListPacket PPartyPacket(partyid, PartyList.size());
 
         for (std::list<SearchEntity*>::iterator it = PartyList.begin(); it != PartyList.end(); ++it)
         {
             PPartyPacket.AddPlayer(*it);
         }
 
-        PrintPacket((char*)PPartyPacket.GetData(), PPartyPacket.GetSize());
+        PrintPacket((int8*)PPartyPacket.GetData(), PPartyPacket.GetSize());
         PTCPRequest.SendToSocket(PPartyPacket.GetData(), PPartyPacket.GetSize());
     }
     else if (linkshellid1 != 0 || linkshellid2 != 0)
@@ -553,14 +554,14 @@ void HandleGroupListRequest(CTCPRequestPacket& PTCPRequest)
         uint32 linkshellid = linkshellid1 == 0 ? linkshellid2 : linkshellid1;
         std::list<SearchEntity*> LinkshellList = PDataLoader.GetLinkshellList(linkshellid);
 
-        CLinkshellListPacket PLinkshellPacket(linkshellid, (uint32)LinkshellList.size());
+        CLinkshellListPacket PLinkshellPacket(linkshellid, LinkshellList.size());
 
         for (std::list<SearchEntity*>::iterator it = LinkshellList.begin(); it != LinkshellList.end(); ++it)
         {
             PLinkshellPacket.AddPlayer(*it);
         }
 
-        PrintPacket((char*)PLinkshellPacket.GetData(), PLinkshellPacket.GetSize());
+        PrintPacket((int8*)PLinkshellPacket.GetData(), PLinkshellPacket.GetSize());
         PTCPRequest.SendToSocket(PLinkshellPacket.GetData(), PLinkshellPacket.GetSize());
     }
 }
@@ -628,7 +629,7 @@ void HandleSearchRequest(CTCPRequestPacket& PTCPRequest)
 void HandleAuctionHouseRequest(CTCPRequestPacket& PTCPRequest)
 {
     uint8* data = (uint8*)PTCPRequest.GetData();
-    uint8  AHCatID = ref<uint8>(data, 0x16);
+    uint8  AHCatID = RBUFB(data, (0x16));
 
     //2 - уровень -- level
     //3 - раса -- race
@@ -639,10 +640,10 @@ void HandleAuctionHouseRequest(CTCPRequestPacket& PTCPRequest)
     //8 - сопротивление -- resistance
     //9 - название -- name
     string_t OrderByString = "ORDER BY";
-    uint8 paramCount = ref<uint8>(data, 0x12);
+    uint8 paramCount = RBUFB(data, 0x12);
     for (uint8 i = 0; i < paramCount; ++i) // параметры сортировки предметов
     {
-        uint8 param = ref<uint32>(data, 0x18 + 8 * i);
+        uint8 param = RBUFL(data, (0x18) + 8 * i);
         ShowMessage(" Param%u: %u\n", i, param);
         switch (param) {
         case 2:
@@ -662,13 +663,13 @@ void HandleAuctionHouseRequest(CTCPRequestPacket& PTCPRequest)
     CDataLoader PDataLoader;
     std::vector<ahItem*> ItemList = PDataLoader.GetAHItemsToCategory(AHCatID, OrderByArray);
 
-    uint8 PacketsCount = (uint8)((ItemList.size() / 20) + (ItemList.size() % 20 != 0) + (ItemList.size() == 0));
+    uint8 PacketsCount = (ItemList.size() / 20) + (ItemList.size() % 20 != 0) + (ItemList.size() == 0);
 
     for (uint8 i = 0; i < PacketsCount; ++i)
     {
         CAHItemsListPacket PAHPacket(20 * i);
 
-        PAHPacket.SetItemCount((uint16)ItemList.size());
+        PAHPacket.SetItemCount(ItemList.size());
 
         for (uint16 y = 20 * i; (y != 20 * (i + 1)) && (y < ItemList.size()); ++y)
         {
@@ -688,8 +689,8 @@ void HandleAuctionHouseRequest(CTCPRequestPacket& PTCPRequest)
 void HandleAuctionHouseHistory(CTCPRequestPacket& PTCPRequest)
 {
     uint8* data = (uint8*)PTCPRequest.GetData();
-    uint16 ItemID = ref<uint16>(data, 0x12);
-    uint8  stack = ref<uint8>(data, 0x15);
+    uint16 ItemID = RBUFW(data, (0x12));
+    uint8  stack = RBUFB(data, (0x15));
 
     CAHHistoryPacket PAHPacket(ItemID);
 
@@ -721,7 +722,7 @@ search_req _HandleSearchRequest(CTCPRequestPacket& PTCPRequest)
     unsigned char isPresent = 0;
     unsigned char areaCount = 0;
 
-    char name[16];
+    uint8 name[16];
     uint8 nameLen = 0;
 
     uint8 minLvl = 0;
@@ -740,7 +741,7 @@ search_req _HandleSearchRequest(CTCPRequestPacket& PTCPRequest)
 
 
     uint8* data = (uint8*)PTCPRequest.GetData();
-    uint8  size = ref<uint8>(data, 0x10);
+    uint8  size = RBUFB(data, (0x10));
 
     uint16 workloadBits = size * 8;
 
@@ -969,7 +970,7 @@ search_req _HandleSearchRequest(CTCPRequestPacket& PTCPRequest)
     sr.nameLen = nameLen;
     memcpy(sr.zoneid, areas, sizeof(sr.zoneid));
     if (nameLen > 0){
-        sr.name.insert(0, name);
+        sr.name.insert(0, (int8*)name);
     }
 
     return sr;

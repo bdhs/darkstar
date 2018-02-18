@@ -4,8 +4,16 @@
 -- Quest NM - "As Thick as Thieves"
 -----------------------------------
 
+-----------------------------------
+-- OnMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- OnMobDeath Action
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

@@ -9,31 +9,18 @@ cmdprops =
     parameters = "i"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!getmobaction {mobID}");
-end;
+function onTrigger(player, mob)
 
-function onTrigger(player, mobId)
+    if (mob ~= nil) then
+        if (mob > 16780000) then
+            local action = GetMobAction(mob);
+            local name = GetMobByID(mob):getName();
 
-    -- validate mobid
-    local targ;
-    if (mobId == nil) then
-        targ = player:getCursorTarget();
-        if (not targ:isMob()) then
-            error(player, "You must either provide a mobID or target a mob with your cursor.");
-            return;
+            player:PrintToPlayer(string.format("Mob ID: %i | Mob Name: %s | Action ID: %i \n",mob,name,action));
+        else
+            player:PrintToPlayer(string.format("Invalid Mob ID %i ! \n", mob));
         end
     else
-        targ = GetMobByID(mobId);
-        if (targ == nil) then
-            error(player, "Invalid mobID.");
-            return;
-        end
+            player:PrintToPlayer(string.format("Mob ID cannot be blank!"));
     end
-
-    -- report mob action    
-    local action = GetMobAction(targ:getID());
-    player:PrintToPlayer(string.format("%s %i current action ID is %i.", targ:getName(), targ:getID(), action));
-    
 end;

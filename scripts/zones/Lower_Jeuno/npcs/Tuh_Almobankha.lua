@@ -1,9 +1,10 @@
 -----------------------------------
 -- Area: Lower Jeuno
---  NPC: Tuh Almobankha
+-- NPC: Tuh Almobankha
 -- Title Change NPC
--- !pos -14 0 -61 245
+-- @pos -14 0 -61 245
 -----------------------------------
+
 require("scripts/globals/titles");
 
 local title2 = { BROWN_MAGE_GUINEA_PIG , BROWN_MAGIC_BYPRODUCT , RESEARCHER_OF_CLASSICS , TORCHBEARER , FORTUNETELLER_IN_TRAINING ,
@@ -24,22 +25,38 @@ local title5 = { PARAGON_OF_BEASTMASTER_EXCELLENCE , PARAGON_OF_BARD_EXCELLENCE 
 local title6 = { GRAND_GREEDALOX , SILENCER_OF_THE_ECHO , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 }
 local title7 = { 0 , 0 , 0 , 0 , 0  , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 }
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
-    player:startEvent(10014,npcUtil.genTmask(player,title2),npcUtil.genTmask(player,title3),npcUtil.genTmask(player,title4),npcUtil.genTmask(player,title5),npcUtil.genTmask(player,title6),npcUtil.genTmask(player,title7),1   ,player:getGil());
+    player:startEvent(0x271E,npcUtil.genTmask(player,title2),npcUtil.genTmask(player,title3),npcUtil.genTmask(player,title4),npcUtil.genTmask(player,title5),npcUtil.genTmask(player,title6),npcUtil.genTmask(player,title7),1   ,player:getGil());
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid==10014) then
+    if (csid==0x271E) then
         if (option > 0 and option <29) then
             if (player:delGil(400)) then
                 player:setTitle( title2[option] )

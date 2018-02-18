@@ -1,17 +1,24 @@
 -----------------------------------
 -- Area: Windurst Waters
---  NPC: Hilkomu-Makimu
+-- NPC:  Hilkomu-Makimu
 -- Standard Merchant NPC
 -- Confirmed shop stock, August 2013
 -----------------------------------
+
 require("scripts/globals/shop");
 package.loaded["scripts/zones/Windurst_Waters/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Windurst_Waters/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     player:showText(npc,HIKOMUMAKIMU_SHOP_DIALOG);
@@ -35,14 +42,22 @@ function onTrigger(player,npc)
         0x1291, 16928,3,     --Scroll of Fire II
         0x1296, 22356,3,     --Scroll of Blizzard II
         0x12A5, 28520,3      --Scroll of Thunder II
-    }
+    } 
     showNationShop(player, NATION_WINDURST, stock);
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

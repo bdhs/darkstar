@@ -1,9 +1,12 @@
 -----------------------------------------
 -- Spell: Flurry II
 -----------------------------------------
+
 require("scripts/globals/magic");
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -13,9 +16,9 @@ end;
 function onSpellCast(caster,target,spell)
 
     if target:addStatusEffect(EFFECT_FLURRY_II, 30, 0, 150) then
-        spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+        spell:setMsg(236);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end;
 
     return EFFECT_FLURRY_II;

@@ -1,22 +1,42 @@
 -----------------------------------
--- Area: Abyssea - Konschtat (15)
+--  Area: Abyssea - Konschtat (15)
 --   Mob: Turul
 -----------------------------------
+
 require("scripts/globals/status");
 mixins = { require("scripts/mixins/families/amphiptere") }
+
+-----------------------------------
+-- onMobInitialize
 -----------------------------------
 
 function onMobInitialize(mob)
 end;
 
+-----------------------------------
+-- onMobSpawn
+-----------------------------------
+
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
 
 function onMobEngaged(mob, target)
 end;
 
+-----------------------------------
+-- onMobDisengage
+-----------------------------------
+
 function onMobDisengage(mob)
 end;
+
+-----------------------------------
+-- onMobFight
+-----------------------------------
 
 function onMobFight(mob,target)
     -- Uncertain of threshold. Going with 50% for now.
@@ -30,6 +50,10 @@ function onMobFight(mob,target)
     end
 end;
 
+------------------------------------
+-- onSpellPrecast
+------------------------------------
+
 function onSpellPrecast(mob, spell)
     --[[
     Todo:
@@ -40,8 +64,16 @@ function onSpellPrecast(mob, spell)
     ]]
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 end;

@@ -1,14 +1,13 @@
----------------------------------------------
--- healing_ruby II
+---------------------------------------------------
+--  healing_ruby II
 --
--- Description: Restores HP.
+--  Description: Restores HP.
 --
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;
@@ -23,7 +22,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     potency = potency - math.random(0, potency/4);
 
-    skill:setMsg(msgBasic.SELF_HEAL);
+    skill:setMsg(MSG_SELF_HEAL);
 
     return MobHealMove(mob, mob:getMaxHP() * potency / 100);
 end;

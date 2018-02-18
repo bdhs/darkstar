@@ -1,8 +1,8 @@
 -----------------------------------
 -- Area: Mhaura
---  NPC: Orlando
--- Type: Standard NPC
--- !pos -37.268 -9 58.047 249
+--  NPC:  Orlando
+--  Type: Standard NPC
+-- @pos -37.268 -9 58.047 249
 -----------------------------------
 package.loaded["scripts/zones/Mhaura/TextIDs"] = nil;
 -----------------------------------
@@ -10,6 +10,9 @@ require("scripts/zones/Mhaura/TextIDs");
 require("scripts/globals/keyitems");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -29,45 +32,57 @@ function onTrade(player,npc,trade)
         {900, 100},   -- Fish Bone
         {16995, 150}, -- Rotten Meat
     };
-
+ 
     for x, item in pairs(itemList) do
         if (QuestStatus == QUEST_ACCEPTED) or (player:getLocalVar("OrlandoRepeat") == 1) then
             if (item[1] == itemID) then
                 if (trade:hasItemQty(itemID, 8) and trade:getItemCount() == 8) then
                 -- Correct amount, valid item.
                     player:setVar("ANTIQUE_PAYOUT", (GIL_RATE*item[2]));
-                    player:startEvent(102, GIL_RATE*item[2], itemID);
+                    player:startEvent(0x0066, GIL_RATE*item[2], itemID);
                 elseif (trade:getItemCount() < 8) then
                  -- Wrong amount, but valid item.
-                    player:startEvent(104);
+                    player:startEvent(0x0068);
                 end
             end
         end
-    end
+    end    
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     local QuestStatus = player:getQuestStatus(OTHER_AREAS, ORLANDO_S_ANTIQUES);
-
+    
     if (player:getFameLevel(WINDURST) >= 2) then
         if (player:hasKeyItem(CHOCOBO_LICENSE)) then
             if (QuestStatus ~= QUEST_AVAILABLE) then
-                player:startEvent(103);
+                player:startEvent(0x0067);
             elseif (QuestStatus == QUEST_AVAILABLE) then
-                player:startEvent(101);
+                player:startEvent(0x0065);
             end
         else
-            player:startEvent(100);
+            player:startEvent(0x0064);
         end
     else
-        player:startEvent(106);
+        player:startEvent(0x006A);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -75,9 +90,9 @@ function onEventFinish(player,csid,option)
     local QuestStatus = player:getQuestStatus(OTHER_AREAS, ORLANDO_S_ANTIQUES);
     local payout = player:getVar("ANTIQUE_PAYOUT");
 
-    if (csid == 101) then
+    if (csid == 0x0065) then
         player:addQuest(OTHER_AREAS, ORLANDO_S_ANTIQUES);
-    elseif (csid == 102) then
+    elseif (csid == 0x0066) then
         player:tradeComplete();
         player:addFame(WINDURST,10);
         player:addGil(payout);
@@ -85,7 +100,7 @@ function onEventFinish(player,csid,option)
         player:completeQuest(OTHER_AREAS, ORLANDO_S_ANTIQUES);
         player:setVar("ANTIQUE_PAYOUT", 0);
         player:setLocalVar("OrlandoRepeat", 0);
-    elseif (csid == 103) then
+    elseif (csid == 0x0067) then
         if (QuestStatus == QUEST_COMPLETED) then
             player:setLocalVar("OrlandoRepeat", 1);
         end

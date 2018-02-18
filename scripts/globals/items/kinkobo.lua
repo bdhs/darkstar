@@ -7,11 +7,18 @@
 
 require("scripts/globals/status");
 require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
     return 0;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     if (target:addStatusEffect(EFFECT_ENCHANTMENT) == false) then
@@ -27,6 +34,10 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SUBTLE_BLOW, 20);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_SUBTLE_BLOW, 20);
 end;

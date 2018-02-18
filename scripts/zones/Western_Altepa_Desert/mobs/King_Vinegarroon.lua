@@ -2,23 +2,39 @@
 -- Area: Western Altepa Desert
 --   NM: King Vinegarroon
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/titles");
 require("scripts/globals/weather");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(MOBMOD_ADD_EFFECT, 1);
+    mob:setMobMod(MOBMOD_ADD_EFFECT,mob:getShortID());
 end;
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+
+-----------------------------------
+-- onMobDrawIn
+-----------------------------------
 
 function onMobDrawIn(mob, target)
     -- todo make him use AoE tp move
     mob:addTP(3000);
 end;
+
+-----------------------------------
+-- onMobDisengage
+-----------------------------------
 
 function onMobDisengage(mob, weather)
 
@@ -28,9 +44,17 @@ function onMobDisengage(mob, weather)
 
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
     player:addTitle(VINEGAR_EVAPORATOR);
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 
@@ -39,6 +63,10 @@ function onMobDespawn(mob)
     mob:setRespawnTime(math.random(75600,86400));
 
 end;
+
+-----------------------------------
+-- onAdditionalEffect
+-----------------------------------
 
 function onAdditionalEffect(mob, player)
     local resist = applyResistanceAddEffect(mob,player,ELE_EARTH,EFFECT_PETRIFICATION);
@@ -54,6 +82,6 @@ function onAdditionalEffect(mob, player)
         if (not player:hasStatusEffect(EFFECT_PETRIFICATION)) then
             player:addStatusEffect(EFFECT_PETRIFICATION, 1, 0, duration);
         end
-        return SUBEFFECT_PETRIFY, msgBasic.ADD_EFFECT_STATUS, EFFECT_PETRIFICATION;
+        return SUBEFFECT_PETRIFY, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_PETRIFICATION;
     end
 end;

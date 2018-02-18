@@ -8,7 +8,11 @@
 -- Magic 5
 -- Health Regen While Healing 5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,18 +23,30 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,14400,4521);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_FOOD_HPP, 6);
     target:addMod(MOD_FOOD_HP_CAP, 35);
     target:addMod(MOD_MP, 5);
     target:addMod(MOD_HPHEAL, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 6);
     target:delMod(MOD_FOOD_HP_CAP, 35);
     target:delMod(MOD_MP, 5);

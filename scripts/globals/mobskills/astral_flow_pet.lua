@@ -1,12 +1,11 @@
----------------------------------------------
+---------------------------------------------------
 -- Astral Flow
 -- Will make existing pet use astral flow skill
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     -- need a pet to use astral flow
@@ -16,7 +15,7 @@ function onMobSkillCheck(target,mob,skill)
 
     local pet = mob:getPet();
 
-    if (pet:getSystem() ~= 5) then
+    if(pet:getSystem() ~= 5) then
         -- pet is not an avatar
         return 1;
     end
@@ -42,40 +41,40 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_ASTRAL_FLOW;
-    skill:setMsg(msgBasic.USES);
+    skill:setMsg(MSG_USES);
 
     -- Find proper pet skill
     local pet = mob:getPet();
     local petFamily = pet:getFamily();
     local skillId = 0;
 
-    if (petFamily == 34 or petFamily == 379) then
+    if(petFamily == 34 or petFamily == 379) then
         -- carbuncle
-        skillId = 919; -- searing light
-    elseif (petFamily == 36 or petFamily == 381) then
+        skillId = 919;
+    elseif(petFamily == 36 or petFamily == 381) then
         -- fenrir
-        skillId = 839; -- howling moon
-    elseif (petFamily == 37 or petFamily == 382) then
+        skillId = 839;
+    elseif(petFamily == 37 or petFamily == 382) then
         -- garuda
-        skillId = 916; -- aerial blast
-    elseif (petFamily == 38 or petFamily == 383) then
+        skillId = 916;
+    elseif(petFamily == 38 or petFamily == 383) then
         -- ifrit
-        skillId = 913; -- inferno
-    elseif (petFamily == 40 or petFamily == 384) then
+        skillId = 913;
+    elseif(petFamily == 40 or petFamily == 384) then
         -- levi
-        skillId = 915; -- tidal wave
-    elseif (petFamily == 43 or petFamily == 386) then
+        skillId = 915;
+    elseif(petFamily == 43 or petFamily == 386) then
         -- ramuh
-        skillId = 918; -- judgment bolt
-    elseif (petFamily == 44 or petFamily == 387) then
+        skillId = 918;
+    elseif(petFamily == 44 or petFamily == 387) then
         -- shiva
-        skillId = 917; -- diamond dust
-    elseif (petFamily == 45 or petFamily == 388) then
+        skillId = 917;
+    elseif(petFamily == 45 or petFamily == 388) then
         -- titan
-        skillId = 914; -- earthen fury
+        skillId = 914;
     else
         printf("Astral_Flow_Pet couldn't find astral skill for (%d) family", petFamily);
-        skillId = 919; -- searing light
+        skillId = 919;
     end
 
     -- Astral flow has no effect if pet is inactive

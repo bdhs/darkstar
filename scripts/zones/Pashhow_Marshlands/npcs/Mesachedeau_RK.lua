@@ -2,10 +2,11 @@
 -- Area: Pashhow Marshlands
 --  NPC: Mesachedeau, R.K.
 -- Type: Outpost Conquest Guards
--- !pos 470.843 23.465 415.520 109
+-- @pos 470.843 23.465 415.520 109
 -----------------------------------
 package.loaded["scripts/zones/Pashhow_Marshlands/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Pashhow_Marshlands/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = DERFLAND;
 local csid        = 0x7ffb;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

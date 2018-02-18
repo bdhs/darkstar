@@ -1,49 +1,64 @@
 ----------------------------------
--- Area: Fort Karugo Narugo [S]
+--  Area: Fort Karugo Narugo [S]
 --  NPC: ???
--- Type: Quest
+--  Type: Quest
 --  @zone 96
--- !pos -63 -75 4
+-- @pos -63 -75 4
 --
 -----------------------------------
+
 package.loaded["scripts/zones/Fort_Karugo-Narugo_[S]/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Fort_Karugo-Narugo_[S]/TextIDs");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
-function onTrigger(player,npc)
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
+function onTrigger(player,npc)
+    
     if (player:getQuestStatus(CRYSTAL_WAR, THE_TIGRESS_STRIKES) == QUEST_ACCEPTED) then
         if (player:getVar("TigressStrikesProg") == 1) then
-        player:startEvent(102);
+        player:startEvent(0x0066);
         elseif (player:getVar("TigressStrikesProg") == 2) then
             if (player:needToZone() and player:getVar("WarLynxKilled") == 1) then
-                player:startEvent(103);
+                player:startEvent(0x0067);
             else
                 SpawnMob(17170645):updateClaim(player);
             end
         end
     else
         player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
-
+        
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 102) then
+    if (csid == 0x0066) then
         player:setVar("TigressStrikesProg",2);
-    elseif (csid == 103) then
+    elseif (csid == 0x0067) then
         player:setVar("TigressStrikesProg",3);
     end
 end;

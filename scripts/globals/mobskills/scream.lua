@@ -1,11 +1,13 @@
----------------------------------------------
+---------------------------------------------------
 -- Scream
 -- 15' Reduces MND of players in area of effect.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;

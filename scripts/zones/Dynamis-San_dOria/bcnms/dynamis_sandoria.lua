@@ -6,7 +6,7 @@
 -- After registering the BCNM via bcnmRegister(bcnmid)
 function onBcnmRegister(player,instance)
     
-    SetServerVariable("[DynaSandoria]UniqueID",os.time());
+    SetServerVariable("[DynaSandoria]UniqueID",player:getDynamisUniqueID(1281));
     SetServerVariable("[DynaSandoria]Boss_Trigger",0);
     SetServerVariable("[DynaSandoria]Already_Received",0);
     

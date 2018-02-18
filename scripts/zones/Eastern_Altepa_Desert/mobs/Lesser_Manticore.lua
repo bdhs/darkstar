@@ -2,7 +2,11 @@
 -- Area: Eastern Altepa Desert
 --  MOB: Lesser Manticore
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

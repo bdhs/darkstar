@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5405
--- Earth Card Case
--- When used, you will obtain one stack of Earth Cards
+--    ID: 5405
+--    Earth Card Case
+--    When used, you will obtain one stack of Earth Cards
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(2179,99);

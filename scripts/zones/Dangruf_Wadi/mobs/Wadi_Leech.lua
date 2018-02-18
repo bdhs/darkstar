@@ -2,7 +2,11 @@
 -- Area: Dangruf Wadi
 --  MOB: Wadi Leech
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

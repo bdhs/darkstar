@@ -1,19 +1,29 @@
 ----------------------------------
--- Area: Fort Karugo Narugo [S]
+--  Area: Fort Karugo Narugo [S]
 --  NPC: Indescript Markings
--- Type: Quest
+--  Type: Quest
 --  @zone 96
--- !pos -63 -75 4
+-- @pos -63 -75 4
 -----------------------------------
 package.loaded["scripts/zones/Fort_Karugo-Narugo_[S]/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Fort_Karugo-Narugo_[S]/TextIDs");
 require("scripts/globals/keyitems");
 require("scripts/globals/npc_util");
+
+-----------------------------------
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -23,7 +33,7 @@ function onTrigger(player,npc)
 
     -- SCH AF Quest - Boots
     if (loafersQuestProgress > 0 and loafersQuestProgress < 3 and player:hasKeyItem(RAFFLESIA_DREAMSPIT) == false) then
-
+    
         player:addKeyItem(RAFFLESIA_DREAMSPIT);
         player:messageSpecial(KEYITEM_OBTAINED, RAFFLESIA_DREAMSPIT);
         player:setVar("AF_SCH_BOOTS", loafersQuestProgress + 1);
@@ -38,9 +48,9 @@ function onTrigger(player,npc)
             [6] = {-176,    -37,   617},    -- G-5 SW
             [7] = {29,      -13,   710}     -- H-5
         };
-
+        
         local newPosition = npcUtil.pickNewPosition(npc:getID(), positions);
-
+        
         npc:setPos(newPosition.x, newPosition.y, newPosition.z);
         -- player:PrintToPlayer("Markings moved to position index " .. newPosition);
     else
@@ -48,10 +58,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

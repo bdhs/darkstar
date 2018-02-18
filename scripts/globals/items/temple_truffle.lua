@@ -6,7 +6,11 @@
 -- Strength 1
 -- Speed 12.5%
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -16,6 +20,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,180,5916);
@@ -30,7 +38,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_MOVE, 13);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 1);
     target:delMod(MOD_MOVE, 13);
 end;

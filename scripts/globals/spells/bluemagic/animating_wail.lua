@@ -10,18 +10,25 @@
 -- Casting Time: 2 Seconds
 -- Recast Time: 45 Seconds
 -- 5 minutes
---
+-- 
 -- Combos: Dual Wield
 -----------------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnMagicCastingCheck
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0;
 end;
+-----------------------------------------
+-- OnSpellCast
+-----------------------------------------
 
 function onSpellCast(caster,target,spell)
+
     local typeEffect = EFFECT_HASTE;
     local power = 153;
     local duration = 300;
@@ -37,7 +44,7 @@ function onSpellCast(caster,target,spell)
     end;
 
     if (target:addStatusEffect(typeEffect,power,0,duration) == false) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end;
 
     return typeEffect;

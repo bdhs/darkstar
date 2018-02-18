@@ -1,29 +1,42 @@
 -----------------------------------
--- Area: Upper Jeuno
---  NPC: Moogle
---
+-- Area: Residential Area
+-- NPC:  Moogle
+-- 
 -----------------------------------
-package.loaded["scripts/zones/Upper_Jeuno/TextIDs"] = nil
------------------------------------
-require("scripts/zones/Upper_Jeuno/TextIDs")
 require("scripts/globals/moghouse")
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 function onTrade(player,npc,trade)
-    moogleTrade(player,npc,trade)
-end
+    moogleTrade(player,npc,trade);
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     moogleTrigger(player,npc)
-end
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid)
-    -- printf("RESULT: %u",option)
-    moogleEventUpdate(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid)
-    -- printf("RESULT: %u",option)
-    moogleEventFinish(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+    if (csid == 0x7530) then
+        player:setVar("MoghouseExplication",0);
+    end
+end;

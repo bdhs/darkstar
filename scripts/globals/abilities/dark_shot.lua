@@ -3,9 +3,13 @@
 -- Consumes a Dark Card to enhance dark-based debuffs. Additional effect: Dark-based Dispel
 -- Bio Effect: Attack Down Effect +5% and DoT + 3
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
@@ -21,18 +25,22 @@ function onAbilityCheck(player,target,ability)
     end
 end;
 
-function onUseAbility(player,target,ability)
+-----------------------------------
+-- onUseAbility
+-----------------------------------
 
+function onUseAbility(player,target,ability)
+    
     local duration = 60;
     local resist = applyResistanceAbility(player,target,ELE_DARK,SKILL_MRK, (player:getStat(MOD_AGI)/2) + player:getMerit(MERIT_QUICK_DRAW_ACCURACY));
-
+    
     if (resist < 0.25) then
-        ability:setMsg(msgBasic.JA_MISS_2); -- resist message
+        ability:setMsg(324);--resist message
         return 0;
     end
-
+    
     duration = duration * resist;
-
+    
     local effects = {};
     local counter = 1;
     local bio = target:getStatusEffect(EFFECT_BIO);
@@ -40,7 +48,7 @@ function onUseAbility(player,target,ability)
         effects[counter] = bio;
         counter = counter + 1;
     end
-    local blind = target:getStatusEffect(EFFECT_BLINDNESS);
+    local blind = target:getStatusEffect(EFFECT_BLIND);
     if (blind ~= nil) then
         effects[counter] = blind;
         counter = counter + 1;
@@ -50,7 +58,7 @@ function onUseAbility(player,target,ability)
         effects[counter] = threnody;
         counter = counter + 1;
     end
-
+    
     if counter > 1 then
         local effect = effects[math.random(1, counter-1)];
         local duration = effect:getDuration();
@@ -68,12 +76,12 @@ function onUseAbility(player,target,ability)
         local newEffect = target:getStatusEffect(effectId);
         newEffect:setStartTime(startTime);
     end
-
-    ability:setMsg(msgBasic.JA_REMOVE_EFFECT_2);
+    
+    ability:setMsg(321);
     local dispelledEffect = target:dispelStatusEffect();
     if (dispelledEffect == EFFECT_NONE) then
         -- no effect
-        ability:setMsg(msgBasic.JA_NO_EFFECT_2);
+        ability:setMsg(323);
     end
 
     local del = player:delItem(2183, 1) or player:delItem(2974, 1)

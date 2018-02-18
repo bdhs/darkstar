@@ -1,11 +1,12 @@
 -----------------------------------
 -- Area: Rolanberry Fields
 --  NPC: Cavernous Maw
--- !pos -198 8 361 110
+-- @pos -198 8 361 110
 -- Teleports Players to Rolanberry Fields [S]
 -----------------------------------
 package.loaded["scripts/zones/Rolanberry_Fields/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/teleports");
@@ -13,10 +14,17 @@ require("scripts/globals/missions");
 require("scripts/globals/campaign");
 require("scripts/zones/Rolanberry_Fields/TextIDs");
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (ENABLE_WOTG == 1 and player:hasKeyItem(PURE_WHITE_FEATHER) == false) then
@@ -35,10 +43,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID:",csid);
@@ -64,7 +80,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 501) then
         player:completeMission(WOTG, BACK_TO_THE_BEGINNING);
         player:addMission(WOTG, CAIT_SITH);
-        player:addTitle(CAIT_SITHS_ASSISTANT);
+        player:addTitle(CAIT_SITHS_ASSISTANT);    
         toMaw(player,3);
     end;
 end;

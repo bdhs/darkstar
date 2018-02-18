@@ -4,6 +4,10 @@
 -- Breaks up a Heavy Metal Pouch
 -----------------------------------------
 
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
+
 function onItemCheck(target)
     local result = 0;
     if (target:getFreeSlotsCount() == 0) then
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(3509,math.random(3,19));

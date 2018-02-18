@@ -1,11 +1,15 @@
 -----------------------------------
 -- Area: Nashmau
---  NPC: Awaheen
+-- NPC: Awaheen
 -- Standard Info NPC
 -----------------------------------
 package.loaded["scripts/zones/Nashmau/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Nashmau/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -20,7 +24,7 @@ local reward = 0;
         elseif (trade:hasItemQty(2186,1)) then nbr = 2 ; reward = 2185;
         elseif (trade:hasItemQty(2185,1)) then nbr = 5 ; reward = 2184;
         end
-     end
+     end 
      if (reward > 0) then
      local boucle;
          if (player:getFreeSlotsCount() >= 1) then
@@ -31,17 +35,29 @@ local reward = 0;
          else
          player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,reward);
          end
-     end
-end;
+     end   
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(240);
-end;
+player:startEvent(0x00F0);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

@@ -3,16 +3,29 @@
 -- Item: Hi-Potion
 -- Item Effect: Restores 100 HP
 -----------------------------------------
+
 require("scripts/globals/settings");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:getHP() == target:getMaxHP()) then
-        return msgBasic.ITEM_UNABLE_TO_USE;
+    local result = 0;
+    local mHP = target:getMaxHP();
+    local cHP = target:getHP();
+
+    if (mHP == cHP) then
+        result = 56; -- Does not let player use item if their hp is full
     end
-    return 0;
+
+    return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:messageBasic(msgBasic.RECOVERS_HP,0,target:addHP(100*ITEM_POWER));
+    target:messageBasic(24,0,target:addHP(100*ITEM_POWER));
 end;

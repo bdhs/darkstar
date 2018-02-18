@@ -1,32 +1,54 @@
 -----------------------------------
 -- Area: Windurst Walls
---  NPC: Luuh Koplehn
+-- NPC:  Luuh Koplehn
 -- Standard Info NPC
--- !pos -93 -5 130 239
+--  Involved in Quest: Star Struck
+--  @zone = 239
+-- @pos = -93 -5 130
 -----------------------------------
-require("scripts/globals/settings");
+
 require("scripts/globals/quests");
+require("scripts/globals/settings");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    local qStarStruck = player:getQuestStatus(WINDURST,STAR_STRUCK);
+
+qStarStruck = player:getQuestStatus(WINDURST,STAR_STRUCK);
 
     if (qStarStruck == QUEST_ACCEPTED) then
-        player:startEvent(200);
+        player:startEvent(0x00c8);
     else
-        player:startEvent(322);
+        player:startEvent(0x142);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+
+

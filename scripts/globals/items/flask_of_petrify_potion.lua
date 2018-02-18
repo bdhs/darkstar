@@ -3,17 +3,26 @@
 -- Item: Petrify Potion
 -- Item Effect: This potion induces petrify.
 -----------------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
     return 0;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    if (not target:hasStatusEffect(EFFECT_PETRIFICATION)) then
+    if (target:hasStatusEffect(EFFECT_PETRIFICATION) == false) then
         target:addStatusEffect(EFFECT_PETRIFICATION,1,3,180);
     else
-        target:messageBasic(msgBasic.NO_EFFECT);
+        target:messageBasic(423);
     end
 end;
+

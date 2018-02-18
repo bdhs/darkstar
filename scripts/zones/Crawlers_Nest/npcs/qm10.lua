@@ -2,18 +2,26 @@
 -- Area: Crawlers' Nest
 --  NPC: qm10 (??? - Exoray Mold Crumbs)
 -- Involved in Quest: In Defiant Challenge
--- !pos -83.391 -8.222 79.065 197
+-- @pos -83.391 -8.222 79.065 197
 -----------------------------------
 package.loaded["scripts/zones/Crawlers_Nest/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/quests");
 require("scripts/globals/keyitems");
 require("scripts/globals/settings");
 require("scripts/zones/Crawlers_Nest/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (OldSchoolG1 == false) then
@@ -31,7 +39,7 @@ function onTrigger(player,npc)
                 player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 1089);
             end
         end
-
+        
         if (player:hasItem(1089)) then
             player:delKeyItem(EXORAY_MOLD_CRUMB1);
             player:delKeyItem(EXORAY_MOLD_CRUMB2);
@@ -40,10 +48,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

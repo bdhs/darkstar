@@ -1,16 +1,17 @@
----------------------------------------------
+---------------------------------------------------
 -- Trinary Tap
 -- Attempts to absorb three buffs from a single target, or otherwise steals HP.
 -- Type: Magical
 -- Utsusemi/Blink absorb: Ignores Shadows
 -- Range: Melee
 -- Notes: Can be any (positive) buff, including food. Will drain about 100HP if it can't take any buffs
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (mob:isMobType(MOBTYPE_NOTORIOUS)) then
@@ -45,7 +46,7 @@ function onMobWeaponSkill(target, mob, skill)
                 mob:addStatusEffect(effect3:getType(), effect3:getPower(), effect3:getTickCount(), effect3:getDuration());
         end
         -- add buff to myself
-        skill:setMsg(msgBasic.EFFECT_DRAINED);
+        skill:setMsg(MSG_EFFECT_DRAINED);
 
         return count;
     else

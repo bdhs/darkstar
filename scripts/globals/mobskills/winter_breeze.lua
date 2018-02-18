@@ -6,7 +6,6 @@
 require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
 ---------------------------------------------
 
 function onMobSkillCheck(target, mob, skill)
@@ -19,9 +18,9 @@ function onMobWeaponSkill(target, mob, skill)
     MobStatusEffectMove(mob, target, EFFECT_STUN, 1, 0, 2);
 
     if (DISPEL == EFFECT_NONE) then
-        skill:setMsg(msgBasic.SKILL_NO_EFFECT); -- no effect
+        skill:setMsg(MSG_NO_EFFECT); -- no effect
     else
-        skill:setMsg(msgBasic.SKILL_ERASE);
+        skill:setMsg(MSG_DISAPPEAR);
     end
 
     return DISPEL;

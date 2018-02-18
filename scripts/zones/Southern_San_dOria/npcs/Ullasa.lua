@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Southern San d'Oria
---  NPC: Ullasa
+-- NPC: Ullasa
 --  General Info NPC
 -------------------------------------
 package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
@@ -8,6 +8,10 @@ package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
+
+----------------------------------- 
+-- onTrade Action 
+----------------------------------- 
 
 function onTrade(player,npc,trade)
     -- "Flyers for Regine" conditional script
@@ -22,25 +26,37 @@ function onTrade(player,npc,trade)
     end
 end;
 
-function onTrigger(player,npc)
+----------------------------------- 
+-- onTrigger Action 
+-----------------------------------
+ 
+function onTrigger(player,npc) 
 
     if player:getVar("UnderOathCS") == 2 then  -- Quest: Under Oath - PLD AF3
-        player:startEvent(40);
+        player:startEvent(0x028);
     else
-        player:startEvent(39);
+        player:startEvent(0x027);
     end
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 40) then
+    if (csid == 0x028) then
         player:setVar("UnderOathCS", 3) -- Quest: Under Oath - PLD AF3
     end
 end;

@@ -34,13 +34,13 @@ CSynthResultMessagePacket::CSynthResultMessagePacket(CCharEntity* PChar, SYNTH_M
 	this->type = 0x70;
 	this->size = 0x30;
 
-	ref<uint8>(0x04) = messageID;
+	WBUFB(data, (0x04) ) = messageID;
 	
-	ref<uint16>(0x1a) = PChar->id;
+	WBUFW(data, (0x1a) ) = PChar->id;
 	if (itemID != 0)
 	{
-		ref<uint8>(0x06) = quantity;
-		ref<uint16>(0x08) = itemID;
+		WBUFB(data, (0x06) ) = quantity;
+		WBUFW(data, (0x08) ) = itemID;
 	}
 	if (messageID == SYNTH_FAIL)
 	{
@@ -51,7 +51,7 @@ CSynthResultMessagePacket::CSynthResultMessagePacket(CCharEntity* PChar, SYNTH_M
 			if (quantity == 0)
 			{
 				uint16 itemID = PChar->CraftContainer->getItemID(slotID);
-				ref<uint16>(0x0A + (count * 2)) = itemID;
+				WBUFW(data, (0x0A + (count * 2)) ) = itemID;
 				count++;
 			}
 		}

@@ -5,14 +5,22 @@
 -- Recast Time: 1:00:00
 -- Duration: Instant
 -----------------------------------
+
 require("scripts/globals/settings");
-require("scripts/globals/ability");
 require("scripts/globals/status");
+require("scripts/globals/ability");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
     return 0,0;
 end;
+
+-----------------------------------
+-- onUseAbilityRoll
+-----------------------------------
 
 function onUseAbility(caster,target,ability,action)
     if (caster:getID() == target:getID()) then

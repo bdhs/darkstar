@@ -2,10 +2,11 @@
 -- Area: Beaucedine Glacier
 --  NPC: Akane, I.M.
 -- Type: Outpost Conquest Guards
--- !pos -24.351 -60.421 -114.215 111
+-- @pos -24.351 -60.421 -114.215 111
 -------------------------------------
 package.loaded["scripts/zones/Beaucedine_Glacier/TextIDs"] = nil;
 -------------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Beaucedine_Glacier/TextIDs");
 
@@ -14,12 +15,20 @@ local guardtype   = 3;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = FAUREGANDI;
 local csid        = 0x7ff9;
 
+----------------------------------- 
+-- onTrade Action 
+----------------------------------- 
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
-end;
+end; 
+
+----------------------------------- 
+-- onTrigger Action 
+-----------------------------------
 
 function onTrigger(player,npc)
-
+    
     if (player:hasKeyItem(getSupplyKey(region)) and player:getNation() == guardnation) then
         if (supplyRunFresh(player) == 1) then
             player:startEvent(csid,16,0,0,0,1,0,0,255); -- you have brought us supplies !
@@ -37,13 +46,21 @@ function onTrigger(player,npc)
             player:startEvent(csid,arg1,0,0x3F0000,0,0,getArg6(player),0,0);
         end
     end
+    
+end;  
 
-end;
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

@@ -9,10 +9,21 @@ require("scripts/zones/Meriphataud_Mountains_[S]/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/zone");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+
+    local vwnpc = {17175422,17175423,17175424};
+    SetVoidwatchNPC(vwnpc);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -22,10 +33,18 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
 
-function onGameHour(zone)
+-----------------------------------
+-- onGameHour
+-----------------------------------
+
+function onGameHour()
     local GameHour = 150; -- Seconds per VanadielHour
     local npc = GetNPCByID(17175342); -- Indescript Markings
     if (npc ~= nil) then
@@ -38,10 +57,18 @@ function onGameHour(zone)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

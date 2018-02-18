@@ -1,22 +1,34 @@
 -----------------------------------------
 -- ID: 5254
 -- Item: Hyper-Potion
--- Item Effect: Restores 250 HP
+-- Item Effect: Restores 250 hP
 -----------------------------------------
+
 require("scripts/globals/settings");
-require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:getHP() == target:getMaxHP()) then
-        return msgBasic.ITEM_UNABLE_TO_USE;
-    elseif (target:hasStatusEffect(EFFECT_MEDICINE)) then
-        return msgBasic.ITEM_NO_USE_MEDICATED;
+    local result = 0;
+    local mHP = target:getMaxHP();
+    local cHP = target:getHP();
+
+    if (mHP == cHP) then
+        result = 56; -- Does not let player use item if their hp is full
+
+    elseif (target:hasStatusEffect(EFFECT_MEDICINE) == true) then
+        result = 111;
     end
-    return 0;
+    return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:messageBasic(msgBasic.RECOVERS_HP,0,target:addHP(250*ITEM_POWER));
+    target:messageBasic(24,0,target:addHP(250*ITEM_POWER));
     target:addStatusEffect(EFFECT_MEDICINE,0,0,300);
 end;

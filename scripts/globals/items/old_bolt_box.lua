@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5278
--- Old Bolt Box
--- When used, you will obtain one partial stack of Dogbolt
+--    ID: 5278
+--    Old Bolt Box
+--    When used, you will obtain one partial stack of Dogbolt
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -12,7 +16,13 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     local quantity = math.random(99);
+    quantity = math.random(99);
+    quantity = math.random(99);
     target:addItem(18189,quantity);
 end;

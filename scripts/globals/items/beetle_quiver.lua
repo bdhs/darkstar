@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4221
--- Item: Beetle Quiver
--- When used, you will obtain one stack of Beetle Arrows
+--    ID: 4221
+--    Item: Beetle Quiver
+--    When used, you will obtain one stack of Beetle Arrows
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(18154,99);

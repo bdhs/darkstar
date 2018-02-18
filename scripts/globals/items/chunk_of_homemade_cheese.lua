@@ -4,12 +4,17 @@
 -- Food Effect: 30Min, All Races
 -----------------------------------------
 -- Health 10
+-- Defense 40
 -- Accuracy +12% (cap 80)
 -- Attack +10% (cap 40)
 -- Ranged Accuracy +12% (cap 80)
 -- Ranged Attack +10% (cap 40)
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -20,12 +25,21 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,5225);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 10);
+    target:addMod(MOD_DEF, 40);
     target:addMod(MOD_FOOD_ACCP, 12);
     target:addMod(MOD_FOOD_ACC_CAP, 80);
     target:addMod(MOD_FOOD_ATTP, 10);
@@ -36,8 +50,13 @@ function onEffectGain(target, effect)
     target:addMod(MOD_FOOD_RATT_CAP, 40);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 10);
+    target:delMod(MOD_DEF, 40);
     target:delMod(MOD_FOOD_ACCP, 12);
     target:delMod(MOD_FOOD_ACC_CAP, 80);
     target:delMod(MOD_FOOD_ATTP, 10);

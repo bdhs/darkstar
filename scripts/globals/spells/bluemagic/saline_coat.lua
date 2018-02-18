@@ -10,20 +10,28 @@
 -- Casting Time: 3 seconds
 -- Recast Time: 60 seconds
 -- Duration: 60 seconds
---
+-- 
 -- Combos: Defense Bonus
 -----------------------------------------
-require("scripts/globals/bluemagic");
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+require("scripts/globals/bluemagic");
+
+-----------------------------------------
+-- OnMagicCastingCheck
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0;
 end;
 
+-----------------------------------------
+-- OnSpellCast
+-----------------------------------------
+
 function onSpellCast(caster,target,spell)
+
     local typeEffect = EFFECT_MAGIC_DEF_BOOST;
     local power = 40;
     local duration = 60;
@@ -39,7 +47,7 @@ function onSpellCast(caster,target,spell)
     end;
 
     if (target:addStatusEffect(typeEffect,power,0,duration) == false) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end;
 
     return typeEffect;

@@ -2,7 +2,11 @@
 -- Area: Valley of Sorrows
 --  MOB: Velociraptor
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

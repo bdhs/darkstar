@@ -13,7 +13,11 @@
 -- Attack Cap 70
 -- Store TP 6
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,6 +27,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,3600,5199);
@@ -44,7 +52,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_STORETP, 6);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 14);
     target:delMod(MOD_FOOD_HP_CAP, 180);
     target:delMod(MOD_MP, 15);

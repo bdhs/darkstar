@@ -2,22 +2,19 @@
 -- Area: Port San d'Oria
 --  NPC: Joulet
 --  Starts The Competition
--- !pos -18 -2 -45 232
+-- @pos -18 -2 -45 232
 -----------------------------------
 package.loaded["scripts/zones/Port_San_dOria/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/Port_San_dOria/TextIDs");
-require("scripts/globals/npc_util");
 require("scripts/globals/settings");
-require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
-require("scripts/globals/status");
------------------------------------
+require("scripts/globals/keyitems");
 
-function onSpawn(npc)
-    npcUtil.fishingAnimation(npc, 2)
-end;
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
     local count = trade:getItemCount();
@@ -44,24 +41,31 @@ function onTrade(player,npc,trade)
             player:startEvent(306);
         end
     end
-    npc:setAnimation(0)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-
     if (player:getQuestStatus(SANDORIA,THE_COMPETITION) == QUEST_AVAILABLE and player:getQuestStatus(SANDORIA,THE_RIVALRY) == QUEST_AVAILABLE) then -- If you haven't started either quest yet
-        player:startEvent(304, 4401, 4289); -- Moat Carp = 4401, 4289 = Forest Carp
-    elseif (player:getQuestStatus(SANDORIA,THE_RIVALRY) == QUEST_ACCEPTED) then
-        player:messageSpecial(JOULET_HELP_OTHER_BROTHER, 0, 0, 0, 0, true);
-    elseif ((player:getQuestStatus(SANDORIA,THE_COMPETITION)) == QUEST_ACCEPTED) then
-        player:messageSpecial(JOULET_CARP_STATUS, 0, player:getVar("theCompetitionFishCountVar"), 0, 0, true);
+        player:startEvent(304);
     end
+    -- Cannot find his "default" dialogue so he will not respond to being activated unless he is starting the quest event.
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

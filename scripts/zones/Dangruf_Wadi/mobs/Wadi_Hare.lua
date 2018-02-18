@@ -2,7 +2,11 @@
 -- Area: Dangruf Wadi
 --  MOB: Wadi Hare
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

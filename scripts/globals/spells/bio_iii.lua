@@ -21,14 +21,7 @@ function onSpellCast(caster,target,spell)
 
     --calculate raw damage
     local basedmg = caster:getSkillLevel(DARK_MAGIC_SKILL) / 4;
-    local params = {};
-    params.dmg = basedmg;
-    params.multiplier = 3;
-    params.skillType = DARK_MAGIC_SKILL;
-    params.attribute = MOD_INT;
-    params.hasMultipleTargetReduction = false;
-
-    local dmg = calculateMagicDamage(caster, target, spell, params);
+    local dmg = calculateMagicDamage(basedmg,3,caster,spell,target,DARK_MAGIC_SKILL,MOD_INT,false);
 
     -- Softcaps at 32, should always do at least 1
     if (dmg > 62) then
@@ -39,12 +32,7 @@ function onSpellCast(caster,target,spell)
     end
 
     --get resist multiplier (1x if no resist)
-    local params = {};
-    params.diff = caster:getStat(MOD_INT)-target:getStat(MOD_INT);
-    params.attribute = MOD_INT;
-    params.skillType = DARK_MAGIC_SKILL;
-    params.bonus = 1.0;
-    local resist = applyResistance(caster, target, spell, params);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),DARK_MAGIC_SKILL,1.0);
     --get the resisted damage
     dmg = dmg*resist;
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
@@ -67,10 +55,9 @@ function onSpellCast(caster,target,spell)
     local dotdmg = 4 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 60);
 
     -- Do it!
-    if (target:addStatusEffect(EFFECT_BIO,dotdmg,3,duration,FLAG_ERASABLE, 15,3)) then
-        spell:setMsg(msgBasic.MAGIC_DMG);
-    else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+    if (dia == nil or (BIO_OVERWRITE == 0 and dia:getPower() <= 3) or (BIO_OVERWRITE == 1 and dia:getPower() < 3)) then
+        target:delStatusEffect(EFFECT_BIO); -- delete old bio
+        target:addStatusEffect(EFFECT_BIO,dotdmg,3,duration,FLAG_ERASABLE, 15);
     end
 
     --Try to kill same tier Dia (default behavior)

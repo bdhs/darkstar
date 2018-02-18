@@ -10,7 +10,11 @@
 -- Effect with enhancing equipment (Note: these are latents on gear with the effect)
 -- Def +50
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -21,18 +25,30 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,4405);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 10);
     target:addMod(MOD_VIT, 2);
     target:addMod(MOD_DEX, -1);
     target:addMod(MOD_HPHEAL, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 10);
     target:delMod(MOD_VIT, 2);
     target:delMod(MOD_DEX, -1);

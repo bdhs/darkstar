@@ -27,7 +27,6 @@ This file is part of DarkStar-server source code.
 #include "lua/luautils.h"
 #include "utils/zoneutils.h"
 #include "status_effect_container.h"
-#include "ai/ai_container.h"
 
 /************************************************************************
 *																		*
@@ -215,7 +214,7 @@ void CZoneInstance::IncreaseZoneCounter(CCharEntity* PChar)
         if (PChar->PInstance->CheckFirstEntry(PChar->id))
         {
             PChar->loc.p = PChar->PInstance->GetEntryLoc();
-            PChar->PAI->QueueAction(queueAction_t(400ms, false, luautils::AfterInstanceRegister));
+            CTaskMgr::getInstance()->AddTask(new CTaskMgr::CTask("afterInstanceRegister", server_clock::now() + 500ms, PChar, CTaskMgr::TASK_ONCE, luautils::AfterInstanceRegister));
         }
     }
     else
@@ -311,14 +310,14 @@ void CZoneInstance::WideScan(CCharEntity* PChar, uint16 radius)
     }
 }
 
-void CZoneInstance::ZoneServer(time_point tick, bool check_regions)
+void CZoneInstance::ZoneServer(time_point tick)
 {
     auto it = instanceList.begin();
     while (it != instanceList.end())
     {
         CInstance* instance = *it;
 
-        instance->ZoneServer(tick, check_regions);
+        instance->ZoneServer(tick);
         instance->CheckTime(tick);
 
         if ((instance->Failed() || instance->Completed()) && instance->CharListEmpty())
@@ -327,7 +326,15 @@ void CZoneInstance::ZoneServer(time_point tick, bool check_regions)
             delete instance;
             continue;
         }
-        ++it;
+        it++;
+    }
+}
+
+void CZoneInstance::ZoneServerRegion(time_point tick)
+{
+    for (auto instance : instanceList)
+    {
+        instance->ZoneServerRegion(tick);
     }
 }
 

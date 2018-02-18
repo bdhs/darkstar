@@ -1,12 +1,16 @@
 -----------------------------------
--- Area: Sacrarium
---  NPC: Large Keyhole
+-- Area:  Sacrarium
+-- NPC:   Large Keyhole
 -- Notes: Used to open R. Gate
--- !pos 100.231 -1.414 51.700 28
+-- @pos 100.231 -1.414 51.700 28
 -----------------------------------
 package.loaded["scripts/zones/Sacrarium/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Sacrarium/TextIDs");
+
+require("scripts/zones/Sacrarium/TextIDs");    
+
+-----------------------------------
+-- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -20,6 +24,10 @@ function onTrigger(player,npc)
         player:messageSpecial(LARGE_KEYHOLE);
   end
 end;
+
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
 
@@ -37,8 +45,9 @@ function onTrade(player,npc,trade)
 
 end;
 
-function onEventUpdate(player,csid,option)
-end
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
 end;

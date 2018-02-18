@@ -13,7 +13,11 @@
 -- Ranged ATT Cap 60
 -- Resist petrify +4
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,6 +27,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,4547);
@@ -44,7 +52,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_PETRIFYRES, 4);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 5);
     target:delMod(MOD_AGI, 2);
     target:delMod(MOD_INT, -2);

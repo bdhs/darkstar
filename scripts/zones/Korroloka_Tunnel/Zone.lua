@@ -5,17 +5,30 @@
 -----------------------------------
 package.loaded["scripts/zones/Korroloka_Tunnel/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Korroloka_Tunnel/TextIDs");
+
 require("scripts/globals/settings");
 require("scripts/globals/zone");
+require("scripts/zones/Korroloka_Tunnel/TextIDs");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+    local tomes = {17486263,17486264,17486265,17486266};
+
+    SetGroundsTome(tomes);
+    
     -- Waterfalls (RegionID, X, Radius, Z)
     zone:registerRegion(1,   -87, 4, -105, 0,0,0); -- Left pool
     zone:registerRegion(2,     -101, 7, -114, 0,0,0); -- Center Pool
     zone:registerRegion(3,     -112, 3, -103, 0,0,0); -- Right Pool
+    
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -25,6 +38,10 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
+
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -33,9 +50,13 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
     local pooltime = (os.time() - player:getVar("POOL_TIME"));
-
+    
     if player:getVar("BathedInScent") == 1 then  -- pollen scent from touching all 3 Blue Rafflesias in Yuhtunga
         switch (region:GetRegionID()): caseof
         {
@@ -54,12 +75,18 @@ function onRegionEnter(player,region)
         }
     end
 end;
+    
+
+
+-----------------------------------        
+-- OnRegionLeave        
+-----------------------------------        
 
 function onRegionLeave(player,region)
 
     local RegionID = region:GetRegionID();
     local pooltime = (os.time() - player:getLocalVar("POOL_TIME"));
-
+    
     if(RegionID <= 3 and player:getVar("BathedInScent") == 1) then
         if pooltime >= 300 then
             player:messageSpecial(LEFT_SPRING_CLEAN);
@@ -72,10 +99,18 @@ function onRegionLeave(player,region)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

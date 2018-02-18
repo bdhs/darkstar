@@ -1,17 +1,19 @@
----------------------------------------------
--- Animating Wail
--- Family: Qutrub
--- Description: Let's out a wail that applies Haste to itself and nearby allies.
--- Type: Enhancing
--- Can be dispelled: Yes
--- Utsusemi/Blink absorb: N/A
--- Range: Self
--- Notes:
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+--  Animating Wail
+--  Family: Qutrub
+--  Description: Let's out a wail that applies Haste to itself and nearby allies.
+--  Type: Enhancing
+--  Can be dispelled: Yes
+--  Utsusemi/Blink absorb: N/A
+--  Range: Self
+--  Notes:
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;

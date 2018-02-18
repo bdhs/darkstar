@@ -7,12 +7,19 @@ package.loaded["scripts/zones/Empyreal_Paradox/TextIDs"] = nil;
 require("scripts/zones/Empyreal_Paradox/TextIDs");
 require("scripts/globals/status");
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
     mob:addMod(MOD_REGAIN, 50);
     mob:addMod(MOD_UFASTCAST,50);
 end;
+
+-----------------------------------
+-- onMobEngaged Action
+-----------------------------------
 
 function onMobEngaged(mob,target)
     local bcnmAllies = mob:getBattlefield():getAllies();
@@ -28,6 +35,10 @@ function onMobEngaged(mob,target)
         end
     end
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob,target)
     if (mob:AnimationSub() == 3 and not mob:hasStatusEffect(EFFECT_STUN)) then
@@ -47,6 +58,10 @@ function onMobFight(mob,target)
     end
 end;
 
+------------------------------------
+-- onSpellPrecast
+------------------------------------
+
 function onSpellPrecast(mob, spell)
     if (spell:getID() == 218) then
         spell:setAoE(SPELLAOE_RADIAL);
@@ -59,6 +74,10 @@ function onSpellPrecast(mob, spell)
     end
 end;
 
+------------------------------------
+-- onMagicCastingCheck
+------------------------------------
+
 function onMagicCastingCheck(mob, target, spell)
     if math.random() > 0.75 then
         return 219;
@@ -66,6 +85,10 @@ function onMagicCastingCheck(mob, target, spell)
         return 218;
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

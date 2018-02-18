@@ -1,17 +1,24 @@
 -----------------------------------
 -- Area: Port Windurst
---  NPC: Kususu
+-- NPC: Kususu 
 -- Standard Merchant NPC
 -- Confirmed shop stock, August 2013
 -----------------------------------
+
 require("scripts/globals/shop");
 package.loaded["scripts/zones/Port_Windurst/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Port_Windurst/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     player:showText(npc,KUSUSU_SHOP_DIALOG);
@@ -19,12 +26,12 @@ function onTrigger(player,npc)
     stock = {
         0x1221,  1165,1,     --Diaga
         0x1236,  7025,1,     --Stoneskin
-        0x1238,   837,1,     --Slow
+        0x1238,   837,1,     --Slow 
 
         0x1202,   585,2,     --Cure II
-        0x121c,   140,2,     --Banish
+        0x121c,   140,2,     --Banish 
         0x1226,  1165,2,     --Banishga
-        0x1235,  2097,2,     --Blink
+        0x1235,  2097,2,     --Blink 
 
         0x1201,    61,3,     --Cure
         0x1207,  1363,3,     --Curaga
@@ -38,12 +45,20 @@ function onTrigger(player,npc)
     }
     showNationShop(player, NATION_WINDURST, stock);
 
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

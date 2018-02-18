@@ -6,7 +6,6 @@
 require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
 ---------------------------------------------
 
 function onMobSkillCheck(target, mob, skill)
@@ -17,7 +16,7 @@ function onMobWeaponSkill(target, mob, skill)
     local erase = mob:eraseStatusEffect();
 
     if (erase ~= EFFECT_NONE) then
-        skill:setMsg(msgBasic.SKILL_ERASE);
+        skill:setMsg(MSG_DISAPPEAR);
         return erase;
     else
         skill:setMsg(MobBuffMove(mob, EFFECT_REGAIN, 10, 3, 60));

@@ -1,19 +1,27 @@
 -----------------------------------
--- Game Table
--- Basic Chat Text
+--     Game Table
+--     Basic Chat Text
 -----------------------------------
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 function onTrigger(player,npc)
-    player:startEvent(10073);
-end;
+    player:startEvent(0x2759);
+end; 
+ 
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 function onTrade(player,npc,trade)
-end;
-
-function onEventUpdate(player,csid,option)
-end
-
+end; 
+ 
+  
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 function onEventFinish(player,csid,option)
-    -- printf("CSID:",csid);
-    -- printf("RESULT:",option);
+--print("CSID:",csid);
+--print("RESULT:",option);
 end;

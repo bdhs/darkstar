@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5363
--- Item: Bullet Pouch
--- When used, you will obtain one stack of Bullets
+--    ID: 5363
+--    Item: Bullet Pouch
+--    When used, you will obtain one stack of Bullets
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17340,99);

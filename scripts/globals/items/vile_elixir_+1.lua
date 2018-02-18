@@ -3,7 +3,12 @@
 -- Item: Vile Elixir +1
 -- Item Effect: Instantly restores 55% of HP and MP
 -----------------------------------------
-require("scripts/globals/msg");
+
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
     local result = 0;
@@ -19,8 +24,12 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addHP((target:getMaxHP()/100)*55);
     target:addMP((target:getMaxMP()/100)*55);
-    target:messageBasic(msgBasic.RECOVERS_HP_AND_MP);
+    target:messageBasic(26);
 end;

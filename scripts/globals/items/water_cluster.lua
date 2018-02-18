@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4109
--- Water Cluster
--- Turn into a stack of water crystals
+--    ID: 4109
+--    Water Cluster
+--    Turn into a stack of water crystals
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4101,12);

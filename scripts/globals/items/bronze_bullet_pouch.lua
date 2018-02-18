@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5359
--- Item: Bronze Bullet Pouch
--- When used, you will obtain one stack of Bronze Bullets
+--    ID: 5359
+--    Item: Bronze Bullet Pouch
+--    When used, you will obtain one stack of Bronze Bullets
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17343,99);

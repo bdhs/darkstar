@@ -44,29 +44,29 @@ CTradeUpdatePacket::CTradeUpdatePacket(CItem* PItem, uint8 SlotID)
 
 	uint32 amount = PItem->getReserve();
 
-    ref<uint32>(0x04) = amount;
-	ref<uint16>(0x0A) = amount == 0 ? 0 : PItem->getID();
-	ref<uint8>(0x0D) = SlotID;
+    WBUFL(data,(0x04)) = amount;
+	WBUFW(data,(0x0A)) = amount == 0 ? 0 : PItem->getID();
+	WBUFB(data,(0x0D)) = SlotID;
 
     if (PItem->isSubType(ITEM_CHARGED))
     {
-		ref<uint8>(0x0E) = 0x01;
+		WBUFB(data,(0x0E)) = 0x01;
 
         if (((CItemUsable*)PItem)->getCurrentCharges() > 0)
         {
-            ref<uint8>(0x0F) = ((CItemUsable*)PItem)->getCurrentCharges(); 
+            WBUFB(data,(0x0F)) = ((CItemUsable*)PItem)->getCurrentCharges(); 
         }
 	}
     if (PItem->isType(ITEM_LINKSHELL))
 	{	
-        ref<uint32>(0x0E) = ((CItemLinkshell*)PItem)->GetLSID();
-        ref<uint16>(0x14) = ((CItemLinkshell*)PItem)->GetLSRawColor();
-        ref<uint8>(0x16) = ((CItemLinkshell*)PItem)->GetLSType();
+        WBUFL(data,(0x0E)) = ((CItemLinkshell*)PItem)->GetLSID();
+        WBUFW(data,(0x14)) = ((CItemLinkshell*)PItem)->GetLSRawColor();
+        WBUFB(data,(0x16)) = ((CItemLinkshell*)PItem)->GetLSType();
 
-        memcpy(data+(0x17), PItem->getSignature(), std::min<size_t>(strlen((const char*)PItem->getSignature()), 15));
+        memcpy(data+(0x17), PItem->getSignature(), dsp_min(strlen(PItem->getSignature()),15));
     }
     else
     {
-        memcpy(data+(0x15), PItem->getSignature(), std::min<size_t>(strlen((const char*)PItem->getSignature()), 12));
+        memcpy(data+(0x15), PItem->getSignature(), dsp_min(strlen(PItem->getSignature()),12));
     }
 }

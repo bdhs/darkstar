@@ -9,7 +9,11 @@
 -- Accuracy % 16 (cap 76)
 -- Ranged ACC % 16 (cap 76)
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -20,11 +24,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,3600,5160);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 40);
     target:addMod(MOD_STR, 1);
     target:addMod(MOD_VIT, 6);
@@ -34,7 +46,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_FOOD_RACC_CAP, 76);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 40);
     target:delMod(MOD_STR, 1);
     target:delMod(MOD_VIT, 6);

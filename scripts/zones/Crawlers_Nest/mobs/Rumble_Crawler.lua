@@ -2,7 +2,11 @@
 -- Area: Crawlers' Nest
 --  MOB: Rumble Crawler
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

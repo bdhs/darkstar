@@ -4,7 +4,9 @@
 -----------------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -20,7 +22,7 @@ function onSpellCast(caster,target,spell)
     for i, effect in ipairs(removables) do
 
         if (target:hasStatusEffect(effect)) then
-            spell:setMsg(msgBasic.MAGIC_ABSORB_AILMENT);
+            spell:setMsg(572);
 
             local statusEffect = target:getStatusEffect(effect);
 
@@ -34,6 +36,6 @@ function onSpellCast(caster,target,spell)
         end
     end
 
-    spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
+    spell:setMsg(75); -- no effect
     return 0;
 end;

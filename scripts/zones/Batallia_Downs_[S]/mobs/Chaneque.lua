@@ -2,14 +2,20 @@
 -- Area: Batallia Downs (S)
 --  NM:  Chaneque
 -----------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(MOBMOD_ADD_EFFECT, 1);
+    mob:setMobMod(MOBMOD_ADD_EFFECT,mob:getShortID());
 end;
 
+-----------------------------------
+-- onAdditionalEffect Action
+-----------------------------------
 function onAdditionalEffect(mob,target,damage)
     local chance = 10;
 
@@ -27,9 +33,13 @@ function onAdditionalEffect(mob,target,damage)
         if (power < 0) then
             power = 0
         end
-        return SUBEFFECT_HP_DRAIN, msgBasic.ADD_EFFECT_HP_DRAIN, mob:addHP(power);
+        return SUBEFFECT_HP_DRAIN, MSGBASIC_ADD_EFFECT_HP_DRAIN, mob:addHP(power);
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

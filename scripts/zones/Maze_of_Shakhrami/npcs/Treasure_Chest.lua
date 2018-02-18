@@ -1,11 +1,12 @@
 -----------------------------------
 -- Area: Maze of Shakhrami
---  NPC: Treasure Chest
+-- NPC:  Treasure Chest
 -- Involved In Quest: The Goblin Tailor
 -- @zone 198
 -----------------------------------
 package.loaded["scripts/zones/Maze_of_Shakhrami/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/settings");
@@ -16,6 +17,10 @@ local TreasureType = "Chest";
 local TreasureLvL = 43;
 local TreasureMinLvL = 33;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     --trade:hasItemQty(1032,1);         -- Treasure Key
     --trade:hasItemQty(1115,1);            -- Skeleton Key
@@ -24,7 +29,7 @@ function onTrade(player,npc,trade)
     local questItemNeeded = 0;
 
     -- Player traded a key.
-    if ((trade:hasItemQty(1032,1) or trade:hasItemQty(1115,1) or trade:hasItemQty(1023,1) or trade:hasItemQty(1022,1)) and trade:getItemCount() == 1) then
+    if ((trade:hasItemQty(1032,1) or trade:hasItemQty(1115,1) or trade:hasItemQty(1023,1) or trade:hasItemQty(1022,1)) and trade:getItemCount() == 1) then 
         local zone = player:getZoneID();
 
         -- IMPORTANT ITEM: The Goblin Tailor Quest -----------
@@ -56,7 +61,7 @@ function onTrade(player,npc,trade)
                     player:addKeyItem(MAGICAL_PATTERN);
                     player:messageSpecial(KEYITEM_OBTAINED,MAGICAL_PATTERN);
                 else
-                    player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
+                    player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME)); 
 
                     local loot = chestLoot(zone,npc);
                     -- print("loot array: "); -- debug
@@ -79,14 +84,26 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
     player:messageSpecial(CHEST_LOCKED,1032);
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

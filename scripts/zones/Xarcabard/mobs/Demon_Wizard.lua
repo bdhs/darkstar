@@ -2,7 +2,11 @@
 -- Area: Xarcabard
 --  MOB: Demon Wizard
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

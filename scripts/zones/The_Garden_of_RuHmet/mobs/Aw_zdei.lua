@@ -1,16 +1,20 @@
 -----------------------------------
 -- Area: The Garden of Ru'Hmet
---  MOB: Aw'Zdei
+-- MOB:  Aw'Zdei
 -- Animation Sub 0 Pot Form
 -- Animation Sub 1 Pot Form (reverse eye position)
 -- Animation Sub 2 Bar Form
 -- Animation Sub 3 Ring Form
 -----------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------
+-- OnMobSpawn Action
+-- Set AnimationSub to 0, put it in pot form
 -----------------------------------
 
 function onMobSpawn(mob)
-    -- Set AnimationSub to 0, put it in pot form
     mob:AnimationSub(0);
     onPath(mob);
 end;
@@ -23,6 +27,11 @@ function onPath(mob)
         mob:setPos(spawnPos.x, spawnPos.y, spawnPos.z, mob:getRotPos() + 16);
     end
 end;
+
+-----------------------------------
+-- onMobFight Action
+-- Randomly change forms
+-----------------------------------
 
 function onMobFight(mob)
 
@@ -50,6 +59,10 @@ function onMobFight(mob)
     end
 
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

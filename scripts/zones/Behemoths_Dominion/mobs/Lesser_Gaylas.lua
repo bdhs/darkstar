@@ -2,7 +2,11 @@
 -- Area: Behemoths Dominion
 --  MOB: Lesser Gaylas
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

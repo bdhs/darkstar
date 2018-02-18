@@ -1,15 +1,16 @@
 ---------------------------------------------
--- Earthbreaker
+--  Earth Pounder
 --
--- Description: Deals Earth damage to enemies within area of effect. Additional effect: Stun
--- Type: Magical
--- Utsusemi/Blink absorb: Wipes shadows
--- Range: 15' radial
--- Notes:
+--  Description: Deals Earth damage to enemies within area of effect. Additional effect: Dexterity Down
+--  Type: Magical
+--  Utsusemi/Blink absorb: Wipes shadows
+--  Range: 15' radial
+--  Notes:
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/monstertpmoves");
+
 ---------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)

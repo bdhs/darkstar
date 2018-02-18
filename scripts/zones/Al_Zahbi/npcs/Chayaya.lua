@@ -1,24 +1,30 @@
 -----------------------------------
 -- Area: Al Zahbi
---  NPC: Chayaya
+-- NPC: Chayaya
 -- Standard Merchant NPC
 -----------------------------------
 package.loaded["scripts/zones/Al_Zahbi/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/shop");
 require("scripts/zones/Al_Zahbi/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
+    
+player:showText(npc,CHAYAYA_SHOP_DIALOG);
 
-    player:showText(npc,CHAYAYA_SHOP_DIALOG);
-
-    local stock =
-    {
-        0x439B,10,    --Dart
+stock = {0x439B,10,    --Dart
      0x439C,60,        --Hawkeye
      0x43A1,1204,    --Grenade
      0x43A8,8,        --Iron Arrow
@@ -35,14 +41,22 @@ function onTrigger(player,npc)
      0x156F,1300,    --Ranger Die
      0x1577,63375,    --Dancer Die
      0x1578,68250}    --Scholar Die
+ 
+showShop(player, STATIC, stock);
+end; 
 
-    showShop(player, STATIC, stock);
-end;
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

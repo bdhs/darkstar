@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Southern San d'Oria
---  NPC: Najjar
+-- NPC: Najjar
 --  General Info NPC
 -------------------------------------
 package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
@@ -8,6 +8,10 @@ package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
 require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
+
+----------------------------------- 
+-- onTrade Action 
+----------------------------------- 
 
 function onTrade(player,npc,trade)
     -- "Flyers for Regine" conditional script
@@ -22,23 +26,35 @@ function onTrade(player,npc,trade)
     end
 end;
 
+----------------------------------- 
+-- onTrigger Action 
+-----------------------------------
+ 
 function onTrigger(player,npc)
     if (player:getVar("UnderOathCS") == 1) then  -- Quest: Under Oath - PLD AF3
-        player:startEvent(16)
+        player:startEvent(0x010)
     else
-        player:startEvent(17);
+        player:startEvent(0x011);
     end
-end;
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 16) then
+    if (csid == 0x010) then
         player:setVar("UnderOathCS", 2)  -- Quest: Under Oath - PLD AF3
     end
 end;

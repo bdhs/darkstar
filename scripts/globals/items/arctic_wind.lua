@@ -3,8 +3,12 @@
 -- Item: Arctic Wind
 -- Additional Effect: Removes Suzaku's Fire Damage
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onAdditionalEffect Action
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)

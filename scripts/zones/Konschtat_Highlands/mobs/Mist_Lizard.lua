@@ -2,7 +2,11 @@
 -- Area: Konschtat Highlands
 --  MOB: Mist Lizard
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -2,10 +2,11 @@
 -- Area: The Sanctuary of Zi'Tah
 --  NPC: Dedden, I.M.
 -- Border Conquest Guards
--- !pos -252.454 -1.958 624.366 121
+-- @pos -252.454 -1.958 624.366 121
 -----------------------------------
 package.loaded["scripts/zones/The_Sanctuary_of_ZiTah/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/The_Sanctuary_of_ZiTah/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 4;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = LITELOR;
 local csid        = 0x7ff8;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

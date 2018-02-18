@@ -11,7 +11,11 @@
 -- Enmity -4
 -- Subtle Blow +5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -21,6 +25,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5760);
@@ -42,7 +50,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SUBTLE_BLOW, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 3);
     target:delMod(MOD_AGI, 3);
     target:delMod(MOD_INT, -5);

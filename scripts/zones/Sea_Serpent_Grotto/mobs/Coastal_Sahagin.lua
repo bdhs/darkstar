@@ -2,7 +2,11 @@
 -- Area: Seas Serpent Grotto
 --  MOB: Coastal Sahagin
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

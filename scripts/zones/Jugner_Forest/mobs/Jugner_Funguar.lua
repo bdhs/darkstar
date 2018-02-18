@@ -2,7 +2,11 @@
 -- Area: Jugner Forest
 --  MOB: Jugner Funguar
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

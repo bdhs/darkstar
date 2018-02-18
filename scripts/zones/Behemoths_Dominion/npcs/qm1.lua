@@ -1,20 +1,28 @@
 -----------------------------------
 -- Area: Behemoth's Dominion
---  NPC: ???
+-- NPC:  ???
 -- Involved In Quest: The Talekeeper's Gift
--- !pos 211 4 -79 127
+-- @pos 211 4 -79 127
 -----------------------------------
 package.loaded["scripts/zones/Behemoths_Dominion/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/zones/Behemoths_Dominion/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
-function onTrigger(player,npc)
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
+function onTrigger(player,npc)
+    
     if (player:getVar("theTalekeeperGiftCS") == 3 and player:getVar("theTalekeepersGiftKilledNM") < 3) then
         player:messageSpecial(SENSE_OF_FOREBODING);
         SpawnMob(17297446):updateClaim(player);
@@ -23,13 +31,21 @@ function onTrigger(player,npc)
     else
         player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
     end
-
+    
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

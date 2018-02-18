@@ -4,17 +4,20 @@
 --
 -----------------------------------
 package.loaded[ "scripts/zones/West_Sarutabaruta/TextIDs"] = nil;
------------------------------------
-require( "scripts/zones/West_Sarutabaruta/TextIDs");
-require( "scripts/globals/icanheararainbow");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/conquest");
-require("scripts/globals/zone");
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+require( "scripts/zones/West_Sarutabaruta/TextIDs");
+require( "scripts/globals/icanheararainbow");
+require("scripts/globals/zone");
+require("scripts/globals/conquest");
+require("scripts/globals/chocobo_digging");
+
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 689, 132, DIGREQ_NONE },
                     { 938, 79, DIGREQ_NONE },
                     { 17296, 132, DIGREQ_NONE },
@@ -34,17 +37,34 @@ local itemMap =
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
                     { 1237, 10, DIGREQ_NIGHT },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
+    local manuals = {17248822,17248834,17248878};
+    SetFieldManual(manuals);
+
+    local vwnpc = {17248889,17248906,17248929};
+    SetVoidwatchNPC(vwnpc);
+
     SetRegionalConquestOverseers(zone:getRegionID())
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn( player, prevZone)
     local cs = -1;
@@ -54,20 +74,24 @@ function onZoneIn( player, prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 48;
+        cs = 0x0030;
     elseif (player:getCurrentMission(ASA) == BURGEONING_DREAD and prevZone == 238 ) then
-        cs = 62;
+        cs = 0x003e;
     elseif (player:getCurrentMission(ASA) == BURGEONING_DREAD and prevZone == 240 ) then
-        cs = 63;
+        cs = 0x003f;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 50;
+        cs = 0x0032;
     -- removed only "cs =" works onzonein and can't take parameters atm
     -- elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        -- player:startEvent(50,0,0,0,0,0,2); -- talking doll go east
+        -- player:startEvent(0x0032,0,0,0,0,0,2); -- talking doll go east
     end
 
     return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -77,17 +101,25 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter( player, region)
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate( player, csid, option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
-    if (csid == 48) then
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
+    if (csid == 0x0030) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 62 or csid == 63) then
+    elseif (csid == 0x003e or csid == 0x003f) then
         player:setVar("ASA_Status",option);
-    elseif (csid == 50) then
+    elseif (csid == 0x0032) then
         if (player:getZPos() > 470) then
             player:updateEvent(0,0,0,0,0,2);
         else
@@ -96,12 +128,16 @@ function onEventUpdate( player, csid, option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish( player, csid, option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
-    if (csid == 48) then
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
+    if (csid == 0x0030) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 62 or csid == 63) then
+    elseif (csid == 0x003e or csid == 0x003f) then
         player:completeMission(ASA,BURGEONING_DREAD);
         player:addMission(ASA,THAT_WHICH_CURDLES_BLOOD);
     end

@@ -4,19 +4,23 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/Eastern_Altepa_Desert/TextIDs"] = nil;
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
+
 require("scripts/zones/Eastern_Altepa_Desert/TextIDs");
-require("scripts/zones/Eastern_Altepa_Desert/MobIDs");
 require( "scripts/globals/icanheararainbow");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/conquest");
 require("scripts/globals/zone");
+require("scripts/globals/conquest");
+require("scripts/globals/chocobo_digging");
 
 
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
 local itemMap = {
-    -- itemid, abundance, requirement
-                    { 880, 167, DIGREQ_NONE },
-                    { 893, 88, DIGREQ_NONE },
+                    -- itemid, abundance, requirement
+                    { 880, 167, DIGREQ_NONE }, 
+                    { 893, 88, DIGREQ_NONE }, 
                     { 17296, 135, DIGREQ_NONE },
                     { 736, 52, DIGREQ_NONE },
                     { 644, 22, DIGREQ_NONE },
@@ -42,23 +46,38 @@ local itemMap = {
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
-function onInitialize(zone)
-    UpdateNMSpawnPoint(CACTROT_RAPIDO);
-    GetMobByID(CACTROT_RAPIDO):setRespawnTime(math.random(900, 10800));
+-----------------------------------
+-- onInitialize
+-----------------------------------
 
-    UpdateNMSpawnPoint(CENTURIO_XII_I);
-    GetMobByID(CENTURIO_XII_I):setRespawnTime(math.random(900, 10800));
+function onInitialize(zone)
+    local manuals = {17244657,17244658,17244659};
+
+    SetFieldManual(manuals);
+
+    -- Cactrot Rapido
+    SetRespawnTime(17244539, 900, 10800);
+
+    -- Centurio XII-I
+    SetRespawnTime(17244372, 900, 10800);
 
     SetRegionalConquestOverseers(zone:getRegionID())
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -68,6 +87,10 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onZoneIn
+-----------------------------------
+
 function onZoneIn( player, prevZone)
     local cs = -1;
 
@@ -76,27 +99,39 @@ function onZoneIn( player, prevZone)
     end
 
     if (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 2;
+        cs = 0x0002;
     end
 
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter( player, region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 2) then
+    if (csid == 0x0002) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 2) then
+    if (csid == 0x0002) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
     end
 end;

@@ -5,8 +5,8 @@
 -- Recast Time: 5 minutes
 -- Duration: 0:03:00 or until the next breath is executed
 -----------------------------------
+
 require("scripts/globals/status");
-require("scripts/globals/msg");
 
 -----------------------------------
 -- onAbilityCheck
@@ -14,9 +14,9 @@ require("scripts/globals/msg");
 
 function onAbilityCheck(player,target,ability)
     if (player:getPet() == nil) then
-        return msgBasic.REQUIRES_A_PET,0;
+        return MSGBASIC_REQUIRES_A_PET,0;
    elseif (player:getPetID() ~= PET_WYVERN) then
-      return msgBasic.NO_EFFECT_ON_PET,0;
+      return MSGBASIC_NO_EFFECT_ON_PET,0;
     else
       return 0,0;
     end

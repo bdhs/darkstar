@@ -22,8 +22,7 @@
 */
 
 #include "../../common/socket.h"
-
-#include <cstring>
+#include "../../common/strlib.h"
 
 #include "item_linkshell.h"
 
@@ -39,12 +38,12 @@ CItemLinkshell::~CItemLinkshell()
 
 uint32 CItemLinkshell::GetLSID()
 {
-    return ref<uint32>(m_extra, 0x00);
+    return RBUFL(m_extra, 0x00);
 }
 
 void CItemLinkshell::SetLSID(uint32 lsid)
 {
-    ref<uint32>(m_extra, 0x00) = lsid;
+    WBUFL(m_extra, 0x00) = lsid;
 }
 
 LSTYPE CItemLinkshell::GetLSType()
@@ -59,12 +58,12 @@ lscolor_t CItemLinkshell::GetLSColor()
 
 uint16 CItemLinkshell::GetLSRawColor()
 {
-    return ref<uint16>(m_extra, 0x06);
+    return RBUFW(m_extra, 0x06);
 }
 
 void CItemLinkshell::SetLSColor(uint16 color)
 {
-	ref<uint16>(m_extra,0x06) = color;
+	WBUFW(m_extra,0x06) = color;
 }
 
 const int8* CItemLinkshell::getSignature()

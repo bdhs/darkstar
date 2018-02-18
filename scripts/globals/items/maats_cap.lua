@@ -1,10 +1,7 @@
 -----------------------------------------
 -- ID: 15194
 -- Item: Maats Cap
--- Teleports to Ru'Lude gardens
------------------------------------------
-require("scripts/globals/teleports");
-require("scripts/globals/status");
+-- 
 -----------------------------------------
 
 function onItemCheck(target)

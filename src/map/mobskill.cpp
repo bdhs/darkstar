@@ -37,44 +37,42 @@ CMobSkill::CMobSkill(uint16 id)
     m_ActivationTime = 0;
 	m_Message = 0;
     m_Param = 0;
-    m_primarySkillchain = 0;
-    m_secondarySkillchain = 0;
-    m_tertiarySkillchain = 0;
+    m_skillchain = 0;
     m_HPP = 0;
 }
 
-bool CMobSkill::hasMissMsg() const
+bool CMobSkill::hasMissMsg()
 {
   return m_Message == 158 || m_Message == 188 || m_Message == 31 || m_Message == 30;
 }
 
-bool CMobSkill::isAoE() const
+bool CMobSkill::isAoE()
 {
   return m_Aoe > 0 && m_Aoe < 4;
 }
 
-bool CMobSkill::isConal() const
+bool CMobSkill::isConal()
 {
   return m_Aoe == 4;
 }
 
-bool CMobSkill::isSingle() const
+bool CMobSkill::isSingle()
 {
   return m_Aoe == 0;
 }
 
-bool CMobSkill::isTwoHour() const
+bool CMobSkill::isTwoHour()
 {
   // flag means this skill is a real two hour
   return m_Flag & SKILLFLAG_TWO_HOUR;
 }
 
-bool CMobSkill::isTpSkill() const
+bool CMobSkill::isTpSkill()
 {
     return !isSpecial();
 }
 
-bool CMobSkill::isSpecial() const
+bool CMobSkill::isSpecial()
 {
   // means it is a ranged attack or call beast, etc..
   return m_Flag & SKILLFLAG_SPECIAL;
@@ -100,15 +98,15 @@ void CMobSkill::setAnimationID(uint16 animID)
 	m_AnimID = animID;
 }
 
-const int8* CMobSkill::getName() const
+const int8* CMobSkill::getName()
 {
-	return (const int8*)m_name.c_str();
+	return m_name.c_str();
 }
 
 void CMobSkill::setName(int8* name)
 {
 	m_name.clear();
-	m_name.insert(0, (const char*)name);
+	m_name.insert(0,name);
 }
 
 void CMobSkill::setAoe(uint8 aoe)
@@ -152,94 +150,85 @@ void CMobSkill::setValidTargets(uint16 targ)
 }
 
 
-uint16 CMobSkill::getID() const
+uint16 CMobSkill::getID()
 {
 	return m_ID;
 }
 
-uint16 CMobSkill::getAnimationID() const
+uint16 CMobSkill::getAnimationID()
 {
 	return m_AnimID;
 }
 
-uint16 CMobSkill::getPetAnimationID() const
+uint16 CMobSkill::getPetAnimationID()
 {
-    // levi
-    if (m_AnimID >= 552 && m_AnimID <= 560)
-    {
-        return m_AnimID - 488;
-    }
-    // garuda
-    if (m_AnimID >= 565 && m_AnimID <= 573)
-    {
-        return m_AnimID - 485;
-    }
-    // titan
-    if (m_AnimID >= 539 && m_AnimID <= 547)
-    {
-        return m_AnimID - 491;
-    }
-    // ifrit
-    if (m_AnimID >= 526 && m_AnimID <= 534)
-    {
-        return m_AnimID - 494;
-    }
-    // fenrir
-    if (m_AnimID >= 513 && m_AnimID <= 521)
-    {
-        return m_AnimID - 497;
-    }
-    // shiva
-    if (m_AnimID >= 578 && m_AnimID <= 586)
-    {
-        return m_AnimID - 482;
-    }
-    // rumah
-    if (m_AnimID >= 591 && m_AnimID <= 599)
-    {
-        return m_AnimID - 479;
-    }
-    // carbuncle
-    if (m_AnimID >= 605 && m_AnimID <= 611)
-    {
-        return m_AnimID - 605;
-    }
+  // levi
+  if(m_AnimID >= 552 && m_AnimID <= 560){
+    return m_AnimID - 488;
+  }
+  // garuda
+  if(m_AnimID >= 565 && m_AnimID <= 573){
+    return m_AnimID - 485;
+  }
+  // titan
+  if(m_AnimID >= 539 && m_AnimID <= 547){
+    return m_AnimID - 491;
+  }
+  // ifrit
+  if(m_AnimID >= 526 && m_AnimID <= 534){
+    return m_AnimID - 494;
+  }
+  // fenrir
+  if(m_AnimID >= 513 && m_AnimID <= 521){
+    return m_AnimID - 497;
+  }
+  // shiva
+  if(m_AnimID >= 578 && m_AnimID <= 586){
+    return m_AnimID - 482;
+  }
+  // rumah
+  if(m_AnimID >= 591 && m_AnimID <= 599){
+    return m_AnimID - 479;
+  }
+  // carbuncle
+  if(m_AnimID >= 605 && m_AnimID <= 611){
+    return m_AnimID - 605;
+  }
 
-    // wyvern
-    if (m_AnimID >= 621 && m_AnimID <= 632)
-    {
-        return m_AnimID - 493;
-    }
+  // wyvern
+  if (m_AnimID >= 621 && m_AnimID <= 632) {
+      return m_AnimID - 493;
+  }
 
   return m_AnimID;
 }
 
-int16 CMobSkill::getTP() const
+int16 CMobSkill::getTP()
 {
     return m_TP;
 }
 
-uint8 CMobSkill::getHPP() const
+uint8 CMobSkill::getHPP()
 {
     return m_HPP;
 }
 
-uint16 CMobSkill::getTotalTargets() const
+uint16 CMobSkill::getTotalTargets()
 {
     return m_TotalTargets;
 }
 
-uint16 CMobSkill::getMsg() const
+uint16 CMobSkill::getMsg()
 {
     return m_Message;
 }
 
-uint16 CMobSkill::getMsgForAction() const
+uint16 CMobSkill::getMsgForAction()
 {
     return getID();
 }
 
-uint16 CMobSkill::getAoEMsg() const
+uint16 CMobSkill::getAoEMsg()
 {
 
     switch(m_Message){
@@ -282,22 +271,22 @@ uint16 CMobSkill::getAoEMsg() const
     }
 }
 
-uint8 CMobSkill::getFlag() const
+uint8 CMobSkill::getFlag()
 {
 	return m_Flag;
 }
 
-uint8 CMobSkill::getAoe() const
+uint8 CMobSkill::getAoe()
 {
 	return m_Aoe;
 }
 
-float CMobSkill::getDistance() const
+float CMobSkill::getDistance()
 {
 	return m_Distance;
 }
 
-float CMobSkill::getRadius() const
+float CMobSkill::getRadius()
 {
   if(m_Aoe == 2)
   {
@@ -308,12 +297,12 @@ float CMobSkill::getRadius() const
   return m_Distance;
 }
 
-int16 CMobSkill::getParam() const
+int16 CMobSkill::getParam()
 {
   return m_Param;
 }
 
-uint8 CMobSkill::getKnockback() const
+uint8 CMobSkill::getKnockback()
 {
     return m_knockback;
 }
@@ -333,47 +322,27 @@ void CMobSkill::setKnockback(uint8 knockback)
     m_knockback = knockback;
 }
 
-uint16 CMobSkill::getValidTargets() const
+uint16 CMobSkill::getValidTargets()
 {
 	return m_ValidTarget;
 }
 
-uint16 CMobSkill::getAnimationTime() const
+uint16 CMobSkill::getAnimationTime()
 {
     return m_AnimationTime;
 }
 
-uint16 CMobSkill::getActivationTime() const
+uint16 CMobSkill::getActivationTime()
 {
     return m_ActivationTime;
 }
 
-uint8 CMobSkill::getPrimarySkillchain() const
+uint8 CMobSkill::getSkillchain()
 {
-    return m_primarySkillchain;
+    return m_skillchain;
 }
 
-uint8 CMobSkill::getSecondarySkillchain() const
+void CMobSkill::setSkillchain(uint8 skillchain)
 {
-    return m_secondarySkillchain;
-}
-
-uint8 CMobSkill::getTertiarySkillchain() const
-{
-    return m_tertiarySkillchain;
-}
-
-void CMobSkill::setPrimarySkillchain(uint8 skillchain)
-{
-    m_primarySkillchain = skillchain;
-}
-
-void CMobSkill::setSecondarySkillchain(uint8 skillchain)
-{
-    m_secondarySkillchain = skillchain;
-}
-
-void CMobSkill::setTertiarySkillchain(uint8 skillchain)
-{
-    m_tertiarySkillchain = skillchain;
+    m_skillchain = skillchain;
 }

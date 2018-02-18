@@ -5,15 +5,22 @@
 -- Recast Time: 3:00
 -- Duration: Instant
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
     return 0,0;
 end;
+
+-----------------------------------
+-- onUseAbility
+-----------------------------------
 
 function onUseAbility(player,target,ability)
     local helix = target:getStatusEffect(EFFECT_HELIX);
@@ -22,7 +29,7 @@ function onUseAbility(player,target,ability)
         local resist = applyResistanceAbility(player,target,ELE_NONE,SKILL_ELE,0); -- seems reasonable...
         -- Doesn't work against NMs apparently
         if (mvPower > 0) or (resist < 0.25) or (target:isNM()) then -- Don't let Modus Veritas stack to prevent abuse
-            ability:setMsg(msgBasic.JA_MISS); --Miss
+            ability:setMsg(158); --Miss
             return 0;
         else
             -- Double power and halve remaining time
@@ -38,6 +45,6 @@ function onUseAbility(player,target,ability)
             helix:setDuration(duration);
         end
     else
-        ability:setMsg(msgBasic.JA_NO_EFFECT_2); -- No effect
+        ability:setMsg(323); -- No effect
     end
 end;

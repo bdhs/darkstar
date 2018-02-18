@@ -2,7 +2,11 @@
 -- Area: Gusgen Mines
 --  MOB: Gallinipper
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

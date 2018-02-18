@@ -2,7 +2,11 @@
 -- Area: Outer Horutoto
 --  MOB: Fuligo
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

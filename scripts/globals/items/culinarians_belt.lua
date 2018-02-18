@@ -8,7 +8,11 @@
 -- Duration: 2Min
 -- Alchemy Skill +3
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -18,6 +22,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_COOKING_IMAGERY,3,0,120);
@@ -31,6 +39,10 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SKILL_COK, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_SKILL_COK, 1);
 end;

@@ -9,39 +9,33 @@ cmdprops =
     parameters = "sis"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!addcurrency <currency type> <amount> {player}");
-end;
-
 function onTrigger(player,currency,amount,target)
-    -- validate target
-    local targ;
-    if (target == nil) then
-        targ = player;
-    else
+    local targ = nil
+
+    if (currency == nil or amount == nil) then
+        player:PrintToPlayer( "You must enter a valid currency and amount." );
+        player:PrintToPlayer( "@addcurrency <currency type> <amount> <target player>" );
+        return
+    end
+
+    -- "target" will only be nil if no target was specified
+    -- "targ" will only be nil if an invalid target was specified
+    if (target ~= nil) then
         targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format("Player named '%s' not found!", target));
-            return;
-        end
+    else
+        targ = player;
     end
 
-    -- validate currency
-    -- note: getCurrency does not ever return nil at the moment.  will work on this in future update.
-    if (currency == nil or targ:getCurrency(currency) == nil) then
-        error(player, "Invalid currency type.");
-        return;
+    if (targ == nil) then
+        player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
+        return
     end
 
-    -- validate amount
-    if (amount == nil or amount < 1) then
-        error(player, "Invalid amount.");
-        return;
+    -- Making sure currency type valid before adding.
+    if (targ:getCurrency(currency) ~= nil) then
+        targ:addCurrency(currency,amount);
+    else
+        player:PrintToPlayer( string.format( "Currency of type '%s' not found!", currency ) );
     end
-    
-    -- add currency
-    targ:addCurrency(currency,amount);
-    local newAmount = targ:getCurrency(currency);
-    player:PrintToPlayer(string.format("%s was given %i %s, for a total of %i.",targ:getName(),amount,currency,newAmount));
+
 end;

@@ -25,7 +25,6 @@ This file is part of DarkStar-server source code.
 #define _BASICPACKET_H
 
 #include "../../common/cbasetypes.h"
-#include "../../common/socket.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -130,10 +129,11 @@ public:
     }
 
     /* Indexer for the data buffer */
+
     template<typename T>
     T& ref(std::size_t index)
     {
-        return ::ref<T>(data, index);
+        return *reinterpret_cast<T*>(data + index);
     }
 
     operator uint8*()

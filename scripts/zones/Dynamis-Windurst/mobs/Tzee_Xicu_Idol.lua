@@ -2,12 +2,20 @@
 -- Area: Dynamis Windurst
 --  MOB: Tzee Xicu Idol
 -----------------------------------
+
 require("scripts/globals/titles");
 require("scripts/globals/dynamis");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
 
 function onMobEngaged(mob,target)
 
@@ -19,6 +27,10 @@ function onMobEngaged(mob,target)
     SpawnMob(17543171):updateEnmity(target); -- Muu Febi the Steadfast
 
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

@@ -10,14 +10,24 @@ require("scripts/globals/events/harvest_festivals");
 require("scripts/globals/missions");
 require("scripts/globals/settings");
 require("scripts/globals/zone");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+    local vwnpc = {17752373,17752374,17752375};
+    SetVoidwatchNPC(vwnpc);
+
     -- Check if we are on Windurst Mission 1-3
     zone:registerRegion(1, 23,-12,-208, 31,-8,-197);
 
     applyHalloweenNpcCostumes(zone:getID())
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -49,6 +59,10 @@ function onZoneIn(player,prevZone)
     return cs;
 end;
 
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
+
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
 
@@ -57,6 +71,10 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 
     switch (region:GetRegionID()): caseof
@@ -64,17 +82,25 @@ function onRegionEnter(player,region)
         [1] = function (x)  -- Windurst Mission 1-3, final cutscene with Leepe-Hoppe
             -- If we're on Windurst Mission 1-3
             if (player:getCurrentMission(WINDURST) == THE_PRICE_OF_PEACE and player:getVar("MissionStatus") == 2) then
-                player:startEvent(146);
+                player:startEvent(0x0092);
             end
         end,
     }
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

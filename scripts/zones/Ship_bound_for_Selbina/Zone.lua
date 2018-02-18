@@ -5,12 +5,21 @@
 -----------------------------------
 package.loaded["scripts/zones/Ship_bound_for_Selbina/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Ship_bound_for_Selbina/TextIDs");
-require("scripts/zones/Ship_bound_for_Selbina/MobIDs");
+
+require("scripts/globals/settings");
 require("scripts/globals/keyitems");
+require("scripts/zones/Ship_bound_for_Selbina/TextIDs");
+
+-----------------------------------
+--  onInitialize
+-----------------------------------
 
 function onInitialize(zone)
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     
@@ -21,23 +30,39 @@ function onZoneIn(player,prevZone)
         player:setPos(position,-2.100,3.250,64);
     end
     
-    if (player:hasKeyItem(SEANCE_STAFF) and player:getVar("Enagakure_Killed") == 0 and not GetMobByID(ENAGAKURE):isSpawned()) then
-        SpawnMob(ENAGAKURE);
+    if (player:hasKeyItem(SEANCE_STAFF) and player:getVar("Enagakure_Killed") == 0) then
+        SpawnMob(17678351);
     end
     
     return cs;
 
 end;
 
+-----------------------------------
+-- onTransportEvent
+-----------------------------------
+
 function onTransportEvent(player,transport)
-    player:startEvent(255);
+    player:startEvent(0x00ff);
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    if (csid == 255) then
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+    if (csid == 0x00ff) then
         player:setPos(0,0,0,0,248);
     end
 end;

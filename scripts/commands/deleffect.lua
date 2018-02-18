@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 -- func: addeffect
--- desc: Removes the given effect from the given player.
+-- desc: Adds the given effect to the given player.
 ---------------------------------------------------------------------------------------------------
 
 require("scripts/globals/status");
@@ -11,44 +11,37 @@ cmdprops =
     parameters = "si"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!deleffect {player} <effect>");
-end;
+function onTrigger(player, target, id)
 
-function onTrigger(player, arg1, arg2)
-    local targ;
-    local id;
-
-    if (arg1 == nil) then
-        error(player, "You must provide an effect ID.");
+    -- Ensure a target is set..
+    if (target == nil) then
+        player:PrintToPlayer( "Target required; cannot be nil." );
         return;
-    elseif (arg2 == nil) then
-        targ = player;
-        id = arg1;
+    end
+
+    local effectTarget = player;
+    
+    -- check if target name was entered
+    local num = tonumber(target)
+    if (type(num) == "number") then
+        id = num
     else
-        targ = GetPlayerByName(arg1);
-        id = arg2;
+        local pc = GetPlayerByName(target);
+        if (pc ~= nil) then
+            effectTarget = pc;
+        else
+            id = _G[target];
+        end
+
+        if (id == 0 or id == nil) then
+            id = 1;
+        end
     end
 
-    -- validate target    
-    if (targ == nil) then
-        error(player, string.format("Player named '%s' not found!", arg1));
-        return;
-    end
-
-    -- validate effect
-    id = tonumber(id) or _G[string.upper(id)];
     if (id == nil) then
-        error(player, "Invalid effect.");
+        player:PrintToPlayer( "Effect id cannot be nil." );
         return;
-    elseif (id == 0) then
-        id = 1;
     end
 
-    -- delete status effect
-    targ:delStatusEffect(id);
-    if (targ:getID() ~= player:getID()) then
-        player:PrintToPlayer(string.format("Removed effect %i from %s.",id,targ:getName()));
-    end
+    effectTarget:delStatusEffect(id)
 end

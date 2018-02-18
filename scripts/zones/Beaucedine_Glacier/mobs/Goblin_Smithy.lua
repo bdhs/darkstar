@@ -2,7 +2,11 @@
 -- Area: Beaucedine Glacier
 --  MOB: Goblin Smithy
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

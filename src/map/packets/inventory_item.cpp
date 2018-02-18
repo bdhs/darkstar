@@ -37,66 +37,66 @@ CInventoryItemPacket::CInventoryItemPacket(CItem* PItem, uint8 LocationID, uint8
 	this->type = 0x20;
 	this->size = 0x16;
 
-	ref<uint8>(0x0E) = LocationID;
-	ref<uint8>(0x0F) = SlotID;	
+	WBUFB(data,(0x0E)) = LocationID;
+	WBUFB(data,(0x0F)) = SlotID;	
 
 	if (PItem != nullptr)
 	{
-		ref<uint32>(0x04) = PItem->getQuantity();
-		ref<uint32>(0x08) = PItem->getCharPrice();
-		ref<uint16>(0x0C) = PItem->getID();
+		WBUFL(data,(0x04)) = PItem->getQuantity();
+		WBUFL(data,(0x08)) = PItem->getCharPrice();
+		WBUFW(data,(0x0C)) = PItem->getID();
         memcpy(data + 0x11 , PItem->m_extra, sizeof(PItem->m_extra));
 
 		if (PItem->isSubType(ITEM_CHARGED))
 		{
-			ref<uint8>(0x11) = 0x01;
+			WBUFB(data,(0x11)) = 0x01;
 
             if (((CItemUsable*)PItem)->getCurrentCharges() > 0)
             {
                 if (((CItemUsable*)PItem)->getReuseTime() == 0)
                 {
-                    ref<uint8>(0x14) = 0xD0;
+                    WBUFB(data,(0x14)) = 0xD0;
                 }
                 else
                 {
-                    ref<uint8>(0x14) = 0x90;
+                    WBUFB(data,(0x14)) = 0x90;
 
                     uint32 CurrentTime = CVanaTime::getInstance()->getVanaTime();
 
-                    ref<uint32>(0x15) = ((CItemUsable*)PItem)->getNextUseTime();
-                    ref<uint32>(0x19) = ((CItemUsable*)PItem)->getUseDelay() + CurrentTime;
+                    WBUFL(data,(0x15)) = ((CItemUsable*)PItem)->getNextUseTime();
+                    WBUFL(data,(0x19)) = ((CItemUsable*)PItem)->getUseDelay() + CurrentTime;
                 }
             }
 		}
 
         if (PItem->isType(ITEM_WEAPON) && ((CItemWeapon*)PItem)->isUnlockable())
         {
-            ref<uint16>(0x11) = 0;
+            WBUFW(data, (0x11) ) = 0;
         }
 
         if (PItem->getCharPrice() != 0)
         {
-            ref<uint8>(0x10) = 0x19;
+            WBUFB(data, (0x10) ) = 0x19;
         }
         else if (PItem->isSubType(ITEM_LOCKED))
         {
             if (PItem->isType(ITEM_LINKSHELL))
             {
-                ref<uint8>(0x10) = 0x13;
+                WBUFB(data, (0x10) ) = 0x13;
             }
             else
             {
-                ref<uint8>(0x10) = 0x05;
+                WBUFB(data, (0x10) ) = 0x05;
             }
         }
         else
         {
-            ref<uint8>(0x10) = 0x00;
+            WBUFB(data, (0x10) ) = 0x00;
         }
 
         if (PItem->isType(ITEM_LINKSHELL))
         {
-            ref<uint8>(0x19) = ((CItemLinkshell*)PItem)->GetLSType();
+            WBUFB(data,(0x19)) = ((CItemLinkshell*)PItem)->GetLSType();
         }
 	}
 }

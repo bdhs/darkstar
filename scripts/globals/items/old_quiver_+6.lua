@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5276
--- Old Quiver +6
--- When used, you will obtain one partial stack of Crude Arrows +6
+--    ID: 5276
+--    Old Quiver +6
+--    When used, you will obtain one partial stack of Crude Arrows +6
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -12,7 +16,13 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     local quantity = math.random(99);
+    quantity = math.random(99);
+    quantity = math.random(99);
     target:addItem(18187,quantity);
 end;

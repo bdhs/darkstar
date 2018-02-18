@@ -6,26 +6,34 @@
 -- Recast Time: 30 seconds
 -- Duration: 3 minutes
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/utils");
-require("scripts/globals/msg");
+
+-----------------------------------
+-- onAbilityCheck
+-----------------------------------
 
 function onAbilityCheck(player,target,ability)
    return 0,0;
 end;
 
+-----------------------------------
+-- onUseAbility
+-----------------------------------
+
 function onUseAbility(player,target,ability)
+
     local baseDuration = 180;
-    local durationMultiplier = 1.0 + utils.clamp(player:getMod(MOD_JIG_DURATION), 0, 50) / 100;
-    local finalDuration = math.floor(baseDuration * durationMultiplier * SNEAK_INVIS_DURATION_MULTIPLIER);
+    local durationMultiplier = 1.0 + (player:getMod(MOD_SPECTRAL_JIG)/100);
+    local finalDuration = math.floor(baseDuration * durationMultiplier); 
 
     if (player:hasStatusEffect(EFFECT_SNEAK) == false) then
-        player:addStatusEffect(EFFECT_SNEAK,0,10,finalDuration);
-        player:addStatusEffect(EFFECT_INVISIBLE,0,10,finalDuration);
-        ability:setMsg(msgBasic.SPECTRAL_JIG); -- Gains the effect of sneak and invisible
+        player:addStatusEffect(EFFECT_SNEAK,0,10,finalDuration * SNEAK_INVIS_DURATION_MULTIPLIER);
+        player:addStatusEffect(EFFECT_INVISIBLE,0,10,finalDuration * SNEAK_INVIS_DURATION_MULTIPLIER);
+        ability:setMsg(532); -- Gains the effect of sneak and invisible
     else
-        ability:setMsg(msgBasic.NO_EFFECT); -- no effect on player.
+        ability:setMsg(283); -- no effect on player.
     end
 
     return 1;

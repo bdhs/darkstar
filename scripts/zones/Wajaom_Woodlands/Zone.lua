@@ -4,18 +4,19 @@
 --
 -----------------------------------
 package.loaded["scripts/zones/Wajaom_Woodlands/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Wajaom_Woodlands/TextIDs");
-require("scripts/globals/chocobo_digging");
-require("scripts/globals/settings");
-require("scripts/globals/missions");
-require("scripts/globals/quests");
-require("scripts/globals/titles");
+package.loaded["scripts/globals/chocobo_digging"] = nil;
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
+require("scripts/globals/settings");
+require("scripts/globals/quests");
+require("scripts/zones/Wajaom_Woodlands/TextIDs");
+require("scripts/globals/chocobo_digging");
+
+-----------------------------------
+-- Chocobo Digging vars
+-----------------------------------
+local itemMap = {
+                    -- itemid, abundance, requirement
                     { 770, 50, DIGREQ_NONE },
                     { 2150, 60, DIGREQ_NONE },
                     { 622, 197, DIGREQ_NONE },
@@ -46,53 +47,64 @@ local itemMap =
                     { 4409, 12, DIGREQ_MODIFIER },
                     { 1188, 10, DIGREQ_MODIFIER },
                     { 4532, 12, DIGREQ_MODIFIER },
-};
+                };
 
 local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
 
+-----------------------------------
+-- onChocoboDig
+-----------------------------------
 function onChocoboDig(player, precheck)
     return chocoboDig(player, itemMap, precheck, messageArray);
 end;
 
+-----------------------------------
+-- onInitialize
+-----------------------------------
+
 function onInitialize(zone)
+    local vwnpc = {16986817,16986821};
+    SetVoidwatchNPC(vwnpc);
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
     if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
-        if (player:getCurrentMission(TOAU) == UNRAVELING_REASON) then
-            player:setPos(-200.036,-10,79.948,254);
-            cs = 11;
-        else
-            player:setPos(610.542,-28.547,356.247,122);
-        end
+        player:setPos(610.542,-28.547,356.247,122);
     elseif (player:getVar("threemenandaclosetCS") == 2 and prevZone == 50) then
-        cs = 510;
+        cs = 0x01fe;
     end
     return cs;
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter(player,region)
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
-    -- printf("Update CSID: %u",csid);
-    -- printf("Update RESULT: %u",option);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    -- printf("Finish CSID: %u",csid);
-    -- printf("Finish RESULT: %u",option);
-    if (csid == 510) then
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+    if (csid == 0x01fe) then
         player:setVar("threemenandaclosetCS",3);
-    elseif (csid == 11) then
-        player:startEvent(21);
-    elseif (csid == 21) then
-        player:startEvent(22);
-    elseif (csid == 22) then
-        player:completeMission(TOAU,UNRAVELING_REASON);
-        player:setTitle(ENDYMION_PARATROOPER);
-        player:setVar("TOAUM40_STARTDAY", 0);
-        player:addMission(TOAU,LIGHT_OF_JUDGMENT);
     end
 end;

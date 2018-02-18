@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4222
--- Horn Quiver
--- When used, you will obtain one stack of Horn Arrows
+--    ID: 4222
+--    Horn Quiver
+--    When used, you will obtain one stack of Horn Arrows
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(18156,99);

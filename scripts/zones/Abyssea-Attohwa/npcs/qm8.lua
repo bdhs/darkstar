@@ -1,21 +1,48 @@
 -----------------------------------
 -- Zone: Abyssea-Attohwa
 --  NPC: qm8 (???)
--- Spawns Kampe
--- !pos -401.612 3.738 -200.972 215
+-- Spawns Berstuk
+-- @pos ? ? ? 215
 -----------------------------------
-require("scripts/globals/abyssea");
+require("scripts/globals/status");
+
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
-    abysseaOnTrade(player,npc,trade);
+--[[
+    if (trade:hasItemQty(3080,1) and trade:getItemCount() == 1) then -- Player has all the required items.
+        if (GetMobAction(17658269) == ACTION_NONE) then -- Mob not already spawned from this
+            SpawnMob(17658269):updateClaim(player); -- Spawn NM, Despawn after inactive for 5 minutes (pt has to reclaim within 5 of a wipe)
+            player:tradeComplete();
+        end
+    end
+]]
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    abysseaOnTrigger(player,npc);
+    player:startEvent(1010, 3080); -- Inform player what items they need.
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;

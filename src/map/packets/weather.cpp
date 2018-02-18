@@ -31,6 +31,6 @@ CWeatherPacket::CWeatherPacket(uint32 ChangeTime, WEATHER WeatherEffect)
     this->type = 0x57;
     this->size = 0x06;
 
-    ref<uint32>(0x04) = ChangeTime;
-    ref<uint16>(0x08) = WeatherEffect;
+    WBUFL(data,(0x04)) = ChangeTime;
+    WBUFW(data,(0x08)) = WeatherEffect;
 }

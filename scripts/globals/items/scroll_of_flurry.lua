@@ -4,9 +4,17 @@
 -- Teaches the white magic Flurry
 -----------------------------------------
 
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
+
 function onItemCheck(target)
     return target:canLearnSpell(845);
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addSpell(845);

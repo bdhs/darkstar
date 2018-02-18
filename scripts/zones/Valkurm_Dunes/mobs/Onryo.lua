@@ -3,11 +3,19 @@
 --  MOB: Onryo
 -- Involved in Quest: Yomi Okuri
 -----------------------------------
+
 require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath Action
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

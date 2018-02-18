@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4104
--- Fire Cluster
--- Turn into a stack of fire crystals
+--    ID: 4104
+--    Fire Cluster
+--    Turn into a stack of fire crystals
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4096,12);

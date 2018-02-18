@@ -1,12 +1,14 @@
 ---------------------------------------------
--- Diamondhide
+--  Diamondhide
 --
--- Description: Gives the effect of "Stoneskin."
--- Type: Magical
+--  Description: Gives party members within area of effect the effect of "Stoneskin."
+--  Type: Magical (Earth)
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/monstertpmoves");
+
 ---------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
@@ -14,7 +16,9 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local power = 600; -- Guesstimated, def not based on mobs lv+hp*tp like was previously in this script..
-    skill:setMsg(MobBuffMove(mob, EFFECT_STONESKIN, power, 0, 300));
-    return EFFECT_STONESKIN;
+    local base = mob:getMainLvl() + 0.05*mob:getMaxHP()*(skill:getTP()/1000); --base is around 5~150 level depending
+    local typeEffect = EFFECT_STONESKIN;
+
+    skill:setMsg(MobBuffMove(mob, typeEffect, base, 0, 300));
+    return typeEffect;
 end;

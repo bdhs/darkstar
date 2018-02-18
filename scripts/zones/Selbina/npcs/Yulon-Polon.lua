@@ -1,9 +1,10 @@
 -----------------------------------
--- Area: Selbina
---  NPC: Yulon-Polon
--- Type: Title Change NPC
--- !pos 45.998 -16.273 15.739 248
+--  Area: Selbina
+--  NPC:  Yulon-Polon
+--  Type: Title Change NPC
+-- @pos 45.998 -16.273 15.739 248
 -----------------------------------
+
 require("scripts/globals/titles");
 
 local title2 = { CORDON_BLEU_FISHER , ECOLOGIST , LIL_CUPID , ACE_ANGLER , GOLD_HOOK , MYTHRIL_HOOK , SILVER_HOOK , COPPER_HOOK ,
@@ -22,22 +23,38 @@ local title6 = { ADAMANTKING_USURPER , OVERLORD_OVERTHROWER , DEITY_DEBUNKER , F
                 APOLLYON_RAVAGER , WYRM_ASTONISHER , NIGHTMARE_AWAKENER , 0 , 0 , 0 , 0 , 0 }
 local title7 = { 0 , 0 , 0 , 0 , 0  , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 }
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
-    player:startEvent(10001,npcUtil.genTmask(player,title2),npcUtil.genTmask(player,title3),npcUtil.genTmask(player,title4),npcUtil.genTmask(player,title5),npcUtil.genTmask(player,title6),npcUtil.genTmask(player,title7),1   ,player:getGil());
+    player:startEvent(0x2711,npcUtil.genTmask(player,title2),npcUtil.genTmask(player,title3),npcUtil.genTmask(player,title4),npcUtil.genTmask(player,title5),npcUtil.genTmask(player,title6),npcUtil.genTmask(player,title7),1   ,player:getGil());
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid==10001) then
+    if (csid==0x2711) then
         if (option > 0 and option <29) then
             if (player:delGil(200)) then
                 player:setTitle( title2[option] )

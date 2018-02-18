@@ -1,16 +1,15 @@
 -----------------------------------
 -- Area: Metalworks
---  NPC: Fariel
+-- NPC:  Fariel
 -- Type: Standard Info NPC
 -----------------------------------
 package.loaded["scripts/zones/Metalworks/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Metalworks/TextIDs");
 require("scripts/globals/pathfind");
------------------------------------
 
-local path =
-{
+local path = {
 53.551208, -14.000000, -7.162227,
 54.111534, -14.000000, -6.227105,
 54.075279, -14.000000, -5.139729,
@@ -37,7 +36,7 @@ local path =
 41.680725, -14.000000, 7.693455,
 41.396103, -14.000000, 6.599321,
 41.349224, -14.000000, 5.512603,
-41.340771, -14.000000, 4.424644
+41.340771, -14.000000, 4.424644    
 };
 
 function onSpawn(npc)
@@ -50,18 +49,34 @@ function onPath(npc)
     pathfind.patrol(npc, path);
 end;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(706);
-    npc:wait();
-end;
+    player:startEvent(0x02C2);
+    npc:wait(-1);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option,npc)
     -- printf("CSID: %u",csid);

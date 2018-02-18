@@ -1,7 +1,7 @@
 -----------------------------------------
 -- ID: 5772
 -- Item: crepe_paysanne
--- Food Effect: 30 Min, All Races
+-- Food Effect: 60 Min, All Races
 -----------------------------------------
 -- HP +10% (cap 30)
 -- STR +2
@@ -10,7 +10,11 @@
 -- Magic Defense +4
 -- hHP +3
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -21,8 +25,12 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,1800,5772);
+    target:addStatusEffect(EFFECT_FOOD,0,0,3600,5772);
 end;
 
 -----------------------------------------
@@ -39,7 +47,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_HPHEAL, 3);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 10);
     target:delMod(MOD_FOOD_HP_CAP, 30);
     target:delMod(MOD_STR, 2);

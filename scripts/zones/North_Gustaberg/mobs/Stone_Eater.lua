@@ -2,7 +2,11 @@
 -- Area: North Gustaberg
 --  MOB: Stone Eater
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

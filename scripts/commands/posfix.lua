@@ -9,17 +9,11 @@ cmdprops =
     parameters = "s"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!posfix <player>");
-end;
-
 function onTrigger(player, target)
-    -- validate target
     if (target == nil) then
-        error(player, "You must supply the name of an offline player.");
+        player:PrintToPlayer("An offline player name must be specified.");
     else
         player:resetPlayer( target );
-        player:PrintToPlayer(string.format("Fixed %s's position.", target));
+        player:PrintToPlayer("Done.");
     end
 end;

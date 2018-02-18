@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 4111
--- Dark Cluster
--- Turn into a stack of dark crystals
+--    ID: 4111
+--    Dark Cluster
+--    Turn into a stack of dark crystals
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4103,12);

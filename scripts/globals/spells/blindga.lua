@@ -1,9 +1,12 @@
 -----------------------------------------
 -- Spell: Blind
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -16,36 +19,29 @@ function onSpellCast(caster,target,spell)
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_MND)); --blind uses caster INT vs target MND
 
     -- Base power.  May need more research.
-    local power = math.floor(dINT * 9/40) + 23;
+    local power = math.floor((dINT + 60) / 4);
 
     if (power < 5) then
         power = 5;
     end
 
-    if (power > 50) then
-        power = 50;
+    if (power > 25) then
+        power = 25;
     end
 
 
     -- Duration, including resistance.  Unconfirmed.
-    local duration = 180;
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_INT;
-    params.skillType = 35;
-    params.bonus = 0;
-    params.effect = EFFECT_BLINDNESS;
-    duration = duration * applyResistanceEffect(caster, target, spell, params);
+    local duration = 120 * applyResistanceEffect(caster,spell,target,dINT,35,0,EFFECT_BLINDNESS);
 
     if (duration >= 60) then --Do it!
 
         if (target:addStatusEffect(EFFECT_BLINDNESS,power,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+            spell:setMsg(236);
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end
     return EFFECT_BLINDNESS;
 end;

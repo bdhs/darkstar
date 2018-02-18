@@ -149,7 +149,7 @@ duration CAbility::getCastTime()
 
 void CAbility::setRecastTime(uint16 recastTime)
 {
-    m_recastTime = (uint16)(recastTime * map_config.ability_recast_multiplier);
+    m_recastTime = recastTime * map_config.ability_recast_multiplier;
 }
 
 uint16 CAbility::getRecastTime()
@@ -189,13 +189,13 @@ void CAbility::setAddType(uint16 addType)
 
 const int8* CAbility::getName()
 {
-    return (const int8*)m_name.c_str();
+    return m_name.c_str();
 }
 
 void CAbility::setName(int8* name)
 {
     m_name.clear();
-    m_name.insert(0, (const char*)name);
+    m_name.insert(0, name);
 }
 
 uint16 CAbility::getRecastId()
@@ -324,7 +324,7 @@ namespace ability
 
         memset(PAbilityList, 0, sizeof(PAbilityList));
 
-        const char* Query =
+        const int8* Query =
             "SELECT "
             "abilityId,"
             "IFNULL(min_id,0),"
@@ -346,7 +346,7 @@ namespace ability
             "VE, "
             "meritModID, "
             "addType, "
-            "content_tag "
+            "required_expansion "
             "FROM abilities LEFT JOIN (SELECT mob_skill_name, MIN(mob_skill_id) AS min_id "
             "FROM mob_skills GROUP BY mob_skill_name) mob_skills_1 ON "
             "abilities.name = mob_skills_1.mob_skill_name "
@@ -359,10 +359,10 @@ namespace ability
         {
             while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
             {
-                char* contentTag = nullptr;
-                Sql_GetData(SqlHandle, 20, &contentTag, nullptr);
+                int8* expansionCode;
+                Sql_GetData(SqlHandle, 20, &expansionCode, nullptr);
 
-                if (luautils::IsContentEnabled(contentTag) == false) {
+                if (luautils::IsExpansionEnabled(expansionCode) == false) {
                     continue;
                 }
 
@@ -393,7 +393,7 @@ namespace ability
             }
         }
 
-        const char* Query2 = "SELECT recastId, job, level, maxCharges, chargeTime, meritModId FROM abilities_charges ORDER BY job, level ASC;";
+        const int8* Query2 = "SELECT recastId, job, level, maxCharges, chargeTime, meritModId FROM abilities_charges ORDER BY job, level ASC;";
 
         ret = Sql_Query(SqlHandle, Query2);
 
@@ -464,7 +464,6 @@ namespace ability
             case JOB_SCH: return PAbilityList[ABILITY_TABULA_RASA]; break;
             case JOB_GEO: return PAbilityList[ABILITY_BOLSTER]; break;
             case JOB_RUN: return PAbilityList[ABILITY_ELEMENTAL_SFORZO]; break;
-            default: break;
         }
         return nullptr;
     }

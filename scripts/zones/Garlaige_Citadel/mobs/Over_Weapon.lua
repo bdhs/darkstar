@@ -2,7 +2,11 @@
 -- Area: Garlaige Citadel
 --  MOB: Over Weapon
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

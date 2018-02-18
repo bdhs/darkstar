@@ -1,11 +1,11 @@
 -----------------------------------------
---   ID: 15288
---   Pellet Belt
---   When used, you will obtain 12 Pebbles
+--      ID: 15288
+--      Pellet Belt
+--      When used, you will obtain 12 Pebbles
 -----------------------------------------
 
 -----------------------------------------
---   OnItemCheck
+--      OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -15,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(17296,12);

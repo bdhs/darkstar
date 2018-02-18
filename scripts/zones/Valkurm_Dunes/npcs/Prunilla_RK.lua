@@ -2,10 +2,11 @@
 -- Area: Valkurm Dunes
 --  NPC: Prunilla, R.K.
 -- Type: Border Conquest Guards
--- !pos 908.245 -1.171 -411.504 103
+-- @pos 908.245 -1.171 -411.504 103
 -----------------------------------
 package.loaded["scripts/zones/Valkurm_Dunes/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Valkurm_Dunes/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 4;        -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = ZULKHEIM;
 local csid        = 0x7ffa;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

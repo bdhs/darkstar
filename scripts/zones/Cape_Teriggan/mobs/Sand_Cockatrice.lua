@@ -2,7 +2,11 @@
 -- Area: Cape Teriggan
 --  MOB: Sand Cockatrice
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

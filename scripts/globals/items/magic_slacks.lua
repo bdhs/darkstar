@@ -3,21 +3,28 @@
 -- Item: Magic Slacks
 -- Item Effect: Restores 30-39 MP
 -----------------------------------------
-require("scripts/globals/msg");
+
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:getMP() == target:getMaxMP()) then
-        return msgBasic.ITEM_UNABLE_TO_USE;
-    end
     return 0;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    local mpHeal = math.random(30,40);
+    local hpHeal = math.random(30,40);
+
     local dif = target:getMaxMP() - target:getMP();
-    if (mpHeal > dif) then
-        mpHeal = dif;
+    if (hpHeal > dif) then
+        hpHeal = dif;
     end
-    target:addMP(mpHeal);
-    target:messageBasic(msgBasic.RECOVERS_MP, 0, mpHeal);
+    target:addMP(hpHeal);
+    target:messageBasic(276,0,hpHeal);
 end;

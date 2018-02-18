@@ -2,6 +2,7 @@
 -- Area: Riverne - Site B01 (BCNM)
 --  NM:  Bahamut
 -----------------------------------
+
 require("scripts/globals/quests");
 require("scripts/globals/status");
 
@@ -10,12 +11,20 @@ function onMobInitialise(mob)
     mob:setMobMod(MOBMOD_HP_STANDBACK,-1);
 end;
 
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
     mob:addStatusEffect(EFFECT_PHALANX,35,0,180);
     mob:addStatusEffect(EFFECT_STONESKIN,350,0,300);
     mob:addStatusEffect(EFFECT_PROTECT,175,0,1800);
     mob:addStatusEffect(EFFECT_SHELL,24,0,1800);
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob,target)
     local MegaFlareQueue = mob:getLocalVar("MegaFlareQueue");
@@ -89,6 +98,10 @@ function onMobFight(mob,target)
         end;
     end;
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

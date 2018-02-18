@@ -4,5 +4,5 @@
 -- (Taken from 'mob_spawn_points' table)
 -----------------------------------
 
-ARGUS                   = 17588674;
-LEECH_KING              = 17588685;
+Argus = 17588674;
+Leech_King = 17588685;

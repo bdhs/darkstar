@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5822
--- Oberon Bullet Pouch
--- When used, you will obtain one stack of Oberon Bullets
+--    ID: 5822
+--    Oberon Bullet Pouch
+--    When used, you will obtain one stack of Oberon Bullets
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(19199,99);

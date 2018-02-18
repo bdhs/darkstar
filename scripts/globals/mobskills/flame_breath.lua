@@ -1,13 +1,15 @@
 ---------------------------------------------
--- Flame Breath
--- Description: Deals fire damage to enemies within a fan-shaped area originating from the caster.
--- Type: Magical Fire (Element)
+--  Cold Breath
+--
+--  Description: Deals ice damage to enemies within a fan-shaped area originating from the caster. Additional effect: Bind.
+--  Type: Magical Ice (Element)
+--
+--
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/monstertpmoves");
 ---------------------------------------------
-
 function onMobSkillCheck(target,mob,skill)
     return 0;
 end;

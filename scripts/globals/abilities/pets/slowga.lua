@@ -1,11 +1,12 @@
----------------------------------------------
--- Slowga
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+--
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
     return 0,0;
@@ -18,9 +19,9 @@ function onPetAbility(target, pet, skill, summoner)
     end;
 
     if (target:addStatusEffect(EFFECT_SLOW,300,0,duration)) then
-        skill:setMsg(msgBasic.SKILL_ENFEEB_IS);
+        skill:setMsg(MSG_ENFEEB_IS);
     else
-        skill:setMsg(msgBasic.SKILL_NO_EFFECT);
+        skill:setMsg(MSG_NO_EFFECT);
     end
     return EFFECT_SLOW;
 end

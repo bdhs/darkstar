@@ -1,13 +1,17 @@
 -----------------------------------
 -- Area: West Sarutabaruta [S]
 --  NPC: Sealed Entrance (Sealed_Entrance_3)
--- !pos -340.000 1.825 -364.825 95
+-- @pos -340.000 1.825 -364.825 95
 -----------------------------------
 package.loaded["scripts/zones/West_Sarutabaruta_[S]/TextIDs"] = nil;
 -------------------------------------
+
 require("scripts/globals/quests");
 require("scripts/globals/keyitems");
 require("scripts/zones/West_Sarutabaruta_[S]/TextIDs");
+
+-----------------------------------
+-- onTrigger
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -37,10 +41,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

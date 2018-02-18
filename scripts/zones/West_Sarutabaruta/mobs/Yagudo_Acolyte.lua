@@ -2,7 +2,11 @@
 -- Area: West Sarutabaruta
 --  MOB: Yagudo Acolyte
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

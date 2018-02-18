@@ -2,7 +2,11 @@
 -- Area: Seas Serpent Grotto
 --  MOB: Rivulet Sahagin
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

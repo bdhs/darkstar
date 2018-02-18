@@ -2,7 +2,11 @@
 -- Area: Valkurm Dunes
 --  MOB: Goblin Bounty Hunter
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

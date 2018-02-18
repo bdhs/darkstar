@@ -4,7 +4,9 @@
 -----------------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -12,12 +14,13 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
+
     local effect = target:eraseStatusEffect();
 
     if (effect == EFFECT_NONE) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
+        spell:setMsg(75); -- no effect
     else
-        spell:setMsg(msgBasic.MAGIC_ERASE);
+        spell:setMsg(341);
     end
 
     return effect;

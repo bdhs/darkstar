@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5913
--- Adaman Bolt Quiver
--- When used, you will obtain one stack of Adaman Bolts
+--    ID: 5913
+--    Adaman Bolt Quiver
+--    When used, you will obtain one stack of Adaman Bolts
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(19801,99);

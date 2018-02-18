@@ -5,16 +5,28 @@
 -----------------------------------
 package.loaded[ "scripts/zones/Xarcabard/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Xarcabard/TextIDs");
 require("scripts/globals/icanheararainbow");
 require("scripts/globals/keyitems");
 require("scripts/globals/zone");
 require("scripts/globals/conquest");
+
+-----------------------------------
+-- onInitialize
 -----------------------------------
 
 function onInitialize(zone)
+    local manuals = {17236350,17236351};
+
+    SetFieldManual(manuals);
+
     SetRegionalConquestOverseers(zone:getRegionID())
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn( player, prevZone)
     local cs = -1;
@@ -33,15 +45,19 @@ function onZoneIn( player, prevZone)
         player:setVar( "Dynamis_Status", 1);
         cs = 0x000D;
     elseif (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
-        cs = 9;
+        cs = 0x0009;
     elseif (UnbridledPassionCS == 3) then
-        cs = 4;
+        cs = 0x0004;
     elseif (player:getCurrentMission(WINDURST) == VAIN and player:getVar("MissionStatus") ==1) then
-        cs = 11;
+        cs = 0x000b; 
     end
 
     return cs;
 end;
+
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
 
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
@@ -51,15 +67,23 @@ function onConquestUpdate(zone, updatetype)
     end
 end;
 
+-----------------------------------
+-- onRegionEnter
+-----------------------------------
+
 function onRegionEnter( player, region)
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 9) then
+    if (csid == 0x0009) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 11) then
+    elseif (csid == 0x000b) then
         if (player:getPreviousZone() == 111) then
             player:updateEvent(0,0,0,0,0,2);
         else
@@ -68,12 +92,16 @@ function onEventUpdate( player, csid, option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish( player, csid, option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    if (csid == 9) then
+    if (csid == 0x0009) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
-    elseif (csid == 4) then
+    elseif (csid == 0x0004) then
         player:setVar("unbridledPassion",4);
     end
 end;

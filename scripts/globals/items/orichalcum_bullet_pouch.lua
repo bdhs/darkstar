@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5914
--- Orichalcum Bullet Pouch
--- When used, you will obtain one stack of Orichalcum Bullets
+--    ID: 5914
+--    Orichalcum Bullet Pouch
+--    When used, you will obtain one stack of Orichalcum Bullets
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(19802,99);

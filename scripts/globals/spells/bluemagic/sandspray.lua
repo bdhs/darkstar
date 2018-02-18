@@ -12,37 +12,39 @@
 -- Magic Bursts on: Compression, Gravitation, and Darkness
 -- Combos: Clear Mind
 -----------------------------------------
-require("scripts/globals/bluemagic");
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+require("scripts/globals/bluemagic");
+
+-----------------------------------------
+-- OnMagicCastingCheck
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0;
 end;
 
+-----------------------------------------
+-- OnSpellCast
+-----------------------------------------
+
 function onSpellCast(caster,target,spell)
+
     local typeEffect = EFFECT_BLINDNESS;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_INT;
-    params.skillType = BLUE_SKILL;
-    params.bonus = 0;
-    params.effect = typeEffect;
-    local resist = applyResistanceEffect(caster, target, spell, params);
+    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
     local duration = 120 * resist;
     local power = 25;
-
+    
     if (resist > 0.5) then -- Do it!
         if (target:addStatusEffect(typeEffect,power,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+            spell:setMsg(236);
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(75);
         end
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(85);
     end;
 
     return typeEffect;

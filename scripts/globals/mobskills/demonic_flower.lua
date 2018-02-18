@@ -1,13 +1,15 @@
----------------------------------------------
+---------------------------------------------------
 -- Demonic Flower
 -- Deals magic damage to a single target.
 -- Effect varies with HP and inflicts caster with weakness.
 -- Deals souleater like damage to the user.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;

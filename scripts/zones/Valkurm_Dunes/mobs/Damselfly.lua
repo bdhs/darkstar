@@ -3,15 +3,36 @@
 --  MOB: Damselfly
 -- Note: Place holder Valkurm Emperor
 -----------------------------------
+
 require("scripts/zones/Valkurm_Dunes/MobIDs");
 require("scripts/globals/fieldsofvalor");
-require("scripts/globals/mobs");
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     checkRegime(player,mob,9,1);
     checkRegime(player,mob,10,2);
+
 end;
 
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
 function onMobDespawn(mob)
-    phOnDespawn(mob,VALKURM_EMPEROR_PH,5,3600); -- 1 hour
+    local mobID = mob:getID();
+
+    if (Valkurm_Emperor_PH[mobID] ~= nil) then
+        local VE_ToD = GetServerVariable("[POP]Valkurm_Emperor");
+        if (VE_ToD <= os.time(t) and GetMobAction(Valkurm_Emperor) == 0) then
+            if (math.random(1,20) == 5) then
+                UpdateNMSpawnPoint(Valkurm_Emperor);
+                GetMobByID(Valkurm_Emperor):setRespawnTime(GetMobRespawnTime(mobID));
+                SetServerVariable("[PH]Valkurm_Emperor", mobID);
+                DeterMob(mobID, true);
+            end
+        end
+    end
 end;

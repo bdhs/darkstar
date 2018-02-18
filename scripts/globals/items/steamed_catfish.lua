@@ -11,7 +11,11 @@
 -- Earth Res 10
 -- Ranged Accuracy +6% (cap 15)
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -22,11 +26,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,4557);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 30);
     target:addMod(MOD_FOOD_MPP, 1);
     target:addMod(MOD_FOOD_MP_CAP, 110);
@@ -38,7 +50,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_FOOD_RACC_CAP, 15);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 30);
     target:delMod(MOD_FOOD_MPP, 1);
     target:delMod(MOD_FOOD_MP_CAP, 110);

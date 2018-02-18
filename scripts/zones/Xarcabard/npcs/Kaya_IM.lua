@@ -2,10 +2,11 @@
 -- Area: Xarcabard
 --  NPC: Kaya, I.M.
 -- Type: Outpost Conquest Guards
--- !pos 207.548 -24.795 -203.694 112
+-- @pos 207.548 -24.795 -203.694 112
 -----------------------------------
 package.loaded["scripts/zones/Xarcabard/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Xarcabard/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = VALDEAUNIA;
 local csid        = 0x7ff9;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

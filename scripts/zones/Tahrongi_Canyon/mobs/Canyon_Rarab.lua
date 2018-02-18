@@ -2,7 +2,11 @@
 -- Area: Tahrongi Canyon
 --  MOB: Canyon Rarab
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

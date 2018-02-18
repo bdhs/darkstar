@@ -1,13 +1,17 @@
 -----------------------------------
--- Area: Castle Oztroja
---  NPC: _m72 (Torch Stand)
+-- Area:  Castle Oztroja
+-- NPC:   _m72 (Torch Stand)
 -- Notes: Opens door _477 when _m72 to _m75 are lit
--- !pos -60 -72 -139 151
+-- @pos -60 -72 -139 151
 -----------------------------------
 package.loaded["scripts/zones/Castle_Oztroja/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Castle_Oztroja/TextIDs");
 require("scripts/globals/settings");
+
+-----------------------------------
+-- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -24,16 +28,24 @@ function onTrigger(player,npc)
     TorchStand4A = GetNPCByID(Torch4):getAnimation();
 
     if (DoorA == 9 and TorchStand1A == 9) then
-        player:startEvent(10);
+        player:startEvent(0x000a);
     else
         player:messageSpecial(TORCH_LIT);
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -43,7 +55,7 @@ function onEventFinish(player,csid,option)
         GetNPCByID(Torch1):openDoor(55);
         if ((DoorA == 9)) then
             GetNPCByID(DoorID):openDoor(35); -- confirmed retail tested
-            -- The lamps shouldn't go off here, but I couldn't get the torches to update animation times without turning them off first
+            -- The lamps shouldn't go off here, but I couldn't get the torches to update animation times without turning them off first 
             -- They need to be reset to the door open time(35s) + 4s (39 seconds)
             GetNPCByID(Torch1):setAnimation(9);
             GetNPCByID(Torch2):setAnimation(9);

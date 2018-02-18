@@ -27,8 +27,8 @@ This file is part of DarkStar-server source code.
 #include "../../entities/battleentity.h"
 
 CController::CController(CBattleEntity* _POwner) :
-    m_Tick(server_clock::now()),
-    POwner(_POwner)
+    POwner(_POwner),
+    m_Tick(server_clock::now())
 {}
 
 void CController::Despawn()
@@ -43,13 +43,12 @@ void CController::Reset()
 {
 }
 
-bool CController::Cast(uint16 targid, SpellID spellid)
+void CController::Cast(uint16 targid, uint16 spellid)
 {
     if (POwner)
     {
-        return POwner->PAI->Internal_Cast(targid, spellid);
+        POwner->PAI->Internal_Cast(targid, spellid);
     }
-    return false;
 }
 
 bool CController::Engage(uint16 targid)
@@ -61,31 +60,28 @@ bool CController::Engage(uint16 targid)
     return false;
 }
 
-bool CController::ChangeTarget(uint16 targid)
+void CController::ChangeTarget(uint16 targid)
 {
     if (POwner)
     {
-        return POwner->PAI->Internal_ChangeTarget(targid);
+        POwner->PAI->Internal_ChangeTarget(targid);
     }
-    return false;
 }
 
-bool CController::Disengage()
+void CController::Disengage()
 {
     if (POwner)
     {
-        return POwner->PAI->Internal_Disengage();
+        POwner->PAI->Internal_Disengage();
     }
-    return false;
 }
 
-bool CController::WeaponSkill(uint16 targid, uint16 wsid)
+void CController::WeaponSkill(uint16 targid, uint16 wsid)
 {
     if (POwner)
     {
-        return POwner->PAI->Internal_WeaponSkill(targid, wsid);
+        POwner->PAI->Internal_WeaponSkill(targid, wsid);
     }
-    return false;
 }
 
 bool CController::IsAutoAttackEnabled()

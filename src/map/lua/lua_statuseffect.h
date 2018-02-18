@@ -34,7 +34,7 @@ class CLuaStatusEffect
 
 public:
 
-    static const char className[];
+    static const int8 className[];
     static Lunar<CLuaStatusEffect>::Register_t methods[];
 
     CLuaStatusEffect(lua_State*);

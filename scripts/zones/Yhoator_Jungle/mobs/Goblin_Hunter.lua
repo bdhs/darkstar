@@ -2,7 +2,11 @@
 -- Area: Yhoator Jungle
 --  MOB: Goblin Hunter
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

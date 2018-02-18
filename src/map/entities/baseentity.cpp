@@ -71,7 +71,7 @@ void CBaseEntity::FadeOut()
 
 const int8* CBaseEntity::GetName()
 {
-	return (const int8*)name.c_str();
+	return name.c_str();
 }
 
 uint16 CBaseEntity::getZone()
@@ -133,7 +133,14 @@ void CBaseEntity::ResetLocalVars()
 
 uint32 CBaseEntity::GetLocalVar(const char* var)
 {
-    return m_localVars[var];
+    try
+    {
+        return m_localVars.at(var);
+    }
+    catch (std::out_of_range e)
+    {
+        return 0;
+    }
 }
 
 void CBaseEntity::SetLocalVar(const char* var, uint32 val)

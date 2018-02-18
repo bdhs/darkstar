@@ -2,7 +2,11 @@
 -- Area: Shrine of Ru'Avitau
 --  MOB: Aura Statue
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -2,7 +2,11 @@
 -- Area: Dangruf Wadi
 --  MOB: Goblin Leecher
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

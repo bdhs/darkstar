@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 16249
--- Elixir Tank
--- When used, you will obtain one Elixir
+--    ID: 16249
+--    Elixir Tank
+--    When used, you will obtain one Elixir
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(4145,1);

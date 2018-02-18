@@ -34,7 +34,7 @@ class CLuaItem
 
 public:
 
-    static const char className[];
+    static const int8 className[];
     static Lunar<CLuaItem>::Register_t methods[];
 
     CLuaItem(lua_State*);

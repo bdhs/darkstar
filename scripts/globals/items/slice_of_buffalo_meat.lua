@@ -7,7 +7,11 @@
 -- Agility -5
 -- Intelligence -7
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -24,6 +28,10 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,300,5152);
 end;
@@ -38,7 +46,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_INT, -7);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_STR, 4);
     target:delMod(MOD_AGI, -5);
     target:delMod(MOD_INT, -7);

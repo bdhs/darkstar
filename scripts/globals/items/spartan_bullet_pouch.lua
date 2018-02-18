@@ -1,7 +1,11 @@
 -----------------------------------------
--- ID: 5341
--- Spartan Bullet Pouch
--- When used, you will obtain one stack of Spartan Bullets
+--    ID: 5341
+--    Spartan Bullet Pouch
+--    When used, you will obtain one stack of Spartan Bullets
+-----------------------------------------
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -11,6 +15,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addItem(18160,99);

@@ -2,7 +2,11 @@
 -- Area: Konschtat Highlands
 --  MOB: Onyx Quadav
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

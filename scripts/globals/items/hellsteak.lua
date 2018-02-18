@@ -12,7 +12,11 @@
 -- Ranged ATT % 18 (cap 145)
 -- Dragon Killer 5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,11 +27,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5609);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 20);
     target:addMod(MOD_STR, 6);
     target:addMod(MOD_INT, -2);
@@ -40,7 +52,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_DRAGON_KILLER, 5);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 20);
     target:delMod(MOD_STR, 6);
     target:delMod(MOD_INT, -2);

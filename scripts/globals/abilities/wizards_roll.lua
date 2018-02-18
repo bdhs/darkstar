@@ -23,23 +23,30 @@
 --
 -- If the Corsair is a lower level than the player receiving Wizard's Roll, the +MAB will be reduced
 -----------------------------------
+
 require("scripts/globals/settings");
-require("scripts/globals/ability");
 require("scripts/globals/status");
-require("scripts/globals/msg");
+require("scripts/globals/ability");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
     local effectID = EFFECT_WIZARDS_ROLL
     ability:setRange(ability:getRange() + player:getMod(MOD_ROLL_RANGE));
     if (player:hasStatusEffect(effectID)) then
-        return msgBasic.ROLL_ALREADY_ACTIVE,0;
+        return MSGBASIC_ROLL_ALREADY_ACTIVE,0;
     elseif atMaxCorsairBusts(player) then
-        return msgBasic.CANNOT_PERFORM,0;
+        return MSGBASIC_CANNOT_PERFORM,0;
     else
         return 0,0;
     end
 end;
+
+-----------------------------------
+-- onUseAbility
+-----------------------------------
 
 function onUseAbility(caster,target,ability,action)
     if (caster:getID() == target:getID()) then
@@ -62,9 +69,9 @@ function applyRoll(caster,target,ability,action,total)
         effectpower = effectpower * (caster:getSubLvl() / target:getMainLvl());
     end
     if (target:addCorsairRoll(caster:getMainJob(), caster:getMerit(MERIT_BUST_DURATION), EFFECT_WIZARDS_ROLL, effectpower, 0, duration, caster:getID(), total, MOD_MATT) == false) then
-        ability:setMsg(msgBasic.ROLL_MAIN_FAIL);
+        ability:setMsg(422);
     elseif total > 11 then
-        ability:setMsg(msgBasic.DOUBLEUP_BUST);
+        ability:setMsg(426);
     end
     return total;
 end

@@ -2,7 +2,11 @@
 -- Area: Den of Rancor
 --  MOB: Tormentor
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -1,35 +1,43 @@
 -----------------------------------
 -- Area: Davoi
---  NPC: Hide Flap
+-- NPC:  Hide Flap
 -- Involved in Quest: The Doorman, The First Meeting
--- !pos 293 3 -213 149 (WAR)(K-9)
--- !pos -124 3 -43 149 (MNK)(F-7)
+-- @pos 293 3 -213 149 (WAR)(K-9) 
+-- @pos -124 3 -43 149 (MNK)(F-7)
 -----------------------------------
 package.loaded["scripts/zones/Davoi/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/zones/Davoi/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
-function onTrigger(player,npc)
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
+function onTrigger(player,npc)
+    
     local X = npc:getXPos();
     local Z = npc:getZPos();
     local swordGripMaterial = player:hasKeyItem(SWORD_GRIP_MATERIAL);
     local martialArtsScroll = player:hasKeyItem(SANDORIAN_MARTIAL_ARTS_SCROLL);
-
+    
     if (player:getQuestStatus(BASTOK,THE_DOORMAN) == QUEST_ACCEPTED and X >= 289 and X <= 293 and Z <= -214 and Z >= -218) then
         if (player:getVar("theDoormanKilledNM") >= 2 and swordGripMaterial == false and player:getVar("theDoormanMyMob") == 1) then
             player:addKeyItem(SWORD_GRIP_MATERIAL);
             player:messageSpecial(KEYITEM_OBTAINED, SWORD_GRIP_MATERIAL);
             player:setVar("theDoormanMyMob",0);
             player:setVar("theDoormanKilledNM",0);
-        elseif (swordGripMaterial == true or player:getVar("theDoormanCS") >= 2) then
+        elseif (swordGripMaterial == true or player:getVar("theDoormanCS") >= 2) then 
             player:messageSpecial(YOU_SEE_NOTHING);
         else
             SpawnMob(17387965):updateClaim(player); -- Gavotvut
@@ -48,13 +56,21 @@ function onTrigger(player,npc)
     else
         player:messageSpecial(YOU_SEE_NOTHING);
     end
-
+    
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

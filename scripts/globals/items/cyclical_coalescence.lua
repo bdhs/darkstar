@@ -9,7 +9,11 @@
 -- Magic Atk. Bonus +15
 -- Lizard Killer +7
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -20,11 +24,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,6225);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_FOOD_MPP, 30)
     target:addMod(MOD_FOOD_MP_CAP, 110)
     target:addMod(MOD_INT, 7)
@@ -33,7 +45,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_LIZARD_KILLER, 7)
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_MPP, 30)
     target:delMod(MOD_FOOD_MP_CAP, 110)
     target:delMod(MOD_INT, 7)

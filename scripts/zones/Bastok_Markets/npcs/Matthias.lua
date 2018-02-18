@@ -1,15 +1,16 @@
 -----------------------------------
 -- Area: Bastok Markets
---  NPC: Matthias
+-- NPC: Matthias
 -- Standard Info NPC
 -- Involved in Quest:
 -----------------------------------
-package.loaded["scripts/zones/Bastok_Markets/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bastok_Markets/TextIDs");
-require("scripts/globals/quests");
------------------------------------
 
+require("scripts/globals/quests");
+package.loaded["scripts/zones/Bastok_Markets/TextIDs"] = nil;
+require("scripts/zones/Bastok_Markets/TextIDs");
+-----------------------------------
+-- onTrade Action
+-----------------------------------
     --local variables for item IDs to make things clearer;
     local imperialSilk = 2340;
     local wolfFelt = 2010;
@@ -37,7 +38,7 @@ function onTrade(player,npc,trade)
 
                 rewardThePlayer(player);
 
-             elseif (playersAFChoice == 2 and
+             elseif (playersAFChoice == 2 and 
                 trade:hasItemQty(karakulCloth, 1) == true and
                 trade:hasItemQty(rainbowCloth, 1) == true and
                 trade:hasItemQty(rainbowVelvet, 1) == true and
@@ -56,7 +57,7 @@ function onTrade(player,npc,trade)
                 rewardThePlayer(player);
             end;
      end;
-end;
+end; 
 
 function rewardThePlayer(player)
     local playersAFChoice = player:getVar("dancerAFChoice");
@@ -64,10 +65,13 @@ function rewardThePlayer(player)
     player:setVar("dancerTailorWorkDay", currentVanaDay);
     player:setVar("dancerTailorCS", 5);
     player:tradeComplete();
-    player:startEvent(495, playersAFChoice-1);
+    player:startEvent(0x01EF, playersAFChoice-1);
 end;
 
--- local variables for item IDs to make things clearer
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+---local variables for item IDs to make things clearer
     local dancersTiara = 16139;
     local dancersBangles = 15003;
     local dancersToeshoes = 15747;
@@ -78,7 +82,7 @@ function onTrigger(player,npc)
     local tailorStartedWorkDay = player:getVar("dancerTailorWorkDay");
 
     if (player:getVar("dancerTailorCS") == 2) then
-        player:startEvent(492);
+        player:startEvent(0x01EC);
     elseif (player:getVar("dancerTailorCS") == 3) then
 
         local completedPieces = player:getVar("dancerCompletedAF");
@@ -99,16 +103,16 @@ function onTrigger(player,npc)
         end;
 
         local completedPieces = playerCompletedShoes + playerCompletedBangles + playerCompletedTiara;
-        if (completedPieces == 3) then
+        if (completedPieces == 3) then 
             player:setVar("dancerTailorCS", 6);
-            player:startEvent(498);
+            player:startEvent(0x01F2);
          else
-            player:startEvent(493, playerCompletedTiara, playerCompletedBangles, playerCompletedShoes);
+            player:startEvent(0x01ED, playerCompletedTiara, playerCompletedBangles, playerCompletedShoes);
         end;
 
     elseif (player:getVar("dancerTailorCS") == 4) then
 
-        player:startEvent(494, playersAFChoice -1); -- event params indexed from 0
+        player:startEvent(0x01EE, playersAFChoice -1); -- event params indexed from 0
 
     elseif (player:getVar("dancerTailorCS") == 5 )then
 
@@ -116,7 +120,7 @@ function onTrigger(player,npc)
 
         if (currentVanaDay > tailorStartedWorkDay) then
 
-            local dancerAFID = 1; -- variable used to convert player's choice into an Item ID.
+            local dancerAFID = 1; -- variable used to convert player's choice into an Item ID. 
             local playerGender = player:getGender(); --gender is actually important here because it displays the item on screen for you.
 
             if (playersAFChoice == 1) then
@@ -127,22 +131,28 @@ function onTrigger(player,npc)
                 dancerAFID = dancersToeshoes - playerGender;
             end;
 
-            player:startEvent(497, dancerAFID);
+            player:startEvent(0x01F1, dancerAFID);
 
         else
-            player:startEvent(496); -- not enough time has passed
+            player:startEvent(0x01F0); -- not enough time has passed
         end;
     elseif (player:getVar("dancerTailorCS") == 6) then
-        player:startEvent(498);
+        player:startEvent(0x01F2);
     else
-        player:startEvent(499);
+        player:startEvent(0x01F3);
     end;
-end;
+end; 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -150,23 +160,23 @@ function onEventFinish(player,csid,option)
 
     local completedPieces = player:getVar("dancerCompletedAF");
 
-    if (csid == 492) then
+    if (csid == 0x01EC) then
 
         if (option > 0) then -- option 1 - tiara 2 - bangles 3 - shoes
             player:setVar("dancerAFChoice", option);
             player:setVar("dancerTailorCS", 4);
         else
-            player:setVar("dancerTailorCS", 3);
+            player:setVar("dancerTailorCS", 3); 
         end;
 
-    elseif (csid == 493) then
+    elseif (csid == 0x01ED) then
 
         if (option > 0) then -- option 1 - tiara 2 - bangles 3 - shoes
 
             local choiceBit = bit.lshift(1, option - 1) --check to see if the player already did this piece
 
             if (bit.band(choiceBit, completedPieces) == choiceBit) then
-                player:startEvent(498);
+                player:startEvent(0x01F2); 
 
             else
                 player:setVar("dancerAFChoice", option);
@@ -174,7 +184,7 @@ function onEventFinish(player,csid,option)
             end;
         end;
 
-    elseif (csid == 497) then -- reward player the appropriate AF
+    elseif (csid == 0x01F1) then -- reward player the appropriate AF
 
         local dancerAFID = 1; -- variable used to convert player's choice into an Item ID.
         local playersAFChoice = player:getVar("dancerAFChoice");
@@ -205,6 +215,6 @@ function onEventFinish(player,csid,option)
              end;
         end;
     else
-    -- do nothing
+    --do nothing
     end;
 end;

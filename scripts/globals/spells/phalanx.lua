@@ -1,9 +1,12 @@
 -----------------------------------------
---   Spell: PHALANX
+--    Spell: PHALANX
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -34,9 +37,9 @@ function onSpellCast(caster,target,spell)
     end
 
     if (target:addStatusEffect(EFFECT_PHALANX,final,0,duration)) then
-        spell:setMsg(msgBasic.MAGIC_GAIN_EFFECT);
+        spell:setMsg(230);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end
 
     return EFFECT_PHALANX;

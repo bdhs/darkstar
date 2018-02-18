@@ -1,11 +1,12 @@
----------------------------------------------
+---------------------------------------------------
 -- Glittering Ruby
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
     return 0,0;
@@ -32,6 +33,6 @@ function onPetAbility(target, pet, skill)
     end
 
     target:addStatusEffect(effectid,math.random(12,14),0,90);
-    skill:setMsg(msgBasic.SKILL_GAIN_EFFECT);
+    skill:setMsg(MSG_BUFF);
     return effectid;
 end

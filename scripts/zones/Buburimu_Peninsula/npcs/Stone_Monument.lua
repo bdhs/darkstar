@@ -1,17 +1,25 @@
 -----------------------------------
--- Area: Buburimu Peninsula
---  NPC: Stone Monument
+--  Area: Buburimu Peninsula
+--  NPC:  Stone Monument
 --  Involved in quest "An Explorer's Footsteps"
--- !pos 320.755 -4.000 368.722 118
+-- @pos 320.755 -4.000 368.722 118
 -----------------------------------
 package.loaded["scripts/zones/Buburimu_Peninsula/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Buburimu_Peninsula/TextIDs");
+
+-----------------------------------
+-- onTrigger
 -----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(900);
+    player:startEvent(0x0384);
 end;
+
+-----------------------------------
+-- onTrade
+-----------------------------------
 
 function onTrade(player,npc,trade)
     if (trade:getItemCount() == 1 and trade:hasItemQty(571,1)) then
@@ -22,10 +30,18 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

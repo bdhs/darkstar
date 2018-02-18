@@ -1,12 +1,13 @@
----------------------------------------------
+---------------------------------------------------
 -- Familiar
 -- pet powers increase.
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (mob:getMobMod(MOBMOD_SCRIPTED_2HOUR) == 1) then
@@ -21,7 +22,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     mob:familiar();
 
-    skill:setMsg(msgBasic.FAMILIAR);
+    skill:setMsg(MSG_FAMILIAR);
 
     return 0;
 end;

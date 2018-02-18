@@ -1,24 +1,29 @@
 -----------------------------------
 -- Area: Lower Jeuno
---  NPC: Susu
+-- NPC: Susu
 -- Standard Merchant NPC
 -----------------------------------
+
 require("scripts/globals/shop");
 package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Lower_Jeuno/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
+    
+player:showText(npc,SUSU_SHOP_DIALOG);
 
-    player:showText(npc,SUSU_SHOP_DIALOG);
-
-    local stock =
-    {
-        0x1227,20000,        -- Banishga II
+stock = {0x1227,20000,        -- Banishga II
      0x1248,244,        -- Barsleep
      0x1249,400,        -- Barpoison
      0x124a,780,        -- Barparalyze
@@ -34,14 +39,22 @@ function onTrigger(player,npc)
      0x1211,2330,        -- Silena
      0x1212,19200,        -- Stona
      0x1213,13300}        -- Viruna
+ 
+showShop(player, STATIC, stock);
+end; 
 
-    showShop(player, STATIC, stock);
-end;
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

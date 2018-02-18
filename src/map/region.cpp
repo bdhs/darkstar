@@ -35,10 +35,9 @@
 *																		*
 ************************************************************************/
 
-CRegion::CRegion(uint32 RegionID, bool isCircle) :
-    m_RegionID(RegionID),
+CRegion::CRegion(uint32 RegionID, bool isCircle) : 
     m_Count(0),
-    circle(isCircle)
+	m_RegionID(RegionID), circle(isCircle)
 {
 	if (m_RegionID == 0)
 	{

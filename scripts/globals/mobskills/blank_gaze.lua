@@ -1,13 +1,15 @@
----------------------------------------------
+---------------------------------------------------
 -- Blank Gaze
 -- Powerful Paralyze Gaze Attack.
 -- Utsusemi/Blink absorb: Ignores shadows
 -- Range: Melee?
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;

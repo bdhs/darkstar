@@ -2,10 +2,13 @@
 -- Spell: Burn
 -- Deals fire damage that lowers an enemy's intelligence and gradually reduces its HP.
 -----------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -13,20 +16,14 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-
+    
     if (target:getStatusEffect(EFFECT_DROWN) ~= nil) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
-    else
+        spell:setMsg(75); -- no effect
+    else        
         local dINT = caster:getStat(MOD_INT)-target:getStat(MOD_INT);
-        local params = {};
-        params.diff = nil;
-        params.attribute = MOD_INT;
-        params.skillType = 36;
-        params.bonus = 0;
-        params.effect = nil;
-        local resist = applyResistance(caster, target, spell, params);
+        local resist = applyResistance(caster,spell,target,dINT,36,0);
         if (resist <= 0.125) then
-            spell:setMsg(msgBasic.MAGIC_RESIST);
+            spell:setMsg(85);
         else
             if (target:getStatusEffect(EFFECT_FROST) ~= nil) then
                 target:delStatusEffect(EFFECT_FROST);
@@ -41,18 +38,18 @@ function onSpellCast(caster,target,spell)
                 end;
             end;
             if (noeffect) then
-                spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
+                spell:setMsg(75); -- no effect
             else
                 if (effect ~= nil) then
                     target:delStatusEffect(EFFECT_BURN);
                 end;
-                spell:setMsg(msgBasic.MAGIC_ENFEEB);
+                spell:setMsg(237);
                 local duration = math.floor(ELEMENTAL_DEBUFF_DURATION * resist);
-                target:addStatusEffect(EFFECT_BURN,DOT, 3, ELEMENTAL_DEBUFF_DURATION,FLAG_ERASABLE);
+                target:addStatusEffect(EFFECT_BURN,DOT, 3, ELEMENTAL_DEBUFF_DURATION,FLAG_ERASBLE);
             end;
         end;
     end;
-
+    
     return EFFECT_BURN;
-
+    
 end;

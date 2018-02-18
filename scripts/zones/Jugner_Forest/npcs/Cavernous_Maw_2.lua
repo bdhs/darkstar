@@ -1,20 +1,28 @@
 -----------------------------------
 -- Area: Jugner Forest
 --  NPC: Cavernous Maw
--- !pos 246.318, -0.709, 5.706 104
+-- @pos 246.318, -0.709, 5.706 104
 -- Teleports Players to Abyssea - Vunkerl
 -----------------------------------
 package.loaded["scripts/zones/Jugner_Forest/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/abyssea");
 require("scripts/zones/Jugner_Forest/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (ENABLE_ABYSSEA == 1 and player:getMainLvl() >= 30) then
@@ -30,10 +38,18 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish Action
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

@@ -1,16 +1,28 @@
 -----------------------------------
 -- Area: King Ranperres Tomb
---  NPC: Cherry Sapling
+-- NPC:  Cherry Sapling
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
     SetServerVariable("[POP]Cemetery Cherry",0);
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 

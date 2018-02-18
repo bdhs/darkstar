@@ -1,13 +1,16 @@
 -----------------------------------
 -- Area: Grand Palace of Hu'Xzoi
---  MOB: Eo'ghrah
+-- MOB:  Eo'ghrah
 -----------------------------------
 require("scripts/globals/status");
+
+-----------------------------------
+-- OnMobSpawn Action
+-- Set core Skin and mob elemental resist/weakness; other elements set to 0.
+-- Set to non aggro. 
 -----------------------------------
 
 function onMobSpawn(mob)
-    -- Set core Skin and mob elemental resist/weakness; other elements set to 0.
-    -- Set to non aggro.
     mob:AnimationSub(0);
     mob:setAggressive(0);
     mob:setLocalVar("roamTime", os.time());
@@ -41,8 +44,17 @@ function onMobSpawn(mob)
     end;
 end;
 
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
 function onMobEngaged(mob,target)
 end;
+
+-----------------------------------
+-- onMobRoam Action
+-- Autochange Aggro and Form
+-----------------------------------
 
 function onMobRoam(mob)
     local roamTime = mob:getLocalVar("roamTime");
@@ -56,6 +68,11 @@ function onMobRoam(mob)
         mob:setLocalVar("roamTime", os.time());
     end
 end;
+
+-----------------------------------
+-- OnMobFight Action
+-- Set ball form and secondary form
+-----------------------------------
 
 function onMobFight(mob,target)
 
@@ -71,6 +88,10 @@ function onMobFight(mob,target)
         mob:setLocalVar("changeTime", mob:getBattleTime());
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

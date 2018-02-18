@@ -1,8 +1,8 @@
 -----------------------------------
 -- Area: Port San d'Oria
---  NPC: Anton
+-- NPC:  Anton
 -- @zone 232
--- !pos -19 -8 27
+-- @pos -19 -8 27
 -----------------------------------
 package.loaded["scripts/zones/Port_San_dOria/TextIDs"] = nil;
 -----------------------------------
@@ -10,6 +10,9 @@ require("scripts/zones/Port_San_dOria/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -23,33 +26,45 @@ function onTrade(player,npc,trade)
             player:messageSpecial(FLYER_REFUSED);
         end
     end
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-
-    if (player:hasKeyItem(AIRSHIP_PASS) == false) then
-        player:startEvent(517);
+    
+    if (player:hasKeyItem(AIRSHIP_PASS) == false) then 
+        player:startEvent(0x0205);
     elseif (player:getGil() < 200) then
-        player:startEvent(716);
+        player:startEvent(0x02cc);
     else
-        player:startEvent(604);
+        player:startEvent(0x025c);
     end
     return 1;
-
+    
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 604) then
+    if (csid == 0x025c) then
         X = player:getXPos();
-
+        
         if (X >= -13 and X <= -8) then
             player:delGil(200);
         end

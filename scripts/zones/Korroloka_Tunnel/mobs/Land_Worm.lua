@@ -2,7 +2,11 @@
 -- Area: Korroloka Tunnel
 --  MOB: Land Worm
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

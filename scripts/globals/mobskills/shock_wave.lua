@@ -3,10 +3,12 @@
 -- Deals damage in a frontal area of effect. Additional effect: Knockback
 --
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     if (target:isBehind(mob, 48) == true) then
@@ -16,6 +18,7 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    -- Needs Knockback added
     local numhits = 1;
     local accmod = 1;
     local dmgmod = 3.2;

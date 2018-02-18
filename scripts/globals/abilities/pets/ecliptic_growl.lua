@@ -1,12 +1,13 @@
----------------------------------------------
+---------------------------------------------------
 -- Ecliptic Growl
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/monstertpmoves");
 require("scripts/globals/utils");
-require("scripts/globals/msg");
----------------------------------------------
+
+---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
     return 0,0;
@@ -47,6 +48,6 @@ function onPetAbility(target, pet, skill, summoner)
     target:addStatusEffect(EFFECT_INT_BOOST,8-buffvalue,0,duration);
     target:addStatusEffect(EFFECT_MND_BOOST,8-buffvalue,0,duration);
     target:addStatusEffect(EFFECT_CHR_BOOST,8-buffvalue,0,duration);
-    skill:setMsg(msgBasic.NONE);
+    skill:setMsg(0);
     return 0;
 end

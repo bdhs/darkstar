@@ -3,17 +3,25 @@
 -- Item: Stoneskin Torque
 -- Item Effect: Stoneskin
 -----------------------------------------
-require("scripts/globals/status");
-require("scripts/globals/msg");
+
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
     return 0;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     if (target:addStatusEffect(EFFECT_STONESKIN, 104, 0, 300)) then
-        target:messageBasic(msgBasic.GAINS_EFFECT_OF_STATUS, EFFECT_STONESKIN);
+        target:messageBasic(205,EFFECT_STONESKIN);
     else
-        target:messageBasic(msgBasic.NO_EFFECT);
+        target:messageBasic(423); -- no effect
     end
 end;

@@ -1,14 +1,18 @@
 -----------------------------------------
 -- ID: 5778
 -- Item: Crepe Belle Helene
--- Food Effect: 30 Min, All Races
+-- Food Effect: 60 Min, All Races
 -----------------------------------------
 -- Intelligence +2
 -- MP Healing +3
--- Magic Accuracy +21% (cap 50)
+-- Magic Accuracy +6
 -- Magic Defense +1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,8 +23,12 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,1800,5778);
+    target:addStatusEffect(EFFECT_FOOD,0,0,3600,5778);
 end;
 
 -----------------------------------------
@@ -30,15 +38,17 @@ end;
 function onEffectGain(target,effect)
     target:addMod(MOD_INT, 2);
     target:addMod(MOD_MPHEAL, 3);
-    target:addMod(MOD_FOOD_MACCP, 21);
-    target:addMod(MOD_FOOD_MACC_CAP, 50);
+    target:addMod(MOD_MACC, 6);
     target:addMod(MOD_MDEF, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_INT, 2);
     target:delMod(MOD_MPHEAL, 3);
-    target:delMod(MOD_FOOD_MACCP, 21);
-    target:delMod(MOD_FOOD_MACC_CAP, 50);
+    target:delMod(MOD_MACC, 6);
     target:delMod(MOD_MDEF, 1);
 end;

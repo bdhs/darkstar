@@ -9,7 +9,11 @@
 -- Store TP +6
 -- Resist virus +5
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -20,11 +24,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,1800,5188);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_FOOD_HPP, 30);
     target:addMod(MOD_FOOD_HP_CAP, 70);
     target:addMod(MOD_VIT, 2);
@@ -32,7 +44,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_VIRUSRES, 10);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HPP, 30);
     target:delMod(MOD_FOOD_HP_CAP, 70);
     target:delMod(MOD_VIT, 2);

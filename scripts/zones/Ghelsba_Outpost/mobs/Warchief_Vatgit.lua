@@ -3,13 +3,21 @@
 --  MOB: Warchief Vatgit
 -- Involved in Mission 2-3
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/missions");
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath Action
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

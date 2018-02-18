@@ -2,9 +2,12 @@
 -- Spell: Vivacious Etude
 -- Static VIT Boost, BRD 30
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -50,7 +53,7 @@ function onSpellCast(caster,target,spell)
     end
 
     if not (target:addBardSong(caster,EFFECT_ETUDE,power,0,duration,caster:getID(),MOD_VIT,1)) then
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+        spell:setMsg(75);
     end
 
     return EFFECT_ETUDE;

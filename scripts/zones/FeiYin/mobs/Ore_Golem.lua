@@ -2,12 +2,20 @@
 -- Area: FeiYin
 --  MOB: Ore Golem
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
 require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

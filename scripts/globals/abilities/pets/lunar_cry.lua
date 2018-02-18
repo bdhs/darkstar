@@ -1,11 +1,12 @@
----------------------------------------------
+---------------------------------------------------
 -- Aerial Armor
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
     return 0,0;
@@ -33,6 +34,6 @@ function onPetAbility(target, pet, skill)
     target:delStatusEffect(EFFECT_EVASION_DOWN);
     target:addStatusEffect(EFFECT_ACCURACY_DOWN,buffvalue,0,180);
     target:addStatusEffect(EFFECT_EVASION_DOWN,32-buffvalue,0,180);
-    skill:setMsg(msgBasic.NONE);
+    skill:setMsg(0);
     return 0;
 end

@@ -2,7 +2,11 @@
 -- Area: Korroloka Tunnel
 --  MOB: Gigas Stonegrinder
 -----------------------------------
+
 require("scripts/globals/groundsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

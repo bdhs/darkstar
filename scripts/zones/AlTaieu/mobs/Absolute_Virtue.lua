@@ -2,17 +2,20 @@
 -- Area: Al'Taieu
 --  HNM: Absolute Virtue
 -----------------------------------
-require("scripts/zones/AlTaieu/MobIDs");
-require("scripts/globals/status");
+
 require("scripts/globals/titles");
+require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
     -- setMod
     mob:setMod(MOD_REGEN, 500);
 
-    local JoL = GetMobByID(JAILER_OF_LOVE);
+    local JoL = GetMobByID(16912848);
     -- Special check for regen modification by JoL pets killed
     if (JoL:getLocalVar("JoL_Qn_xzomit_Killed") == 9) then
         mob:addMod(MOD_REGEN, -130)
@@ -22,8 +25,16 @@ function onMobSpawn(mob)
     end
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob, target)
 end;
+
+------------------------------------
+-- onSpellPrecast
+------------------------------------
 
 function onSpellPrecast(mob, spell)
     if (spell:getID() == 218) then -- Meteor
@@ -35,8 +46,16 @@ function onSpellPrecast(mob, spell)
     end
 end;
 
+------------------------------------
+-- onMonsterMagicPrepare
+------------------------------------
+
 function onMonsterMagicPrepare(caster, target)
 end;
+
+-----------------------------------
+-- onMagicHit
+-----------------------------------
 
 function onMagicHit(caster, target, spell)
     local REGEN = target:getMod(MOD_REGEN);
@@ -52,8 +71,16 @@ function onMagicHit(caster, target, spell)
     return 1;
 end;
 
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
 function onMobDespawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(VIRTUOUS_SAINT);

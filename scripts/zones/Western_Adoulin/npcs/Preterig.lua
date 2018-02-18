@@ -1,18 +1,25 @@
 -----------------------------------
--- Area: Western Adoulin
+--  Area: Western Adoulin
 --  NPC: Preterig
--- Type: Shop NPC
+--  Type: Shop NPC
 --  @zone 256
---  !pos 6 0 -53 256
+--  @pos 6 0 -53 256
 -----------------------------------
 package.loaded["scripts/zones/Western_Adoulin/TextIDs"] = nil;
 -----------------------------------
 require("scripts/globals/shop");
 require("scripts/zones/Western_Adoulin/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     -- Standard shop
@@ -27,8 +34,16 @@ function onTrigger(player,npc)
     showShop(player, STATIC, stock);
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
 end;

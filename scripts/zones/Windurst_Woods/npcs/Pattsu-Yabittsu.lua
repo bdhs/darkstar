@@ -1,24 +1,40 @@
 -----------------------------------
 -- Area: Windurst Woods
---  NPC: Pattsu-Yabittsu
+-- NPC: Pattsu-Yabittsu
 -- Warps players to Windurst Waters
 -----------------------------------
 package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/Windurst_Woods/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
-    player:startEvent(411);
-end;
+    player:startEvent(0x19b);
+end; 
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

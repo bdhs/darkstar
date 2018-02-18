@@ -1,19 +1,24 @@
 ---------------------------------------------
--- Gloeosuccus
--- Enfeebling
--- Description: Slows down a single target.
+--  Gloeosuccus
+--
+--  Description: Additional effect: Slow.  Duration of effect varies with TP.
+--  Type: Physical (Blunt)
+--
+--
 ---------------------------------------------
-require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
 
+---------------------------------------------
 function onMobSkillCheck(target,mob,skill)
     return 0;
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    skill:setMsg(MobStatusEffectMove(mob, target, EFFECT_SLOW, 128, 0, 180));
+    local typeEffect = EFFECT_SLOW;
 
-    return EFFECT_SLOW;
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 128, 0, 180));
+
+    return typeEffect;
 end;

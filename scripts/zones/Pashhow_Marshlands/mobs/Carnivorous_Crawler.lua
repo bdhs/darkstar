@@ -2,7 +2,11 @@
 -- Area: Pashhow Marshlands
 --  MOB: Carnivorous Crawler
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

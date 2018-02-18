@@ -4,10 +4,14 @@
 -----------------------------------
 package.loaded["scripts/zones/Rolanberry_Fields/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/zones/Rolanberry_Fields/TextIDs");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

@@ -2,11 +2,19 @@
 -- Area: Fei'Yin
 --  NM:  Jenglot
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     -- Curses, Foiled A-Golem!?

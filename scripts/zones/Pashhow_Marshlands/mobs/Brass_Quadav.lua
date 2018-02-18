@@ -2,7 +2,11 @@
 -- Area: Pashhow Marshlands
 --  MOB: Brass Quadav
 -----------------------------------
+
 require("scripts/globals/fieldsofvalor");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)

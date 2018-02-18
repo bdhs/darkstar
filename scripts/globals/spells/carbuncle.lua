@@ -2,16 +2,19 @@
 -- Spell: Carbuncle
 -- Summons Carbuncle to fight by your side
 -----------------------------------------
-require("scripts/globals/summon");
+
 require("scripts/globals/pets");
-require("scripts/globals/msg");
+require("scripts/globals/summon");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     if (not caster:canUsePet()) then
-        return msgBasic.CANT_BE_USED_IN_AREA;
+        return MSGBASIC_CANT_BE_USED_IN_AREA;
     elseif (caster:hasPet()) then
-        return msgBasic.ALREADY_HAS_A_PET;
+        return MSGBASIC_ALREADY_HAS_A_PET;
     else
         return 0;
     end

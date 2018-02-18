@@ -5,9 +5,12 @@
 -- Scale down duration based on level
 -- Composure increases duration 3x
 -----------------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/magic");
-require("scripts/globals/msg");
+
+-----------------------------------------
+-- OnSpellCast
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -15,11 +18,11 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-
+    
     local hp = math.ceil(5 * (1 + 0.01 * caster:getMod(MOD_REGEN_MULTIPLIER))); -- spell base times gear multipliers
     hp = hp + caster:getMerit(MERIT_REGEN_EFFECT); -- bonus hp from merits
     hp = hp + caster:getMod(MOD_LIGHT_ARTS_REGEN); -- bonus hp from light arts
-
+    
     local duration = 75 + caster:getMod(MOD_REGEN_DURATION);
 
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
@@ -33,9 +36,9 @@ function onSpellCast(caster,target,spell)
     end
 
     if (target:addStatusEffect(EFFECT_REGEN,hp,3,duration,0,0,0)) then
-        spell:setMsg(msgBasic.MAGIC_GAIN_EFFECT);
+        spell:setMsg(230);
     else
-        spell:setMsg(msgBasic.MAGIC_NO_EFFECT); -- no effect
+        spell:setMsg(75); -- no effect
     end
 
     return EFFECT_REGEN;

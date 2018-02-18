@@ -1,17 +1,25 @@
 -----------------------------------
 -- Area: Port Windurst
---  NPC: Pyo Nzon
+-- NPC: Pyo Nzon
 -----------------------------------
 package.loaded["scripts/zones/Port_Windurst/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/quests");
 require("scripts/globals/settings");
 require("scripts/zones/Port_Windurst/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
+   
+end; 
 
-end;
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -24,51 +32,59 @@ ThePromise = player:getQuestStatus(WINDURST,THE_PROMISE);
 
     if (ThePromise == QUEST_COMPLETED) then
         Message = math.random(0,1)
-
+        
         if (Message == 1) then
-            player:startEvent(539);
+            player:startEvent(0x021b);
         else
-            player:startEvent(527);
+            player:startEvent(0x020f);
         end
     elseif (ThePromise == QUEST_ACCEPTED) then
-        player:startEvent(517);
+        player:startEvent(0x0205);
     elseif (CryingOverOnions == QUEST_COMPLETED) then
-        player:startEvent(510);
+        player:startEvent(0x01fe);
     elseif (CryingOverOnions == QUEST_ACCEPTED) then
-        player:startEvent(502);
+        player:startEvent(0x01f6);
     elseif (OnionRings == QUEST_COMPLETED) then
-        player:startEvent(443);
+        player:startEvent(0x01bb);
     elseif (OnionRings == QUEST_ACCEPTED ) then
-        player:startEvent(437);
+        player:startEvent(0x01b5);
     elseif (InspectorsGadget == QUEST_COMPLETED) then
-        player:startEvent(426);
+        player:startEvent(0x01aa);
     elseif (InspectorsGadget == QUEST_ACCEPTED) then
-        player:startEvent(418);
+        player:startEvent(0x01a2);
     elseif (KnowOnesOnions == QUEST_COMPLETED) then
-        player:startEvent(409);
+        player:startEvent(0x0199);
     elseif (KnowOnesOnions == QUEST_ACCEPTED) then
         KnowOnesOnionsVar  = player:getVar("KnowOnesOnions");
-
+        
         if (KnowOnesOnionsVar == 2) then
-            player:startEvent(408);
+            player:startEvent(0x0198);
         else
-            player:startEvent(396);
+            player:startEvent(0x018c);
         end
     elseif (TruthJusticeOnionWay == QUEST_COMPLETED) then
-        player:startEvent(382);
+        player:startEvent(0x017e);
     elseif (TruthJusticeOnionWay == QUEST_ACCEPTED) then
-        player:startEvent(375);
+        player:startEvent(0x0177);
     else
-        player:startEvent(366);
+        player:startEvent(0x016e);
     end
-
+   
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

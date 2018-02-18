@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Northern San d'Oria
---  NPC: Taulenne
+-- NPC: Taulenne
 -- Armor Storage NPC
 -----------------------------------
 package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
@@ -20,6 +20,9 @@ local G3 = 0;
 local G4 = 0;
 local G5 = 0;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 function onTrade(player,npc,trade)
     local FlyerForRegine = player:getQuestStatus(SANDORIA,FLYERS_FOR_REGINE);
     if (FlyerForRegine == 1) then
@@ -64,6 +67,9 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 function onTrigger(player,npc)
     local CurrGil = player:getGil();
     for KeyItem = 11,ArraySize,11 do
@@ -83,8 +89,11 @@ function onTrigger(player,npc)
     end
 
     player:startEvent(Withdrawl,G1,G2,G3,G4,CurrGil,G5);
-end;
+end; 
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 function onEventUpdate(player,csid,option)
     if (csid == Withdrawl) then
         player:updateEvent(
@@ -97,6 +106,9 @@ function onEventUpdate(player,csid,option)
     end
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 function onEventFinish(player,csid,option)
     if (csid == Withdrawl) then
         if (option > 0 and option <= StorageArray[ArraySize] - 10) then
@@ -116,7 +128,7 @@ function onEventFinish(player,csid,option)
                     end
                 end
             end
-        end
+        end        
     end
 
     if (csid == Deposit) then

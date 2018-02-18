@@ -3,9 +3,13 @@
 -- Consumes a Light Card to enhance light-based debuffs. Additional effect: Light-based Sleep
 -- Dia Effect: Defense Down Effect +5% and DoT + 1
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
@@ -21,18 +25,22 @@ function onAbilityCheck(player,target,ability)
     end
 end;
 
-function onUseAbility(player,target,ability)
+-----------------------------------
+-- onUseAbility
+-----------------------------------
 
+function onUseAbility(player,target,ability)
+    
     local duration = 60;
     local resist = applyResistanceAbility(player,target,ELE_LIGHT,SKILL_MRK, (player:getStat(MOD_AGI)/2) + player:getMerit(MERIT_QUICK_DRAW_ACCURACY));
-
+    
     if (resist < 0.5) then
-        ability:setMsg(msgBasic.JA_MISS_2); -- resist message
+        ability:setMsg(324);--resist message
         return EFFECT_SLEEP_I;
     end
-
+    
     duration = duration * resist;
-
+    
     local effects = {};
     local counter = 1;
     local dia = target:getStatusEffect(EFFECT_DIA);
@@ -45,7 +53,7 @@ function onUseAbility(player,target,ability)
         effects[counter] = threnody;
         counter = counter + 1;
     end
-
+    
     if counter > 1 then
         local effect = effects[math.random(1, counter-1)];
         local duration = effect:getDuration();
@@ -63,11 +71,11 @@ function onUseAbility(player,target,ability)
         local newEffect = target:getStatusEffect(effectId);
         newEffect:setStartTime(startTime);
     end
-
+    
     if (target:addStatusEffect(EFFECT_SLEEP_I,1,0,duration)) then
-        ability:setMsg(msgBasic.JA_ENFEEB_IS);
+        ability:setMsg(127);
     else
-        ability:setMsg(msgBasic.JA_NO_EFFECT_2);
+        ability:setMsg(323);
     end
 
     local del = player:delItem(2182, 1) or player:delItem(2974, 1)

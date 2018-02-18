@@ -1,17 +1,25 @@
 -----------------------------------
--- Area: East Sarutabaruta
---  NPC: Stone Monument
+--  Area: East Sarutabaruta
+--  NPC:  Stone Monument
 --  Involved in quest "An Explorer's Footsteps"
--- !pos 448.045 -7.808 319.980 116
+-- @pos 448.045 -7.808 319.980 116
 -----------------------------------
 package.loaded["scripts/zones/East_Sarutabaruta/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/zones/East_Sarutabaruta/TextIDs");
+
+-----------------------------------
+-- onTrigger
 -----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(900);
+    player:startEvent(0x0384);
 end;
+
+-----------------------------------
+-- onTrade
+-----------------------------------
 
 function onTrade(player,npc,trade)
     if (trade:getItemCount() == 1 and trade:hasItemQty(571,1)) then
@@ -22,10 +30,18 @@ function onTrade(player,npc,trade)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

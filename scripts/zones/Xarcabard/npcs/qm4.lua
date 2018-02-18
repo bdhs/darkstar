@@ -1,23 +1,32 @@
 -----------------------------------
 -- Area: Xarcabard
 -- NPC:  qm4 (???)
--- Involved in Quests: Atop the Highest Mountains (for Boreal Hound)
--- !pos -21 -25 -490 112
+-- Involved in Quests: Atop the Highest Mountains
+-- @pos -21 -25 -490 112
 -----------------------------------
 package.loaded["scripts/zones/Xarcabard/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Xarcabard/TextIDs");
-require("scripts/zones/Xarcabard/MobIDs");
-require("scripts/globals/keyitems");
+
 require("scripts/globals/settings");
+require("scripts/globals/keyitems");
 require("scripts/globals/quests");
+require("scripts/zones/Xarcabard/TextIDs");
+
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
-    if (not OldSchoolG2 or GetMobByID(BOREAL_HOUND):isDead()) then
-        if (player:getQuestStatus(JEUNO,ATOP_THE_HIGHEST_MOUNTAINS) == QUEST_ACCEPTED and not player:hasKeyItem(TRIANGULAR_FRIGICITE)) then
+    local BorealHound = GetMobAction(17236202);
+    if ((OldSchoolG2 == false) or (BorealHound == ACTION_NONE or BorealHound == ACTION_SPAWN)) then
+        if (player:getQuestStatus(JEUNO,ATOP_THE_HIGHEST_MOUNTAINS) == QUEST_ACCEPTED and player:hasKeyItem(TRIANGULAR_FRIGICITE) == false) then
             player:addKeyItem(TRIANGULAR_FRIGICITE);
             player:messageSpecial(KEYITEM_OBTAINED, TRIANGULAR_FRIGICITE);
         else
@@ -28,8 +37,20 @@ function onTrigger(player,npc)
     end
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;

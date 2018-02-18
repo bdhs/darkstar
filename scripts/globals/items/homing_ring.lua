@@ -3,11 +3,14 @@
 -- Teleport Homing Ring
 -- Enchantment: "Outpost Warp"
 -----------------------------------------
-require("scripts/globals/teleports");
-require("scripts/globals/conquest");
-require("scripts/globals/status");
+
 require("scripts/globals/zone");
-require("scripts/globals/msg");
+require("scripts/globals/status");
+require("scripts/globals/conquest");
+require("scripts/globals/teleports");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -15,11 +18,15 @@ function onItemCheck(target)
     local region = target:getCurrentRegion();
 
     if (hasOutpost(target, target:getCurrentRegion()) == REGION_UNKNOWN or GetRegionOwner(region) ~= target:getNation()) then
-        result = msgBasic.CANT_BE_USED_IN_AREA;
+        result = MSGBASIC_CANT_BE_USED_IN_AREA;
     end
 
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffectEx(EFFECT_TELEPORT,0,TELEPORT_HOMING,0,1);

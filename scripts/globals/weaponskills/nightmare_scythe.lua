@@ -33,9 +33,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
 
-    if (damage > 0 and target:hasStatusEffect(EFFECT_BLINDNESS) == false) then
-        local duration = (tp/1000 * 60) * applyResistanceAddEffect(player,target,ELE_DARK,0);
-        target:addStatusEffect(EFFECT_BLINDNESS, 15, 0, duration);
+    if (damage > 0) then
+        local duration = (tp/1000 * 60);
+        if (target:hasStatusEffect(EFFECT_BLINDNESS) == false) then
+            target:addStatusEffect(EFFECT_BLINDNESS, 15, 0, duration);
+        end
     end
     return tpHits, extraHits, criticalHit, damage;
 

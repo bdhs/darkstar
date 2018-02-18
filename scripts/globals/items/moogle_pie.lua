@@ -13,7 +13,11 @@
 -- Mind 1
 -- Charisma 1
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -23,6 +27,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,5561);
@@ -44,7 +52,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_CHR, 1);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 20);
     target:delMod(MOD_MP, 20);
     target:delMod(MOD_STR,1);

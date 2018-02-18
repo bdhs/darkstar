@@ -9,7 +9,11 @@
 -- Resist Virus +10
 -- HP Recovered While Healing 8
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -19,6 +23,10 @@ function onItemCheck(target)
     end
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,180,5635);
@@ -36,7 +44,11 @@ function onEffectGain(target,effect)
     target:addMod(MOD_HPHEAL, 8);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_VIT, 1);
     target:delMod(MOD_DEF, 10);
     target:delMod(MOD_AMORPH_KILLER, 10);

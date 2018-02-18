@@ -1,14 +1,18 @@
 -----------------------------------
 -- Area: Davoi
---  NPC: Storage Hole
+-- NPC:  Storage Hole
 -- Involved in Quest: The Crimson Trial
--- !pos -51 4 -217 149
+-- @pos -51 4 -217 149
 -----------------------------------
 package.loaded["scripts/zones/Davoi/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/zones/Davoi/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -23,20 +27,32 @@ function onTrade(player,npc,trade)
 
 end;
 
-function onTrigger(player,npc)
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
+function onTrigger(player,npc)
+    
     if (player:getQuestStatus(SANDORIA,THE_CRIMSON_TRIAL) == QUEST_ACCEPTED) then
         player:messageSpecial(AN_ORCISH_STORAGE_HOLE);
     else
         player:messageSpecial(YOU_SEE_NOTHING);
     end
+    
+end; 
 
-end;
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

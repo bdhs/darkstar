@@ -242,13 +242,13 @@ uint32 CItem::getCharPrice()
 
 const int8* CItem::getName()
 {
-    return (const int8*)m_name.c_str();
+    return m_name.c_str();
 }
 
 void CItem::setName(int8* name)
 {
     m_name.clear();
-    m_name.insert(0, (const char*)name);
+    m_name.insert(0,name);
 }
 
 /************************************************************************
@@ -259,13 +259,13 @@ void CItem::setName(int8* name)
 
 const int8* CItem::getSender()
 {
-    return (const int8*)m_send.c_str();
+    return m_send.c_str();
 }
 
 void CItem::setSender(int8* sender)
 {
     m_send.clear();
-    m_send.insert(0, (const char*)sender);
+    m_send.insert(0,sender);
 }
 
 /************************************************************************
@@ -276,13 +276,13 @@ void CItem::setSender(int8* sender)
 
 const int8* CItem::getReceiver()
 {
-    return (const int8*)m_recv.c_str();
+    return m_recv.c_str();
 }
 
 void CItem::setReceiver(int8* receiver)
 {
     m_recv.clear();
-    m_recv.insert(0, (const char*)receiver);
+    m_recv.insert(0,receiver);
 }
 
 /************************************************************************

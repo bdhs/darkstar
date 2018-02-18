@@ -9,19 +9,10 @@ cmdprops =
     parameters = "i"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!cp <amount>");
-end;
-
 function onTrigger(player, cp)
-    -- validate amount
-    if (cp == nil or cp == 0) then
-        error(player, "Invalid amount.");
+    if (cp == nil or tonumber(cp) == 0) then
+        player:PrintToPlayer("You must enter an amount.");
         return;
     end
-    
-    -- add cp
     player:addCP( cp );
-    player:PrintToPlayer(string.format("Added %i cp to %s.", cp, player:getName()));
 end

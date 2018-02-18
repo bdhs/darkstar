@@ -3,19 +3,31 @@
 -- Item: Hermes Quencher
 -- Item Effect: Flee for 30 seconds
 -----------------------------------------
-require("scripts/globals/status");
-require("scripts/globals/msg");
+
+require("scripts/globals/settings");
+
+-----------------------------------------
+-- OnItemCheck
+-----------------------------------------
 
 function onItemCheck(target)
-    if (target:hasStatusEffect(EFFECT_MEDICINE)) then
-        return msgBasic.ITEM_NO_USE_MEDICATED;
+    local result = 0;
+
+    if (target:hasStatusEffect(EFFECT_MEDICINE) == true) then
+        result = 111;
     end
-    return 0;
+
+    return result;
 end;
+
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:delStatusEffect(EFFECT_FLEE);
     target:addStatusEffect(EFFECT_FLEE, 100, 0, 30);
-    target:messageBasic(msgBasic.GAINS_EFFECT_OF_STATUS, EFFECT_FLEE);
+    target:messageBasic(266,0, EFFECT_FLEE);
     target:addStatusEffect(EFFECT_MEDICINE,0,0,900);
 end;

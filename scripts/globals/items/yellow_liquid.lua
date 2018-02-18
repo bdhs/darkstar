@@ -2,7 +2,11 @@
 --  ID: 5264
 --  Item: Yellow Liquid
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -15,6 +19,10 @@ function onItemCheck(target)
     
     return result;
 end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,30,5264);

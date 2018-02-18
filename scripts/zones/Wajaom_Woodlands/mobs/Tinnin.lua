@@ -1,12 +1,16 @@
 -----------------------------------
 -- Area: Wajoam Woodlands
 --  MOB: Tinnin
--- !pos 276 0 -694
+-- @pos 276 0 -694
 -- Spawned with Monkey Wine: @additem 2573
 -- Wiki: http://ffxiclopedia.wikia.com/wiki/Tinnin
 -----------------------------------
+
 require("scripts/globals/magic");
 require("scripts/globals/status");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
@@ -18,6 +22,10 @@ function onMobInitialize(mob)
     mob:setMod(MOD_UDMGBREATH, 0); -- immune to breath damage
 
 end;
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
     mob:setHP(mob:getMaxHP()/2);
@@ -32,8 +40,12 @@ function onMobSpawn(mob)
     mob:setLocalVar("crits", 0);
 end;
 
+-----------------------------------
+-- onMobRoam Action
+-- Regen head
+-----------------------------------
+
 function onMobRoam(mob)
-    -- Regen head
     local headTimer = mob:getLocalVar("headTimer");
     if (mob:AnimationSub() == 2 and os.time() > headTimer) then
         mob:AnimationSub(1);
@@ -62,6 +74,10 @@ function onMobRoam(mob)
         end
     end
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob, target)
     local headTimer = mob:getLocalVar("headTimer");
@@ -106,6 +122,10 @@ function onMobFight(mob, target)
     end
 end;
 
+-----------------------------------
+-- onCriticalHit
+-----------------------------------
+
 function onCriticalHit(mob)
     local critNum = mob:getLocalVar("crits");
 
@@ -130,9 +150,17 @@ function onCriticalHit(mob)
     mob:setLocalVar("crits", critNum);
 end;
 
+-----------------------------------
+-- onMobDrawIn
+-----------------------------------
+
 function onMobDrawIn(mob, target)
     mob:addTP(3000); -- Uses a mobskill upon drawing in a player. Not necessarily on the person drawn in.
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;

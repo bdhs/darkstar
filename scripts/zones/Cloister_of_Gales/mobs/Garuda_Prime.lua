@@ -4,9 +4,13 @@
 -- Involved in Quest: Trial by Wind
 -- Involved in Mission: ASA-4 Sugar Coated Directive
 -----------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/status");
+
+-----------------------------------
+-- OnMobFight Action
 -----------------------------------
 
 function onMobFight(mob, target)
@@ -30,6 +34,10 @@ function onMobFight(mob, target)
 
 end;
 
+-----------------------------------
+-- OnMobSpawn Action
+-----------------------------------
+
 function onMobSpawn(mob)
     -- ASA-4: Avatar is Unkillable Until Its Used Astral Flow At Least 5 times At Specified Intervals
     if (mob:getBattlefield():getBcnmID() == 420) then
@@ -38,6 +46,10 @@ function onMobSpawn(mob)
     end
 end;
 
+-----------------------------------
+-- OnMobDeath Action
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
     if (mob:getBattlefield():getBcnmID() ~= 420) then
         player:setVar("BCNM_Killed",1);
@@ -45,25 +57,33 @@ function onMobDeath(mob, player, isKiller)
         partyMembers = 6;
         pZone = player:getZone();
 
-        player:startEvent(32001,0,record,0,(os.time() - player:getVar("BCNM_Timer")),partyMembers,0,0);
+        player:startEvent(0x7d01,0,record,0,(os.time() - player:getVar("BCNM_Timer")),partyMembers,0,0);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("onUpdate CSID: %u",csid);
     -- printf("onUpdate RESULT: %u",option);
 
-    if (csid == 32001) then
+    if (csid == 0x7d01) then
         player:delStatusEffect(EFFECT_BATTLEFIELD);
     end
 
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("onFinish CSID: %u",csid);
     -- printf("onFinish RESULT: %u",option);
 
-    if (csid == 32001) then
+    if (csid == 0x7d01) then
         player:delKeyItem(TUNING_FORK_OF_WIND);
         player:addKeyItem(WHISPER_OF_GALES);
         player:messageSpecial(KEYITEM_OBTAINED,WHISPER_OF_GALES);

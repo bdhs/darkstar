@@ -2,11 +2,19 @@
 -- Area: La Theine Plateau
 --  MOB: Battering Ram
 -----------------------------------
+
 require("scripts/zones/La_Theine_Plateau/MobIDs");
+
+-----------------------------------
+-- onMobDeath
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     local mobID = mob:getID();
@@ -15,18 +23,18 @@ function onMobDespawn(mob)
     local nmToPop = 0;
 
     if (mobID == Battering_Ram) then
-        if (GetServerVariable("[POP]Lumbering_Lambert") <= os.time()) then
+        if (GetServerVariable("[POP]Lumbering_Lambert") <= os.time(t)) then
             chanceForLambert = math.random(1,100);
         end
 
-        if (GetServerVariable("[POP]Bloodtear_Baldurf") <= os.time()) then
+        if (GetServerVariable("[POP]Bloodtear_Baldurf") <= os.time(t)) then
             chanceForBaldurf = math.random(1,100);
         end
 
         if (chanceForLambert > 0 or chanceForBaldurf > 0) then
             if (chanceForLambert > chanceForBaldurf) then
                 nmToPop = Lumbering_Lambert;
-            else
+            else 
                 nmToPop = Bloodtear_Baldurf;
             end
         end
@@ -35,7 +43,7 @@ function onMobDespawn(mob)
             if (math.random(1,20) == 5) then
                 UpdateNMSpawnPoint(nmToPop);
                 GetMobByID(nmToPop):setRespawnTime(GetMobRespawnTime(mobID));
-                DisallowRespawn(mobID, true);
+                DeterMob(mobID, true);
             end
         end
     end

@@ -1,14 +1,15 @@
----------------------------------------------
+---------------------------------------------------
 -- Blank Gaze
 -- Gaze dispel
 -- Utsusemi/Blink absorb: Ignores shadows
 -- Range: Melee?
----------------------------------------------
-require("scripts/globals/monstertpmoves");
+---------------------------------------------------
+
 require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/msg");
----------------------------------------------
+require("scripts/globals/monstertpmoves");
+
+---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
     return 0;
@@ -21,12 +22,12 @@ function onMobWeaponSkill(target, mob, skill)
         effect = target:dispelStatusEffect();
 
         if (effect == EFFECT_NONE) then
-            skill:setMsg(msgBasic.SKILL_NO_EFFECT); -- no effect
+            skill:setMsg(MSG_NO_EFFECT); -- no effect
         else
-            skill:setMsg(msgBasic.SKILL_ERASE);
+            skill:setMsg(MSG_DISAPPEAR);
         end
     else
-        skill:setMsg(msgBasic.SKILL_NO_EFFECT); -- no effect
+        skill:setMsg(MSG_NO_EFFECT); -- no effect
     end
 
     return effect;

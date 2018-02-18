@@ -4,11 +4,12 @@
 --(Taken from 'mob_spawn_points' table)
 -----------------------------------
 
-TUMBLING_TRUFFLE_PH =
-{
-    [17195256] = 17195259, -- 450.472 70.657 238.237
-};
+-- Tumbling Truffle 
+Tumbling_Truffle=17195259;
+Tumbling_Truffle_PH={ 
+  [17195256] = '1',
+}; 
 
-Battering_Ram       = 17195316;
-Lumbering_Lambert   = 17195317;
-Bloodtear_Baldurf   = 17195318;
+Battering_Ram=17195316;
+Lumbering_Lambert=17195317;
+Bloodtear_Baldurf=17195318;

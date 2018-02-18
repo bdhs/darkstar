@@ -3,18 +3,22 @@
 -- Item: serving_of_red_curry
 -- Food Effect: 3 hours, All Races
 -----------------------------------------
--- HP +25
--- Strength +7
--- Agility +1
--- Intelligence -2
--- HP recovered while healing +2
--- MP recovered while healing +1
--- Attack +23% (Cap: 150@652 Base Attack)
--- Ranged Attack +23% (Cap: 150@652 Base Ranged Attack)
--- Demon Killer +4
--- Resist Sleep +3
+--    HP +25
+--    Strength +7
+--    Agility +1
+--    Intelligence -2
+--    HP recovered while healing +2
+--    MP recovered while healing +1
+--    Attack +23% (Cap: 150@652 Base Attack)
+--    Ranged Attack +23% (Cap: 150@652 Base Ranged Attack)
+--    Demon Killer +4
+--    Resist Sleep +3
 -----------------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
@@ -25,11 +29,19 @@ function onItemCheck(target)
     return result;
 end;
 
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
+
 function onItemUse(target)
     target:addStatusEffect(EFFECT_FOOD,0,0,10800,4298);
 end;
 
-function onEffectGain(target, effect)
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
     target:addMod(MOD_HP, 25);
     target:addMod(MOD_STR, 7);
     target:addMod(MOD_AGI, 1);
@@ -44,7 +56,11 @@ function onEffectGain(target, effect)
     target:addMod(MOD_SLEEPRES, 3);
 end;
 
-function onEffectLose(target, effect)
+-----------------------------------------
+-- onEffectLose Action
+-----------------------------------------
+
+function onEffectLose(target,effect)
     target:delMod(MOD_HP, 25);
     target:delMod(MOD_STR, 7);
     target:delMod(MOD_AGI, 1);

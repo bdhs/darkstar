@@ -2,11 +2,19 @@
 -- Area: Dynamis Xarcabard
 --  NM:  Ying
 -----------------------------------
+
 require("scripts/globals/status");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob,target)
 end;
+
+-----------------------------------
+-- onMobSpawn
+-----------------------------------
 
 function onMobSpawn(mob)
     local dynaLord = GetMobByID(17330177);
@@ -20,6 +28,10 @@ function onMobSpawn(mob)
     end
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob,target)
     local YangID = 17330184;
     local YangToD = mob:getLocalVar("YangToD");
@@ -30,8 +42,16 @@ function onMobFight(mob,target)
     end
 end;
 
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
 function onMobDeath(mob, player, isKiller)
 end;
+
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
     local Yang = GetMobByID(17330184);

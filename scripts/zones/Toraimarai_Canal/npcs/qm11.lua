@@ -1,29 +1,61 @@
 -----------------------------------
 -- Area: Toraimarai Canal
 -- NPC:  ???
--- Involved In Quest: The Root of the Problem
--- !pos 19 17 59 169
+-- Involved In Quest: Wild Card
+-- @pos 19 17 59 169
 -----------------------------------
-require("scripts/zones/Toraimarai_Canal/MobIDs");
+package.loaded["scripts/zones/Toraimarai_Canal/TextIDs"] = nil;
+-----------------------------------
+
+require("scripts/globals/settings");
+require("scripts/globals/keyitems");
+require("scripts/globals/treasure");
+require("scripts/globals/quests");
+require("scripts/zones/Toraimarai_Canal/TextIDs");
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
-end;
+
+end; 
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
     if (player:getVar("rootProblem") == 2) then
-        if (not GetMobByID(MAGIC_SLUDGE):isSpawned() and player:getVar("rootProblemQ1") == 2 and player:getVar("rootProblemQ2") == 2) then
-            player:startEvent(48);
+        if (player:getVar("rootProblemQ1") == 2 and player:getVar("rootProblemQ2") == 2) then
+            player:startEvent(0x30);
         end
     elseif (player:getVar("rootProblem") == 3) then
-        player:startEvent(55);
+        player:startEvent(0x37);
     end
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
+    -- printf("CSID2: %u",csid);
+    -- printf("RESULT2: %u",option);
+
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    if (csid == 48 and option ~= 0) then
-        SpawnMob(MAGIC_SLUDGE):updateClaim(player);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+
+    if (csid == 0x30 and option ~= 0) then
+        SpawnMob(17469516):updateClaim(player);
     end
+
 end;
+
+

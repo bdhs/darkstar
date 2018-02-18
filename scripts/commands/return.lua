@@ -9,35 +9,21 @@ cmdprops =
     parameters = "s"
 };
 
-function error(player, msg)
-    player:PrintToPlayer(msg);
-    player:PrintToPlayer("!return {player}");
-end;
-
 function onTrigger(player, target)
-
-    -- validate target
-    local targ;
+    local ZoneID = 0;
     if (target == nil) then
-        targ = player;
-    else
-        targ = GetPlayerByName(target);
-        if (targ == nil) then
-            error(player, string.format( "Player named '%s' not found!", target ) );
-            return;
-        end
-    end    
-
-    -- get previous zone
-    zoneId = targ:getPreviousZone();
-    if (zoneId == nil or zoneId == 0 or zoneId == 214) then
-        error(player, "Previous zone was a Mog House or there was a problem fetching the ID.");
-        return;
+        target = player:getName();
     end
-    
-    -- zone target
-    targ:setPos( 0, 0, 0, 0, zoneId );
-    if (targ:getID() ~= player:getID()) then
-        player:PrintToPlayer( string.format( "%s was returned to zone %i.", targ:getName(), zoneId ) );
+
+    local targ = GetPlayerByName( target );
+    if (targ ~= nil) then
+        ZoneID = targ:getPreviousZone();
+        if (ZoneID == nil or ZoneID == 0 or ZoneID == 214) then
+            player:PrintToPlayer( "Previous Zone was a Mog House or there was a problem fetching the ID.");
+        else
+            targ:setPos( 0, 0, 0, 0, ZoneID );
+        end
+    else
+        player:PrintToPlayer( string.format( "Player named '%s' not found!", target ) );
     end
 end

@@ -2,10 +2,11 @@
 -- Area: Lufaise Meadows
 --  NPC: Yoram, I.M.
 -- Outpost Conquest Guards
--- !pos -542.418 -7.124 -53.521 24
+-- @pos -542.418 -7.124 -53.521 24
 -----------------------------------
 package.loaded["scripts/zones/Lufaise_Meadows/TextIDs"] = nil;
 -----------------------------------
+
 require("scripts/globals/conquest");
 require("scripts/zones/Lufaise_Meadows/TextIDs");
 
@@ -14,9 +15,17 @@ local guardtype   = 3;      -- 1: city, 2: foreign, 3: outpost, 4: border
 local region      = TAVNAZIANARCH;
 local csid        = 0x7ff9;
 
+-----------------------------------
+-- onTrade Action
+-----------------------------------
+
 function onTrade(player,npc,trade)
     tradeConquestGuard(player,npc,trade,guardnation,guardtype);
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
 
@@ -40,10 +49,18 @@ function onTrigger(player,npc)
 
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
 function onEventUpdate(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("OPTION: %u",option);
 end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);

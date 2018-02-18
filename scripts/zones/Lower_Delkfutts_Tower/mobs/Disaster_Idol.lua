@@ -2,7 +2,11 @@
 -- Area: Lower_Delkfutts_tower
 --  Mob: Disaster_Idol
 -----------------------------------
+
 require("scripts/globals/missions");
+
+-----------------------------------
+-- onMobEngaged Action
 -----------------------------------
 
 function onMobEngaged(mob,target)
@@ -12,6 +16,10 @@ function onMobEngaged(mob,target)
     mob:setLocalVar("Element", DayofWeek+1);
 
 end;
+
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
 
 function onMobFight(mob,target)
     -- TODO: Has level mimic of person who spawned it. Minimum level 65. HP should scale accordingly.
@@ -24,6 +32,10 @@ function onMobFight(mob,target)
         mob:setLocalVar("Element", DayofWeek+1);
     end
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
     if (player:getCurrentMission(COP) == THREE_PATHS and player:getVar("COP_Tenzen_s_Path") == 6) then

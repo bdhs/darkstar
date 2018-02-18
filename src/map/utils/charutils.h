@@ -56,7 +56,7 @@ namespace charutils
     uint32	GetExpNEXTLevel(uint8 charlvl);
     uint32	GetRealExp(uint8 charlvl, uint8 moblvl);
 
-    void	DelExperiencePoints(CCharEntity* PChar, float retainpct, uint16 forcedXpLoss);
+    void	DelExperiencePoints(CCharEntity* PChar, float retainpct);
     void	DistributeExperiencePoints(CCharEntity* PChar, CMobEntity* PMob);
     void	DistributeGil(CCharEntity* PChar, CMobEntity* PMob);
     void	AddExperiencePoints(bool expFromRaise, CCharEntity* PChar, CBaseEntity* PMob, uint32 exp, uint32 baseexp = 0, bool isexpchain = false);
@@ -144,8 +144,7 @@ namespace charutils
     void    SaveTitles(CCharEntity* PChar);						        // сохраняем заслуженные звания
     void	SaveCharStats(CCharEntity* PChar);					        // сохраняем флаги, текущие значения жихней, маны и профессий
     void    SaveCharGMLevel(CCharEntity* PChar);                        // saves the char's gm level and nameflags
-    void    SaveMentorFlag(CCharEntity* PChar);                         // saves the char's mentor flag
-    void    SaveMenuConfigFlags(CCharEntity* PChar);                       // saves the char's unnamed flags
+    void    mentorMode(CCharEntity* PChar);                             // Changes char's mentor status
     void	SaveCharNation(CCharEntity* PChar);							// Save the character's nation of allegiance.
     void    SaveCampaignAllegiance(CCharEntity* PChar);                 // Save the character's campaign allegiance.
     void	SaveCharSkills(CCharEntity* PChar, uint8 skillID);	        // сохраняем указанный skill персонажа
@@ -154,7 +153,7 @@ namespace charutils
     void	SavePlayTime(CCharEntity* PChar);							// Saves this characters total play time.
     bool	hasMogLockerAccess(CCharEntity* PChar);						// true if have access, false otherwise.
 
-    float  AddExpBonus(CCharEntity* PChar, float exp);
+    uint32  AddExpBonus(CCharEntity* PChar, uint32 exp);
 
     void    RemoveAllEquipment(CCharEntity* PChar);
 
@@ -172,14 +171,11 @@ namespace charutils
     void	ClearTempItems(CCharEntity* PChar);
     void	ReloadParty(CCharEntity* PChar);
 
-    bool    IsAidBlocked(CCharEntity* PInitiator, CCharEntity* PTarget);
-
     void    AddPoints(CCharEntity* PChar, const char* type, int32 amount, int32 max = INT32_MAX);
     void    SetPoints(CCharEntity* PChar, const char* type, int32 amount);
     int32   GetPoints(CCharEntity* PChar, const char* type);
     std::string GetConquestPointsName(CCharEntity* PChar);
     void    SendToZone(CCharEntity* PChar, uint8 type, uint64 ipp);
-    void    HomePoint(CCharEntity* PChar);
     void    AddWeaponSkillPoints(CCharEntity*, SLOTTYPE, int);
 
     int32   GetVar(CCharEntity* PChar, const char* var);

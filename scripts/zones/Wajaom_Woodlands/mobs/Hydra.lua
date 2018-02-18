@@ -1,9 +1,13 @@
 -----------------------------------
 -- Area: Wajaom Woodlands
 --  MOB: Hydra
--- !pos -282 -24 -1 51
+-- @pos -282 -24 -1 51
 -----------------------------------
+
 require("scripts/globals/titles");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -37,6 +41,10 @@ function onCriticalHit(mob)
     end
 
 end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

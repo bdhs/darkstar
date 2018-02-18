@@ -6,17 +6,28 @@ package.loaded["scripts/zones/The_Shrine_of_RuAvitau/TextIDs"] = nil;
 -----------------------------------
 require("scripts/zones/The_Shrine_of_RuAvitau/TextIDs");
 require("scripts/globals/status");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
-end;
+end
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
     mob:setModelId(math.random(791, 798));
     mob:hideName(false);
     mob:untargetable(true);
     mob:setUnkillable(true);
-end;
+end
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobEngaged(mob, target)
     local id = mob:getID();
@@ -41,18 +52,34 @@ function onMobEngaged(mob, target)
     if (abilityId ~= nil) then
         mob:useMobAbility(abilityId);
     end
-end;
+end
+
+-----------------------------------
+-- onMobFight
+-----------------------------------
 
 function onMobFight(mob, target)
-end;
+end
+
+-----------------------------------
+-- onMobWeaponSkill
+-----------------------------------
 
 function onMobWeaponSkill(target, mob, skill)
     mob:setUnkillable(false);
     mob:setHP(0);
-end;
+end
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
+end
+
+-----------------------------------
+-- OnMobDespawn
+-----------------------------------
 
 function onMobDespawn(mob)
 end

@@ -5,16 +5,25 @@
 -----------------------------------
 package.loaded["scripts/zones/Selbina/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Selbina/TextIDs");
-require("scripts/zones/Selbina/MobIDs");
-require("scripts/globals/conquest");
 require("scripts/globals/keyitems");
-require("scripts/globals/quests");
 require("scripts/globals/zone");
+require("scripts/globals/shop");
+require("scripts/globals/quests");
+require("scripts/zones/Selbina/TextIDs");
+
+-----------------------------------
+-- onInitialize
+-----------------------------------
 
 function onInitialize(zone)
-    SetExplorerMoogles(SELBINA_EXPLORER_MOOGLE);
+
+    SetExplorerMoogles(17793131);
+
 end;
+
+-----------------------------------
+-- onZoneIn
+-----------------------------------
 
 function onZoneIn(player,prevZone)
     local cs = -1;
@@ -29,30 +38,52 @@ function onZoneIn(player,prevZone)
     end
 
     if (player:hasKeyItem(SEANCE_STAFF) and player:getVar("Enagakure_Killed") == 1) then
-        cs = 1101;
+        cs = 0x044d;
     end
 
     return cs;
 end;
 
+-----------------------------------
+-- onConquestUpdate
+-----------------------------------
+
 function onConquestUpdate(zone, updatetype)
     local players = zone:getPlayers();
+
     for name, player in pairs(players) do
         conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
     end
 end;
 
+-----------------------------------
+-- onTransportEvent
+-----------------------------------
+
 function onTransportEvent(player,transport)
-    player:startEvent(200);
+    player:startEvent(0x00c8);
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    if (csid == 200) then
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+
+    if (csid == 0x00c8) then
         player:setPos(0,0,0,0,221);
-    elseif (csid == 1101) then
+    elseif (csid == 0x044d) then
         if (player:getFreeSlotsCount() < 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,14226);
         else
@@ -65,4 +96,5 @@ function onEventFinish(player,csid,option)
             player:completeQuest(OUTLANDS,I_LL_TAKE_THE_BIG_BOX);
         end
     end
+
 end;

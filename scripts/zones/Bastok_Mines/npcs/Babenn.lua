@@ -1,17 +1,21 @@
 -----------------------------------
 -- Area: Bastok Mines
---  NPC: Babenn
+-- NPC:  Babenn
 -- Finishes Quest: The Eleventh's Hour
 -- Involved in Quests: Riding on the Clouds
--- !pos 73 -1 34 234
+-- @zone 234
+-- @pos 73 -1 34
 -----------------------------------
 package.loaded["scripts/zones/Bastok_Mines/TextIDs"] = nil;
 -----------------------------------
-require("scripts/zones/Bastok_Mines/TextIDs");
 require("scripts/globals/settings");
+require("scripts/globals/titles");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
-require("scripts/globals/titles");
+require("scripts/zones/Bastok_Mines/TextIDs");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -27,26 +31,38 @@ function onTrade(player,npc,trade)
 
 end;
 
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
+
 function onTrigger(player,npc)
 
     if (player:getQuestStatus(BASTOK,THE_ELEVENTH_S_HOUR) == QUEST_ACCEPTED and player:getVar("EleventhsHour") == 1) then
-        player:startEvent(45);
+        player:startEvent(0x002d);
     else
-        player:startEvent(40);
+        player:startEvent(0x0028);
     end
 
 end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
     -- printf("CSID2: %u",csid);
     -- printf("RESULT2: %u",option);
 end;
 
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
-    if (csid == 45) then
+    if (csid == 0x002d) then
 
         if (player:getFreeSlotsCount() > 1) then
             player:setVar("EleventhsHour",0);
@@ -60,4 +76,5 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 16629);
         end
     end
+
 end;
