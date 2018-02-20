@@ -143,7 +143,10 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
 
     if not multiHitfTP then dmg = base end
     
-    if ((attacker:getOffhandDmg() ~= 0) and (attacker:getOffhandDmg() > 0 or weaponType==SKILL_H2H)) then
+    -- print("attacker oh dmg: " .. attacker:getOffhandDmg() .. " ..");
+    -- print("weapon type: ".. weaponType .. " ..");
+    
+    if ((attacker:getOffhandDmg() ~= 0 and attacker:getOffhandDmg() > 0) or weaponType==SKILL_H2H) then
 
         local chance = math.random();
         if ((chance<=hitrate or math.random() < attacker:getMod(MOD_ZANSHIN)/100 or isSneakValid)
@@ -172,6 +175,8 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     if (numHits > 1) then
 
         local hitsdone = 1;
+        if (weaponType==SKILL_H2H) then hitsdone = 2; end
+        
         while (hitsdone < numHits) do
             local chance = math.random();
             local targetHP = target:getHP();
@@ -199,6 +204,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
         end
     end
     finaldmg = finaldmg + souleaterBonus(attacker, (tpHitsLanded+extraHitsLanded));
+    local hitslanded = tpHitsLanded + extraHitsLanded;
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
     finaldmg = target:physicalDmgTaken(finaldmg);
@@ -220,6 +226,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     attacker:delStatusEffectSilent(EFFECT_BUILDING_FLOURISH);
     finaldmg = finaldmg * WEAPON_SKILL_POWER
     if tpHitsLanded + extraHitsLanded > 0 then
+        -- print("calling takeWSdmg with tpHitsLanded " .. tpHitsLanded .. " and bonusTP " .. ((extraHitsLanded * 10) + bonusTP) .. " .");
         finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, SLOT_MAIN, tpHitsLanded, (extraHitsLanded * 10) + bonusTP, taChar)
     end
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded;
