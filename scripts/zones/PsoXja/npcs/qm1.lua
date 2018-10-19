@@ -4,37 +4,33 @@
 -- Notes: Used to spawn Golden-Tongued Culberry
 -- !pos -270.063 31.395 256.812 9
 -----------------------------------
-package.loaded["scripts/zones/PsoXja/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/PsoXja/TextIDs");
+local ID = require("scripts/zones/PsoXja/IDs");
+require("scripts/globals/npc_util");
+require("scripts/globals/status");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-
-    -- Trade Odorous knife or Odorous knife +1
-    if (GetMobAction(16814432) == 0 and trade:hasItemQty(18014,1) and trade:getItemCount() == 1) then
-          player:tradeComplete();
-        SpawnMob(16814432):updateClaim(player);
-        SetDropRate(1512, 13145, 500);
-        npc:setStatus(STATUS_DISAPPEAR);
-    elseif (GetMobAction(16814432) == 0 and trade:hasItemQty(18016,1) and trade:getItemCount() == 1) then
-          player:tradeComplete();
-        SpawnMob(16814432):updateClaim(player);
-        SetDropRate(1512, 13145, 1000);
-        npc:setStatus(STATUS_DISAPPEAR);
+    if (not GetMobByID(ID.mob.GOLDEN_TONGUED_CULBERRY):isSpawned()) then
+        if (npcUtil.tradeHas(trade, 18014)) then -- odorous knife
+            player:confirmTrade();
+            SpawnMob(ID.mob.GOLDEN_TONGUED_CULBERRY):updateClaim(player);
+            SetDropRate(1512, 13145, 500);
+            npc:setStatus(dsp.status.DISAPPEAR);
+        elseif (npcUtil.tradeHas(trade, 18016)) then -- odorous knife +1
+            player:confirmTrade();
+            SpawnMob(ID.mob.GOLDEN_TONGUED_CULBERRY):updateClaim(player);
+            SetDropRate(1512, 13145, 1000);
+            npc:setStatus(dsp.status.DISAPPEAR);
+        end
     end
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(BROKEN_KNIFE);
+    player:messageSpecial(ID.text.BROKEN_KNIFE);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

@@ -3,17 +3,14 @@
 -- Zone: Promyvion-Dem (18)
 --
 -----------------------------------
-package.loaded["scripts/zones/Promyvion-Dem/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Promyvion-Dem/TextIDs");
-require("scripts/zones/Promyvion-Dem/MobIDs");
+local ID = require("scripts/zones/Promyvion-Dem/IDs");
 require("scripts/globals/keyitems");
 require("scripts/globals/missions");
 require("scripts/globals/settings");
 require("scripts/globals/status");
 
 function onInitialize(zone)
-    for k, v in pairs(DEM_MEMORY_STREAMS) do
+    for k, v in pairs(ID.npc.DEM_MEMORY_STREAMS) do
         zone:registerRegion(k,v[1],v[2],v[3],v[4],v[5],v[6]);
     end
 end;
@@ -30,12 +27,12 @@ function onZoneIn(player,prevZone)
         player:addMission(COP,THE_MOTHERCRYSTALS); -- start mission 1.3
         player:setVar("PromathiaStatus",0);
     elseif (player:getCurrentMission(COP) == THE_MOTHERCRYSTALS) then
-        if (player:hasKeyItem(LIGHT_OF_HOLLA) and player:hasKeyItem(LIGHT_OF_MEA)) then
+        if (player:hasKeyItem(dsp.ki.LIGHT_OF_HOLLA) and player:hasKeyItem(dsp.ki.LIGHT_OF_MEA)) then
             if (player:getVar("cslastpromy") == 1) then
                 player:setVar("cslastpromy",0)
                 cs = 52;
             end
-        elseif (player:hasKeyItem(LIGHT_OF_HOLLA) or player:hasKeyItem(LIGHT_OF_MEA)) then
+        elseif (player:hasKeyItem(dsp.ki.LIGHT_OF_HOLLA) or player:hasKeyItem(dsp.ki.LIGHT_OF_MEA)) then
             if (player:getVar("cs2ndpromy") == 1) then
                 player:setVar("cs2ndpromy",0)
                 cs = 51;
@@ -52,7 +49,7 @@ end;
 
 function afterZoneIn(player)
     if (ENABLE_COP_ZONE_CAP == 1) then -- ZONE WIDE LEVEL RESTRICTION
-        player:addStatusEffect(EFFECT_LEVEL_RESTRICTION,30,0,0); -- LV30 cap
+        player:addStatusEffect(dsp.effect.LEVEL_RESTRICTION,30,0,0); -- LV30 cap
     end
 end;
 
@@ -61,13 +58,13 @@ function onRegionEnter(player,region)
         local regionId = region:GetRegionID();
         local event = nil;
         if (regionId < 100) then
-            event = DEM_MEMORY_STREAMS[regionId][7][1];
+            event = ID.npc.DEM_MEMORY_STREAMS[regionId][7][1];
         else
             local stream = GetNPCByID(regionId);
-            if (stream ~= nil and stream:getAnimation() == ANIMATION_OPEN_DOOR) then
+            if (stream ~= nil and stream:getAnimation() == dsp.anim.OPEN_DOOR) then
                 event = stream:getLocalVar("destination");
                 if (event == nil or event == 0) then -- this should never happen, but sanity check
-                    event = DEM_MEMORY_STREAMS[regionId][7][1];
+                    event = ID.npc.DEM_MEMORY_STREAMS[regionId][7][1];
                 end
             end
         end

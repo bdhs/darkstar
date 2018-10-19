@@ -3,15 +3,13 @@
 -- Zone: East_Ronfaure_[S] (81)
 --
 -----------------------------------
-package.loaded["scripts/zones/East_Ronfaure_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/East_Ronfaure_[S]/TextIDs");
-require("scripts/globals/quests");
-require("scripts/globals/missions");
+local ID = require("scripts/zones/East_Ronfaure_[S]/IDs")
+require("scripts/globals/missions")
+require("scripts/globals/helm")
 -----------------------------------
 
 function onInitialize(zone)
+    dsp.helm.initZone(zone, dsp.helm.type.LOGGING)
 end;
 
 function onZoneIn(player,prevZone)
@@ -31,13 +29,9 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 7) then
         player:completeMission(WOTG, WHILE_THE_CAT_IS_AWAY);
         player:addMission(WOTG, A_TIMESWEPT_BUTTERFLY);

@@ -2,10 +2,7 @@
 -- Area: Windurst Woods
 --  NPC: Wani Casdohry
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/quests");
-require("scripts/zones/Windurst_Woods/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -27,12 +24,8 @@ TwinstoneBonding = player:getQuestStatus(WINDURST,TWINSTONE_BONDING);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 

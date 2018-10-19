@@ -16,24 +16,20 @@ function onTrigger(player,npc)
     local level = player:getMainLvl();
     local gil = player:getGil();
 
-    if (player:hasKeyItem(CHOCOBO_LICENSE) and level >= 20) then
+    if (player:hasKeyItem(dsp.ki.CHOCOBO_LICENSE) and level >= 20) then
         local price = getChocoboPrice(player);
         player:setLocalVar("chocoboPriceOffer",price);
 
-        player:startEvent(6,price,gil);
+        player:startEvent(6,price,gil,1)
     else
         player:startEvent(7);
     end
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     local price = player:getLocalVar("chocoboPriceOffer");
 
@@ -41,9 +37,9 @@ function onEventFinish(player,csid,option)
         if (player:delGil(price)) then
             updateChocoboPrice(player, price);
 
-            local duration = 1800 + (player:getMod(MOD_CHOCOBO_RIDING_TIME) * 60)
+            local duration = 1800 + (player:getMod(dsp.mod.CHOCOBO_RIDING_TIME) * 60)
 
-            player:addStatusEffectEx(EFFECT_MOUNTED,EFFECT_MOUNTED,0,0,duration,true);
+            player:addStatusEffectEx(dsp.effect.MOUNTED,dsp.effect.MOUNTED,0,0,duration,true);
         end
     end
 end;

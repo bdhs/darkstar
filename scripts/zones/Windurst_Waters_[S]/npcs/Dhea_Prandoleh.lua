@@ -2,13 +2,12 @@
 -- Area: Windurst Waters (S)
 --   NPC: Dhea Prandoleh
 -- Type: Standard NPC
--- @zone 94
--- !pos 1 -1 15
+-- !pos 1 -1 15 94
 --
 -- Auto-Script: Requires Verification (Verified by Brawndo)
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Waters_[S]/TextIDs"] = nil;
------------------------------------
+local ID = require("scripts/zones/Windurst_Waters_[S]/IDs");
+require("scripts/globals/quests");
 require("scripts/globals/titles");
 -----------------------------------
 
@@ -35,23 +34,19 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 128) then
         player:addQuest(CRYSTAL_WAR, THE_TIGRESS_STIRS);
     elseif (csid == 133) then
         player:addQuest(CRYSTAL_WAR, THE_TIGRESS_STRIKES);
     elseif (csid == 134) then
         player:addItem(139);
-        player:messageSpecial(ITEM_OBTAINED,139);
+        player:messageSpecial(ID.text.ITEM_OBTAINED,139);
         player:completeQuest(CRYSTAL_WAR, THE_TIGRESS_STRIKES);
         player:needToZone(true);
-        player:addTitle(AJIDOMARUJIDOS_MINDER);
+        player:addTitle(dsp.title.AJIDOMARUJIDOS_MINDER);
     end
 end;
 

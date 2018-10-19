@@ -3,10 +3,7 @@
 -- Zone: Rolanberry_Fields_[S] (91)
 --
 -----------------------------------
-package.loaded["scripts/zones/Rolanberry_Fields_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Rolanberry_Fields_[S]/TextIDs");
+local ID = require("scripts/zones/Rolanberry_Fields_[S]/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -24,11 +21,7 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

@@ -2,10 +2,8 @@
 -- Area: Eastern Altepa Desert
 --  NPC: Telepoint
 -----------------------------------
-package.loaded["scripts/zones/Eastern_Altepa_Desert/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/keyitems");
-require("scripts/zones/Eastern_Altepa_Desert/TextIDs");
+local ID = require("scripts/zones/Eastern_Altepa_Desert/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -16,9 +14,9 @@ function onTrade(player,npc,trade)
         if (player:getFreeSlotsCount() > 0 and player:hasItem(613) == false) then
             player:tradeComplete();
             player:addItem(613);
-            player:messageSpecial(ITEM_OBTAINED,613); -- Faded Crystal
+            player:messageSpecial(ID.text.ITEM_OBTAINED,613); -- Faded Crystal
         else
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,613); -- Faded Crystal
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,613); -- Faded Crystal
         end
     end
 
@@ -26,21 +24,17 @@ end;
 
 function onTrigger(player,npc)
 
-    if (player:hasKeyItem(ALTEPA_GATE_CRYSTAL) == false) then
-        player:addKeyItem(ALTEPA_GATE_CRYSTAL);
-        player:messageSpecial(KEYITEM_OBTAINED,ALTEPA_GATE_CRYSTAL);
+    if (player:hasKeyItem(dsp.ki.ALTEPA_GATE_CRYSTAL) == false) then
+        player:addKeyItem(dsp.ki.ALTEPA_GATE_CRYSTAL);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ALTEPA_GATE_CRYSTAL);
     else
-        player:messageSpecial(ALREADY_OBTAINED_TELE);
+        player:messageSpecial(ID.text.ALREADY_OBTAINED_TELE);
     end
 
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

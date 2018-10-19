@@ -3,10 +3,8 @@
 -- Zone: Southern_San_dOria_[S] (80)
 --
 -----------------------------------
-package.loaded["scripts/zones/Southern_San_dOria_[S]/TextIDs"] = nil;
------------------------------------
+local ID = require("scripts/zones/Southern_San_dOria_[S]/IDs");
 require("scripts/globals/settings");
-require("scripts/zones/Southern_San_dOria_[S]/TextIDs");
 require("scripts/globals/quests");
 require("scripts/globals/missions");
 -----------------------------------
@@ -32,7 +30,7 @@ function onZoneIn(player,prevZone)
     if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
         player:setPos(161,-2,161,94);
         if (player:getMainJob() ~= player:getVar("PlayerMainJob")) then
-            cs = 0x7534;
+            cs = 30004;
         end
         player:setVar("PlayerMainJob",0);
     end
@@ -43,13 +41,9 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 62) then
         player:setVar("KnotQuiteThere",3);
     elseif (csid == 65) then

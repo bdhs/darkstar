@@ -2,10 +2,7 @@
 -- Area: Temenos N T
 --  NPC: Telchines_Dragoon
 -----------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -16,5 +13,5 @@ function onMobEngaged(mob,target)
 end;
 
 function onMobDeath(mob, player, isKiller)
-    GetNPCByID(16928770+452):setStatus(STATUS_NORMAL);
+    GetNPCByID(16928770+452):setStatus(dsp.status.NORMAL);
 end;

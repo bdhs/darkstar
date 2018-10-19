@@ -3,13 +3,11 @@
 --  NPC: Treasure Coffer
 -- !pos 27 6 144 153
 -----------------------------------
-package.loaded["scripts/zones/The_Boyahda_Tree/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
 require("scripts/globals/quests");
-require("scripts/zones/The_Boyahda_Tree/TextIDs");
+local ID = require("scripts/zones/The_Boyahda_Tree/IDs");
 
 local TreasureType = "Coffer";
 local TreasureLvL = 53;
@@ -31,11 +29,11 @@ function onTrade(player,npc,trade)
         local zone = player:getZoneID();
         local AFHandsActivated = player:getVar("BorghertzAlreadyActiveWithJob");
         local listAF = getAFbyZone(zone);
-        if (player:hasKeyItem(MAP_OF_THE_BOYAHDA_TREE) == false) then
+        if (player:hasKeyItem(dsp.ki.MAP_OF_THE_BOYAHDA_TREE) == false) then
             questItemNeeded = 3;
         end
 
-        if (AFHandsActivated == 14 and player:hasKeyItem(OLD_GAUNTLETS) == false) then
+        if (AFHandsActivated == 14 and player:hasKeyItem(dsp.ki.OLD_GAUNTLETS) == false) then
             questItemNeeded = 1;
         else
             for nb = 1,#listAF,3 do
@@ -61,22 +59,22 @@ function onTrade(player,npc,trade)
 
             if (math.random() <= success) then
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
-                    player:addKeyItem(OLD_GAUNTLETS);
-                    player:messageSpecial(KEYITEM_OBTAINED,OLD_GAUNTLETS); -- Old Gauntlets (KI)
+                    player:addKeyItem(dsp.ki.OLD_GAUNTLETS);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.OLD_GAUNTLETS); -- Old Gauntlets (KI)
                 elseif (questItemNeeded == 2) then
                     for nb = 1,#listAF,3 do
                         if (mJob == listAF[nb]) then
                             player:addItem(listAF[nb + 2]);
-                            player:messageSpecial(ITEM_OBTAINED,listAF[nb + 2]);
+                            player:messageSpecial(ID.text.ITEM_OBTAINED,listAF[nb + 2]);
                             break
                         end
                     end
                 elseif (questItemNeeded == 3) then
-                    player:addKeyItem(MAP_OF_THE_BOYAHDA_TREE);
-                    player:messageSpecial(KEYITEM_OBTAINED,MAP_OF_THE_BOYAHDA_TREE); -- Map of the Boyahda Tree (KI)
+                    player:addKeyItem(dsp.ki.MAP_OF_THE_BOYAHDA_TREE);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.MAP_OF_THE_BOYAHDA_TREE); -- Map of the Boyahda Tree (KI)
                 else
                     player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
 
@@ -87,16 +85,16 @@ function onTrade(player,npc,trade)
 
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]*GIL_RATE);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]*GIL_RATE);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]*GIL_RATE);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
                 UpdateTreasureSpawnPoint(npc:getID());
             else
-                player:messageSpecial(CHEST_MIMIC);
+                player:messageSpecial(ID.text.CHEST_MIMIC);
                 spawnMimic(zone,npc,player);
                 UpdateTreasureSpawnPoint(npc:getID(), true);
             end
@@ -106,15 +104,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1052);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1052);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

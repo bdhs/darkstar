@@ -3,18 +3,28 @@
 -- Zone: Mhaura (249)
 --
 -----------------------------------
-package.loaded["scripts/zones/Mhaura/TextIDs"] = nil;
------------------------------------
+local ID = require("scripts/zones/Mhaura/IDs");
+require("scripts/globals/conquest");
 require("scripts/globals/keyitems");
-require("scripts/globals/zone");
-require("scripts/zones/Mhaura/TextIDs");
 require("scripts/globals/missions");
+require("scripts/globals/settings");
+require("scripts/globals/zone");
 -----------------------------------
+
+function onGameHour(zone)
+    -- Script for Laughing Bison sign flip animations
+    local timer = 1152 - ((os.time() - 1009810802)%1152)
+
+    -- Next ferry is Al Zhabi for higher values.
+    if timer >= 576 then
+        GetNPCByID(ID.npc.LAUGHING_BISON):AnimationSub(1)
+    else
+        GetNPCByID(ID.npc.LAUGHING_BISON):AnimationSub(0)
+    end
+end;
 
 function onInitialize(zone)
-
-    SetExplorerMoogles(17797253);
-
+    SetExplorerMoogles(ID.npc.MHAURA_EXPLORER_MOOGLE);
 end;
 
 function onZoneIn(player,prevZone)
@@ -22,31 +32,27 @@ function onZoneIn(player,prevZone)
     local currentday = tonumber(os.date("%j"));
     if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
         if (prevZone == 221 or prevZone == 47) then
-            cs = 0x00ca;
+            cs = 202;
             player:setPos(14.960,-3.430,18.423,192);
         else
             player:setPos(0.003,-6.252,117.971,65);
         end
     end
     if (player:getCurrentMission(COP) == DAWN and player:getVar("PromathiaStatus")==3 and player:getVar("Promathia_kill_day") ~= currentday and player:getVar("COP_shikarees_story")== 0 ) then
-        cs=322;
+        cs = 322;
     end
-return cs;
+    return cs;
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onTransportEvent(player,transport)
-    if ((transport == 47) or (transport == 46)) then
-        if (not(player:hasKeyItem(BOARDING_PERMIT)) or ENABLE_TOAU == 0) then
+    if (transport == 47 or transport == 46) then
+        if (not player:hasKeyItem(dsp.ki.BOARDING_PERMIT) or ENABLE_TOAU == 0) then
             player:setPos(8.200,-1.363,3.445,192);
-            player:messageSpecial(DO_NOT_POSSESS, BOARDING_PERMIT);
+            player:messageSpecial(ID.text.DO_NOT_POSSESS, dsp.ki.BOARDING_PERMIT);
         else
             player:startEvent(200);
         end
@@ -56,13 +62,9 @@ function onTransportEvent(player,transport)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 200) then
         local DepartureTime = VanadielHour();
         if (DepartureTime % 8 == 0) then

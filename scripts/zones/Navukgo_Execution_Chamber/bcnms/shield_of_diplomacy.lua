@@ -2,11 +2,8 @@
 -- Area: Navukgo Execution Chamber
 -- BCNM: TOAU-22 Shield of Diplomacy
 -----------------------------------
-package.loaded["scripts/zones/Navukgo_Execution_Chamber/TextIDs"] = nil;
------------------------------------
 
 require("scripts/globals/keyitems");
-require("scripts/zones/Navukgo_Execution_Chamber/TextIDs");
 
 ----------------------------------------
 
@@ -35,7 +32,7 @@ end;
 function onBcnmLeave(player,instance,leavecode)
     -- print("leave code "..leavecode);
    
-    if (leavecode == 2) then -- play end CS. Need time and battle id for record keeping + storage        
+    if (leavecode == 2) then -- play end CS. Need time and battle id for record keeping + storage
         if (player:hasCompletedMission(TOAU,SHIELD_OF_DIPLOMACY)) then
             player:startEvent(32001,1,1,1,instance:getTimeInside(),1,4,1);
         else

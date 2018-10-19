@@ -4,9 +4,6 @@
 -- TODO: Looked like pets had an additional effect: stun with an unknown proc rate
 -- TODO: "Links with Slave Globes, and Slave Globes link with Defenders. Defenders do not link with Slave Globes or Mother Globe."
 -----------------------------------
-package.loaded["scripts/zones/The_Shrine_of_RuAvitau/TextIDs"] = nil;
------------------------------------
-require( "scripts/zones/The_Shrine_of_RuAvitau/TextIDs" );
 require("scripts/globals/status");
 -----------------------------------
 
@@ -14,13 +11,13 @@ function onMobInitialize(mob)
 end;
 
 function onMobSpawn(mob)
-    mob:addStatusEffectEx(EFFECT_SHOCK_SPIKES,0,60,0,0); -- ~60 damage
+    mob:addStatusEffectEx(dsp.effect.SHOCK_SPIKES,0,60,0,0); -- ~60 damage
     -- TODO: Effect can be stolen, giving a THF (Aura Steal) or BLU (Voracious Trunk) a 60 minute shock spikes effect (unknown potency).
     -- If effect is stolen, he will recast it instantly.
 end;
 
 function onMobFight(mob, target)
-   -- Keep pets linked
+    -- Keep pets linked
 
     local MotherGlobe = mob:getID();
 
@@ -30,8 +27,8 @@ function onMobFight(mob, target)
         end
     end
 
-   -- Summons a single orb every 30 seconds.  Needs to be last, so other code runs.
-   -- TODO: Should have a SMN casting effect for ~3-5 seconds while calling.
+    -- Summons a single orb every 30 seconds.  Needs to be last, so other code runs.
+    -- TODO: Should have a SMN casting effect for ~3-5 seconds while calling.
     if (mob:getBattleTime() % 30 == 0 and mob:getBattleTime() > 3) then
         for i = MotherGlobe+1, MotherGlobe+6 do
             if (GetMobAction(i) == 0) then -- My Orb is deeaaaaaad!

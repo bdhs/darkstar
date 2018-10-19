@@ -1,14 +1,17 @@
 -----------------------------------
 -- Area: Den of Rancor
---  MOB: HakuTaku
+--   NM: Hakutaku
+-----------------------------------
+local ID = require("scripts/zones/Den_of_Rancor/IDs")
+require("scripts/globals/settings")
 -----------------------------------
 
 function onMobSpawn(mob)
-end;
+end
 
 function onMobDeath(mob, player, isKiller)
-end;
+end
 
 function onMobDespawn(mob)
-    GetNPCByID(17433015):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
-end;
+    GetNPCByID(ID.npc.HAKUTAKU_QM):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME)
+end

@@ -4,13 +4,11 @@
 -- Involved In Quest: Wings of Gold
 -- !pos -380 -143 23 158
 -----------------------------------
-package.loaded["scripts/zones/Upper_Delkfutts_Tower/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
 require("scripts/globals/quests");
-require("scripts/zones/Upper_Delkfutts_Tower/TextIDs");
+local ID = require("scripts/zones/Upper_Delkfutts_Tower/IDs");
 
 local TreasureType = "Chest";
 local TreasureLvL = 43;
@@ -28,7 +26,7 @@ function onTrade(player,npc,trade)
     if ((trade:hasItemQty(1036,1) or trade:hasItemQty(1115,1) or trade:hasItemQty(1023,1) or trade:hasItemQty(1022,1)) and trade:getItemCount() == 1) then
         local zone = player:getZoneID();
         -- IMPORTANT ITEM: WINGS OF GOLD QUEST -----------
-        if (player:getQuestStatus(JEUNO,WINGS_OF_GOLD) == QUEST_ACCEPTED and player:hasKeyItem(GUIDING_BELL) == false) then
+        if (player:getQuestStatus(JEUNO,WINGS_OF_GOLD) == QUEST_ACCEPTED and player:hasKeyItem(dsp.ki.GUIDING_BELL) == false) then
             questItemNeeded = 1;
         end
         --------------------------------------
@@ -47,11 +45,11 @@ function onTrade(player,npc,trade)
 
             if (math.random() <= success) then
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
-                    player:addKeyItem(GUIDING_BELL);
-                    player:messageSpecial(KEYITEM_OBTAINED,GUIDING_BELL); -- Guiding Bell (KI)
+                    player:addKeyItem(dsp.ki.GUIDING_BELL);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.GUIDING_BELL); -- Guiding Bell (KI)
                 else
                     player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
 
@@ -62,11 +60,11 @@ function onTrade(player,npc,trade)
 
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
 
@@ -78,15 +76,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1036);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1036);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

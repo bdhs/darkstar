@@ -1,36 +1,38 @@
 -----------------------------------------
 -- Spell: Frazzle
 -----------------------------------------
-require("scripts/globals/status");
-require("scripts/globals/magic");
-require("scripts/globals/msg");
+require("scripts/globals/magic")
+require("scripts/globals/msg")
+require("scripts/globals/status")
 -----------------------------------------
 
-function onMagicCastingCheck(caster,target,spell)
-    return 0;
-end;
+function onMagicCastingCheck(caster, target, spell)
+    return 0
+end
 
-function onSpellCast(caster,target,spell)
-    local dMND = (caster:getStat(MOD_MND) - target:getStat(MOD_MND));
-    local power = 35;
-    local duration = 120;
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_MND;
-    params.skillType = power;
-    params.bonus = 0;
-    params.effect = EFFECT_MAGIC_EVASION_DOWN;
-    duration = duration * applyResistanceEffect(caster, target, spell, params);
+function onSpellCast(caster, target, spell)
+    local dMND = caster:getStat(dsp.mod.MND) - target:getStat(dsp.mod.MND)
 
-    if (duration >= 60) then
-        if (target:addStatusEffect(EFFECT_MAGIC_EVASION_DOWN,power,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+    local power = calculatePotency(35, dMND, spell:getSkillType(), caster, target)
+
+    local duration = calculateDuration(120, spell:getSkillType(), spell:getSpellGroup(), caster, target)
+
+    local params = {}
+    params.diff = dMND
+    params.skillType = dsp.skill.ENFEEBLING_MAGIC
+    params.bonus = 0
+    params.effect = dsp.effect.MAGIC_EVASION_DOWN
+    local resist = applyResistanceEffect(caster, target, spell, params)
+
+    if resist >= 0.5 then
+        if target:addStatusEffect(params.effect, power, 0, duration * resist) then
+            spell:setMsg(dsp.msg.basic.MAGIC_ENFEEB_IS)
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
         end
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(dsp.msg.basic.MAGIC_RESIST)
     end
 
-    return EFFECT_MAGIC_EVASION_DOWN;
-end;
+    return params.effect
+end

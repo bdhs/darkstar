@@ -3,10 +3,7 @@
 -- Zone: Bhaflau_Remnants
 --
 -----------------------------------
-require("scripts/globals/settings");
-package.loaded["scripts/zones/Bhaflau_Remnants/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bhaflau_Remnants/TextIDs");
+local ID = require("scripts/zones/Bhaflau_Remnants/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -22,12 +19,8 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 

@@ -3,12 +3,8 @@
 -- Zone: La_Vaule_[S] (85)
 --
 -----------------------------------
-package.loaded["scripts/zones/La_Vaule_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/La_Vaule_[S]/TextIDs");
-require("scripts/globals/quests");
-require("scripts/globals/missions");
+local ID = require("scripts/zones/La_Vaule_[S]/IDs")
+require("scripts/globals/missions")
 -----------------------------------
 
 function onInitialize(zone)
@@ -31,13 +27,9 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 1) then
         player:completeMission(WOTG, A_TIMESWEPT_BUTTERFLY);
         player:addMission(WOTG, PURPLE_THE_NEW_BLACK);

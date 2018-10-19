@@ -5,9 +5,7 @@
 -- !pos 206.500 -1.220 33.500 72
 -- !pos 206.500 -1.220 6.500 72
 -----------------------------------
-package.loaded["scripts/zones/Alzadaal_Undersea_Ruins/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Alzadaal_Undersea_Ruins/TextIDs");
+local ID = require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
 require("scripts/globals/teleports");
 require("scripts/globals/missions");
 require("scripts/globals/besieged");
@@ -31,7 +29,7 @@ function onTrigger(player,npc)
                 player:startEvent(121);
             end
         else
-            player:messageSpecial(RESPONSE);
+            player:messageSpecial(ID.text.RESPONSE);
         end
     else
         -- Southern portal.
@@ -44,26 +42,22 @@ function onTrigger(player,npc)
                 player:startEvent(122);
             end
         else
-            player:messageSpecial(RESPONSE);
+            player:messageSpecial(ID.text.RESPONSE);
         end
     end
 
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if ((csid == 121 or csid == 122) and option == 1) then
         player:addNationTeleport(AHTURHGAN,64);
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     elseif ((csid == 117 or csid == 118) and option == 1) then
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     end
 
 end;

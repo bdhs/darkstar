@@ -3,10 +3,7 @@
 -- Zone: Zhayolm_Remnants
 --
 -----------------------------------
-package.loaded["scripts/zones/Zhayolm_Remnants/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Zhayolm_Remnants/TextIDs");
-require("scripts/globals/settings");
+local ID = require("scripts/zones/Zhayolm_Remnants/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -22,11 +19,7 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

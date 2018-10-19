@@ -1,14 +1,11 @@
 -----------------------------------
--- Area: Sauromugue Champaign
+-- Area: Rolanberry Fields [S]
 --  NPC: Cavernous Maw
 -- !pos -198 8 360 91
 -- Teleports Players to Rolanberry Fields
 -----------------------------------
-package.loaded["scripts/zones/Rolanberry_Fields_[S]/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/teleports");
 require("scripts/globals/campaign");
-require("scripts/zones/Rolanberry_Fields_[S]/TextIDs");
 require("scripts/globals/titles");
 -----------------------------------
 
@@ -29,25 +26,21 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID:",csid);
-    -- printf("RESULT:",option);
     if (csid == 101 and option == 1) then
         player:addNationTeleport(MAW,2);
-        toMaw(player,4);
+        dsp.teleport.toMaw(player,4);
     elseif (csid == 102 and option == 1) then
-        toMaw(player,4);
+        dsp.teleport.toMaw(player,4);
     elseif (csid == 701) then
         player:completeMission(WOTG, BACK_TO_THE_BEGINNING);
         player:addMission(WOTG, CAIT_SITH);
-        player:addTitle(CAIT_SITHS_ASSISTANT);
+        player:addTitle(dsp.title.CAIT_SITHS_ASSISTANT);
         if (hasMawActivated(player,0) == false) then
             player:addNationTeleport(MAW,2);
         end
-        toMaw(player,4);
+        dsp.teleport.toMaw(player,4);
     end
 end;

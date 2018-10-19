@@ -3,10 +3,8 @@
 -- Zone: Manaclipper
 --
 -----------------------------------
-package.loaded["scripts/zones/Manaclipper/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Manaclipper/TextIDs");
-require("scripts/globals/settings");
+local ID = require("scripts/zones/Manaclipper/IDs")
+require("scripts/globals/conquest")
 -----------------------------------
 
 function onInitialize(zone)
@@ -21,26 +19,18 @@ function onZoneIn(player,prevZone)
 end;
 
 function onTransportEvent(player,transport)
-  player:startEvent(100);
+    player:startEvent(100);
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 100) then
-    player:setPos(0,0,0,0,4);
+        player:setPos(0,0,0,0,4);
     end
 end;

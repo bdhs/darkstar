@@ -3,22 +3,19 @@
 --  NPC: Imperial Whitegate
 -- pos: 152, -2, 0, 50
 -----------------------------------
-package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/missions");
 require("scripts/globals/status");
 require("scripts/globals/titles");
 require("scripts/globals/besieged");
 require("scripts/zones/Aht_Urhgan_Whitegate/Shared");
-require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
+local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    if (player:getEquipID(SLOT_MAIN) == 0 and player:getEquipID(SLOT_SUB) == 0 and
-            player:getEquipID(SLOT_RANGE) == 0 and player:getEquipID(SLOT_AMMO) == 0) then
+    if (player:getEquipID(dsp.slot.MAIN) == 0 and player:getEquipID(dsp.slot.SUB) == 0) then
         if (player:getCurrentMission(TOAU) == GUESTS_OF_THE_EMPIRE and player:getVar("AhtUrganStatus") == 1 and
                 doRoyalPalaceArmorCheck(player) == true) then
             player:startEvent(3078,0,1,0,0,0,0,0,1,0);
@@ -58,37 +55,37 @@ function onEventUpdate(player,csid,option)
     if(csid == 3140 or csid == 3155) then
         if (option == 1) then
             if (player:getFreeSlotsCount() == 0) then
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,15807);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,15807);
             else
                 player:setVar("TOAU_RINGTIME", os.time());
                 player:setVar("TOAU_RINGRECV", 1);
                 player:addItem(15807);
-                player:messageSpecial(ITEM_OBTAINED,15807);
+                player:messageSpecial(ID.text.ITEM_OBTAINED,15807);
             end
         elseif (option == 2) then
             if (player:getFreeSlotsCount() == 0) then
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,15808);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,15808);
             else
                 player:setVar("TOAU_RINGTIME", os.time());
                 player:setVar("TOAU_RINGRECV", 1);
                 player:addItem(15808);
-                player:messageSpecial(ITEM_OBTAINED,15808);
+                player:messageSpecial(ID.text.ITEM_OBTAINED,15808);
             end
         elseif (option == 3) then
             if (player:getFreeSlotsCount() == 0) then
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,15809);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,15809);
             else
                 player:setVar("TOAU_RINGTIME", os.time());
                 player:setVar("TOAU_RINGRECV", 1);
                 player:addItem(15809);
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,15809);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,15809);
             end
         elseif (option == 4) then
             if (player:getFreeSlotsCount() == 0) then
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,129);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,129);
             else
                 player:addItem(129);
-                player:messageSpecial(ITEM_OBTAINED,129);
+                player:messageSpecial(ID.text.ITEM_OBTAINED,129);
             end
         elseif (option == 99) then
             player:updateEvent(15807,15808,15809);
@@ -103,7 +100,7 @@ function onEventFinish(player,csid,option)
     if (csid == 3078) then
         player:completeMission(TOAU,GUESTS_OF_THE_EMPIRE);
         player:setVar("AhtUrganStatus",0);
-        player:addTitle(OVJANGS_ERRAND_RUNNER);
+        player:addTitle(dsp.title.OVJANGS_ERRAND_RUNNER);
         player:addItem(2186) -- Imperial Mythril Piece Reward
         player:needToZone(true);
         player:setVar("TOAUM18_STARTDAY", VanadielDayOfTheYear());
@@ -117,10 +114,10 @@ function onEventFinish(player,csid,option)
         player:setVar("TOAU_RINGRECV", 0);
     elseif (csid == 3155 and option == 6) then
         if (player:getFreeSlotsCount() == 0) then
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,129);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,129);
         else
             player:addItem(129);
-            player:messageSpecial(ITEM_OBTAINED,129);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,129);
         end
     end
 end;

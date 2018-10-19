@@ -4,13 +4,10 @@
 -- Involved In Quest: Wild Card
 -- !pos -137 16 151 169
 -----------------------------------
-package.loaded["scripts/zones/Toraimarai_Canal/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
 require("scripts/globals/quests");
-require("scripts/zones/Toraimarai_Canal/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -34,8 +31,6 @@ function onEventUpdate(player,csid,option)
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 42) then
         player:setVar("rootProblemQ1",2);

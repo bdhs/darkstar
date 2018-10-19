@@ -3,9 +3,7 @@
 --  NPC: Treasure Coffer
 -- !pos 215 40 69 147
 -----------------------------------
-package.loaded["scripts/zones/Beadeaux/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Beadeaux/TextIDs");
+local ID = require("scripts/zones/Beadeaux/IDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
@@ -28,7 +26,7 @@ function onTrade(player,npc,trade)
         -- IMPORTANT ITEM: AF Keyitems, AF Items, & Map -----------
         local mJob = player:getMainJob();
         local AFHandsActivated = player:getVar("BorghertzAlreadyActiveWithJob");
-        local oldGauntlets = player:hasKeyItem(OLD_GAUNTLETS);
+        local oldGauntlets = player:hasKeyItem(dsp.ki.OLD_GAUNTLETS);
         local listAF = getAFbyZone(zone);
         if (AFHandsActivated == 3 and oldGauntlets == false) then
             questItemNeeded = 1;
@@ -57,16 +55,16 @@ function onTrade(player,npc,trade)
 
             if (math.random() <= success) then
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
-                    player:addKeyItem(OLD_GAUNTLETS);
-                    player:messageSpecial(KEYITEM_OBTAINED,OLD_GAUNTLETS); -- Old Gauntlets (KI)
+                    player:addKeyItem(dsp.ki.OLD_GAUNTLETS);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.OLD_GAUNTLETS); -- Old Gauntlets (KI)
                 elseif (questItemNeeded == 2) then
                     for nb = 1,#listAF,3 do
                         if (mJob == listAF[nb]) then
                             player:addItem(listAF[nb + 2]);
-                            player:messageSpecial(ITEM_OBTAINED,listAF[nb + 2]);
+                            player:messageSpecial(ID.text.ITEM_OBTAINED,listAF[nb + 2]);
                             break
                         end
                     end
@@ -80,16 +78,16 @@ function onTrade(player,npc,trade)
 
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]*GIL_RATE);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]*GIL_RATE);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]*GIL_RATE);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
                 UpdateTreasureSpawnPoint(npc:getID());
             else
-                player:messageSpecial(CHEST_MIMIC);
+                player:messageSpecial(ID.text.CHEST_MIMIC);
                 spawnMimic(zone,npc,player);
                 UpdateTreasureSpawnPoint(npc:getID(), true);
             end
@@ -99,15 +97,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1043);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1043);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

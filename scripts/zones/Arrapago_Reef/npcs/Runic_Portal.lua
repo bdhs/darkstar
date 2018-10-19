@@ -4,9 +4,7 @@
 -- Arrapago Reef Teleporter Back to Aht Urgan Whitegate
 -- !pos 15 -7 627 54
 -----------------------------------
-package.loaded["scripts/zones/Arrapago_Reef/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Arrapago_Reef/TextIDs");
+local ID = require("scripts/zones/Arrapago_Reef/IDs");
 require("scripts/globals/besieged");
 require("scripts/globals/teleports");
 require("scripts/globals/missions");
@@ -26,24 +24,20 @@ function onTrigger(player,npc)
             player:startEvent(111);
         end
     else
-        player:messageSpecial(RESPONSE);
+        player:messageSpecial(ID.text.RESPONSE);
     end
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 111 and option == 1) then
         player:addNationTeleport(AHTURHGAN,32);
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     elseif (csid == 109 and option == 1) then
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     end
 
 end;

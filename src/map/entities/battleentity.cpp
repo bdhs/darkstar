@@ -73,6 +73,7 @@ CBattleEntity::CBattleEntity()
     PPet = nullptr;
     PParty = nullptr;
     PMaster = nullptr;
+    PLastAttacker = nullptr;
 
     StatusEffectContainer = std::make_unique<CStatusEffectContainer>(this);
     PRecastContainer = std::make_unique<CRecastContainer>(this);
@@ -125,6 +126,16 @@ bool CBattleEntity::isAsleep()
     return PAI->IsCurrentState<CInactiveState>();
 }
 
+bool CBattleEntity::isMounted()
+{
+	return (animation == ANIMATION_CHOCOBO || animation == ANIMATION_MOUNT);
+}
+
+bool CBattleEntity::isSitting()
+{
+    return (animation == ANIMATION_HEALING || animation == ANIMATION_SIT || (animation >= ANIMATION_SITCHAIR_0 && animation <= ANIMATION_SITCHAIR_10));
+}
+
 /************************************************************************
 *                                                                       *
 *  Пересчитываем максимальные значения hp и mp с учетом модификаторов   *
@@ -150,7 +161,7 @@ void CBattleEntity::UpdateHealth()
         health.modmp = std::clamp(health.modmp, 0, 9999);
     }
 
-    health.hp = std::clamp(health.hp, 1, health.modhp);
+    health.hp = std::clamp(health.hp, 0, health.modhp);
     health.mp = std::clamp(health.mp, 0, health.modmp);
 
     updatemask |= UPDATE_HP;
@@ -196,7 +207,7 @@ int32 CBattleEntity::GetMaxMP()
 
 uint8 CBattleEntity::GetSpeed()
 {
-    return (animation == ANIMATION_CHOCOBO ? 40 + map_config.speed_mod : std::clamp<uint16>(speed * (100 + getMod(Mod::MOVE)) / 100, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
+    return (isMounted() ? 40 + map_config.speed_mod : std::clamp<uint16>(speed * (100 + getMod(Mod::MOVE)) / 100, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
 }
 
 bool CBattleEntity::CanRest()
@@ -229,7 +240,7 @@ int16 CBattleEntity::GetWeaponDelay(bool tp)
     }
     uint16 MinimumDelay = m_Weapons[SLOT_MAIN]->getDelay(); // Track base delay.  We will need this later.  Mod::DELAY is ignored for now.
     uint16 WeaponDelay = m_Weapons[SLOT_MAIN]->getDelay() - getMod(Mod::DELAY);
-    if (m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_H2H)
+    if (m_Weapons[SLOT_MAIN]->isHandToHand())
     {
         WeaponDelay -= getMod(Mod::MARTIAL_ARTS) * 1000 / 60;
     }
@@ -246,10 +257,12 @@ int16 CBattleEntity::GetWeaponDelay(bool tp)
     if (!tp)
     {
         // Cap haste at appropriate levels.
-        int16 hasteMagic = (getMod(Mod::HASTE_MAGIC) > 448) ? 448 : getMod(Mod::HASTE_MAGIC);
-        int16 hasteAbility = (getMod(Mod::HASTE_ABILITY) > 256) ? 256 : getMod(Mod::HASTE_ABILITY);
-        int16 hasteGear = (getMod(Mod::HASTE_GEAR) > 256) ? 256 : getMod(Mod::HASTE_GEAR);
-        WeaponDelay = (uint16)(WeaponDelay * ((1024.0f - hasteMagic - hasteAbility - hasteGear) / 1024.0f));
+        int16 hasteMagic = std::clamp<int16>(getMod(Mod::HASTE_MAGIC), -10000, 4375); // 43.75% cap -- handle 100% slow for weakness
+        int16 hasteAbility = std::clamp<int16>(getMod(Mod::HASTE_ABILITY), -2500, 2500); // 25% cap
+        int16 hasteGear = std::clamp<int16>(getMod(Mod::HASTE_GEAR), -2500, 2500); // 25%
+
+        // Divide by float to get a more accurate reduction, then use int16 cast to truncate
+        WeaponDelay -= (int16)(WeaponDelay * (hasteMagic + hasteAbility + hasteGear) / 10000.f);
     }
     WeaponDelay = (uint16)(WeaponDelay * ((100.0f + getMod(Mod::DELAYP)) / 100.0f));
 
@@ -501,6 +514,12 @@ int32 CBattleEntity::addMP(int32 mp)
     return abs(mp);
 }
 
+int32 CBattleEntity::takeDamage(int32 amount, CBattleEntity* attacker /* = nullptr*/)
+{
+    PLastAttacker = attacker;
+    return addHP(-amount);
+}
+
 /************************************************************************
 *                                                                       *
 *  Полные значения характеристик боевой сущности                        *
@@ -561,10 +580,16 @@ uint16 CBattleEntity::ATT()
     if (this->objtype & TYPE_PC)
     {
         ATT += GetSkill(m_Weapons[SLOT_MAIN]->getSkillType()) + m_Weapons[SLOT_MAIN]->getILvlSkill();
+
+        // Smite applies when using 2H or H2H weapons
+        if (m_Weapons[SLOT_MAIN]->isTwoHanded() || m_Weapons[SLOT_MAIN]->isHandToHand())
+        {
+            ATT += static_cast<int32>(ATT * this->getMod(Mod::SMITE) / 256.f); // Divide smite value by 256
+        }
     }
     else if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
     {
-        ATT += this->GetSkill(SKILL_AME);
+        ATT += this->GetSkill(SKILL_AUTOMATON_MELEE);
     }
     return ATT + (ATT * m_modStat[Mod::ATTP] / 100) +
         std::min<int16>((ATT * m_modStat[Mod::FOOD_ATTP] / 100), m_modStat[Mod::FOOD_ATT_CAP]);
@@ -610,21 +635,21 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
         {
             skill = m_Weapons[SLOT_MAIN]->getSkillType();
             iLvlSkill = m_Weapons[SLOT_MAIN]->getILvlSkill();
-            if (skill == SKILL_NON && GetSkill(SKILL_H2H) > 0)
-                skill = SKILL_H2H;
+            if (skill == SKILL_NONE && GetSkill(SKILL_HAND_TO_HAND) > 0)
+                skill = SKILL_HAND_TO_HAND;
         }
         else if (attackNumber == 1)
         {
             skill = m_Weapons[SLOT_SUB]->getSkillType();
             iLvlSkill = m_Weapons[SLOT_SUB]->getILvlSkill();
-            if (skill == SKILL_NON && GetSkill(SKILL_H2H) > 0 &&
-                (m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_NON || m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_H2H))
-                skill = SKILL_H2H;
+            if (skill == SKILL_NONE && GetSkill(SKILL_HAND_TO_HAND) > 0 &&
+                (m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_NONE || m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_HAND_TO_HAND))
+                skill = SKILL_HAND_TO_HAND;
         }
         else if (attackNumber == 2)
         {
             iLvlSkill = m_Weapons[SLOT_MAIN]->getILvlSkill();
-            skill = SKILL_H2H;
+            skill = SKILL_HAND_TO_HAND;
         }
         int16 ACC = GetSkill(skill) + iLvlSkill;
         ACC = (ACC > 200 ? (int16)(((ACC - 200) * 0.9) + 200) : ACC);
@@ -642,7 +667,7 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
     }
     else if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
     {
-        int16 ACC = this->GetSkill(SKILL_AME);
+        int16 ACC = this->GetSkill(SKILL_AUTOMATON_MELEE);
         ACC = (ACC > 200 ? (int16)(((ACC - 200) * 0.9) + 200) : ACC);
         ACC += (int16)(DEX() * 0.5);
         ACC += m_modStat[Mod::ACC] + offsetAccuracy;
@@ -670,7 +695,7 @@ uint16 CBattleEntity::DEF()
 
 uint16 CBattleEntity::EVA()
 {
-    int16 evasion = GetSkill(SKILL_EVA);
+    int16 evasion = GetSkill(SKILL_EVASION);
 
     if (evasion > 200) { //Evasion skill is 0.9 evasion post-200
         evasion = (int16)(200 + (evasion - 200) * 0.9);
@@ -1097,7 +1122,7 @@ void CBattleEntity::addTrait(CTrait* PTrait)
 void CBattleEntity::delTrait(CTrait* PTrait)
 {
     delModifier(PTrait->getMod(), PTrait->getValue());
-    std::remove(TraitList.begin(), TraitList.end(), PTrait);
+    TraitList.erase(std::remove(TraitList.begin(), TraitList.end(), PTrait), TraitList.end());
 }
 
 bool CBattleEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
@@ -1245,12 +1270,24 @@ void CBattleEntity::OnCastFinished(CMagicState& state, action_t& action)
         {
             actionTarget.param = luautils::OnSpellCast(this, PTarget, PSpell);
 
+            // Manually set the attacker here since the spell scripts call CLuaBaseEntity::delHP and do not provide the attacker
+            if (PSpell->dealsDamage())
+                PTarget->PLastAttacker = this;
+
+            // Remove Saboteur
+            if (PSpell->getSkillType() == SKILLTYPE::SKILL_ENFEEBLING_MAGIC)
+                StatusEffectContainer->DelStatusEffect(EFFECT_SABOTEUR);
+
             // remove effects from damage
             if (PSpell->canTargetEnemy() && actionTarget.param > 0 && PSpell->dealsDamage())
             {
                 PTarget->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_DAMAGE);
                 // Check for bind breaking
                 battleutils::BindBreakCheck(this, PTarget);
+
+                // Do we get TP for damaging spells?
+                int16 tp = battleutils::CalculateSpellTP(this, PSpell);
+                addTP(tp);
             }
 
             if (msg == 0)
@@ -1414,7 +1451,6 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 actionTarget.messageID = 70;
                 actionTarget.reaction = REACTION_PARRY;
                 actionTarget.speceffect = SPECEFFECT_NONE;
-
                 battleutils::HandleTacticalParry(PTarget);
                 battleutils::HandleIssekiganEnmityBonus(PTarget, this);
             }
@@ -1441,9 +1477,9 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                     else
                     {
                         int16 naturalh2hDMG = 0;
-                        if (PTarget->m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_H2H || (PTarget->objtype == TYPE_MOB && PTarget->GetMJob() == JOB_MNK))
+                        if (PTarget->m_Weapons[SLOT_MAIN]->getSkillType() == SKILL_HAND_TO_HAND || (PTarget->objtype == TYPE_MOB && PTarget->GetMJob() == JOB_MNK))
                         {
-                            naturalh2hDMG = (int16)((PTarget->GetSkill(SKILL_H2H) * 0.11f) + 3);
+                            naturalh2hDMG = (int16)((PTarget->GetSkill(SKILL_HAND_TO_HAND) * 0.11f) + 3);
                         }
 
                         float DamageRatio = battleutils::GetDamageRatio(PTarget, this, attack.IsCritical(), 0);
@@ -1452,13 +1488,13 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                         actionTarget.spikesMessage = 33;
                         if (PTarget->objtype == TYPE_PC)
                         {
-                            uint8 skilltype = (PTarget->m_Weapons[SLOT_MAIN] == nullptr ? SKILL_H2H : PTarget->m_Weapons[SLOT_MAIN]->getSkillType());
+                            uint8 skilltype = (PTarget->m_Weapons[SLOT_MAIN] == nullptr ? SKILL_HAND_TO_HAND : PTarget->m_Weapons[SLOT_MAIN]->getSkillType());
                             charutils::TrySkillUP((CCharEntity*)PTarget, (SKILLTYPE)skilltype, GetMLevel());
                         } // In case the Automaton can counter
                         else if (PTarget->objtype == TYPE_PET && PTarget->PMaster && PTarget->PMaster->objtype == TYPE_PC &&
                             static_cast<CPetEntity*>(PTarget)->getPetType() == PETTYPE_AUTOMATON)
                         {
-                            puppetutils::TrySkillUP((CAutomatonEntity*)PTarget, SKILL_AME, GetMLevel());
+                            puppetutils::TrySkillUP((CAutomatonEntity*)PTarget, SKILL_AUTOMATON_MELEE, GetMLevel());
                         }
                     }
                 }
@@ -1473,7 +1509,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 {
                     actionTarget.reaction = REACTION_HIT;
                     actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
-                    actionTarget.messageID = 67;
+                    actionTarget.messageID = attack.GetAttackType() == PHYSICAL_ATTACK_TYPE::DAKEN ? 353 : 67;
 
                     if (PTarget->objtype == TYPE_MOB)
                     {
@@ -1485,13 +1521,20 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 {
                     actionTarget.reaction = REACTION_HIT;
                     actionTarget.speceffect = SPECEFFECT_HIT;
-                    actionTarget.messageID = 1;
+                    actionTarget.messageID = attack.GetAttackType() == PHYSICAL_ATTACK_TYPE::DAKEN ? 352 : 1;
                 }
 
                 // Guarded. TODO: Stuff guards that shouldn't.
                 if (attack.IsGuarded())
                 {
                     actionTarget.reaction = REACTION_GUARD;
+                    battleutils::HandleTacticalGuard(PTarget);
+                }
+
+                // Apply Feint
+                if (CStatusEffect* PFeintEffect = StatusEffectContainer->GetStatusEffect(EFFECT_FEINT))
+                {
+                    PTarget->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, PFeintEffect->GetPower(), 3, 30));
                 }
 
                 // Process damage.
@@ -1517,7 +1560,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 {
                     if (battleutils::GetGuardRate(this, PTarget) > 0)
                     {
-                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_GRD, GetMLevel());
+                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_GUARD, GetMLevel());
                     }
                 }
 
@@ -1525,7 +1568,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 {
                     if (battleutils::GetBlockRate(this, PTarget) > 0)
                     {
-                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_SHL, GetMLevel());
+                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_SHIELD, GetMLevel());
                     }
                 }
 
@@ -1533,12 +1576,12 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 {
                     if (battleutils::GetParryRate(this, PTarget) > 0)
                     {
-                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_PAR, GetMLevel());
+                        charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_PARRY, GetMLevel());
                     }
                 }
                 if (!attack.IsCountered() && !attack.IsParried())
                 {
-                    charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_EVA, GetMLevel());
+                    charutils::TrySkillUP((CCharEntity*)PTarget, SKILL_EVASION, GetMLevel());
                 }
             }
         }

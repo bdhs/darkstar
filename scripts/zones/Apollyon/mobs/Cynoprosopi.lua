@@ -3,10 +3,6 @@
 --  NPC: Cynoprosopi
 
 -----------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Apollyon/TextIDs");
------------------------------------
 
 function onMobSpawn(mob)
 end;
@@ -22,5 +18,5 @@ function onMobDespawn(mob)
     local mobY = mob:getYPos();
     local mobZ = mob:getZPos();
     GetNPCByID(16932864+110):setPos(mobX,mobY,mobZ);
-    GetNPCByID(16932864+110):setStatus(STATUS_NORMAL);
+    GetNPCByID(16932864+110):setStatus(dsp.status.NORMAL);
 end;

@@ -3,9 +3,7 @@
 --  NPC: Titan's Gate
 -- !pos 260 -34 -71 195
 -----------------------------------
-package.loaded["scripts/zones/The_Eldieme_Necropolis/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/The_Eldieme_Necropolis/TextIDs");
+local ID = require("scripts/zones/The_Eldieme_Necropolis/IDs");
 require("scripts/globals/keyitems");
 -----------------------------------
 
@@ -14,21 +12,17 @@ end;
 
 function onTrigger(player,npc)
     if (npc:getAnimation() == 9) then
-        if (player:hasKeyItem(MAGICKED_ASTROLABE)) then
+        if (player:hasKeyItem(dsp.ki.MAGICKED_ASTROLABE)) then
             npc:openDoor(8);
         else
-            player:messageSpecial(SOLID_STONE);
+            player:messageSpecial(ID.text.SOLID_STONE);
         end
     end
     return 0;
 end;
 --
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

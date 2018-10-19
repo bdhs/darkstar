@@ -4,9 +4,7 @@
 -- Mamook Ja Teleporter Back to Aht Urgan Whitegate
 -- !pos -211 -11 -818 52
 -----------------------------------
-package.loaded["scripts/zones/Bhaflau_Thickets/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bhaflau_Thickets/TextIDs");
+local ID = require("scripts/zones/Bhaflau_Thickets/IDs");
 require("scripts/globals/teleports");
 require("scripts/globals/missions");
 require("scripts/globals/besieged");
@@ -26,24 +24,20 @@ function onTrigger(player,npc)
             player:startEvent(111);
         end
     else
-        player:messageSpecial(RESPONSE);
+        player:messageSpecial(ID.text.RESPONSE);
     end
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 111 and option == 1) then
         player:addNationTeleport(AHTURHGAN,8);
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     elseif (csid == 109 and option == 1) then
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     end
 
 end;

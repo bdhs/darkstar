@@ -3,10 +3,8 @@
 -- Zone: Sauromugue_Champaign_[S] (98)
 --
 -----------------------------------
-package.loaded["scripts/zones/Sauromugue_Champaign_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Sauromugue_Champaign_[S]/TextIDs");
+local ID = require("scripts/zones/Sauromugue_Champaign_[S]/IDs")
+require("scripts/globals/quests")
 -----------------------------------
 
 function onInitialize(zone)
@@ -27,13 +25,9 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 3) then
         player:setVar("DownwardHelix",3);
     end

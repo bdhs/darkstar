@@ -2,31 +2,24 @@
 -- Area: Windurst Waters (S)
 --   NPC: Yassi-Possi
 -- Type: Item Deliverer
--- @zone 94
--- !pos 153.992 -0.001 -18.687
+-- !pos 153.992 -0.001 -18.687 94
 --
 -- Auto-Script: Requires Verification (Verified by Brawndo)
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Waters_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Windurst_Waters_[S]/TextIDs");
+local ID = require("scripts/zones/Windurst_Waters_[S]/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:showText(npc, YASSI_POSSI_DIALOG);
+    player:showText(npc, ID.text.YASSI_POSSI_DIALOG);
     player:openSendBox();
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 

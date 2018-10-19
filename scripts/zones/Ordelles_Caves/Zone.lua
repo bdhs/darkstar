@@ -3,19 +3,15 @@
 -- Zone: Ordelles_Caves (193)
 --
 -----------------------------------
-package.loaded["scripts/zones/Ordelles_Caves/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Ordelles_Caves/TextIDs");
-require("scripts/zones/Ordelles_Caves/MobIDs");
+local ID = require("scripts/zones/Ordelles_Caves/IDs");
 require("scripts/globals/conquest");
-require("scripts/globals/zone");
 -----------------------------------
 
 function onInitialize(zone)
-    UpdateNMSpawnPoint(MORBOLGER);
-    GetMobByID(MORBOLGER):setRespawnTime(math.random(900, 10800));
+    UpdateNMSpawnPoint(ID.mob.MORBOLGER);
+    GetMobByID(ID.mob.MORBOLGER):setRespawnTime(math.random(900, 10800));
 
-    UpdateTreasureSpawnPoint(17568192);
+    UpdateTreasureSpawnPoint(ID.npc.ORDELLES_TREASURE_CHEST);
 end;
 
 function onZoneIn(player,prevZone)
@@ -30,24 +26,16 @@ function onZoneIn(player,prevZone)
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 10) then
         player:setVar("darkPuppetCS",2);
     end

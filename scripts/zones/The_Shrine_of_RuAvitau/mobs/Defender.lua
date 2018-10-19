@@ -2,7 +2,7 @@
 -- Area: The Shrine of Ru'Avitau
 --  MOB: Defender
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobInitialize(mob)
@@ -21,9 +21,9 @@ function onMobFight(mob,target)
     local AuraGear = Defender + 1;
     local ExtraVar = GetMobByID(Defender):getLocalVar("1");
 
-   -- Summons a Defender every 15 seconds.
-   -- TODO: Casting animation for before summons. When he spawns them isn't exactly retail accurate.
-   -- Defenders can also still spawn the AuraGears while sleeping, etc.
+    -- Summons a Defender every 15 seconds.
+    -- TODO: Casting animation for before summons. When he spawns them isn't exactly retail accurate.
+    -- Defenders can also still spawn the AuraGears while sleeping, etc.
 
     if (GetMobAction(AuraGear) == 16) then
         GetMobByID(AuraGear):updateEnmity(target);
@@ -56,7 +56,7 @@ function onMobDisengage(mob)
 end;
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,749,1);
+    dsp.regime.checkRegime(player, mob, 749, 1, dsp.regime.type.GROUNDS)
 end;
 
 function onMobDespawn( mob )

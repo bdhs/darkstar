@@ -3,12 +3,8 @@
 -- Zone: Nyzul_Isle
 --
 -----------------------------------
-package.loaded["scripts/zones/Nyzul_Isle/IDs"] = nil;
------------------------------------
-require("scripts/globals/keyitems");
-require("scripts/globals/missions");
-require("scripts/globals/settings");
-require("scripts/zones/Nyzul_Isle/IDs");
+local ID = require("scripts/zones/Nyzul_Isle/IDs")
+require("scripts/globals/missions")
 -----------------------------------
 
 function onInitialize(zone)
@@ -30,13 +26,9 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if(csid == 1) then
         player:setPos(0,0,0,0,72);

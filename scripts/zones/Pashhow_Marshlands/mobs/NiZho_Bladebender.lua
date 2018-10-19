@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Pashhow Marshlands
---  MOB: NiZho Bladebender
+--  MOB: Ni'Zho Bladebender
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,60,1);
+    dsp.regime.checkRegime(player, mob, 60, 1, dsp.regime.type.FIELDS)
 end;

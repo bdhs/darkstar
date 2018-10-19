@@ -4,63 +4,44 @@
 -- caster:getMerit() returns a value which is equal to the number of merit points TIMES the value of each point
 -- Slow II value per point is '1' This is a constant set in the table 'merits'
 -----------------------------------------
-require("scripts/globals/status");
-require("scripts/globals/magic");
-require("scripts/globals/msg");
+require("scripts/globals/magic")
+require("scripts/globals/msg")
+require("scripts/globals/status")
+require("scripts/globals/utils")
 -----------------------------------------
 
-function onMagicCastingCheck(caster,target,spell)
-    return 0;
-end;
+function onMagicCastingCheck(caster, target, spell)
+    return 0
+end
 
-function onSpellCast(caster,target,spell)
-    local dMND = (caster:getStat(MOD_MND) - target:getStat(MOD_MND));
-    local merits = caster:getMerit(MERIT_SLOW_II);
+function onSpellCast(caster, target, spell)
+    local dMND = caster:getStat(dsp.mod.MND) - target:getStat(dsp.mod.MND)
+    local merits = caster:getMerit(dsp.merit.SLOW_II)
 
-    local potency = 244 + math.floor(dMND * 116/75);
-
-    if (potency > 360) then
-        potency = 360;
-    end
-
-    if (potency < 128) then
-        potency = 128;
-    end
-
-    if (merits > 1) then
-        potency = potency + ((merits - 1) * 10);
-    end;
-
-    if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
-        potency = potency * 2;
-    end
+    local base = 2440 + merits * 100
+    local power = utils.clamp(base + dMND * 1160/75, 1250, 3906) -- Lowest 128/1024 ~12.5%, Highest 400/1024 ~39.06%
+    power = calculatePotency(power, dMND, spell:getSkillType(), caster, target)
 
     --Duration, including resistance.
-    local duration = 180;
-    local params = {};
-    params.diff = nil;
-    params.attribute = MOD_MND;
-    params.skillType = 35;
-    params.bonus = merits*2;
-    params.effect = EFFECT_SLOW;
-    duration = duration * applyResistanceEffect(caster, target, spell, params);
+    local duration = calculateDuration(180, spell:getSkillType(), spell:getSpellGroup(), caster, target)
 
-    if (duration >= 60) then --Do it!
+    local params = {}
+    params.diff = dMND
+    params.skillType = dsp.skill.ENFEEBLING_MAGIC
+    params.bonus = merits * 2
+    params.effect = dsp.effect.SLOW
+    local resist = applyResistanceEffect(caster, target, spell, params)
 
-    if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
-        duration = duration * 2;
-    end
-    caster:delStatusEffect(EFFECT_SABOTEUR);
-
-        if (target:addStatusEffect(EFFECT_SLOW,potency,0,duration)) then
-            spell:setMsg(msgBasic.MAGIC_ENFEEB_IS);
+    if resist >= 0.5 then --Do it!
+        if target:addStatusEffect(params.effect, power, 0, duration * resist) then
+            spell:setMsg(dsp.msg.basic.MAGIC_ENFEEB_IS)
         else
-            spell:setMsg(msgBasic.MAGIC_NO_EFFECT);
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
         end
 
     else
-        spell:setMsg(msgBasic.MAGIC_RESIST);
+        spell:setMsg(dsp.msg.basic.MAGIC_RESIST)
     end
 
-    return EFFECT_SLOW;
-end;
+    return params.effect
+end

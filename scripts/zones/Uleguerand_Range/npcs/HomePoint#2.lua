@@ -3,10 +3,8 @@
 --  NPC: HomePoint#2
 -- !pos
 -----------------------------------
-package.loaded["scripts/zones/Uleguerand_Range/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
-require("scripts/zones/Uleguerand_Range/TextIDs");
+local ID = require("scripts/zones/Uleguerand_Range/IDs");
 require("scripts/globals/homepoint");
 -----------------------------------
 
@@ -19,19 +17,15 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 8701) then
 
         if (option == 1) then
             player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
+            player:messageSpecial(ID.text.HOMEPOINT_SET);
         else
             hpTeleport(player, option);
         end

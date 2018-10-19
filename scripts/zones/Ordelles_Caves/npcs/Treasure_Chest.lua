@@ -2,15 +2,13 @@
 -- Area: Ordelles Caves
 --  NPC: Treasure Chest
 -- Involved In Quest: Signed In Blood and The Goblin Tailor
--- @zone 193
------------------------------------
-package.loaded["scripts/zones/Ordelles_Caves/TextIDs"] = nil;
+-- !zone 193
 -----------------------------------
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/settings");
 require("scripts/globals/treasure");
-require("scripts/zones/Ordelles_Caves/TextIDs");
+local ID = require("scripts/zones/Ordelles_Caves/IDs");
 
 local TreasureType = "Chest";
 local TreasureLvL = 43;
@@ -29,10 +27,10 @@ function onTrade(player,npc,trade)
         local zone = player:getZoneID();
 
         -- IMPORTANT ITEM: Signed In Blood Quest -----------
-        if (player:getQuestStatus(SANDORIA,SIGNED_IN_BLOOD) == QUEST_ACCEPTED and player:getVar("SIGNED_IN_BLOOD_Prog") >= 1 and player:hasKeyItem(TORN_OUT_PAGES) == false) then
+        if (player:getQuestStatus(SANDORIA,SIGNED_IN_BLOOD) == QUEST_ACCEPTED and player:getVar("SIGNED_IN_BLOOD_Prog") >= 1 and player:hasKeyItem(dsp.ki.TORN_OUT_PAGES) == false) then
             questItemNeeded = 1;
         -- IMPORTANT ITEM: The Goblin Tailor Quest -----------
-        elseif (player:getQuestStatus(JEUNO,THE_GOBLIN_TAILOR) >= QUEST_ACCEPTED and VanadielRSELocation() == 0 and VanadielRSERace() == player:getRace() and player:hasKeyItem(MAGICAL_PATTERN) == false) then
+        elseif (player:getQuestStatus(JEUNO,THE_GOBLIN_TAILOR) >= QUEST_ACCEPTED and VanadielRSELocation() == 0 and VanadielRSERace() == player:getRace() and player:hasKeyItem(dsp.ki.MAGICAL_PATTERN) == false) then
             questItemNeeded = 2;
         end
         --------------------------------------
@@ -53,15 +51,15 @@ function onTrade(player,npc,trade)
                 local respawn = false;
 
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
-                    player:addKeyItem(TORN_OUT_PAGES);
-                    player:messageSpecial(KEYITEM_OBTAINED,TORN_OUT_PAGES);
+                    player:addKeyItem(dsp.ki.TORN_OUT_PAGES);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.TORN_OUT_PAGES);
                 elseif (questItemNeeded == 2) then
                     respawn = true;
-                    player:addKeyItem(MAGICAL_PATTERN);
-                    player:messageSpecial(KEYITEM_OBTAINED,MAGICAL_PATTERN);
+                    player:addKeyItem(dsp.ki.MAGICAL_PATTERN);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.MAGICAL_PATTERN);
                 else
                     player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
 
@@ -71,11 +69,11 @@ function onTrade(player,npc,trade)
                     -- print("[2]", loot[2]); -- debug
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]*GIL_RATE);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]*GIL_RATE);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]*GIL_RATE);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
 
@@ -87,15 +85,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1030);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1030);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

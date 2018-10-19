@@ -1,15 +1,13 @@
 -----------------------------------
 -- Area: Castle Zvahl Keep
 --  NPC: Treasure Chest
--- @zone 162
------------------------------------
-package.loaded["scripts/zones/Castle_Zvahl_Keep/TextIDs"] = nil;
+-- !zone 162
 -----------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
 require("scripts/globals/quests");
-require("scripts/zones/Castle_Zvahl_Keep/TextIDs");
+local ID = require("scripts/zones/Castle_Zvahl_Keep/IDs");
 
 local TreasureType = "Chest";
 local TreasureLvL = 53;
@@ -17,17 +15,17 @@ local TreasureMinLvL = 43;
 
 function onTrade(player,npc,trade)
 
-    -- trade:hasItemQty(1048,1);             -- Treasure Key
+    -- trade:hasItemQty(1038,1);             -- Treasure Key
     -- trade:hasItemQty(1115,1);            -- Skeleton Key
     -- trade:hasItemQty(1023,1);            -- Living Key
     -- trade:hasItemQty(1022,1);            -- Thief's Tools
     local questItemNeeded = 0;
 
     -- Player traded a key.
-    if ((trade:hasItemQty(1048,1) or trade:hasItemQty(1115,1) or trade:hasItemQty(1023,1) or trade:hasItemQty(1022,1)) and trade:getItemCount() == 1) then
+    if ((trade:hasItemQty(1038,1) or trade:hasItemQty(1115,1) or trade:hasItemQty(1023,1) or trade:hasItemQty(1022,1)) and trade:getItemCount() == 1) then
         local zone = player:getZoneID();
         -- IMPORTANT ITEM: keyitem -----------
-        if (player:getQuestStatus(BASTOK,A_TEST_OF_TRUE_LOVE) == QUEST_ACCEPTED and player:hasKeyItem(UN_MOMENT) == false) then
+        if (player:getQuestStatus(BASTOK,A_TEST_OF_TRUE_LOVE) == QUEST_ACCEPTED and player:hasKeyItem(dsp.ki.UN_MOMENT) == false) then
             questItemNeeded = 1;
         end
         --------------------------------------
@@ -45,12 +43,12 @@ function onTrade(player,npc,trade)
 
             if (math.random() <= success) then  -- 0 or 1
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
                     player:setVar("ATestOfTrueLoveProgress",player:getVar("ATestOfTrueLoveProgress")+1);
-                    player:addKeyItem(UN_MOMENT);
-                    player:messageSpecial(KEYITEM_OBTAINED,UN_MOMENT); -- Un moment for A Test Of True Love quest
+                    player:addKeyItem(dsp.ki.UN_MOMENT);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.UN_MOMENT); -- Un moment for A Test Of True Love quest
                 else
                     player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
 
@@ -61,11 +59,11 @@ function onTrade(player,npc,trade)
 
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]*GIL_RATE);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]*GIL_RATE);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]*GIL_RATE);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
 
@@ -76,15 +74,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1048);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1038);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

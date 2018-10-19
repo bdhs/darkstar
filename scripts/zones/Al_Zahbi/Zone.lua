@@ -3,11 +3,7 @@
 -- Zone: Al_Zahbi (48)
 --
 -----------------------------------
-package.loaded["scripts/zones/Al_Zahbi/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Al_Zahbi/TextIDs");
-require("scripts/globals/settings");
-require("scripts/globals/zone");
+local ID = require("scripts/zones/Al_Zahbi/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -27,11 +23,7 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

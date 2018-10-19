@@ -1,15 +1,13 @@
 -----------------------------------
 -- Area: Kuftal Tunnel
 --  NPC: Treasure Coffer
--- @zone 174
------------------------------------
-package.loaded["scripts/zones/Kuftal_Tunnel/TextIDs"] = nil;
+-- !zone 174
 -----------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/treasure");
 require("scripts/globals/quests");
-require("scripts/zones/Kuftal_Tunnel/TextIDs");
+local ID = require("scripts/zones/Kuftal_Tunnel/IDs");
 
 local TreasureType = "Coffer";
 local TreasureLvL = 53;
@@ -31,13 +29,13 @@ function onTrade(player,npc,trade)
         local zone = player:getZoneID();
         local AFHandsActivated = player:getVar("BorghertzAlreadyActiveWithJob");
 
-        if (AFHandsActivated == 12 and player:hasKeyItem(OLD_GAUNTLETS) == false) then
+        if (AFHandsActivated == 12 and player:hasKeyItem(dsp.ki.OLD_GAUNTLETS) == false) then
             questItemNeeded = 1;
-        elseif (player:getQuestStatus(OUTLANDS,TRUE_WILL) == QUEST_ACCEPTED and player:getVar("trueWillCS") == 2 and player:hasKeyItem(LARGE_TRICK_BOX) == false) then
+        elseif (player:getQuestStatus(OUTLANDS,TRUE_WILL) == QUEST_ACCEPTED and player:getVar("trueWillCS") == 2 and player:hasKeyItem(dsp.ki.LARGE_TRICK_BOX) == false) then
             questItemNeeded = 2;
         elseif (player:getQuestStatus(SANDORIA,KNIGHT_STALKER) == QUEST_ACCEPTED and player:getVar("KnightStalker_Progress") == 1) then
             questItemNeeded = 3;
-        elseif (player:hasKeyItem(MAP_OF_THE_KUFTAL_TUNNEL) == false) then
+        elseif (player:hasKeyItem(dsp.ki.MAP_OF_THE_KUFTAL_TUNNEL) == false) then
             questItemNeeded = 4;
         end
         --------------------------------------
@@ -56,20 +54,20 @@ function onTrade(player,npc,trade)
 
             if (math.random() <= success) then
                 -- Succeded to open the coffer
-                player:messageSpecial(CHEST_UNLOCKED);
+                player:messageSpecial(ID.text.CHEST_UNLOCKED);
 
                 if (questItemNeeded == 1) then
-                    player:addKeyItem(OLD_GAUNTLETS);
-                    player:messageSpecial(KEYITEM_OBTAINED,OLD_GAUNTLETS); -- Old Gauntlets (KI)
+                    player:addKeyItem(dsp.ki.OLD_GAUNTLETS);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.OLD_GAUNTLETS); -- Old Gauntlets (KI)
                 elseif (questItemNeeded == 2) then
-                    player:addKeyItem(LARGE_TRICK_BOX);
-                    player:messageSpecial(KEYITEM_OBTAINED,LARGE_TRICK_BOX); -- Large Trick Box (KI, NIN AF3)
+                    player:addKeyItem(dsp.ki.LARGE_TRICK_BOX);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.LARGE_TRICK_BOX); -- Large Trick Box (KI, NIN AF3)
                 elseif (questItemNeeded == 3) then
-                    player:addKeyItem(CHALLENGE_TO_THE_ROYAL_KNIGHTS); -- DRG AF3 (KI)
-                    player:messageSpecial(KEYITEM_OBTAINED,CHALLENGE_TO_THE_ROYAL_KNIGHTS);
+                    player:addKeyItem(dsp.ki.CHALLENGE_TO_THE_ROYAL_KNIGHTS); -- DRG AF3 (KI)
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CHALLENGE_TO_THE_ROYAL_KNIGHTS);
                 elseif (questItemNeeded == 4) then
-                    player:addKeyItem(MAP_OF_THE_KUFTAL_TUNNEL);
-                    player:messageSpecial(KEYITEM_OBTAINED,MAP_OF_THE_KUFTAL_TUNNEL); -- Map of the Kuftal Tunnel (KI)
+                    player:addKeyItem(dsp.ki.MAP_OF_THE_KUFTAL_TUNNEL);
+                    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.MAP_OF_THE_KUFTAL_TUNNEL); -- Map of the Kuftal Tunnel (KI)
                 else
                     player:setVar("["..zone.."]".."Treasure_"..TreasureType,os.time() + math.random(CHEST_MIN_ILLUSION_TIME,CHEST_MAX_ILLUSION_TIME));
 
@@ -80,16 +78,16 @@ function onTrade(player,npc,trade)
 
                     if (loot[1]=="gil") then
                         player:addGil(loot[2]);
-                        player:messageSpecial(GIL_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.GIL_OBTAINED,loot[2]);
                     else
                         -- Item
                         player:addItem(loot[2]);
-                        player:messageSpecial(ITEM_OBTAINED,loot[2]);
+                        player:messageSpecial(ID.text.ITEM_OBTAINED,loot[2]);
                     end
                 end
                 UpdateTreasureSpawnPoint(npc:getID());
             else
-                player:messageSpecial(CHEST_MIMIC);
+                player:messageSpecial(ID.text.CHEST_MIMIC);
                 spawnMimic(zone,npc,player);
                 UpdateTreasureSpawnPoint(npc:getID(), true);
             end
@@ -99,15 +97,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(CHEST_LOCKED,1051);
+    player:messageSpecial(ID.text.CHEST_LOCKED,1051);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

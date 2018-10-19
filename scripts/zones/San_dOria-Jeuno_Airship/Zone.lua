@@ -3,6 +3,8 @@
 -- Zone: San_dOria-Jeuno_Airship
 --
 -----------------------------------
+local ID = require("scripts/zones/San_dOria-Jeuno_Airship/IDs")
+-----------------------------------
 
 function onInitialize(zone)
 end;
@@ -22,13 +24,9 @@ function onTransportEvent(player,transport)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 100) then
         local prevzone = player:getPreviousZone();
         if (prevzone == 246) then

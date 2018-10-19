@@ -4,10 +4,8 @@
 -- Only sells when Windurst controlls Kuzotz Region
 -- Confirmed shop stock, August 2013
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/events/harvest_festivals")
-require("scripts/zones/Windurst_Woods/TextIDs");
+local ID = require("scripts/zones/Windurst_Woods/IDs");
 require("scripts/globals/conquest");
 require("scripts/globals/shop");
 -----------------------------------
@@ -17,11 +15,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local RegionOwner = GetRegionOwner(KUZOTZ);
-    if (RegionOwner ~= NATION_WINDURST) then
-        player:showText(npc,NHOBI_ZALKIA_CLOSED_DIALOG);
+    local RegionOwner = GetRegionOwner(dsp.region.KUZOTZ);
+    if (RegionOwner ~= dsp.nation.WINDURST) then
+        player:showText(npc,ID.text.NHOBI_ZALKIA_CLOSED_DIALOG);
     else
-        player:showText(npc,NHOBI_ZALKIA_OPEN_DIALOG);
+        player:showText(npc,ID.text.NHOBI_ZALKIA_OPEN_DIALOG);
 
         local stock =
         {
@@ -29,18 +27,14 @@ function onTrigger(player,npc)
             4412,  299,  -- Thundermelon
             4491,  184   -- Watermelon
         }
-        showShop(player,WINDURST,stock);
+        dsp.shop.general(player, stock, WINDURST);
 
     end
 
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

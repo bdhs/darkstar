@@ -5,11 +5,9 @@
 -- Involved in Quest: A Timely Visit
 -- !pos -263 22 129 102
 -----------------------------------
-package.loaded["scripts/zones/La_Theine_Plateau/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/missions");
 require("scripts/globals/quests");
-require("scripts/zones/La_Theine_Plateau/TextIDs");
+local ID = require("scripts/zones/La_Theine_Plateau/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -27,13 +25,13 @@ function onTrigger(player,npc)
         if (MissionStatus == 6) then
             player:startEvent(107);
         elseif (MissionStatus == 7) then
-            player:showText(npc, RESCUE_DRILL + 14);
+            player:showText(npc, ID.text.RESCUE_DRILL + 14);
         elseif (MissionStatus == 8) then
-            player:showText(npc, RESCUE_DRILL + 21);
+            player:showText(npc, ID.text.RESCUE_DRILL + 21);
         elseif (MissionStatus >= 9) then
-            player:showText(npc, RESCUE_DRILL + 26);
+            player:showText(npc, ID.text.RESCUE_DRILL + 26);
         else
-            player:showText(npc, RESCUE_DRILL);
+            player:showText(npc, ID.text.RESCUE_DRILL);
         end
 
     elseif ((ATimelyVisit == 1) and (ATimelyVisitProgress == 2)) then
@@ -42,7 +40,7 @@ function onTrigger(player,npc)
         player:startEvent(0x0001);
 
     else
-        player:showText(npc, RESCUE_DRILL);
+        player:showText(npc, ID.text.RESCUE_DRILL);
     end
 
 end;

@@ -4,11 +4,9 @@
 -- Type: Imperial Gate Guard
 -- !pos 0.011 -1 10.587 50
 -----------------------------------
-package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/status");
 require("scripts/globals/besieged");
-require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
+local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -31,8 +29,6 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 630 and option >= 1 and option <= 2049) then
         itemid = getISPItem(option)
         player:updateEvent(0,0,0,canEquip(player,itemid))
@@ -40,35 +36,33 @@ function onEventUpdate(player,csid,option)
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 630) then
         if (option == 0 or option == 16 or option == 32 or option == 48) then -- player chose sanction.
             if (option ~= 0) then
                 player:delCurrency("imperial_standing", 100);
             end
 
-            player:delStatusEffect(EFFECT_SIGIL);
-            player:delStatusEffect(EFFECT_SANCTION);
-            player:delStatusEffect(EFFECT_SIGNET);
+            player:delStatusEffect(dsp.effect.SIGIL);
+            player:delStatusEffect(dsp.effect.SANCTION);
+            player:delStatusEffect(dsp.effect.SIGNET);
             local duration = getSanctionDuration(player);
             local subPower = 0; -- getImperialDefenseStats()
-            player:addStatusEffect(EFFECT_SANCTION,option / 16,0,duration,subPower); -- effect size 1 = regen, 2 = refresh, 3 = food.
-            player:messageSpecial(SANCTION);
+            player:addStatusEffect(dsp.effect.SANCTION,option / 16,0,duration,subPower); -- effect size 1 = regen, 2 = refresh, 3 = food.
+            player:messageSpecial(ID.text.SANCTION);
 
         elseif (option % 256 == 17) then -- player bought one of the maps
             id = 1862 + (option - 17) / 256;
             player:addKeyItem(id);
-            player:messageSpecial(KEYITEM_OBTAINED,id);
+            player:messageSpecial(ID.text.KEYITEM_OBTAINED,id);
             player:delCurrency("imperial_standing", 1000);
         elseif (option <= 2049) then -- player bought item
             item, price = getISPItem(option)
             if (player:getFreeSlotsCount() > 0) then
                 player:delCurrency("imperial_standing", price);
                 player:addItem(item);
-                player:messageSpecial(ITEM_OBTAINED,item);
+                player:messageSpecial(ID.text.ITEM_OBTAINED,item);
             else
-                player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,item);
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,item);
             end
         end
     end

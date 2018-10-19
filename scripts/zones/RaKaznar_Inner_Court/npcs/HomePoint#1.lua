@@ -3,10 +3,8 @@
 --  NPC: HomePoint#1
 -- !pos 757 120 17.5 276
 -----------------------------------
-package.loaded["scripts/zones/RaKaznar_Inner_Court/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
-require("scripts/zones/RaKaznar_Inner_Court/TextIDs");
+local ID = require("scripts/zones/RaKaznar_Inner_Court/IDs");
 require("scripts/globals/homepoint");
 -----------------------------------
 
@@ -19,19 +17,15 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 8700) then
 
         if (option == 1) then
             player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
+            player:messageSpecial(ID.text.HOMEPOINT_SET);
         else
             hpTeleport(player, option);
         end

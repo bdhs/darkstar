@@ -4,9 +4,7 @@
 -- Mount Zhayolm Teleporter Back to Aht Urgan Whitegate
 -- !pos 688 -23 349 61
 -----------------------------------
-package.loaded["scripts/zones/Mount_Zhayolm/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Mount_Zhayolm/TextIDs");
+local ID = require("scripts/zones/Mount_Zhayolm/IDs");
 require("scripts/globals/teleports");
 require("scripts/globals/besieged");
 require("scripts/globals/missions");
@@ -26,24 +24,20 @@ function onTrigger(player,npc)
             player:startEvent(111);
         end
     else
-        player:messageSpecial(RESPONSE);
+        player:messageSpecial(ID.text.RESPONSE);
     end
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 111 and option == 1) then
         player:addNationTeleport(AHTURHGAN,16);
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     elseif (csid == 109 and option == 1) then
-        toChamberOfPassage(player);
+        dsp.teleport.toChamberOfPassage(player);
     end
 
 end;

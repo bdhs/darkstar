@@ -3,10 +3,7 @@
 --  NPC: elemental
 
 -----------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Apollyon/TextIDs");
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -73,7 +70,7 @@ print(mobID);
 
 if (correctelement==true and IselementalDayAreDead() == true) then
      GetNPCByID(16932864+313):setPos(mobX,mobY,mobZ);
-    GetNPCByID(16932864+313):setStatus(STATUS_NORMAL);
+    GetNPCByID(16932864+313):setStatus(dsp.status.NORMAL);
  end
 
 end;

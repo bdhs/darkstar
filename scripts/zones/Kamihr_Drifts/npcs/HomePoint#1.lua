@@ -3,10 +3,8 @@
 --  NPC: HomePoint#1
 -- !pos 210 20.299 315 267
 -----------------------------------
-package.loaded["scripts/zones/Kamihr_Drifts/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
-require("scripts/zones/Kamihr_Drifts/TextIDs");
+local ID = require("scripts/zones/Kamihr_Drifts/IDs");
 require("scripts/globals/homepoint");
 -----------------------------------
 
@@ -19,19 +17,15 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     if (csid == 8700) then
 
         if (option == 1) then
             player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
+            player:messageSpecial(ID.text.HOMEPOINT_SET);
         else
             hpTeleport(player, option);
         end

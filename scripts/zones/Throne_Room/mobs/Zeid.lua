@@ -3,7 +3,7 @@
 --  MOB: Zeid
 -- Mission 9-2 BASTOK BCNM Fight
 -----------------------------------
-require("scripts/zones/Throne_Room/MobIDs");
+local ID = require("scripts/zones/Throne_Room/IDs");
 
 function onMobFight(mob, target)
 end;
@@ -19,14 +19,14 @@ function onEventFinish(player,csid,option)
     if (csid == 32004) then
 
         local bfid = player:getVar("bcnm_instanceid");
-        local zeidId = ZEID_BCNM_OFFSET + (bfid - 1) * 4;
-        local playerCoords = 
+        local zeidId = ID.mob.ZEID_BCNM_OFFSET + (bfid - 1) * 4;
+        local playerCoords =
         {
             [1] = {-443      , -167 , -239     , 127},
             [2] = {-762.949  , -407 , -478.991 , 127},
             [3] = {-1082.787 , -647 , -718.976 , 127},
         }
-        local volkerCoords = 
+        local volkerCoords =
         {
             [1] = {-450      , -167 , -239     , 125},
             [2] = {-769.949  , -407 , -478.991 , 125},

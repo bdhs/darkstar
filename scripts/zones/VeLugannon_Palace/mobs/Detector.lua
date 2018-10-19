@@ -2,7 +2,7 @@
 -- Area: VeLugannon Palace
 --  MOB: Detector
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobInitialize(mob)
@@ -21,10 +21,10 @@ function onMobFight(mob,target)
     local Caretaker = Detector + 1;
     local ExtraVar = GetMobByID(Detector):getLocalVar("1");
 
-   -- Summons a Detector every 15 seconds.
-   -- TODO: Casting animation for before summons. When he spawns them isn't exactly retail accurate.
-   --       Should be ~10s to start cast, and another ~5 to finish.
-   -- Detectors can also still spawn the Caretakers while sleeping, moving, etc.
+    -- Summons a Detector every 15 seconds.
+    -- TODO: Casting animation for before summons. When he spawns them isn't exactly retail accurate.
+    --       Should be ~10s to start cast, and another ~5 to finish.
+    -- Detectors can also still spawn the Caretakers while sleeping, moving, etc.
 
     if (GetMobAction(Caretaker) == 16) then
         GetMobByID(Caretaker):updateEnmity(target);
@@ -57,7 +57,7 @@ function onMobDisengage(mob)
 end;
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,743,1);
+    dsp.regime.checkRegime(player, mob, 743, 1, dsp.regime.type.GROUNDS)
 end;
 
 function onMobDespawn( mob )

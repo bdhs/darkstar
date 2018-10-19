@@ -285,11 +285,7 @@ namespace luautils
 
     int32 SendEntityVisualPacket(lua_State* L)
     {
-        if ((!lua_isnil(L, 1) && lua_isnumber(L, 1)) &&
-            (!lua_isnil(L, 2) && lua_isnumber(L, 2)) &&
-            (!lua_isnil(L, 3) && lua_isnumber(L, 3)) &&
-            (!lua_isnil(L, 4) && lua_isnumber(L, 4)) &&
-            (!lua_isnil(L, 5) && lua_isnumber(L, 5)))
+        if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
         {
             uint32 npcid = (uint32)lua_tointeger(L, 1);
             const char* command = lua_tostring(L, 2);
@@ -566,11 +562,27 @@ namespace luautils
             return -1;
         }
 
-        lua_getglobal(LuaHandle, "SetRegionalConquestOverseers");
+        lua_getglobal(LuaHandle, "dsp");
         if (lua_isnil(LuaHandle, -1))
         {
             lua_pop(LuaHandle, 1);
-            ShowError("luautils::SetRegionalConquestOverseers: undefined procedure SetRegionalConquestOverseers\n");
+            ShowError("luautils::SetRegionalConquestOverseers: undefined global dsp\n");
+            return -1;
+        }
+
+        lua_getfield(LuaHandle,-1,"conquest");
+        if (lua_isnil(LuaHandle, -1))
+        {
+            lua_pop(LuaHandle, 2);
+            ShowError("luautils::SetRegionalConquestOverseers: undefined field dsp.conquest\n");
+            return -1;
+        }
+
+        lua_getfield(LuaHandle,-1,"setRegionalConquestOverseers");
+        if (lua_isnil(LuaHandle, -1))
+        {
+            lua_pop(LuaHandle, 3);
+            ShowError("luautils::SetRegionalConquestOverseers: undefined procedure dsp.conquest.setRegionalConquestOverseers\n");
             return -1;
         }
 
@@ -579,8 +591,12 @@ namespace luautils
         if (lua_pcall(LuaHandle, 1, 0, 0))
         {
             ShowError("luautils::SetRegionalConquestOverseers: %s\n", lua_tostring(LuaHandle, -1));
-            lua_pop(LuaHandle, 1);
+            lua_pop(LuaHandle, 3);
             return -1;
+        }
+        else
+        {
+            lua_pop(LuaHandle, 2);
         }
 
         return 0;
@@ -1136,29 +1152,41 @@ namespace luautils
 
     int32 GetTextIDVariable(uint16 ZoneID, const char* variable)
     {
-        lua_pushnil(LuaHandle);
-        lua_setglobal(LuaHandle, variable);
+        lua_getglobal(LuaHandle, "zones");
 
-        char File[255];
-        memset(File, 0, sizeof(File));
-        snprintf(File, sizeof(File), "scripts/zones/%s/TextIDs.lua", zoneutils::GetZone(ZoneID)->GetName());
-
-        if (luaL_loadfile(LuaHandle, File) || lua_pcall(LuaHandle, 0, 0, 0))
+        if (lua_isnil(LuaHandle, -1) || !lua_istable(LuaHandle, -1))
         {
             lua_pop(LuaHandle, 1);
             return 0;
         }
 
-        lua_getglobal(LuaHandle, variable);
+        lua_pushnumber(LuaHandle, ZoneID);
+        lua_gettable(LuaHandle, -2);
+
+        if (lua_isnil(LuaHandle, -1) || !lua_istable(LuaHandle, -1))
+        {
+            lua_pop(LuaHandle, 2);
+            return 0;
+        }
+
+        lua_getfield(LuaHandle, -1, "text");
+
+        if (lua_isnil(LuaHandle, -1) || !lua_istable(LuaHandle, -1))
+        {
+            lua_pop(LuaHandle, 3);
+            return 0;
+        }
+
+        lua_getfield(LuaHandle, -1, variable);
 
         if (lua_isnil(LuaHandle, -1) || !lua_isnumber(LuaHandle, -1))
         {
-            lua_pop(LuaHandle, 1);
+            lua_pop(LuaHandle, 4);
             return 0;
         }
 
         int32 value = (int32)lua_tonumber(LuaHandle, -1);
-        lua_pop(LuaHandle, -1);
+        lua_pop(LuaHandle, 4);
         return value;
     }
 
@@ -1924,13 +1952,13 @@ namespace luautils
     *                                                                       *
     ************************************************************************/
 
-    int32 OnItemCheck(CBaseEntity* PTarget, CItem* PItem, ITEMCHECK param, CBaseEntity* PCaster)
+    std::tuple<int32, int32, int32> OnItemCheck(CBaseEntity* PTarget, CItem* PItem, ITEMCHECK param, CBaseEntity* PCaster)
     {
         lua_prepscript("scripts/globals/items/%s.lua", PItem->getName());
 
         if (prepFile(File, "onItemCheck"))
         {
-            return 56;
+            return { 56, 0, 0 };
         }
 
         CLuaBaseEntity LuaBaseEntityTarget(PTarget);
@@ -1941,16 +1969,19 @@ namespace luautils
 
         Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntityCaster);
 
-        if (lua_pcall(LuaHandle, 3, 1, 0))
+        if (lua_pcall(LuaHandle, 3, 3, 0))
         {
             ShowError("luautils::onItemCheck: %s\n", lua_tostring(LuaHandle, -1));
             lua_pop(LuaHandle, 1);
-            return 56;
+            return { 56, 0, 0 };
         }
 
-        uint32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : 0);
-        lua_pop(LuaHandle, 1);
-        return retVal;
+        uint32 messageId = (!lua_isnil(LuaHandle, -3) && lua_isnumber(LuaHandle, -3) ? (int32)lua_tonumber(LuaHandle, -3) : 0);
+        uint32 param1 = (!lua_isnil(LuaHandle, -2) && lua_isnumber(LuaHandle, -2) ? (int32)lua_tonumber(LuaHandle, -2) : 0);
+        uint32 param2 = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : 0);
+        lua_pop(LuaHandle, 3);
+
+        return { messageId, param1, param2 };
     }
 
     /************************************************************************
@@ -2270,7 +2301,7 @@ namespace luautils
         lua_getglobal(LuaHandle, "mixins");
         if (lua_isnil(LuaHandle, -1))
         {
-            lua_pop(LuaHandle, 1);
+            lua_pop(LuaHandle, 3);
             return -1;
         }
         //get the parameter "mixinOptions" (optional)
@@ -3169,6 +3200,17 @@ namespace luautils
             return 0;
         }
 
+        // Bloodpact Skillups
+        if (PMob->objtype == TYPE_PET && map_config.skillup_bloodpact)
+        {
+            CPetEntity* PPet = (CPetEntity*)PMob;
+            if (PPet->getPetType() == PETTYPE_AVATAR && PPet->PMaster->objtype == TYPE_PC)
+            {
+                CCharEntity* PMaster = (CCharEntity*)PPet->PMaster;
+                if (PMaster->GetMJob() == JOB_SMN) charutils::TrySkillUP(PMaster, SKILL_SUMMONING_MAGIC, PMaster->GetMLevel());
+            }
+        }
+
         uint32 retVal = (!lua_isnil(LuaHandle, -1) && lua_isnumber(LuaHandle, -1) ? (int32)lua_tonumber(LuaHandle, -1) : 0);
         lua_pop(LuaHandle, 1);
         return retVal;
@@ -3894,12 +3936,15 @@ namespace luautils
     {
         DropList_t* DropList = itemutils::GetDropList((uint16)lua_tointeger(L, 1));
 
-        for (uint8 i = 0; i < DropList->size(); ++i)
+        if (DropList != nullptr)
         {
-            if (DropList->at(i).ItemID == lua_tointeger(L, 2))
+            for (uint8 i = 0; i < DropList->Items.size(); ++i)
             {
-                DropList->at(i).DropRate = (uint16)lua_tointeger(L, 3);
-                return 1;
+                if (DropList->Items.at(i).ItemID == lua_tointeger(L, 2))
+                {
+                    DropList->Items.at(i).DropRate = (uint16)lua_tointeger(L, 3);
+                    return 1;
+                }
             }
         }
 
@@ -4156,6 +4201,18 @@ namespace luautils
         return searchLuaFileForFunction(PChar->m_event.Script) ||
             (PChar->PInstance && searchLuaFileForFunction(std::string("scripts/zones/") + (const char*)PChar->loc.zone->GetName() + "/instances/" + (const char*)PChar->PInstance->GetName())) ||
             (searchLuaFileForFunction(std::string("scripts/zones/") + (const char*)PChar->loc.zone->GetName() + "/Zone.lua"));
+    }
+
+    uint16 GetDespoilDebuff(uint16 itemId)
+    {
+        uint16 effectId = 0;
+        int32 ret = Sql_Query(SqlHandle, "SELECT effectId FROM despoil_effects WHERE itemId = %u", itemId);
+        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        {
+            effectId = (uint16)Sql_GetUIntData(SqlHandle, 0);
+        }
+
+        return effectId;
     }
 
 }; // namespace luautils

@@ -5,13 +5,11 @@
 -- Involved in quests: An Empty Vessel (BLU flag), Beginnings (BLU AF1)
 -- !pos 65 -6 -78 50
 -----------------------------------
-package.loaded["scripts/zones/Aht_Urhgan_Whitegate/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/missions");
 require("scripts/globals/quests");
-require("scripts/zones/Aht_Urhgan_Whitegate/TextIDs");
+local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -54,7 +52,7 @@ function onTrigger(player,npc)
 
     -- BEGINNINGS
     elseif (anEmptyVessel == QUEST_COMPLETED and beginnings == QUEST_AVAILABLE and player:getCurrentMission(TOAU) > IMMORTAL_SENTRIES
-            and player:getMainJob() == JOBS.BLU and player:getMainLvl() >= ADVANCED_JOB_LEVEL) then
+            and player:getMainJob() == dsp.job.BLU and player:getMainLvl() >= ADVANCED_JOB_LEVEL) then
         if (not divinationReady) then
             player:startEvent(63);
         elseif (player:needToZone()) then
@@ -63,11 +61,11 @@ function onTrigger(player,npc)
             player:startEvent(705,player:getGil()); -- start AF1 quest
         end;
     elseif (beginnings == QUEST_ACCEPTED) then
-        local brand1 = player:hasKeyItem(BRAND_OF_THE_SPRINGSERPENT);
-        local brand2 = player:hasKeyItem(BRAND_OF_THE_GALESERPENT);
-        local brand3 = player:hasKeyItem(BRAND_OF_THE_FLAMESERPENT);
-        local brand4 = player:hasKeyItem(BRAND_OF_THE_SKYSERPENT);
-        local brand5 = player:hasKeyItem(BRAND_OF_THE_STONESERPENT);
+        local brand1 = player:hasKeyItem(dsp.ki.BRAND_OF_THE_SPRINGSERPENT);
+        local brand2 = player:hasKeyItem(dsp.ki.BRAND_OF_THE_GALESERPENT);
+        local brand3 = player:hasKeyItem(dsp.ki.BRAND_OF_THE_FLAMESERPENT);
+        local brand4 = player:hasKeyItem(dsp.ki.BRAND_OF_THE_SKYSERPENT);
+        local brand5 = player:hasKeyItem(dsp.ki.BRAND_OF_THE_STONESERPENT);
         if (brand1 and brand2 and brand3 and brand4 and brand5) then
             player:startEvent(707); -- reward immortal's scimitar
         else
@@ -138,7 +136,7 @@ function onEventFinish(player,csid,option)
             player:setVar("LastDivinationDay",vanaDay());
             player:setVar("AnEmptyVesselProgress",1);
             player:delGil(1000);
-            player:messageSpecial(PAY_DIVINATION); -- You pay 1000 gil for the divination.
+            player:messageSpecial(ID.text.PAY_DIVINATION); -- You pay 1000 gil for the divination.
         end;
     elseif (csid == 67) then -- Turn in stone, go to Aydeewa
         player:setVar("AnEmptyVesselProgress",4);
@@ -151,19 +149,19 @@ function onEventFinish(player,csid,option)
     elseif (csid == 78 and option == 1) then
         player:setVar("LastDivinationDay",vanaDay());
         player:delGil(1000);
-        player:messageSpecial(PAY_DIVINATION); -- You pay 1000 gil for the divination.
+        player:messageSpecial(ID.text.PAY_DIVINATION); -- You pay 1000 gil for the divination.
     elseif (csid == 705 and option == 1) then
         player:addQuest(AHT_URHGAN,BEGINNINGS);
     elseif (csid == 706 and option == 1) then
         player:delGil(1000);
-        player:messageSpecial(PAY_DIVINATION); -- You pay 1000 gil for the divination.
+        player:messageSpecial(ID.text.PAY_DIVINATION); -- You pay 1000 gil for the divination.
     elseif (csid == 707) then
         if (player:getFreeSlotsCount() > 0) then
             player:addItem(17717,1);
-            player:messageSpecial(ITEM_OBTAINED,17717);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,17717);
             player:completeQuest(AHT_URHGAN,BEGINNINGS);
         else
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17717);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,17717);
         end
     end;
 end;

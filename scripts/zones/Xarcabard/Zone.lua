@@ -3,17 +3,15 @@
 -- Zone: Xarcabard (112)
 --
 -----------------------------------
-package.loaded[ "scripts/zones/Xarcabard/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Xarcabard/TextIDs");
+local ID = require("scripts/zones/Xarcabard/IDs");
 require("scripts/globals/icanheararainbow");
+require("scripts/globals/conquest");
 require("scripts/globals/keyitems");
 require("scripts/globals/zone");
-require("scripts/globals/conquest");
 -----------------------------------
 
 function onInitialize(zone)
-    SetRegionalConquestOverseers(zone:getRegionID())
+    dsp.conq.setRegionalConquestOverseers(zone:getRegionID())
 end;
 
 function onZoneIn( player, prevZone)
@@ -29,9 +27,9 @@ function onZoneIn( player, prevZone)
         player:setPos( -136.287, -23.268, 137.302, 91);
     end
 
-    if (player:hasKeyItem( VIAL_OF_SHROUDED_SAND) == false and player:getRank() >= 6 and player:getMainLvl() >= 65 and player:getVar( "Dynamis_Status") == 0) then
+    if (player:hasKeyItem( dsp.ki.VIAL_OF_SHROUDED_SAND) == false and player:getRank() >= 6 and player:getMainLvl() >= 65 and player:getVar( "Dynamis_Status") == 0) then
         player:setVar( "Dynamis_Status", 1);
-        cs = 0x000D;
+        cs = 13;
     elseif (triggerLightCutscene(player)) then -- Quest: I Can Hear A Rainbow
         cs = 9;
     elseif (UnbridledPassionCS == 3) then
@@ -44,19 +42,13 @@ function onZoneIn( player, prevZone)
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onRegionEnter( player, region)
 end;
 
 function onEventUpdate( player, csid, option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 9) then
         lightCutsceneUpdate(player); -- Quest: I Can Hear A Rainbow
     elseif (csid == 11) then
@@ -69,8 +61,6 @@ function onEventUpdate( player, csid, option)
 end;
 
 function onEventFinish( player, csid, option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 9) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
     elseif (csid == 4) then

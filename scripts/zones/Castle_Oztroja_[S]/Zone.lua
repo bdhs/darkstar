@@ -3,10 +3,7 @@
 -- Zone: Castle_Oztroja_[S] (99)
 --
 -----------------------------------
-package.loaded["scripts/zones/Castle_Oztroja_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Castle_Oztroja_[S]/TextIDs");
+local ID = require("scripts/zones/Castle_Oztroja_[S]/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -24,11 +21,7 @@ function onRegionEnter(player,region)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

@@ -2,12 +2,9 @@
 -- Area: Windurst Waters (S)
 --   NPC: Kocco Ehllek
 -- Type: Quest Giver
--- @zone 94
--- !pos -41.465 -2.125 -163.018
+-- !pos -41.465 -2.125 -163.018 94
 --
 -- Auto-Script: Requires Verification (Verified by Brawndo)
------------------------------------
-package.loaded["scripts/zones/Windurst_Waters_[S]/TextIDs"] = nil;
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -18,12 +15,8 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 

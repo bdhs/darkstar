@@ -2,13 +2,13 @@
 -- Area: Promyvion vahzl
 --  MOB: Provoker
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
+local ID = require("scripts/zones/Promyvion-Vahzl/IDs");
+require("scripts/globals/settings");
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
 end;
 
 function onMobDespawn(mob)
-    GetNPCByID(16867689):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
+    GetNPCByID(ID.mob.PROVOKER_QM):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
 end;

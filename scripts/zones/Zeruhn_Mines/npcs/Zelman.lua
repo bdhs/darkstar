@@ -4,9 +4,7 @@
 -- Involved In Quest: Groceries
 -- !pos 17.095 7.704 -52.995 172
 -----------------------------------
-package.loaded["scripts/zones/Zeruhn_Mines/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Zeruhn_Mines/TextIDs");
+local ID = require("scripts/zones/Zeruhn_Mines/IDs");
 require("scripts/globals/keyitems");
 
 function onTrade(player,npc,trade)
@@ -17,13 +15,13 @@ function onTrigger(player,npc)
 
     -- GROCERIES
     if (groceries == 1) then
-        if (player:seenKeyItem(TAMIS_NOTE)) then
+        if (player:seenKeyItem(dsp.ki.TAMIS_NOTE)) then
             player:startEvent(162);
         else
             player:startEvent(161);
         end
     elseif (groceries >= 2) then
-        player:showText(npc,ZELMAN_CANT_RUN_AROUND);
+        player:showText(npc,ID.text.ZELMAN_CANT_RUN_AROUND);
 
     -- DEFAULT DIALOG
     else
@@ -38,9 +36,9 @@ function onEventFinish(player,csid,option)
     -- GROCERIES
     if (csid == 161) then
         player:setVar("Groceries",2);
-        player:delKeyItem(TAMIS_NOTE);
+        player:delKeyItem(dsp.ki.TAMIS_NOTE);
     elseif (csid == 162) then
         player:setVar("Groceries",3);
-        player:delKeyItem(TAMIS_NOTE);
+        player:delKeyItem(dsp.ki.TAMIS_NOTE);
     end
 end;

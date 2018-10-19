@@ -4,34 +4,25 @@
 -- Involved In Quest: Dark Puppet
 -- !pos -52 27 -85 193
 -----------------------------------
-package.loaded["scripts/zones/Ordelles_Caves/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Ordelles_Caves/TextIDs");
+local ID = require("scripts/zones/Ordelles_Caves/IDs");
+require("scripts/globals/npc_util");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-
-    if (player:getVar("darkPuppetCS") >= 2 and player:hasItem(16681) == false) then
-        if (trade:hasItemQty(654,1) and trade:getItemCount() == 1) then -- Trade Darksteel Ingot
-            player:tradeComplete();
-            player:messageSpecial(GERWITZS_AXE_DIALOG);
-            SpawnMob(17568135):updateClaim(player);
-        end
+    -- DARK PUPPET: Darksteel Ingot
+    if ( player:getVar("darkPuppetCS") >= 2 and not player:hasItem(16681) and npcUtil.tradeHas(trade, 654) ) then
+        player:confirmTrade();
+        player:messageSpecial(ID.text.GERWITZS_AXE_DIALOG);
+        SpawnMob(ID.mob.DARK_PUPPET_OFFSET):updateClaim(player);
     end
-
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
+    player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;

@@ -3,20 +3,19 @@
 --  NPC: ??? - Kurrea spawn
 -- !pos -249.320 -16.189 41.497 24
 -----------------------------------
-package.loaded["scripts/zones/Lufaise_Meadows/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Lufaise_Meadows/TextIDs");
+local ID = require("scripts/zones/Lufaise_Meadows/IDs");
+require("scripts/globals/npc_util");
+require("scripts/globals/status");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-
-    if (trade:hasItemQty(5210,1) and trade:getItemCount() == 1) then -- Adamantoise Soup
-        player:tradeComplete();
-        SpawnMob(16875778):updateClaim(player); -- Kurrea
-        npc:setStatus(STATUS_DISAPPEAR);
+    if (npcUtil.tradeHas(trade, 5210) and not GetMobByID(ID.mob.KURREA):isSpawned()) then -- Adamantoise Soup
+        player:confirmTrade();
+        SpawnMob(ID.mob.KURREA):updateClaim(player);
+        npc:setStatus(dsp.status.DISAPPEAR);
     end
 end;
 
 function onTrigger(player,npc)
-    player:messageSpecial(NOTHING_OUT_OF_THE_ORDINARY);
+    player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
 end;

@@ -4,13 +4,11 @@
 -- !pos 340 -0.5 -680
 -- Teleports Players to Abyssea - Altepa
 -----------------------------------
-package.loaded["scripts/zones/South_Gustaberg/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/abyssea");
-require("scripts/zones/South_Gustaberg/TextIDs");
+local ID = require("scripts/zones/South_Gustaberg/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -26,18 +24,14 @@ function onTrigger(player,npc)
             player:startEvent(914,0,1); -- No param = no entry.
         end
     else
-        player:messageSpecial(NOTHING_HAPPENS);
+        player:messageSpecial(ID.text.NOTHING_HAPPENS);
     end
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
     if (csid == 0) then
         player:addQuest(ABYSSEA, A_BEAKED_BLUSTERER);
     elseif (csid == 1) then

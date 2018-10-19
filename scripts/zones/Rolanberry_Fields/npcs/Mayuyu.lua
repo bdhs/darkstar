@@ -4,12 +4,9 @@
 -- Legion NPC
 -- !pos 240 24.399 468
 -----------------------------------
-package.loaded["scripts/zones/Rolanberry_Fields/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/titles");
-require("scripts/zones/Rolanberry_Fields/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -19,14 +16,14 @@ function onTrigger(player,npc)
     local LEGENDARY = 0;
     local CAPACITY = 0;
 
-    if (player:hasTitle(LEGENDARY_LEGIONNAIRE)) then
+    if (player:hasTitle(dsp.title.LEGENDARY_LEGIONNAIRE)) then
         LEGENDARY = 1;
     end
 
-    if (player:hasKeyItem(LEGION_TOME_PAGE_MAXIMUS)) then
+    if (player:hasKeyItem(dsp.ki.LEGION_TOME_PAGE_MAXIMUS)) then
         CAPACITY = CAPACITY+2; -- Enable 36 combatant option
     end
-    if (player:hasKeyItem(LEGION_TOME_PAGE_MINIMUS)) then
+    if (player:hasKeyItem(dsp.ki.LEGION_TOME_PAGE_MINIMUS)) then
         CAPACITY = CAPACITY+1; -- Enable 18 combatant option
     end
 

@@ -5,9 +5,6 @@
 -- Involved in quest: In a Stew
 -- !pos 131 -5 -109 241
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Windurst_Woods/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
@@ -38,13 +35,9 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 end;
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
 
     -- In a Stew
     if (csid == 233) then
