@@ -9,7 +9,7 @@ package.loaded["scripts/zones/Jugner_Forest/TextIDs"] = nil;
 
 require("scripts/globals/settings");
 require("scripts/globals/quests");
-require("scripts/zones/Jugner_Forest/TextIDs");
+local ID = require("scripts/zones/Jugner_Forest/IDs");
 
 -----------------------------------
 -- onTrade
@@ -36,13 +36,13 @@ function onTrigger(player,npc)
         elseif (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
             player:startEvent(0x0012);
         else
-            player:messageSpecial(NOTHING_HAPPENS);
+            player:messageSpecial(ID.text.NOTHING_HAPPENS);
         end;
     else
         if (ATimelyVisit == 1 and ATimelyVisitProgress == 10) then
             player:startEvent(0x0012);
         else    
-            player:messageSpecial(NOTHING_HAPPENS);
+            player:messageSpecial(ID.text.NOTHING_HAPPENS);
         end;    
     end;
 end;
