@@ -261,7 +261,7 @@ int32 main(int32 argc, char **argv)
     ShowMessage(CL_WHITE"DSSearch-server\n\n");
     ShowMessage(CL_WHITE"========================================================\n\n" CL_RESET);
     if (search_config.expire_auctions == 1) {
-        ShowMessage(CL_GREEN"AH task to return items older than %u days is running\n" CL_RESET, search_config.expire_days);
+        ShowMessage(CL_GREEN"AH task to return items after %u to %u days is running\n" CL_RESET, search_config.expire_days_min, search_config.expire_days_max);
         CTaskMgr::getInstance()->AddTask("ah_cleanup", server_clock::now(), nullptr, CTaskMgr::TASK_INTERVAL, ah_cleanup, std::chrono::seconds(search_config.expire_interval));
     }
     //  ShowMessage(CL_CYAN"[TASKMGR] Starting task manager thread..\n" CL_RESET);
@@ -329,7 +329,8 @@ void search_config_default()
     search_config.mysql_database = "dspdb";
     search_config.mysql_port = 3306;
     search_config.expire_auctions = 1;
-    search_config.expire_days = 3;
+    search_config.expire_days_min = 3;
+    search_config.expire_days_max = 3;
     search_config.expire_interval = 3600;
 }
 
@@ -390,9 +391,13 @@ void search_config_read(const int8* file)
         {
             search_config.expire_auctions = atoi(w2);
         }
-        else if (strcmp(w1, "expire_days") == 0)
+        else if (strcmp(w1, "expire_days_min") == 0)
         {
-            search_config.expire_days = atoi(w2);
+            search_config.expire_days_min = atoi(w2);
+        }
+        else if (strcmp(w1, "expire_days_max") == 0)
+        {
+            search_config.expire_days_max = atoi(w2);
         }
         else if (strcmp(w1, "expire_interval") == 0)
         {

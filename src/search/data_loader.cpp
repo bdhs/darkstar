@@ -467,9 +467,19 @@ void CDataLoader::ExpireAHItems()
         search_config.mysql_port,
         search_config.mysql_database.c_str());
 
-    std::string qStr = "SELECT T0.id,T0.itemid,T1.stacksize, T0.stack, T0.seller FROM auction_house T0 INNER JOIN item_basic T1 ON \
-                            T0.itemid = T1.itemid WHERE datediff(now(),from_unixtime(date)) >=%u AND buyer_name IS NULL;";
-    int32 ret = Sql_Query(SqlHandle, qStr.c_str(), search_config.expire_days);
+    std::string qStr =
+        "SELECT id, itemid, stacksize, stack, seller FROM("
+        "SELECT aucs.id AS id, aucs.itemid AS itemid, aucs.stacksize AS stacksize, aucs.stack AS stack, aucs.seller AS seller,"
+        "aucs.date AS date, exps.exp AS exp "
+        "FROM(SELECT itemid, stack, FLOOR(2 * (%u - %u) / (COUNT(*) + 1)) + %u AS exp "
+        "FROM auction_house WHERE buyer_name IS NULL GROUP BY itemid, stack) AS exps " /* expire times for all unsold auctions */
+        "INNER JOIN(SELECT T0.id AS id, T0.itemid AS itemid, T1.stacksize AS stacksize, T0.stack AS stack, T0.seller AS seller,"
+        "date FROM auction_house T0 INNER JOIN item_basic T1 ON T0.itemid = T1.itemid "
+        "WHERE buyer_name IS NULL) AS aucs " /* all unsold auctions */
+        "ON exps.itemid = aucs.itemid AND exps.stack = aucs.stack"
+        ") AS wexp " /* all unsold auctions with their date and expire time */
+        "WHERE datediff(now(), from_unixtime(date)) >= exp;";
+    int32 ret = Sql_Query(SqlHandle, qStr.c_str(), search_config.expire_days_max, search_config.expire_days_min, search_config.expire_days_min);
     int64 expiredAuctions = Sql_NumRows(SqlHandle);
     if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
     {
