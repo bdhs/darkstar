@@ -467,19 +467,40 @@ void CDataLoader::ExpireAHItems()
         search_config.mysql_port,
         search_config.mysql_database.c_str());
 
+    // set default expire times for chars where it hasn't been set yet
     std::string qStr =
-        "SELECT id, itemid, stacksize, stack, seller FROM("
-        "SELECT aucs.id AS id, aucs.itemid AS itemid, aucs.stacksize AS stacksize, aucs.stack AS stack, aucs.seller AS seller,"
-        "aucs.date AS date, exps.exp AS exp "
-        "FROM(SELECT itemid, stack, FLOOR(2 * (%u - %u) / (COUNT(*) + 1)) + %u AS exp "
-        "FROM auction_house WHERE buyer_name IS NULL GROUP BY itemid, stack) AS exps " /* expire times for all unsold auctions */
-        "INNER JOIN(SELECT T0.id AS id, T0.itemid AS itemid, T1.stacksize AS stacksize, T0.stack AS stack, T0.seller AS seller,"
-        "date FROM auction_house T0 INNER JOIN item_basic T1 ON T0.itemid = T1.itemid "
-        "WHERE buyer_name IS NULL) AS aucs " /* all unsold auctions */
-        "ON exps.itemid = aucs.itemid AND exps.stack = aucs.stack"
-        ") AS wexp " /* all unsold auctions with their date and expire time */
-        "WHERE datediff(now(), from_unixtime(date)) >= exp;";
-    int32 ret = Sql_Query(SqlHandle, qStr.c_str(), search_config.expire_days_max, search_config.expire_days_min, search_config.expire_days_min);
+        "UPDATE dspdb.chars "
+        "SET ah_expire_days_min = %u, ah_expire_days_max = %u "
+        "WHERE ah_expire_days_max = 0;";
+    int32 ret = Sql_Query(SqlHandle, qStr.c_str(), search_config.expire_days_min, search_config.expire_days_max);
+    if (ret == SQL_ERROR)
+    {
+        ShowMessage(CL_RED"SQL ERROR when setting default expire times: %s\n\n" CL_RESET, SQL_ERROR);
+        Sql_Free(sqlH2);
+        return;
+    }
+
+    qStr =
+        /* get expired auctions with the information needed to return to delivery box */
+        "SELECT id, expired.itemid, stacksize, stack, seller FROM("
+            /* get all expired auctions */
+            "SELECT id, wMinMax.itemid, wMinMax.stack, wMinMax.seller FROM("
+                /* get all unsold auctions with min and max expire times, including defaults if no character match (deleted chars) */
+                "SELECT id, itemid, stack, seller, date,"
+                "CASE WHEN ah_expire_days_min is NULL THEN %u ELSE ah_expire_days_min END AS ah_expire_days_min,"
+                "CASE WHEN ah_expire_days_max is NULL THEN %u ELSE ah_expire_days_max END AS ah_expire_days_max "
+                "FROM auction_house LEFT OUTER JOIN("
+                    /* get min and max expire times for all chars */
+                    "SELECT charid, ah_expire_days_min, ah_expire_days_max FROM dspdb.chars) as chars_exp "
+                "ON auction_house.seller = chars_exp.charid WHERE buyer_name IS NULL) AS wMinMax "
+            "INNER JOIN("
+                /* count stock of all unsold auctions */
+                "SELECT itemid, stack, COUNT(*) AS stock "
+                "FROM auction_house WHERE buyer_name IS NULL GROUP BY itemid, stack) AS stockCounts "
+            "ON wMinMax.itemid = stockCounts.itemid AND wMinMax.stack = stockCounts.stack "
+            "WHERE datediff(now(), from_unixtime(date)) >= FLOOR(2 * (ah_expire_days_max - ah_expire_days_min) / (stock + 1)) + ah_expire_days_min) AS expired "
+        "INNER JOIN item_basic ON expired.itemid = item_basic.itemid;";
+    ret = Sql_Query(SqlHandle, qStr.c_str(), search_config.expire_days_min, search_config.expire_days_max);
     int64 expiredAuctions = Sql_NumRows(SqlHandle);
     if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
     {

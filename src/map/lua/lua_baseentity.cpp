@@ -664,6 +664,104 @@ inline int32 CLuaBaseEntity::resetLocalVars(lua_State* L)
 }
 
 /************************************************************************
+*  Function: getAHExpireDaysMin()
+*  Purpose : Get the character's minimum auction expire time
+*  Example : player:getAHExpireDaysMin();
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getAHExpireDaysMin(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    uint32 days = 0;
+
+    const char* Query = "SELECT ah_expire_days_min FROM chars WHERE charid = %u;";
+    int32 ret = Sql_Query(SqlHandle, Query, m_PBaseEntity->id);
+
+    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        days = (int32)Sql_GetIntData(SqlHandle, 0);
+
+    lua_pushinteger(L, days);
+    return 1;
+}
+
+/************************************************************************
+*  Function: setAHExpireDaysMin()
+*  Purpose : Set the character's minimum auction expire time
+*  Example : player:setAHExpireDaysMin(days);
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::setAHExpireDaysMin(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    int32 days = (int32)lua_tointeger(L, -1);
+
+    const char* Query = "UPDATE chars SET ah_expire_days_min = %u WHERE charid = %u;";
+
+    Sql_Query(SqlHandle, Query,
+        days,
+        m_PBaseEntity->id);
+
+    return 0;
+}
+
+/************************************************************************
+*  Function: getAHExpireDaysMax()
+*  Purpose : Get the character's maximum auction expire time
+*  Example : player:getAHExpireDaysMax();
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getAHExpireDaysMax(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    uint32 days = 0;
+
+    const char* Query = "SELECT ah_expire_days_max FROM chars WHERE charid = %u;";
+    int32 ret = Sql_Query(SqlHandle, Query, m_PBaseEntity->id);
+
+    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        days = (int32)Sql_GetIntData(SqlHandle, 0);
+
+    lua_pushinteger(L, days);
+    return 1;
+}
+
+/************************************************************************
+*  Function: setAHExpireDaysMax()
+*  Purpose : Set the character's maximum auction expire time
+*  Example : player:setAHExpireDaysMax(days);
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::setAHExpireDaysMax(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    int32 days = (int32)lua_tointeger(L, -1);
+
+    const char* Query = "UPDATE chars SET ah_expire_days_max = %u WHERE charid = %u;";
+
+    Sql_Query(SqlHandle, Query,
+        days,
+        m_PBaseEntity->id);
+
+    return 0;
+}
+
+/************************************************************************
 *  Function: getMaskBit()
 *  Purpose : Returns a single bit from a masked player variable
 *  Example : player:getMaskBit(player:getVar("CleanSignPost"),1)) then
@@ -13874,6 +13972,10 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getLocalVar),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setLocalVar),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,resetLocalVars),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAHExpireDaysMin),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setAHExpireDaysMin),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAHExpireDaysMax),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setAHExpireDaysMax),
 
     // Masks and Bitwise Operations
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMaskBit),

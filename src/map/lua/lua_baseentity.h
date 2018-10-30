@@ -64,6 +64,10 @@ public:
     int32 getLocalVar(lua_State*);
     int32 setLocalVar(lua_State*);
     int32 resetLocalVars(lua_State*);
+    int32 getAHExpireDaysMin(lua_State*);
+    int32 setAHExpireDaysMin(lua_State*);
+    int32 getAHExpireDaysMax(lua_State*);
+    int32 setAHExpireDaysMax(lua_State*);
 
     // Masks and Bitwise Operations
     int32 getMaskBit(lua_State*);           // Retrieves a single bit in a character variable
