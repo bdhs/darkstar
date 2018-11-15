@@ -1094,6 +1094,13 @@ void SmallPacket0x032(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         if (!PTarget->UContainer->IsContainerEmpty())
         {
             ShowDebug(CL_CYAN"%s UContainer is not empty. %s cannot trade with them at this time\n" CL_RESET, PTarget->GetName(), PChar->GetName());
+            PChar->pushPacket(new CTradeActionPacket(PTarget, 0x01));  // can't trade with this person at this time
+            return;
+        }
+        if (PTarget->TradePending.id != 0)
+        {
+            ShowDebug(CL_CYAN"%s already has a trade request from someone else, so %s can't trade with them\n" CL_RESET, PTarget->GetName(), PChar->GetName());
+            PChar->pushPacket(new CTradeActionPacket(PTarget, 0x01));  // can't trade with this person at this time
             return;
         }
         PChar->TradePending.id = charid;
