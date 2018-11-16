@@ -863,20 +863,34 @@ void CZone::CharZoneIn(CCharEntity* PChar)
 
     if (PChar->PParty != nullptr)
     {
+        ShowDebug(CL_RED"WARNING: I think this never happens - ReloadPartyInc sets a flag to reload party asyncly\n" CL_RESET);
         if (m_TreasurePool != nullptr)
         {
+            ShowDebug(CL_RED"zone in treasure pool handling - zone has treasure pool\n" CL_RESET);
             PChar->PTreasurePool = m_TreasurePool;
             PChar->PTreasurePool->AddMember(PChar);
         }
         else
         {
+            ShowDebug(CL_RED"zone in treasure pool handling - zone doesn't have treasure pool\n" CL_RESET);
             PChar->PParty->ReloadTreasurePool(PChar);
         }
     }
     else
     {
-        PChar->PTreasurePool = new CTreasurePool(TREASUREPOOL_SOLO);
-        PChar->PTreasurePool->AddMember(PChar);
+        ShowDebug(CL_CYAN"zone in treasure pool handling - if player is in a party, it's not loaded yet\n" CL_RESET);
+        if (m_TreasurePool != nullptr)
+        {
+            ShowDebug(CL_CYAN"zone in treasure pool handling - zone has treasure pool\n" CL_RESET);
+            PChar->PTreasurePool = m_TreasurePool;
+            PChar->PTreasurePool->AddMember(PChar);
+        }
+        else
+        {
+            ShowDebug(CL_CYAN"zone in treasure pool handling - zone doesn't have treasure pool\n" CL_RESET);
+            PChar->PTreasurePool = new CTreasurePool(TREASUREPOOL_SOLO);
+            PChar->PTreasurePool->AddMember(PChar);
+        }
     }
 
     if (m_zoneType != ZONETYPE_DUNGEON_INSTANCED)
