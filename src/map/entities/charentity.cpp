@@ -1392,8 +1392,15 @@ bool CCharEntity::IsMobOwner(CBattleEntity* PBattleTarget)
 {
     DSP_DEBUG_BREAK_IF(PBattleTarget == nullptr);
 
+    //ShowDebug(CL_CYAN"CCharEntity::IsMobOwner checks claim here\n" CL_RESET);
     if (PBattleTarget->m_OwnerID.id == 0 || PBattleTarget->m_OwnerID.id == this->id || PBattleTarget->objtype == TYPE_PC)
     {
+        return true;
+    }
+
+    if (PTreasurePool != nullptr && PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
+    {
+        // if someone is in a zone with a zone global treasure pool, they're allowed to attack anything
         return true;
     }
 

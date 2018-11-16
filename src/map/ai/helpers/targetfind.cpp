@@ -33,6 +33,7 @@ This file is part of DarkStar-server source code.
 #include "../../utils/zoneutils.h"
 #include "../../enmity_container.h"
 #include "../../status_effect_container.h"
+#include "../../treasure_pool.h"
 
 #include "../../packets/action.h"
 
@@ -299,9 +300,19 @@ bool CTargetFind::isMobOwner(CBattleEntity* PTarget)
         return true;
     }
 
+    ShowDebug(CL_CYAN"CTargetFind::isMobOwner checks claim here\n" CL_RESET);
     if (PTarget->m_OwnerID.id == 0 || PTarget->m_OwnerID.id == m_PBattleEntity->id)
     {
         return true;
+    }
+
+    if (m_PBattleEntity->objtype == TYPE_PC) {
+        CCharEntity* PChar = static_cast<CCharEntity*>(m_PBattleEntity);
+        if (PChar->PTreasurePool != nullptr && PChar->PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
+        {
+            // if someone is in a zone with a zone global treasure pool, they're allowed to attack anything
+            return true;
+        }
     }
 
     bool found = false;

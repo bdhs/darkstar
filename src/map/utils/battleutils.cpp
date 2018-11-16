@@ -72,6 +72,7 @@
 #include "../ai/controllers/player_charm_controller.h"
 #include "../ai/states/magic_state.h"
 #include "../utils/petutils.h"
+#include "../treasure_pool.h"
 #include "zoneutils.h"
 
 
@@ -5029,10 +5030,20 @@ namespace battleutils
             PMaster = PEntity->PMaster;
         }
 
+        ShowDebug(CL_CYAN"battleutils::HasClaim checks claim here\n" CL_RESET);
         if (PTarget->m_OwnerID.id == 0 || PTarget->m_OwnerID.id == PMaster->id || PTarget->objtype == TYPE_PC ||
                 PTarget->objtype == TYPE_PET)
         {
             return true;
+        }
+
+        if (PEntity->objtype == TYPE_PC) {
+            CCharEntity* PChar = static_cast<CCharEntity*>(PEntity);
+            if (PChar->PTreasurePool != nullptr && PChar->PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
+            {
+                // if someone is in a zone with a zone global treasure pool, they're allowed to attack anything
+                return true;
+            }
         }
 
         bool found = false;
