@@ -146,14 +146,17 @@ void CBattleEntity::UpdateHealth()
 {
     int32 dif = (getMod(Mod::CONVMPTOHP) - getMod(Mod::CONVHPTOMP));
 
-    health.modmp = std::max(0, ((health.maxmp) * (100 + getMod(Mod::MPP)) / 100) + std::min<int16>((health.maxmp * m_modStat[Mod::FOOD_MPP] / 100), m_modStat[Mod::FOOD_MP_CAP]) + getMod(Mod::MP));
-    health.modhp = std::max(1, ((health.maxhp) * (100 + getMod(Mod::HPP)) / 100) + std::min<int16>((health.maxhp * m_modStat[Mod::FOOD_HPP] / 100), m_modStat[Mod::FOOD_HP_CAP]) + getMod(Mod::HP));
+    health.modmp = std::max(0, health.maxmp + getMod(Mod::MP));
+    health.modhp = std::max(1, health.maxhp + getMod(Mod::HP));
 
     dif = (health.modmp - 0) < dif ? (health.modmp - 0) : dif;
     dif = (health.modhp - 1) < -dif ? -(health.modhp - 1) : dif;
 
     health.modhp += dif;
     health.modmp -= dif;
+
+    health.modmp = std::max(0, ((health.modmp) * (100 + getMod(Mod::MPP)) / 100) + std::min<int16>((health.modmp * m_modStat[Mod::FOOD_MPP] / 100), m_modStat[Mod::FOOD_MP_CAP]));
+    health.modhp = std::max(1, ((health.modhp) * (100 + getMod(Mod::HPP)) / 100) + std::min<int16>((health.modhp * m_modStat[Mod::FOOD_HPP] / 100), m_modStat[Mod::FOOD_HP_CAP]));
 
     if (objtype == TYPE_PC)
     {
