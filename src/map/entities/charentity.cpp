@@ -613,6 +613,7 @@ void CCharEntity::AutoTarget()
                     // ShowDebug("found valid autotarget, changing target\n");
                     auto controller{ static_cast<CPlayerController*>(PAI->GetController()) };
                     controller->ChangeTarget(PPotentialTarget.second->targid);
+                    return;
                 }
             }
         }
