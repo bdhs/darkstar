@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -4102,6 +4102,10 @@ namespace battleutils
             {
                 charmerBSTlevel = charmerBRDlevel;
             }
+            if (charmerBSTlevel > charmerLvl)
+            {
+                charmerBSTlevel = charmerLvl;
+            }
         }
         else if (PCharmer->objtype == TYPE_MOB)
         {
@@ -5529,4 +5533,3 @@ namespace battleutils
         }
     }
 };
-
