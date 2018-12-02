@@ -504,7 +504,7 @@ int32 CBattleEntity::addHP(int32 hp)
     // if dead mob, autotarget
     if (health.hp == 0 && objtype == TYPE_MOB) {
         auto PTargetList = (static_cast<CMobEntity*>(this))->PEnmityContainer->GetEnmityList();
-        for (auto IElement : *PTargetList)
+        for (const auto& IElement : *PTargetList)
         {
             auto PEntity = IElement.second.PEnmityOwner;
             // ShowDebug("trying autotarget PEnt->Bat: %d  this: %d \n", (int)PEntity->GetBattleTarget(), (int)this);
