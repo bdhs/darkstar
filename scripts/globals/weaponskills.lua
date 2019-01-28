@@ -124,11 +124,13 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     local finaldmg = 0
     local hitrate = getHitRate(attacker,target,true,bonusacc)
     if (params.acc100~=0) then
+        print("hitrate before accVWTP: " .. hitrate .. "\n")
         -- ACCURACY VARIES WITH TP, APPLIED TO ALL HITS.
         -- print("Accuracy varies with TP.")
         hr = accVariesWithTP(getHitRate(attacker,target,false,bonusacc),attacker:getACC(),tp,params.acc100,params.acc200,params.acc300)
         hitrate = hr
     end
+    print("hitrate after  accVWTP: " .. hitrate .. "\n")
 
     local dmg = base * ftp
     local tpHitsLanded = 0
