@@ -53,6 +53,7 @@
 #include "../weapon_skill.h"
 #include "../vana_time.h"
 #include "../utils/zoneutils.h"
+#include "../timetriggers.h"
 #include "../transport.h"
 #include "../packets/action.h"
 #include "../packets/char_update.h"
@@ -1944,6 +1945,30 @@ namespace luautils
         return 0;
     }
 
+    int32 OnUpdateAttachment(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
+    {
+        lua_prepscript("scripts/globals/abilities/pets/attachments/%s.lua", attachment->getName());
+
+        if (prepFile(File, "onUpdate"))
+        {
+            return -1;
+        }
+
+        CLuaBaseEntity LuaBaseEntity(PEntity);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        lua_pushinteger(LuaHandle, maneuvers);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onUpdate: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        return 0;
+    }
+
     /************************************************************************
     *                                                                       *
     *  Проверяем возможность использования предмета. Если все хорошо, то    *
@@ -2160,6 +2185,8 @@ namespace luautils
     int32 OnMagicHit(CBattleEntity* PCaster, CBattleEntity* PTarget, CSpell* PSpell)
     {
         DSP_DEBUG_BREAK_IF(PSpell == nullptr);
+
+        PTarget->PAI->EventHandler.triggerListener("MAGIC_TAKE", PCaster, PTarget, PSpell);
 
         lua_prepscript("scripts/zones/%s/mobs/%s.lua", PTarget->loc.zone->GetName(), PTarget->GetName());
 
@@ -3651,6 +3678,30 @@ namespace luautils
         if (lua_pcall(LuaHandle, 2, 0, 0))
         {
             ShowError("luautils::onTransportEvent: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        return 0;
+    }
+
+    int32 OnTimeTrigger(CNpcEntity* PNpc, uint8 triggerID)
+    {
+        lua_prepscript("scripts/zones/%s/npcs/%s.lua", PNpc->loc.zone->GetName(), PNpc->GetName());
+
+        if (prepFile(File, "onTimeTrigger"))
+        {
+            return -1;
+        }
+
+        CLuaBaseEntity LuaBaseEntity(PNpc);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        lua_pushinteger(LuaHandle, triggerID);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onTimeTrigger: %s\n", lua_tostring(LuaHandle, -1));
             lua_pop(LuaHandle, 1);
             return -1;
         }

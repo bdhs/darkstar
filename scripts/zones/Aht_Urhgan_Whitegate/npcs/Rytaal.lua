@@ -19,7 +19,7 @@ function onTrigger(player,npc)
     local currentday = tonumber(os.date("%j"))
     local lastIDtag = player:getVar("LAST_IMPERIAL_TAG")
     local tagCount = player:getCurrency("id_tags")
-    local diffday = currentday - lastIDtag 
+    local diffday = currentday - lastIDtag
     local currentAssault = player:getCurrentAssault()
     local haveimperialIDtag
 
@@ -27,7 +27,7 @@ function onTrigger(player,npc)
         player:startEvent(269,0,0,0,0,0,0,0,0,0)
     elseif player:getCurrentMission(TOAU) <= IMMORTAL_SENTRIES or player:getMainLvl() <= 49 then
         player:startEvent(270)
-    elseif currentAssault ~= 0 and hasAssaultOrders(player) == 0 then
+    elseif currentAssault ~= 0 and dsp.besieged.hasAssaultOrders(player) == 0 then
         if player:getVar("AssaultComplete") == 1 then
             player:messageText(player,ID.text.RYTAAL_MISSION_COMPLETE)
             player:completeAssault(currentAssault)
@@ -42,7 +42,7 @@ function onTrigger(player,npc)
             player:setCurrency("id_tags", tagCount)
             player:setVar("LAST_IMPERIAL_TAG",currentday)
         elseif diffday > 0 then
-            tagCount = tagCount + diffday 
+            tagCount = tagCount + diffday
             if tagCount > 3 then -- store 3 TAG max
                 tagCount = 3
             end
@@ -72,7 +72,7 @@ function onEventFinish(player,csid,option)
     elseif csid == 268 and option == 1 and player:hasKeyItem(dsp.ki.IMPERIAL_ARMY_ID_TAG) == false and tagCount > 0 then
         npcUtil.giveKeyItem(player, dsp.ki.IMPERIAL_ARMY_ID_TAG)
         player:setCurrency("id_tags", tagCount - 1)
-    elseif csid == 268 and option == 2 and player:hasKeyItem(dsp.ki.IMPERIAL_ARMY_ID_TAG) == false and hasAssaultOrders(player) ~= 0 then
+    elseif csid == 268 and option == 2 and player:hasKeyItem(dsp.ki.IMPERIAL_ARMY_ID_TAG) == false and dsp.besieged.hasAssaultOrders(player) ~= 0 then
         if player:hasKeyItem(dsp.ki.LEUJAOAM_ASSAULT_ORDERS) then
             player:delKeyItem(dsp.ki.LEUJAOAM_ASSAULT_ORDERS)
         elseif player:hasKeyItem(dsp.ki.MAMOOL_JA_ASSAULT_ORDERS) then
@@ -86,7 +86,7 @@ function onEventFinish(player,csid,option)
         elseif player:hasKeyItem(dsp.ki.NYZUL_ISLE_ASSAULT_ORDERS) then
             player:delKeyItem(dsp.ki.NYZUL_ISLE_ASSAULT_ORDERS)
         end
-        npcUtil.giveKeyItem(player, IMPERIAL_ARMY_ID_TAG)
+        npcUtil.giveKeyItem(player, dsp.ki.IMPERIAL_ARMY_ID_TAG)
         player:delAssault(currentAssault)
     end
 

@@ -18,6 +18,9 @@ function onChocoboDig(player, precheck)
 end;
 
 function onInitialize(zone)
+    UpdateNMSpawnPoint(ID.mob.BOWHO_WARMONGER)
+    GetMobByID(ID.mob.BOWHO_WARMONGER):setRespawnTime(75600 + math.random(600, 900)) -- 21 hours, plus 10 to 15 min
+
     dsp.conq.setRegionalConquestOverseers(zone:getRegionID())
 end;
 
@@ -28,8 +31,8 @@ function onZoneIn( player, prevZone)
         player:setPos( 547.841, 23.192, 696.323, 136);
     end
 
-    if (prevZone == 147 and player:getCurrentMission(BASTOK) == THE_FOUR_MUSKETEERS) then
-        missionStatus = player:getVar("MissionStatus");
+    if (prevZone == dsp.zone.BEADEAUX and player:getCurrentMission(BASTOK) == THE_FOUR_MUSKETEERS) then
+        local missionStatus = player:getVar("MissionStatus");
         if (missionStatus > 0 and missionStatus < 22) then
             cs = 10;
         elseif (missionStatus == 22) then
